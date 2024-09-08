@@ -29,16 +29,7 @@ export const authOptions:NextAuthOptions = {
       if(!profile?.email){
         throw new Error("No email returned from Google")
       }
-      await prisma.user.upsert({
-        where: { email: profile.email },
-        create: {
-          email: profile.email,
-          name: profile.name,
-        },
-        update: {
-            name: profile.name,
-        },
-      });
+      console.log("signIn", profile)
       return true // Do different verification for other providers that don't have `email_verified`
     },
   }
