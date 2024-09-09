@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["driverAdapters"]
@@ -15,8 +9,9 @@ datasource db {
 }
 
 model User {
-  id                String   @id @default(cuid()) 
-  // userId            String   @map("user_id")
+  id                String   @id @default(cuid())
+  name              String
+  email             String   @unique
   provider          String
   providerAccountId String   @map("provider_account_id")
   refresh_token     String?
@@ -25,7 +20,7 @@ model User {
   id_token          String?
   created_at        DateTime @default(now())
   updated_at        DateTime @updatedAt
-  user              Form     @relation(fields: [id], references: [id], onDelete: Cascade)
+  forms             Form[]
 
   @@unique([provider, providerAccountId])
   @@map("user")
@@ -41,32 +36,28 @@ model User {
 //   @@map("sessions")
 // }
 
-model Referral {
-  id           String @id @default(cuid())
-  referralCode String @map("referral_code")
-  // User         User[]
+// model Referral {
+//   id           String @id @default(cuid())
+//   referralCode String @map("referral_code")
+//   // User         User[]
 
-  @@map("referrals")
-}
-
-
+//   @@map("referrals")
+// }
 
 model Form {
-  id                    String    @id @default(cuid()) 
+  id                    String   @id @default(cuid())
   name                  String
   usn                   String
   email                 String
   contact               String?
   photo                 String
-  created_at            DateTime  @default(now())
-//   updated_at            DateTime  @updatedAt
-//   emailVerified         DateTime? @map("email_verified")
-  role                  String    @default("PARTICIPANT")
-  accounts              User[]
-  collegeIdCard         String    @map("college_id_card")
+  createdById           String   @map("created_by_id")
+  created_at            DateTime @default(now())
+  role                  String   @default("PARTICIPANT")
+  collegeIdCard         String   @map("college_id_card")
   college               String?
-  registrationEmailSent Boolean?  @default(false) @map("registration_email_sent")           
+  user                  User     @relation(fields: [createdById], references: [id], onDelete: Cascade)
+  //registrationEmailSent Boolean? @default(false) @map("registration_email_sent")
   // referral              Referral? @relation(fields: [referralId], references: [id])
   // referralId            String?   @map("referral_id")
 }
-

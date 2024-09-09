@@ -1,6 +1,7 @@
 import NextAuth from "next-auth"
 import { type NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import Google, { GoogleProfile } from "next-auth/providers/google";
 import prisma from "@/server/db";
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "";
@@ -29,19 +30,15 @@ export const authOptions:NextAuthOptions = {
       if(!profile?.email){
         throw new Error("No email returned from Google")
       }
-      const user = await prisma.user.findUnique({
-        where: {
-          email: profile.email
+      
+      const user = await prisma.user.upsert({
+        where: { email: profile.email },
+        update: {},
+        create: {
+          email: profile.email,
+          name: profile.name || "",
         }
       })
-      if(!user){
-        await prisma.user.create({
-          data: {
-            email: profile.email,
-            name: profile.name,
-          }
-        })
-      }
       console.log("signIn", profile)
       return true // Do different verification for other providers that don't have `email_verified`
     },
