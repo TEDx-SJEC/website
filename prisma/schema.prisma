@@ -14,12 +14,15 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   // image         String?
+  role          String    @default("PARTICIPANT")
   accounts      Account[]
   sessions      Session[]
   forms         Form[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+  createdReferrals Referral[] @relation("createdByUser")
+  usedReferrals    Referral[] @relation("usedByUser")
 }
 
 model Account {
@@ -55,13 +58,19 @@ model Session {
   updatedAt DateTime @updatedAt
 }
 
-// model Referral {
-//   id           String @id @default(cuid())
-//   referralCode String @map("referral_code")
-//   // User         User[]
+model Referral {
+  id          String   @id @default(cuid())
+  code        String   @unique
+  createdById String   @map("createdby_id")
+  usedById    String?  @map("usedby_id")
+  isUsed      Boolean  @default(false) // Whether the referral has been used or not, itll use only once 
+  createdAt   DateTime @default(now())
 
-//   @@map("referrals")
-// }
+  // Relations
+  createdBy User   @relation("createdByUser", fields: [createdById], references: [id], onDelete: Cascade) // Admin who created the referral
+  usedBy    User?  @relation("usedByUser", fields: [usedById], references: [id]) // User who used the referral (nullable)
+  forms     Form[]
+}
 
 model Form {
   id            String   @id @default(cuid())
@@ -69,14 +78,14 @@ model Form {
   usn           String
   email         String
   contact       String?
-  photo         String
+  photo         String   @map("photo_url") // URL of the photo uploaded by the participant
+  referralId    String?  @map("referral_id")
   createdById   String   @map("created_by_id")
   created_at    DateTime @default(now())
-  role          String   @default("PARTICIPANT")
   collegeIdCard String   @map("college_id_card")
   college       String?
-  user          User     @relation(fields: [createdById], references: [id], onDelete: Cascade)
   //registrationEmailSent Boolean? @default(false) @map("registration_email_sent")
-  // referral              Referral? @relation(fields: [referralId], references: [id])
-  // referralId            String?   @map("referral_id")
+
+  user     User      @relation(fields: [createdById], references: [id], onDelete: Cascade)
+  referral Referral? @relation(fields: [referralId], references: [id])
 }
