@@ -29,6 +29,19 @@ export const authOptions:NextAuthOptions = {
       if(!profile?.email){
         throw new Error("No email returned from Google")
       }
+      const user = await prisma.user.findUnique({
+        where: {
+          email: profile.email
+        }
+      })
+      if(!user){
+        await prisma.user.create({
+          data: {
+            email: profile.email,
+            name: profile.name,
+          }
+        })
+      }
       console.log("signIn", profile)
       return true // Do different verification for other providers that don't have `email_verified`
     },
