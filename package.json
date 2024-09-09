@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migrate-latest": "export $(grep -v '^#' .env | xargs) && LATEST_MIGRATION=$(ls -dt prisma/migrations/*/ | head -n 1) && turso db shell $TURSO_DB_NAME < ${LATEST_MIGRATION}migration.sql"
   },
   "dependencies": {
     "@libsql/client": "^0.8.1",
