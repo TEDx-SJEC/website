@@ -15,9 +15,58 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                String   @id @default(cuid()) 
+  // userId            String   @map("user_id")
+  provider          String
+  providerAccountId String   @map("provider_account_id")
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  id_token          String?
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
+  user              Form     @relation(fields: [id], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("user")
 }
+
+// model Session {
+//   id           String   @id @default(cuid())
+//   sessionToken String   @unique @map("session_token")
+//   userId       String   @map("user_id")
+//   expires      DateTime
+//   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+//   @@map("sessions")
+// }
+
+model Referral {
+  id           String @id @default(cuid())
+  referralCode String @map("referral_code")
+  // User         User[]
+
+  @@map("referrals")
+}
+
+
+
+model Form {
+  id                    String    @id @default(cuid()) 
+  name                  String
+  usn                   String
+  email                 String
+  contact               String?
+  photo                 String
+  created_at            DateTime  @default(now())
+//   updated_at            DateTime  @updatedAt
+//   emailVerified         DateTime? @map("email_verified")
+  role                  String    @default("PARTICIPANT")
+  accounts              User[]
+  collegeIdCard         String    @map("college_id_card")
+  college               String?
+  registrationEmailSent Boolean?  @default(false) @map("registration_email_sent")           
+  // referral              Referral? @relation(fields: [referralId], references: [id])
+  // referralId            String?   @map("referral_id")
+}
+
