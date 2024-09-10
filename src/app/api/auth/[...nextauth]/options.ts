@@ -1,52 +1,61 @@
-import NextAuth, { DefaultSession } from "next-auth"
-import { type NextAuthOptions } from "next-auth";
+import NextAuth, { DefaultSession, type NextAuthOptions, type Session as NextAuthSession } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import Google, { GoogleProfile } from "next-auth/providers/google";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "@/server/db";
+import { UserRoleType } from "@/types";
+import { JWT } from "next-auth/jwt";
 
 
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "";
-const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || "";
-
-
-
-
-export const authOptions:NextAuthOptions = {
-    session:{
-        strategy: "jwt",
-    },
-  providers: [
-    // ...add more providers here
-    GoogleProvider({
-        clientId: GOOGLE_CLIENT_ID,
-        clientSecret: GOOGLE_CLIENT_SECRET,
-        authorization: {
-            params: {
-              prompt: "consent",
-              access_type: "offline",
-              response_type: "code"
-            }
-          }
-      })
-  ],
-  callbacks: {
-    async signIn({ account, profile }) {
-      if(!profile?.email){
-        throw new Error("No email returned from Google")
-      }
-      
-      const user = await prisma.user.upsert({
-        where: { email: profile.email },
-        update: {},
-        create: {
-          email: profile.email,
-          name: profile.name || "",
-        }
-      })
-      console.log("signIn", profile)
-      return true // Do different verification for other providers that don't have `email_verified`
-    },
-  }
+declare module "next-auth" {
+    interface Session {
+        user: {
+            role: UserRoleType;
+        } & DefaultSession["user"];
+    }
 }
 
-export default NextAuth(authOptions)
+declare module "next-auth/jwt" {
+    interface JWT {
+        role: UserRoleType;
+    }
+}
+
+export const authOptions: NextAuthOptions = {
+    adapter: PrismaAdapter(prisma),
+    providers: [
+        GoogleProvider({
+            clientId: process.env.GOOGLE_ID ?? "",
+            clientSecret: process.env.GOOGLE_SECRET ?? "",
+        }),
+    ],
+    callbacks: {
+        async jwt({ token, user }: { token: JWT; user: any }): Promise<any> {
+            //add user role to token
+            if (user) {
+                return {
+                    ...token,
+                    role: user.role,
+                };
+            }
+            return token;
+        },
+        async session({ session, token }: { session: NextAuthSession; token: JWT }): Promise<any> {
+            //add role to session
+            return {
+                ...session,
+                user: {
+                    ...session.user,
+                    role: token.role as UserRoleType,
+                },
+            };
+        },
+    },
+
+    session: {
+        strategy: "jwt",
+    },
+    secret: process.env.NEXTAUTH_SECRET,
+    debug: process.env.NODE_ENV === "development",
+};
+
+export default NextAuth(authOptions);
