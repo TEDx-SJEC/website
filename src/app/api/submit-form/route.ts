@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { NextResponse } from "next/server";
 import { RegistrationFormSchema, TRegistrationForm } from "@/utils/zod-schemas";
+import prisma from "@/server/db";
 
 export async function GET() {
   return NextResponse.json({ message: "Hello from the API!" });
@@ -25,14 +26,29 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
       email,
       contact,
       designation,
-      photo_url,
-      referral_id,
-      college_id_card,
-      entity_name,
-      created_by_id,
+      photo,
+      collegeIdCard,
+      entityName,
+      referralId,
+      createdById,
     } = body;
 
-    return NextResponse.json({ message: body });
+    const newFormEntry = await prisma.form.create({
+      data: {
+        name,
+        usn,
+        email,
+        contact,
+        designation,
+        photo,
+        collegeIdCard,
+        entityName,
+        referralId,
+        createdById,
+      },
+    });
+
+    return NextResponse.json({ message: newFormEntry });
   } catch (error) {
     console.error(error);
     res;

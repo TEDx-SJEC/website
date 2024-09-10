@@ -7,7 +7,7 @@ export const RegistrationFormSchema = z.object({
   email: z.string().email(),
   contact: z.string().optional(),
   designation: z.string().optional(),
-  photo_url: z
+  photo: z
     .string()
     .refine(
       (value) => value.startsWith("http://") || value.startsWith("https://"),
@@ -15,10 +15,10 @@ export const RegistrationFormSchema = z.object({
         message: "Invalid photo URL",
       }
     ),
-  college_id_card: z.string().optional(),
-  entity_name: z.string(),
-  referral_id: z.string().optional(),
-  created_by_id: z.string(),
+  collegeIdCard: z.string().optional(),
+  entityName: z.string(),
+  referralId: z.string().optional(),
+  createdById: z.string(),
 });
 
 export type TRegistrationForm = z.infer<typeof RegistrationFormSchema>;
