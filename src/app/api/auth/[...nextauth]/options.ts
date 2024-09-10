@@ -1,11 +1,15 @@
-import NextAuth from "next-auth"
+import NextAuth, { DefaultSession } from "next-auth"
 import { type NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import Google, { GoogleProfile } from "next-auth/providers/google";
 import prisma from "@/server/db";
 
+
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "";
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || "";
+
+
+
 
 export const authOptions:NextAuthOptions = {
     session:{
