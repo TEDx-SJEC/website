@@ -1,9 +1,8 @@
-export default function Home() {
-    return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
-            <div className="bg-white">
-              
-            </div>
-        </main>
-    );
+import { getServerSideSession } from "@/app/lib/get-server-session";
+export default async function Home() {
+    const session = await getServerSideSession();
+    if (!session) {
+        return <div>Please login</div>;
+    }
+    return <div>Hello {session?.user.role}</div>;
 }
