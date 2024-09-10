@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { RegistrationFormSchema, TRegistrationForm } from "@/utils/zod-schemas";
 import prisma from "@/server/db";
 
@@ -7,9 +7,10 @@ export async function GET() {
   return NextResponse.json({ message: "Hello from the API!" });
 }
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: NextRequest, res: NextResponse) {
   try {
-    const body: TRegistrationForm = req.body;
+    const response = await req.json();
+    const body: TRegistrationForm = response;
     console.log(body);
     const validationResult = RegistrationFormSchema.safeParse(body);
 
@@ -48,9 +49,12 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
       },
     });
 
-    return NextResponse.json({ message: newFormEntry });
-  } catch (error) {
+    return NextResponse.json({ newFormEntry }, { status: 201 });
+  } catch (error: any) {
     console.error(error);
-    res;
+    return NextResponse.json(
+      { error: error.message || "An error occurred" },
+      { status: 400 } // Error response
+    );
   }
 }
