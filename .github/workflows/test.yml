@@ -1,0 +1,46 @@
+name: Node.js CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]  # Test on multiple versions of Node.js
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Jest tests
+        run: npm test  # This will run Jest using the npm test command
+
+      - name: Upload Jest test results (if applicable)
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: jest-test-results
+          path: test-results # Adjust this if Jest is outputting results to a specific directory
+
+      - name: Upload coverage report (optional)
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage
+          path: coverage # Upload coverage reports if you're using Jest's coverage feature
