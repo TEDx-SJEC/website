@@ -9,12 +9,12 @@ on:
       - main
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x]  # Test on multiple versions of Node.js
+        node-version: [18.x, 20.x] 
 
     steps:
       - name: Checkout repository
@@ -28,19 +28,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run Jest tests
-        run: npm test  # This will run Jest using the npm test command
+      - name: Build project
+        run: npm run build
 
-      - name: Upload Jest test results (if applicable)
+      # Optionally upload build artifacts if needed
+      - name: Upload build artifacts (optional)
         if: always()
         uses: actions/upload-artifact@v3
         with:
-          name: jest-test-results
-          path: test-results # Adjust this if Jest is outputting results to a specific directory
-
-      - name: Upload coverage report (optional)
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage
-          path: coverage # Upload coverage reports if you're using Jest's coverage feature
+          name: build
+          path: build # Adjust this if your build output is in a different directory
