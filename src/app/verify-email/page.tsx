@@ -5,6 +5,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { sendEmail } from "@/utils/sendMail";
 
 export default function VerifyEmailPage() {
   const searchParams = useSearchParams();
@@ -35,16 +36,16 @@ export default function VerifyEmailPage() {
 
   return (
     <div className="m-20 border-2 border-neutral-300 dark:border-neutral-700 max-w-md w-full mx-auto rounded-none md:rounded-2xl md:p-8 shadow-input bg-white dark:bg-black">
-      <h1 className="text-4xl text-center mb-8">Email Verification</h1>
+      <h1 className="text-4xl text-center text-black mb-8 bg-green-600 border-1 border-black rounded-lg">Email Verification</h1>
       {verified ? (
         <div className="text-center">
           <h2 className="text-2xl mb-4">
             Your email has been successfully verified!
           </h2>
           <p className="text-lg mb-8">You can now proceed to login.</p>
-          <button className="shadow-[0_0_0_3px_#000000_inset] px-6 py-2 bg-transparent border border-black dark:border-white dark:text-white text-black rounded-lg font-bold transform hover:-translate-y-1 transition duration-400">
+          {/* <button className="shadow-[0_0_0_3px_#000000_inset] px-6 py-2 bg-transparent border border-black dark:border-white dark:text-white text-black rounded-lg font-bold transform hover:-translate-y-1 transition duration-400">
             <Link href="/login">Login</Link>
-          </button>
+          </button> */}
         </div>
       ) : (
         <div className="text-center">

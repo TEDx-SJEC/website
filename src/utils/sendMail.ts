@@ -11,7 +11,7 @@ export interface EmailOptions {
 interface sendEmail {
   email: string;
   name: string;
-  emailVeificationLink: string;
+  OTP: string;
 }
 
 export const sendEmail = async (options: sendEmail) => {
@@ -27,8 +27,8 @@ export const sendEmail = async (options: sendEmail) => {
     from: `"Tedx SJEC" <${process.env.GMAIL_USER}>`,
     to: options.email,
     subject: "Tedx SJEC Email verification",
-    html: `<p> Click on the link below to register for Tiara 2024 </p> <a href=${options.emailVeificationLink}>Register</a>`,
-    text: `Click on the link below to register for Tiara 2024 ${options.emailVeificationLink}`,
+    html: `<p> Click on the link below to register for Tiara 2024 </p> <a href=${options.OTP}>Register</a>`,
+    text: `Click on the link below to register for Tiara 2024 ${options.OTP}`,
   };
 
   const mailResponse = await transporter.sendMail(mailOptions);
