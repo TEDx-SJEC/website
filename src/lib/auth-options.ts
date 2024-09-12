@@ -1,10 +1,10 @@
-import NextAuth, { DefaultSession, type NextAuthOptions, type Session as NextAuthSession } from "next-auth";
+import { DefaultSession, type NextAuthOptions, type Session as NextAuthSession } from "next-auth";
+import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "@/server/db";
 import { UserRoleType } from "@/types";
 import { JWT } from "next-auth/jwt";
-
 
 declare module "next-auth" {
     interface Session {
@@ -58,4 +58,4 @@ export const authOptions: NextAuthOptions = {
     // debug: process.env.NODE_ENV === "development",
 };
 
-export default NextAuth(authOptions);
+export const handlers = NextAuth(authOptions);

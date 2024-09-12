@@ -82,12 +82,13 @@ model Form {
   usn           String
   email         String
   contact       String?
-  photo         String   @map("photo_url") // URL of the photo uploaded by the participant
+  designation   String?
+  photo         String   @map("photo_url") // URL of the photo uploaded by the participan
+  collegeIdCard String?  @map("college_id_card")
+  entityName    String  @map("entity_name")
   referralId    String?  @map("referral_id")
   createdById   String   @map("created_by_id")
   created_at    DateTime @default(now())
-  collegeIdCard String   @map("college_id_card")
-  college       String?
   //registrationEmailSent Boolean? @default(false) @map("registration_email_sent")
 
   user     User      @relation(fields: [createdById], references: [id], onDelete: Cascade)
