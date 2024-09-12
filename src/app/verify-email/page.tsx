@@ -2,11 +2,12 @@
 
 import getErrorMessage from "@/utils/getErrorMessage";
 import axios from "axios";
-import { get } from "http";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 export default function VerifyEmailPage() {
+  const searchParams = useSearchParams();
   const [token, setToken] = useState("");
   const [verified, setVerified] = useState(false);
   const [error, setError] = useState(false);
@@ -22,9 +23,9 @@ export default function VerifyEmailPage() {
   };
 
   useEffect(() => {
-    const urlToken = window.location.search.split("=")[1];
+    const urlToken = searchParams.get("token");
     setToken(urlToken || "");
-  }, []);
+  }, [searchParams]);
 
   useEffect(() => {
     if (token.length > 0) {
@@ -42,7 +43,7 @@ export default function VerifyEmailPage() {
           </h2>
           <p className="text-lg mb-8">You can now proceed to login.</p>
           <button className="shadow-[0_0_0_3px_#000000_inset] px-6 py-2 bg-transparent border border-black dark:border-white dark:text-white text-black rounded-lg font-bold transform hover:-translate-y-1 transition duration-400">
-          <Link href="/login">Login</Link>
+            <Link href="/login">Login</Link>
           </button>
         </div>
       ) : (
