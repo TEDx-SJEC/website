@@ -30,6 +30,11 @@ jobs:
 
       - name: Build project
         run: npm run build
+        env:
+          GOOGLE_ID: ${{ secrets.GOOGLE_ID }}
+          GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
+          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+          NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
 
       # Optionally upload build artifacts if needed
       - name: Upload build artifacts (optional)
