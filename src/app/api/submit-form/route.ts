@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { NextRequest, NextResponse } from "next/server";
 import { RegistrationFormSchema, TRegistrationForm } from "@/utils/zod-schemas";
 import prisma from "@/server/db";
+import determinePrice from "@/utils/determinePrice";
 
 export async function GET() {
   return NextResponse.json({ message: "Hello from the API!" });
@@ -34,6 +35,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
       createdById,
     } = body;
 
+    let price = await determinePrice(email, referralId);
+
     const newFormEntry = await prisma.form.create({
       data: {
         name,
@@ -58,3 +61,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
     );
   }
 }
+
+
+

@@ -97,11 +97,11 @@ model Form {
 
 model VerificationRequest {
   id         String   @id @default(cuid())
-  identifier String
-  token      String   @unique
+  identifier String   // Like email or phone number
+  otp        String   
   expires    DateTime
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  @@unique([identifier, token])
+  @@unique([identifier, otp]) // Ensure OTP is unique for a given identifier
 }
