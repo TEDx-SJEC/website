@@ -9,6 +9,7 @@ import { JWT } from "next-auth/jwt";
 declare module "next-auth" {
     interface Session {
         user: {
+            id: string;
             role: UserRoleType;
         } & DefaultSession["user"];
     }
@@ -34,6 +35,7 @@ export const authOptions: NextAuthOptions = {
             if (user) {
                 return {
                     ...token,
+                    id: user.id,
                     role: user.role,
                 };
             }
@@ -45,6 +47,7 @@ export const authOptions: NextAuthOptions = {
                 ...session,
                 user: {
                     ...session.user,
+                    id: token.id,
                     role: token.role as UserRoleType,
                 },
             };
