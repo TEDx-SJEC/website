@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x] 
+        node-version: [18.x, 20.x]
 
     steps:
       - name: Checkout repository
@@ -28,6 +28,18 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Check Environment Variables
+        run: |
+          echo "NEXT_PUBLIC_SITE_URL is set: ${{ env.NEXT_PUBLIC_SITE_URL != '' }}"
+          echo "NEXTAUTH_SECRET is set: ${{ env.NEXTAUTH_SECRET != '' }}"
+          echo "GOOGLE_ID is set: ${{ env.GOOGLE_ID != '' }}"
+          echo "GOOGLE_SECRET is set: ${{ env.GOOGLE_SECRET != '' }}"
+        env:
+          NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
+          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+          GOOGLE_ID: ${{ secrets.GOOGLE_ID }}
+          GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
+
       - name: Build project
         run: npm run build
         env:
@@ -36,7 +48,6 @@ jobs:
           NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
           NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
 
-      # Optionally upload build artifacts if needed
       - name: Upload build artifacts (optional)
         if: always()
         uses: actions/upload-artifact@v3
