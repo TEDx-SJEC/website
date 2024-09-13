@@ -6,49 +6,55 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
   console.log(body);
   const { identifier, otp } = body;
+  try {
+    await prisma.$transaction(async (tx) => {
+      const request = await tx.verificationRequest.findFirst({
+        where: {
+          identifier,
+          otp,
+          expires: {
+            gte: new Date(),
+          },
+        },
+        orderBy: {
+          created_at: "desc",
+          
+        },
+      });
 
-  const request = await prisma.verificationRequest.findFirst({
-    where: {
-      identifier,
-      otp,
-      expires: {
-        gte: new Date(),
-      },
-    },
-    orderBy: {
-      created_at: "desc",
-    },
-  });
+      if (!request) {
+        throw new Error("Invalid or expired OTP");
+      }
 
-  if (!request) {
+      await tx.form.updateMany({
+        where: {
+          email: identifier, 
+        },
+        data: {
+          emailVerified: true, 
+        },
+      });
+
+      await tx.verificationRequest.deleteMany({
+        where: {
+          identifier,
+        },
+      });
+    });
+    
     return NextResponse.json(
-      { message: "Invalid or expired OTP", status: 400 },
+      {
+        message: "OTP verified successfully back!",
+        status: 200,
+      },
+      { status: 200 }
+    );
+  } catch (error: any) {
+    return NextResponse.json(
+      { message: error.message, status: 400 },
       { status: 200 }
     );
   }
-
-  await prisma.form.updateMany({
-    where: {
-      email: identifier, // Assuming identifier is the email
-    },
-    data: {
-      emailVerified: true, // Mark email as verified
-    },
-  });
-
-  await prisma.verificationRequest.deleteMany({
-    where: {
-      identifier,
-    },
-  });
-
-  return NextResponse.json(
-    {
-      message: "OTP verified successfully back!",
-      status: 200,
-    },
-    { status: 200 }
-  );
 }
 
 export async function GET() {
