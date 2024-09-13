@@ -81,6 +81,7 @@ model Form {
   name          String
   usn           String
   email         String
+  emailVerified Boolean  @default(false) @map("email_verified")
   contact       String?
   designation   String?
   photo         String   @map("photo_url") // URL of the photo uploaded by the participan
