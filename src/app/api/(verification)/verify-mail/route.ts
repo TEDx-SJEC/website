@@ -27,6 +27,15 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  await prisma.form.updateMany({
+    where: {
+      email: identifier, // Assuming identifier is the email
+    },
+    data: {
+      emailVerified: true, // Mark email as verified
+    },
+  });
+
   await prisma.verificationRequest.deleteMany({
     where: {
       identifier,
