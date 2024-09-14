@@ -50,12 +50,13 @@ export function Coupon({ session }: { session: NextAuthSession }) {
                     </CardHeader>
                     <CardContent className="space-y-2">
                         <div className="space-y-1">
-                            <Label htmlFor="new">New password</Label>
+                            <Label htmlFor="new">Coupon code</Label>
                             <Input id="new" type="text" disabled value={data} />
                         </div>
                     </CardContent>
                     <CardFooter>
                         <Button
+                            disabled={data === undefined ? true : false}
                             onClick={async () => {
                                 await saveCoupon(data as string, session.user.id);
                             }}
