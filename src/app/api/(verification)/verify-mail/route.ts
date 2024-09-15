@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import sendEmail from "@/utils/sendMail";
 import prisma from "@/server/db";
 
 export async function POST(req: NextRequest) {
