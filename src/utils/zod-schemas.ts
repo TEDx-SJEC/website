@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 export const RegistrationFormSchema = z.object({
-  id: z.string(),
   name: z.string(),
   usn: z.string(),
   email: z.string().email(),

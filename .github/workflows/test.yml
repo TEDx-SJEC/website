@@ -1,0 +1,62 @@
+name: Node.js CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Check Environment Variables
+        run: |
+          echo "NEXT_PUBLIC_SITE_URL is set: ${{ env.NEXT_PUBLIC_SITE_URL != '' }}"
+          echo "NEXTAUTH_SECRET is set: ${{ env.NEXTAUTH_SECRET != '' }}"
+          echo "GOOGLE_ID is set: ${{ env.GOOGLE_ID != '' }}"
+          echo "GOOGLE_SECRET is set: ${{ env.GOOGLE_SECRET != '' }}"
+          echo "TURSO_AUTH_TOKEN is set: ${{ env.TURSO_AUTH_TOKEN != '' }}"
+          echo "TURSO_DATABASE_URL is set: ${{ env.TURSO_DATABASE_URL != '' }}"
+        env:
+          NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
+          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+          GOOGLE_ID: ${{ secrets.GOOGLE_ID }}
+          GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
+          TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
+          TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
+
+      - name: Build project
+        run: npm run build
+        env:
+          GOOGLE_ID: ${{ secrets.GOOGLE_ID }}
+          GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
+          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+          NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
+          TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
+          TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
+
+      - name: Upload build artifacts (optional)
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: build # Adjust this if your build output is in a different directory

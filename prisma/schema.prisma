@@ -81,11 +81,12 @@ model Form {
   name          String
   usn           String
   email         String
+  emailVerified Boolean  @default(false) @map("email_verified")
   contact       String?
   designation   String?
   photo         String   @map("photo_url") // URL of the photo uploaded by the participan
   collegeIdCard String?  @map("college_id_card")
-  entityName    String
+  entityName    String  @map("entity_name")
   referralId    String?  @map("referral_id")
   createdById   String   @map("created_by_id")
   created_at    DateTime @default(now())
@@ -97,11 +98,11 @@ model Form {
 
 model VerificationRequest {
   id         String   @id @default(cuid())
-  identifier String
-  token      String   @unique
+  identifier String   // Like email or phone number
+  otp        String   
   expires    DateTime
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  @@unique([identifier, token])
+  @@unique([identifier, otp]) // Ensure OTP is unique for a given identifier
 }
