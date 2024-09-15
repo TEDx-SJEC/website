@@ -6,7 +6,6 @@ import { addToQueue } from "@/jobs";
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  console.log(body);
   const otp = otpGenerator.generate(6, {
     upperCaseAlphabets: false,
     lowerCaseAlphabets: false,

@@ -37,7 +37,6 @@ const worker = new Worker(
   async (job) => {
     const { email, name, OTP } = job.data;
     console.log("Sending email to", email);
-    console.log(job.data);
     if (!email) {
       throw new Error("No recipients defined");
     }
