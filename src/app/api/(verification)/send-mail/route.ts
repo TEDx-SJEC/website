@@ -30,12 +30,7 @@ export async function POST(req: NextRequest) {
     );
   }
   console.log(body);
-  const mailResponse1 = await addToQueue({
-    email: body.email,
-    name: body.name,
-    OTP: otp,
-  });
-  const mailResponse2 = await addToQueue({
+  const mailResponse = await addToQueue({
     email: body.email,
     name: body.name,
     OTP: otp,
@@ -43,8 +38,7 @@ export async function POST(req: NextRequest) {
 
   return NextResponse.json({
     message: "Email sent successfully!",
-    mailResponse1,
-    mailResponse2,
+    mailResponse,
   });
 }
 
