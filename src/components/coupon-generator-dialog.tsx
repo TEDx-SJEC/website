@@ -16,17 +16,19 @@ import clsx from 'clsx'
 
 interface CouponGeneratorDialogProps {
   className?: string
+  onGenerateCoupon: () => void;
 }
 
-export default function CouponGeneratorDialog({ className, }: CouponGeneratorDialogProps) {
+export default function CouponGeneratorDialog({ className, onGenerateCoupon}: CouponGeneratorDialogProps) {
   const [password, setPassword] = useState('')
-  const [coupon, setCoupon] = useState('')
   const [error, setError] = useState('')
   const [isOpen, setIsOpen] = useState(false)
 
   const handleGenerateCoupon = () => {
     if (password === process.env.NEXT_PUBLIC_ADMIN_PASSWORD) {
+      onGenerateCoupon()
       setIsOpen(false)
+      setPassword('')
       setError('')
     } else {
       setError('Incorrect password. Please try again.')
@@ -59,12 +61,6 @@ export default function CouponGeneratorDialog({ className, }: CouponGeneratorDia
             <div className="flex items-center space-x-2 text-red-500">
               <AlertCircle className="h-4 w-4" />
               <span>{error}</span>
-            </div>
-          )}
-          {coupon && (
-            <div className="flex items-center space-x-2 text-green-500">
-              <CheckCircle className="h-4 w-4" />
-              <span>Generated Coupon: {coupon}</span>
             </div>
           )}
         </div>

@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { createCouponCode } from "@/lib/helper";
 import { useQuery } from "@tanstack/react-query";
 import { type Session as NextAuthSession } from "next-auth";
+import CouponGeneratorDialog from "../coupon-generator-dialog";
 
 export function Coupon({ session }: { session: NextAuthSession }) {
     const { data, isPending, isError, error, refetch } = useQuery({
@@ -16,6 +17,11 @@ export function Coupon({ session }: { session: NextAuthSession }) {
         queryFn: createCouponCode,
         enabled: false,
     });
+
+    const handleCreateCoupon = async () => {
+
+        await refetch();
+    }
 
     return (
         <Tabs defaultValue="account" className="w-[400px]">
@@ -38,7 +44,7 @@ export function Coupon({ session }: { session: NextAuthSession }) {
                         </div>
                     </CardContent>
                     <CardFooter>
-                        <Button onClick={() => refetch()}>Create code</Button>
+                        <CouponGeneratorDialog onGenerateCoupon={refetch} />
                     </CardFooter>
                 </Card>
             </TabsContent>
