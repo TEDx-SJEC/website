@@ -3,6 +3,7 @@ import sendEmail from "@/utils/sendMail";
 import otpGenerator from "otp-generator";
 import prisma from "@/server/db";
 import { addToQueue } from "@/jobs";
+import { MailUsingResend } from "@/lib/resend-mailer";
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
@@ -29,11 +30,12 @@ export async function POST(req: NextRequest) {
     );
   }
   console.log(body);
-  const mailResponse = await addToQueue({
-    email: body.email,
-    name: body.name,
-    OTP: otp,
-  });
+  // const mailResponse = await addToQueue({
+  //   email: body.email,
+  //   name: body.name,
+  //   OTP: otp,
+  // });
+  const mailResponse = await MailUsingResend();
 
   return NextResponse.json({
     message: "Email sent successfully!",
