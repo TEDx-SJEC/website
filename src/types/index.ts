@@ -22,4 +22,5 @@ export interface ResendEmailOptions {
     to: string;
     subject: string;
     react: ReactNode;
+    text: string;
   }

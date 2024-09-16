@@ -9,12 +9,13 @@ export async function MailUsingResend({ email, name, OTP }: SendEmailType) {
     const mailOptions: ResendEmailOptions = {
       from: "Tedx SJEC <tedxsjec@joywincodes.tech>",
       to: email,
-      subject: "Email Verification",
+      subject: "Tedx SJEC - Your OTP for Email Verification",
       react: EmailTemplate({
         name: name,
         OTP: OTP,
         email: email,
       }),
+      text: `Hello ${name},\n\nThank you for registering for Tedx 2024.\n\nYour One-Time Password (OTP) for email verification is:\n\n${OTP}\n\nPlease enter this OTP to complete your registration. The OTP is valid for 10 minutes.\n\nThank you!\n\nTedx SJEC Team`,
     };
 
     const { data, error } = await resend.emails.send(mailOptions);
