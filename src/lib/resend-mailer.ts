@@ -5,9 +5,10 @@ import { Resend } from "resend";
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function MailUsingResend({ email, name, OTP }: SendEmailType) {
+  console.log(process.env.RESEND_API_KEY);
   try {
     const mailOptions: ResendEmailOptions = {
-      from: "Tedx SJEC <tedxsjec@joywincodes.tech>",
+      from: "Tedx SJEC <conceevo@joywincodes.tech>",
       to: email,
       subject: "Tedx SJEC - Your OTP for Email Verification",
       react: EmailTemplate({
