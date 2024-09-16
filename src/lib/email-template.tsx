@@ -6,11 +6,11 @@ interface EmailTemplateProps {
   OTP: string;
 }
 
-export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
+export const EmailTemplate = ({
   name,
   email,
   OTP,
-}) => (
+}:EmailTemplateProps) => (
   <Html>
     <h1>Hello {name},</h1>
     <p>Thank you for registering for Tedx 2024.</p>
