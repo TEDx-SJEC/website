@@ -1,4 +1,4 @@
-import { EmailTemplate } from "@/components/email-template";
+import { EmailTemplate } from "./email-template";
 import { ResendEmailOptions, sendEmail as SendEmailType } from "@/types";
 import { Resend } from "resend";
 
