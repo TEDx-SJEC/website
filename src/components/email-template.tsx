@@ -1,5 +1,5 @@
 import * as React from "react";
-
+import { Html, Button } from "@react-email/components";
 interface EmailTemplateProps {
   name: string;
   email: string;
@@ -11,7 +11,7 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
   email,
   OTP,
 }) => (
-  <div>
+  <Html>
     <h1>Hello {name},</h1>
     <p>Thank you for registering for Tedx 2024.</p>
     <p>Your One-Time Password (OTP) for email verification is:</p>
@@ -24,5 +24,5 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
     <p>
       <strong>Tedx SJEC Team</strong>
     </p>
-  </div>
+  </Html>
 );
