@@ -12,7 +12,7 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
   OTP,
 }) => (
   <div>
-    <h1>Hello ${name},</h1>
+    <h1>Hello {name},</h1>
     <p>Thank you for registering for Tedx 2024.</p>
     <p>Your One-Time Password (OTP) for email verification is:</p>
     <h2 style={{ color: "#f44336" }}>{OTP}</h2>

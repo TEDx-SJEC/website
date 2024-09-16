@@ -35,7 +35,11 @@ export async function POST(req: NextRequest) {
   //   name: body.name,
   //   OTP: otp,
   // });
-  const mailResponse = await MailUsingResend();
+  const mailResponse = await MailUsingResend({
+    email: body.email,
+    name: body.name,
+    OTP: otp,
+  });
 
   return NextResponse.json({
     message: "Email sent successfully!",
