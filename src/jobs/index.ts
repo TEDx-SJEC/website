@@ -1,6 +1,6 @@
 import { Queue, Worker } from "bullmq";
 import { Redis } from "ioredis";
-import sendEmail from "@/utils/sendMail";
+import sendEmail from "@/lib/sendMail";
 
 const redisConnection = new Redis({
   host: process.env.REDIS_HOST,

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import sendEmail from "@/utils/sendMail";
+import sendEmail from "@/lib/sendMail";
 import otpGenerator from "otp-generator";
 import prisma from "@/server/db";
 import { addToQueue } from "@/jobs";
@@ -30,12 +30,12 @@ export async function POST(req: NextRequest) {
     );
   }
   console.log(body);
-  // const mailResponse = await addToQueue({
-  //   email: body.email,
-  //   name: body.name,
-  //   OTP: otp,
-  // });
-  const mailResponse = await MailUsingResend({
+  const mailResponse1 = await addToQueue({
+    email: body.email,
+    name: body.name,
+    OTP: otp,
+  });
+  const mailResponse2 = await MailUsingResend({
     email: body.email,
     name: body.name,
     OTP: otp,
@@ -43,7 +43,8 @@ export async function POST(req: NextRequest) {
 
   return NextResponse.json({
     message: "Email sent successfully!",
-    mailResponse,
+    mailResponse1,
+    mailResponse2,
   });
 }
 
