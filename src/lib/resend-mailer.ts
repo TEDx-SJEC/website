@@ -1,31 +1,23 @@
 import { EmailTemplate } from "@/components/email-template";
-import { NextRequest } from "next/server";
+import { ResendEmailOptions, sendEmail as SendEmailType } from "@/types";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-
-export async function MailUsingResend({
-  email,
-  name,
-  OTP,
-}: {
-  email: string;
-  name: string;
-  OTP: string;
-}) {
-  console.log("MailUsingResend");
+export async function MailUsingResend({ email, name, OTP }: SendEmailType) {
   try {
-    const { data, error } = await resend.emails.send({
+    const mailOptions: ResendEmailOptions = {
       from: "Tedx SJEC <onboarding@resend.dev>",
-      to: [email],
+      to: email,
       subject: "Email Verification",
       react: EmailTemplate({
         name: name,
         OTP: OTP,
         email: email,
       }),
-    });
+    };
+
+    const { data, error } = await resend.emails.send(mailOptions);
     console.log(data, error);
     if (error) {
       return { error, status: 500 };
