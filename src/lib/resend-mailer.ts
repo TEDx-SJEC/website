@@ -7,7 +7,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function MailUsingResend({ email, name, OTP }: SendEmailType) {
   try {
     const mailOptions: ResendEmailOptions = {
-      from: "Tedx SJEC <onboarding@resend.dev>",
+      from: "Tedx SJEC <tedxsjec@joywincodes.tech>",
       to: email,
       subject: "Email Verification",
       react: EmailTemplate({
