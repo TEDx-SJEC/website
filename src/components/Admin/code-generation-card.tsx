@@ -10,18 +10,19 @@ import { createCouponCode } from "@/lib/helper";
 import { useQuery } from "@tanstack/react-query";
 import { type Session as NextAuthSession } from "next-auth";
 import CouponGeneratorDialog from "../coupon-generator-dialog";
+import { Checkbox } from "../ui/checkbox";
+import { useState } from "react";
 
 export function Coupon({ session }: { session: NextAuthSession }) {
+    const [discount, setDiscount] = useState("20");
+    const [checked, setChecked] = useState(false);
     const { data, isPending, isError, error, refetch } = useQuery({
         queryKey: ["coupon"],
         queryFn: createCouponCode,
         enabled: false,
     });
 
-    const handleCreateCoupon = async () => {
-
-        await refetch();
-    }
+   
 
     return (
         <Tabs defaultValue="account" className="w-[400px]">
@@ -41,6 +42,30 @@ export function Coupon({ session }: { session: NextAuthSession }) {
                         <div className="space-y-1">
                             <Label htmlFor="username">Code</Label>
                             <Input id="username" disabled value={isPending ? "" : data} />
+                        </div>
+                        <div className="space-y-1">
+                            <Label htmlFor="username">Discount(%)</Label>
+                            <Input
+                                id="discount"
+                                value={discount}
+                                disabled={!checked}
+                                onChange={(e) => {
+                                    setDiscount(e.target.value );
+                                }}
+                            />
+                            <Checkbox
+                                id="discount_terms"
+                                checked={checked}
+                                onClick={() => {
+                                    setChecked(!checked);
+                                }}
+                            />
+                            <label
+                                htmlFor="terms"
+                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                                Edit default discount
+                            </label>
                         </div>
                     </CardContent>
                     <CardFooter>
@@ -64,7 +89,7 @@ export function Coupon({ session }: { session: NextAuthSession }) {
                         <Button
                             disabled={data === undefined ? true : false}
                             onClick={async () => {
-                                await saveCoupon(data as string, session.user.id);
+                                await saveCoupon(data as string, session.user.id , discount);
                             }}
                         >
                             Save coupon
