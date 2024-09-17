@@ -63,12 +63,13 @@ model Session {
 }
 
 model Referral {
-  id          String   @id @default(cuid())
-  code        String   @unique
-  createdById String   @map("createdby_id")
-  usedById    String?  @map("usedby_id")
-  isUsed      Boolean  @default(false) // Whether the referral has been used or not, itll use only once 
-  created_at  DateTime @default(now())
+  id                 String   @id @default(cuid())
+  code               String   @unique
+  discountPercentage String   @default("20") @map("discount_percentage")
+  createdById        String   @map("createdby_id")
+  usedById           String?  @map("usedby_id")
+  isUsed             Boolean  @default(false) // Whether the referral has been used or not, itll use only once 
+  created_at         DateTime @default(now())
 
   // Relations
   createdBy User   @relation("createdByUser", fields: [createdById], references: [id], onDelete: Cascade) // Admin who created the referral
@@ -86,7 +87,7 @@ model Form {
   designation   String?
   photo         String   @map("photo_url") // URL of the photo uploaded by the participan
   collegeIdCard String?  @map("college_id_card")
-  entityName    String  @map("entity_name")
+  entityName    String   @map("entity_name")
   referralId    String?  @map("referral_id")
   createdById   String   @map("created_by_id")
   created_at    DateTime @default(now())
@@ -98,8 +99,8 @@ model Form {
 
 model VerificationRequest {
   id         String   @id @default(cuid())
-  identifier String   // Like email or phone number
-  otp        String   
+  identifier String // Like email or phone number
+  otp        String
   expires    DateTime
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
