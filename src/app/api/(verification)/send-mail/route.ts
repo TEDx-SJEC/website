@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
       mailResponse,
     });
 
-  } catch (error) {
+  } catch (error:unknown) {
     const errorMessage = getErrorMessage(error);
 
     if (error instanceof z.ZodError) {
