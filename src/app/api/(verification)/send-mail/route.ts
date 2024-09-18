@@ -1,53 +1,69 @@
-import { NextRequest, NextResponse } from "next/server";
-import sendEmail from "@/lib/sendMail";
-import otpGenerator from "otp-generator";
-import prisma from "@/server/db";
-import { addToQueue } from "@/jobs";
 import { MailUsingResend } from "@/lib/resend-mailer";
+import prisma from "@/server/db";
+import getErrorMessage from "@/utils/getErrorMessage";
+import { emailSchema } from "@/utils/zod-schemas";
+import { NextRequest, NextResponse } from "next/server";
+import otpGenerator from "otp-generator";
+import { z } from "zod";
 
 export async function POST(req: NextRequest) {
-  const body = await req.json();
-  const otp = otpGenerator.generate(6, {
-    upperCaseAlphabets: false,
-    lowerCaseAlphabets: false,
-    specialChars: false,
-  });
+  try {
+    const body = await req.json();
+    const parsedBody = emailSchema.parse(body);
 
-  const expiresIn = 10; // 10 minutes
-  const expiresAt = new Date(Date.now() + expiresIn * 60 * 1000);
+    const otp = otpGenerator.generate(6, {
+      upperCaseAlphabets: false,
+      lowerCaseAlphabets: false,
+      specialChars: false,
+    });
 
-  await prisma.verificationRequest.create({
-    data: {
-      identifier: body.email,
-      otp,
-      expires: expiresAt,
-    },
-  });
-  if (!body.email) {
+    const expiresIn = 10; // OTP valid for 10 minutes
+    const expiresAt = new Date(Date.now() + expiresIn * 60 * 1000);
+
+    await prisma.verificationRequest.create({
+      data: {
+        identifier: parsedBody.email,
+        otp,
+        expires: expiresAt,
+      },
+    });
+
+    const mailResponse = await MailUsingResend({
+      email: parsedBody.email,
+      name: parsedBody.name,
+      OTP: otp,
+    });
+
+    // const mailResponse1 = await addToQueue({
+    //   email: parsedBody.email,
+    //   name: parsedBody.name,
+    //   OTP: otp,
+    // })
+
+    return NextResponse.json({
+      message: "Email sent successfully!",
+      mailResponse,
+    });
+
+  } catch (error:unknown) {
+    const errorMessage = getErrorMessage(error);
+
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { message: "Validation error", errors: errorMessage },
+        { status: 400 }
+      );
+    }
+
+    // Handle general server errors
     return NextResponse.json(
-      { message: "No recipients defined", status: 400 },
-      { status: 400 }
+      { message: "Internal Server Error", errorMessage },
+      { status: 500 }
     );
   }
-  console.log(body);
-  // const mailResponse1 = await addToQueue({
-  //   email: body.email,
-  //   name: body.name,
-  //   OTP: otp,
-  // });
-  const mailResponse2 = await MailUsingResend({
-    email: body.email,
-    name: body.name,
-    OTP: otp,
-  });
-
-  return NextResponse.json({
-    message: "Email sent successfully!",
-    // mailResponse1,
-    mailResponse2,
-  });
 }
 
+// Test endpoint
 export async function GET() {
   return NextResponse.json({ message: "Hello from the Send mail!" });
 }

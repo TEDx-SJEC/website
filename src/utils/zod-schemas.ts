@@ -21,3 +21,9 @@ export const RegistrationFormSchema = z.object({
 });
 
 export type TRegistrationForm = z.infer<typeof RegistrationFormSchema>;
+
+
+export const emailSchema = z.object({
+  email: z.string().email(),
+  name: z.string().min(1),
+});
