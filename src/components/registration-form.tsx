@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/select";
 import { useState } from "react";
 import { ConfirmationDialog } from "./confirmation-dialog";
+import { toast } from "sonner";
 
 export default function RegistrationForm() {
   const [registrations, setRegistrations] = useState([
@@ -72,6 +73,7 @@ export default function RegistrationForm() {
     const updatedRegistrations = [...registrations];
     updatedRegistrations[index].verified = true;
     setRegistrations(updatedRegistrations);
+    toast.success("Email verified successfully");
   };
   return (
     <div className="w-full p-16">
