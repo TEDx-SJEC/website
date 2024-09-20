@@ -79,7 +79,7 @@ export default function RegistrationForm() {
         >
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value={`${index}`} className="border-none w-full">
-              <AccordionTrigger className="flex justify-between items-center p-4 border rounded-xl bg-muted cursor-pointer w-full">
+              <AccordionTrigger className="flex justify-between items-center p-8 my-2 border rounded-xl bg-muted cursor-pointer w-full">
                 <div>Registration {index + 1}</div>
               </AccordionTrigger>
               <AccordionContent className="p-4 space-y-4 ">
@@ -220,7 +220,7 @@ export default function RegistrationForm() {
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-          <div className="absolute top-4 right-4">
+          <div className="absolute top-8 right-8">
             <ConfirmationDialog
               onConfirm={() => removeRegistration(index)}
               title="Delete"
