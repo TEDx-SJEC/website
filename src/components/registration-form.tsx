@@ -1,28 +1,22 @@
 "use client";
-
-import { JSX, SetStateAction, SVGProps, useState } from "react";
-import {
-  Collapsible,
-  CollapsibleTrigger,
-  CollapsibleContent,
-} from "@/components/ui/collapsible";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
-import { ConfirmationDialog } from "./confirmation-dialog";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useState } from "react";
+import { ConfirmationDialog } from "./confirmation-dialog";
 
 export default function RegistrationForm() {
   const [registrations, setRegistrations] = useState([
@@ -78,8 +72,11 @@ export default function RegistrationForm() {
           className=" relative flex justify-between items-center gap-4 w-full"
         >
           <Accordion type="single" collapsible className="w-full">
-            <AccordionItem value={`${index}`} className="border-none w-full">
-              <AccordionTrigger className="flex justify-between items-center p-8 my-2 border rounded-xl bg-muted cursor-pointer w-full">
+            <AccordionItem
+              value={`${index}`}
+              className="border-2 border-gray-300 px-2 mb-2 rounded-lg bg-white"
+            >
+              <AccordionTrigger className="flex justify-between items-center p-8 my-2 rounded-lg  bg-muted cursor-pointer w-full">
                 <div>Registration {index + 1}</div>
               </AccordionTrigger>
               <AccordionContent className="p-4 space-y-4 ">
