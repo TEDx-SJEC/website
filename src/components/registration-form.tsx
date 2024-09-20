@@ -30,9 +30,12 @@ export default function RegistrationForm() {
       coupon: "",
       photo: null,
       collegeId: null,
+      verified: false,
     },
   ]);
   const addRegistration = () => {
+    if (registrations.length === 5) return;
+    if (registrations[registrations.length - 1].verified === false) return;
     setRegistrations([
       ...registrations,
       {
@@ -45,6 +48,7 @@ export default function RegistrationForm() {
         coupon: "",
         photo: null,
         collegeId: null,
+        verified: false,
       },
     ]);
   };
@@ -64,6 +68,11 @@ export default function RegistrationForm() {
     setRegistrations(updatedRegistrations);
   };
 
+  const verifyRegistration = (index: number) => {
+    const updatedRegistrations = [...registrations];
+    updatedRegistrations[index].verified = true;
+    setRegistrations(updatedRegistrations);
+  };
   return (
     <div className="w-full p-16">
       {registrations.map((registration, index) => (
@@ -74,7 +83,7 @@ export default function RegistrationForm() {
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem
               value={`${index}`}
-              className="border-2 border-gray-300 px-2 mb-2 rounded-lg bg-white"
+              className="border-2 border-gray-700 px-2 mb-2 rounded-lg "
             >
               <AccordionTrigger className="flex justify-between items-center p-8 my-2 rounded-lg  bg-muted cursor-pointer w-full">
                 <div>Registration {index + 1}</div>
@@ -93,6 +102,20 @@ export default function RegistrationForm() {
                     />
                   </div>
                   <div className="space-y-2">
+                    <Label htmlFor={`email-${index}`}>Email</Label>
+                    <Input
+                      id={`email-${index}`}
+                      type="email"
+                      placeholder="Enter your email"
+                      value={registration.email}
+                      onChange={(e) =>
+                        updateRegistration(index, "email", e.target.value)
+                      }
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4 md:grid-cols-2">
+                  <div className="space-y-2">
                     <Label htmlFor={`contact-${index}`}>Contact</Label>
                     <Input
                       id={`contact-${index}`}
@@ -101,21 +124,6 @@ export default function RegistrationForm() {
                       value={registration.contact}
                       onChange={(e) =>
                         updateRegistration(index, "contact", e.target.value)
-                      }
-                    />
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-4 md:grid-cols-2">
-                  <div className="space-y-2">
-                    <Label htmlFor={`usn-${index}`}>
-                      USN (University Seat Number)
-                    </Label>
-                    <Input
-                      id={`usn-${index}`}
-                      placeholder="Enter your USN"
-                      value={registration.usn}
-                      onChange={(e) =>
-                        updateRegistration(index, "usn", e.target.value)
                       }
                     />
                   </div>
@@ -140,14 +148,15 @@ export default function RegistrationForm() {
                 </div>
                 <div className="grid grid-cols-2 gap-4 md:grid-cols-2">
                   <div className="space-y-2">
-                    <Label htmlFor={`email-${index}`}>Email</Label>
+                    <Label htmlFor={`usn-${index}`}>
+                      USN (University Seat Number)
+                    </Label>
                     <Input
-                      id={`email-${index}`}
-                      type="email"
-                      placeholder="Enter your email"
-                      value={registration.email}
+                      id={`usn-${index}`}
+                      placeholder="Enter your USN"
+                      value={registration.usn}
                       onChange={(e) =>
-                        updateRegistration(index, "email", e.target.value)
+                        updateRegistration(index, "usn", e.target.value)
                       }
                     />
                   </div>
@@ -171,13 +180,18 @@ export default function RegistrationForm() {
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor={`coupon-${index}`}>Coupon</Label>
+                    <Label htmlFor={`college-id-${index}`}>
+                      College ID Card
+                    </Label>
                     <Input
-                      id={`coupon-${index}`}
-                      placeholder="Enter your coupon code"
-                      value={registration.coupon}
+                      id={`college-id-${index}`}
+                      type="file"
                       onChange={(e) =>
-                        updateRegistration(index, "coupon", e.target.value)
+                        updateRegistration(
+                          index,
+                          "collegeId",
+                          e.target.files?.[0] || null
+                        )
                       }
                     />
                   </div>
@@ -198,20 +212,20 @@ export default function RegistrationForm() {
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor={`college-id-${index}`}>
-                      College ID Card
-                    </Label>
+                    <Label htmlFor={`coupon-${index}`}>Coupon</Label>
                     <Input
-                      id={`college-id-${index}`}
-                      type="file"
+                      id={`coupon-${index}`}
+                      placeholder="Enter your coupon code"
+                      value={registration.coupon}
                       onChange={(e) =>
-                        updateRegistration(
-                          index,
-                          "collegeId",
-                          e.target.files?.[0] || null
-                        )
+                        updateRegistration(index, "coupon", e.target.value)
                       }
                     />
+                  </div>
+                  <div className="space-y-2">
+                    <Button onClick={() => verifyRegistration(index)}>
+                      Verify
+                    </Button>
                   </div>
                 </div>
               </AccordionContent>
