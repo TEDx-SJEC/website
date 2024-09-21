@@ -25,7 +25,7 @@ export default function RegistrationForm() {
     usn: "",
     email: "",
     contact: "",
-    designation: "",
+    designation: "student",
     organization: "",
     coupon: "",
     photo: null,
@@ -39,13 +39,13 @@ export default function RegistrationForm() {
     if (registrations[registrations.length - 1].verified === false) return;
     setRegistrations([...registrations, initialRegistration]);
   };
-  const updateRegistration = (
+  const updateRegistration = <K extends keyof typeof initialRegistration>(
     index: number,
-    field: string,
-    value: string | File | null
+    field: K, 
+    value: typeof initialRegistration[K] | File | null
   ) => {
     const updatedRegistrations = [...registrations];
-    // updatedRegistrations[index][field] = value
+    updatedRegistrations[index][field] = value as typeof initialRegistration[K];
     setRegistrations(updatedRegistrations);
   };
   const removeRegistration = (index: number) => {
@@ -119,9 +119,13 @@ export default function RegistrationForm() {
                     <Label htmlFor={`designation-${index}`}>Designation</Label>
                     <Select
                       value={registration.designation}
-                      onValueChange={(value) =>
+                      onValueChange={(value) =>{
+                        console.log(value);
                         updateRegistration(index, "designation", value)
+                        console.log(registrations[index].designation)
                       }
+                      }
+                      
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select designation" />
