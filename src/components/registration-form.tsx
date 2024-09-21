@@ -20,38 +20,24 @@ import { ConfirmationDialog } from "./confirmation-dialog";
 import { toast } from "sonner";
 
 export default function RegistrationForm() {
-  const [registrations, setRegistrations] = useState([
-    {
-      name: "",
-      usn: "",
-      email: "",
-      contact: "",
-      designation: "",
-      organization: "",
-      coupon: "",
-      photo: null,
-      collegeId: null,
-      verified: false,
-    },
-  ]);
+  const initialRegistration = {
+    name: "",
+    usn: "",
+    email: "",
+    contact: "",
+    designation: "",
+    organization: "",
+    coupon: "",
+    photo: null,
+    collegeId: null,
+    verified: false,
+  };
+
+  const [registrations, setRegistrations] = useState([initialRegistration]);
   const addRegistration = () => {
     if (registrations.length === 5) return;
     if (registrations[registrations.length - 1].verified === false) return;
-    setRegistrations([
-      ...registrations,
-      {
-        name: "",
-        usn: "",
-        email: "",
-        contact: "",
-        designation: "",
-        organization: "",
-        coupon: "",
-        photo: null,
-        collegeId: null,
-        verified: false,
-      },
-    ]);
+    setRegistrations([...registrations, initialRegistration]);
   };
   const updateRegistration = (
     index: number,
@@ -160,6 +146,7 @@ export default function RegistrationForm() {
                       onChange={(e) =>
                         updateRegistration(index, "usn", e.target.value)
                       }
+                      disabled={registration.designation !== "student"}
                     />
                   </div>
                   <div className="space-y-2">
@@ -177,6 +164,7 @@ export default function RegistrationForm() {
                           e.target.value
                         )
                       }
+                      
                     />
                   </div>
                 </div>
@@ -195,6 +183,7 @@ export default function RegistrationForm() {
                           e.target.files?.[0] || null
                         )
                       }
+                      disabled={registration.designation !== "student"}
                     />
                   </div>
                   <div className="space-y-2">
