@@ -219,7 +219,7 @@ export default function RegistrationForm() {
                   </div>
                   <div className="space-y-2">
                     <Button onClick={() => verifyRegistration(index)}>
-                      Verify
+                      Added
                     </Button>
                   </div>
                 </div>
