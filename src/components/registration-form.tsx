@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/select";
 import { useUploadThing } from "@/utils/uploadthing";
 import "@uploadthing/react/styles.css";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import {
@@ -25,13 +25,14 @@ import {
 
 export default function RegistrationForm() {
   const form = useForm();
-
-  const [selectedPhoto, setSelectedPhoto] = useState<File | null>(null);
-  const [selectedCollegeId, setSelectedCollegeId] = useState<File | null>(null);
+  const [files, setFiles] = useState<{
+    photo: File | null;
+    collegeId: File | null;
+  }>({ photo: null, collegeId: null });
   const [uploading, setUploading] = useState(false);
   const [designation, setDesignation] = useState<string | undefined>(undefined);
 
-  const { startUpload, routeConfig } = useUploadThing("imageUploader", {
+  const { startUpload } = useUploadThing("imageUploader", {
     onClientUploadComplete: (res) => {
       console.log("Client upload complete, response:", res[0].url);
     },
@@ -45,17 +46,28 @@ export default function RegistrationForm() {
 
   const handleRegister = async () => {
     setUploading(true);
-    if (selectedCollegeId) {
-      await startUpload([selectedCollegeId]);
+    const { photo, collegeId } = files;
+
+    if (collegeId) {
+      await startUpload([collegeId]);
       toast.success("College ID uploaded");
     }
-    if (selectedPhoto) {
-      await startUpload([selectedPhoto]);
+    if (photo) {
+      await startUpload([photo]);
       toast.success("Photo uploaded");
     }
     toast.success("Registered successfully");
     setUploading(false);
   };
+
+  const designationOptions = useMemo(
+    () => [
+      { value: "student", label: "Student" },
+      { value: "employee", label: "Employee" },
+      { value: "faculty", label: "Faculty" },
+    ],
+    []
+  );
 
   return (
     <Form {...form}>
@@ -129,9 +141,11 @@ export default function RegistrationForm() {
                     <SelectValue placeholder="Select designation" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="student">Student</SelectItem>
-                    <SelectItem value="employee">Employee</SelectItem>
-                    <SelectItem value="faculty">Faculty</SelectItem>
+                    {designationOptions.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </FormItem>
@@ -190,7 +204,7 @@ export default function RegistrationForm() {
                     type="file"
                     onChange={(e) => {
                       const file = e.target.files?.[0] || null;
-                      setSelectedCollegeId(file);
+                      setFiles((prev) => ({ ...prev, collegeId: file }));
                     }}
                     disabled={designation !== "student"}
                   />
@@ -210,7 +224,7 @@ export default function RegistrationForm() {
                     type="file"
                     onChange={(e) => {
                       const file = e.target.files?.[0] || null;
-                      setSelectedPhoto(file);
+                      setFiles((prev) => ({ ...prev, photo: file }));
                     }}
                   />
                 </FormControl>
