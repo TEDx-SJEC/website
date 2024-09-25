@@ -9,11 +9,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useUploadThing } from "@/utils/uploadthing";
+import "@uploadthing/react/styles.css";
 import { useState } from "react";
 import { toast } from "sonner";
-import "@uploadthing/react/styles.css";
-import { useUploadThing } from "@/utils/uploadthing";
-import { CheckCircle, Loader } from "lucide-react";
 
 export default function RegistrationForm() {
   const initialRegistration = {
@@ -28,29 +27,34 @@ export default function RegistrationForm() {
     collegeId: null,
     verified: false,
   };
-  const [isPhotoUploading, setIsPhotoUploading] = useState(false);
-  const [isPhotoUploaded, setIsPhotoUploaded] = useState(false);
+  const [selectedPhoto, setSelectedPhoto] = useState<File | null>(null);
+  const [selectedCollegeId, setSelectedCollegeId] = useState<File | null>(null);
 
   const [registration, setRegistration] = useState(initialRegistration);
   const updateRegistration = (key: string, value: string | File | null) => {
     setRegistration({ ...registration, [key]: value });
   };
 
-  const verifyRegistration = () => {
-    toast.success("Email verified successfully");
+  const handleRegister = async () => {
+    if (selectedCollegeId) {
+      await startUpload([selectedCollegeId]);
+      toast.success("college id uploaded");
+    }
+    if (selectedPhoto) {
+      await startUpload([selectedPhoto]);
+      toast.success("photo uploaded");
+    }
+    toast.success("Registered successfully");
   };
 
   const { startUpload, routeConfig } = useUploadThing("imageUploader", {
     onClientUploadComplete: (res) => {
       console.log("Client upload complete, response:", res[0].url);
-      setIsPhotoUploading(false);
-      setIsPhotoUploaded(true);
     },
     onUploadError: () => {
       toast.error("Upload failed");
     },
     onUploadBegin: (file: string) => {
-      setIsPhotoUploading(true);
       console.log("upload has begun for", file);
     },
   });
@@ -139,13 +143,7 @@ export default function RegistrationForm() {
             type="file"
             onChange={(e) => {
               const file = e.target.files?.[0] || null;
-              if (file) {
-                startUpload([file]);
-              }
-              updateRegistration(
-                "collegeId",
-                (e.target.files?.[0] as File) || null
-              );
+              setSelectedCollegeId(file);
             }}
             disabled={registration.designation !== "student"}
           />
@@ -156,18 +154,9 @@ export default function RegistrationForm() {
             type="file"
             onChange={(e) => {
               const file = e.target.files?.[0] || null;
-              if (file) {
-                setIsPhotoUploading(true);
-                startUpload([file]).then(() => {
-                  setIsPhotoUploading(false);
-                  setIsPhotoUploaded(true);
-                });
-              }
-              updateRegistration("photo", file);
+              setSelectedPhoto(file);
             }}
           />
-          {isPhotoUploading && <Loader className="animate-spin ml-2" />}
-          {isPhotoUploaded && <CheckCircle className="text-green-500 ml-2" />}
         </div>
       </div>
       <div className="grid grid-cols-2 gap-4">
@@ -181,9 +170,8 @@ export default function RegistrationForm() {
           />
         </div>
         <div className="space-y-2">
-          <Button onClick={() => verifyRegistration()}>Added</Button>
+          <Button onClick={handleRegister}>Register</Button>
         </div>
-        
       </div>
     </div>
   );
