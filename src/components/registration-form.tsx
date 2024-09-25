@@ -22,6 +22,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { getPrice } from "@/app/actions/get-price";
 
 export default function RegistrationForm() {
   const form = useForm();
@@ -32,6 +33,7 @@ export default function RegistrationForm() {
   const [uploading, setUploading] = useState(false);
   const [designation, setDesignation] = useState<string | undefined>(undefined);
 
+  //uploadthing code -- custom one
   const { startUpload } = useUploadThing("imageUploader", {
     onClientUploadComplete: (res) => {
       console.log("Client upload complete, response:", res[0].url);
@@ -59,6 +61,11 @@ export default function RegistrationForm() {
     toast.success("Registered successfully");
     setUploading(false);
   };
+
+  const verifyCoupon = async (coupon: string) => {
+    const{ basePrice, discountAmount, finalPrice } = await getPrice(coupon);
+    
+  }
 
   const designationOptions = useMemo(
     () => [
