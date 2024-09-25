@@ -27,24 +27,16 @@ export default function RegistrationForm() {
     collegeId: null,
     verified: false,
   };
-  const [selectedPhoto, setSelectedPhoto] = useState<File | null>(null);
-  const [selectedCollegeId, setSelectedCollegeId] = useState<File | null>(null);
 
   const [registration, setRegistration] = useState(initialRegistration);
+  
+  const [selectedPhoto, setSelectedPhoto] = useState<File | null>(null);
+  const [selectedCollegeId, setSelectedCollegeId] = useState<File | null>(null);
+  const [uploading, setUploading] = useState(false);
+
+
   const updateRegistration = (key: string, value: string | File | null) => {
     setRegistration({ ...registration, [key]: value });
-  };
-
-  const handleRegister = async () => {
-    if (selectedCollegeId) {
-      await startUpload([selectedCollegeId]);
-      toast.success("college id uploaded");
-    }
-    if (selectedPhoto) {
-      await startUpload([selectedPhoto]);
-      toast.success("photo uploaded");
-    }
-    toast.success("Registered successfully");
   };
 
   const { startUpload, routeConfig } = useUploadThing("imageUploader", {
@@ -58,6 +50,19 @@ export default function RegistrationForm() {
       console.log("upload has begun for", file);
     },
   });
+  const handleRegister = async () => {
+    setUploading(true);
+    if (selectedCollegeId) {
+      await startUpload([selectedCollegeId]);
+      toast.success("college id uploaded");
+    }
+    if (selectedPhoto) {
+      await startUpload([selectedPhoto]);
+      toast.success("photo uploaded");
+    }
+    toast.success("Registered successfully");
+    setUploading(false);
+  };
 
   return (
     <div className="w-full p-16">
@@ -170,7 +175,9 @@ export default function RegistrationForm() {
           />
         </div>
         <div className="space-y-2">
-          <Button onClick={handleRegister}>Register</Button>
+          <Button onClick={handleRegister} disabled={uploading}>
+            Register
+          </Button>
         </div>
       </div>
     </div>
