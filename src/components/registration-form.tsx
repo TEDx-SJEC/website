@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,6 +13,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { UploadButton } from "@/utils/uploadthing";
 import "@uploadthing/react/styles.css";
+import { useUploadThing } from "@/utils/uploadthing";
 
 export default function RegistrationForm() {
   const initialRegistration = {
@@ -36,6 +37,19 @@ export default function RegistrationForm() {
   const verifyRegistration = () => {
     toast.success("Email verified successfully");
   };
+
+  const { startUpload, routeConfig } = useUploadThing("imageUploader", {
+    onClientUploadComplete: () => {
+      alert("uploaded successfully!");
+    },
+    onUploadError: () => {
+      alert("error occurred while uploading");
+    },
+    onUploadBegin: (file: string) => {
+      console.log("upload has begun for", file);
+    },
+  });
+
   return (
     <div className="w-full p-16">
       <div className="grid grid-cols-2 gap-4 md:grid-cols-2">
@@ -132,9 +146,13 @@ export default function RegistrationForm() {
           <Input
             id={`photo`}
             type="file"
-            onChange={(e) =>
-              updateRegistration("photo", e.target.files?.[0] || null)
-            }
+            onChange={(e) => {
+              const file = e.target.files?.[0] || null;
+              if (file) {
+                startUpload([file]);
+              }
+              updateRegistration("photo", file);
+            }}
           />
         </div>
       </div>
@@ -151,17 +169,6 @@ export default function RegistrationForm() {
         <div className="space-y-2">
           <Button onClick={() => verifyRegistration()}>Added</Button>
         </div>
-        <UploadButton
-        endpoint="imageUploader"
-        onClientUploadComplete={(res) => {
-          console.log("Files: ", res);
-          toast.success("Upload Completed");
-        }}
-        onUploadError={(error: Error) => {
-          // Do something with the error.
-          toast.error(`ERROR! ${error.message}`);
-        }}
-      />
       </div>
     </div>
   );
