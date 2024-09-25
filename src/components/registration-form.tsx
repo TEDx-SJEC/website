@@ -11,9 +11,9 @@ import {
 } from "@/components/ui/select";
 import { useState } from "react";
 import { toast } from "sonner";
-import { UploadButton } from "@/utils/uploadthing";
 import "@uploadthing/react/styles.css";
 import { useUploadThing } from "@/utils/uploadthing";
+import { CheckCircle, Loader } from "lucide-react";
 
 export default function RegistrationForm() {
   const initialRegistration = {
@@ -28,6 +28,8 @@ export default function RegistrationForm() {
     collegeId: null,
     verified: false,
   };
+  const [isPhotoUploading, setIsPhotoUploading] = useState(false);
+  const [isPhotoUploaded, setIsPhotoUploaded] = useState(false);
 
   const [registration, setRegistration] = useState(initialRegistration);
   const updateRegistration = (key: string, value: string | File | null) => {
@@ -39,13 +41,16 @@ export default function RegistrationForm() {
   };
 
   const { startUpload, routeConfig } = useUploadThing("imageUploader", {
-    onClientUploadComplete: () => {
-      alert("uploaded successfully!");
+    onClientUploadComplete: (res) => {
+      console.log("Client upload complete, response:", res[0].url);
+      setIsPhotoUploading(false);
+      setIsPhotoUploaded(true);
     },
     onUploadError: () => {
-      alert("error occurred while uploading");
+      toast.error("Upload failed");
     },
     onUploadBegin: (file: string) => {
+      setIsPhotoUploading(true);
       console.log("upload has begun for", file);
     },
   });
@@ -132,28 +137,37 @@ export default function RegistrationForm() {
           <Input
             id={`college-id`}
             type="file"
-            onChange={(e) =>
+            onChange={(e) => {
+              const file = e.target.files?.[0] || null;
+              if (file) {
+                startUpload([file]);
+              }
               updateRegistration(
                 "collegeId",
                 (e.target.files?.[0] as File) || null
-              )
-            }
+              );
+            }}
             disabled={registration.designation !== "student"}
           />
         </div>
-        <div className="space-y-2">
-          <Label htmlFor={`photo`}>Photo</Label>
+        <div className="flex items-center space-y-2">
           <Input
             id={`photo`}
             type="file"
             onChange={(e) => {
               const file = e.target.files?.[0] || null;
               if (file) {
-                startUpload([file]);
+                setIsPhotoUploading(true);
+                startUpload([file]).then(() => {
+                  setIsPhotoUploading(false);
+                  setIsPhotoUploaded(true);
+                });
               }
               updateRegistration("photo", file);
             }}
           />
+          {isPhotoUploading && <Loader className="animate-spin ml-2" />}
+          {isPhotoUploaded && <CheckCircle className="text-green-500 ml-2" />}
         </div>
       </div>
       <div className="grid grid-cols-2 gap-4">
@@ -169,6 +183,7 @@ export default function RegistrationForm() {
         <div className="space-y-2">
           <Button onClick={() => verifyRegistration()}>Added</Button>
         </div>
+        
       </div>
     </div>
   );
