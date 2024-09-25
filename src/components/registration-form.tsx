@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/select";
 import { useState } from "react";
 import { toast } from "sonner";
+import { UploadButton } from "@/utils/uploadthing";
 
 export default function RegistrationForm() {
   const initialRegistration = {
@@ -149,6 +150,18 @@ export default function RegistrationForm() {
         <div className="space-y-2">
           <Button onClick={() => verifyRegistration()}>Added</Button>
         </div>
+        <UploadButton
+        endpoint="imageUploader"
+        onClientUploadComplete={(res) => {
+          // Do something with the response
+          console.log("Files: ", res);
+          alert("Upload Completed");
+        }}
+        onUploadError={(error: Error) => {
+          // Do something with the error.
+          alert(`ERROR! ${error.message}`);
+        }}
+      />
       </div>
     </div>
   );
