@@ -1,8 +1,12 @@
+import Providers from "@/components/Layout/Provider";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
-import Providers from "@/components/Layout/Provider";
 import { Toaster } from "sonner";
+import { extractRouterConfig } from "uploadthing/server";
+import "./globals.css";
+
+import { ourFileRouter } from "@/app/api/uploadthing/core";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,6 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={inter.className}>
+        <NextSSRPlugin
+          routerConfig={extractRouterConfig(ourFileRouter)}
+        />
         <Providers>
           {children}{" "}
           <Toaster
