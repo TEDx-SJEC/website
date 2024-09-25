@@ -12,6 +12,7 @@ import {
 import { useState } from "react";
 import { toast } from "sonner";
 import { UploadButton } from "@/utils/uploadthing";
+import "@uploadthing/react/styles.css";
 
 export default function RegistrationForm() {
   const initialRegistration = {
