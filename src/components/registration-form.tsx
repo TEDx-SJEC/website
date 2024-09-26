@@ -22,9 +22,24 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { RegistrationFormSchema, TRegistrationForm } from "@/utils/zod-schemas";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function RegistrationForm() {
-  const form = useForm();
+  const form = useForm<TRegistrationForm>({
+    resolver: zodResolver(RegistrationFormSchema),
+    defaultValues: {
+      name: "",
+      usn: "",
+      email: "",
+      contact: "",
+      designation: "",
+      photo: "",
+      collegeIdCard: "",
+      entityName: "",
+      referralUsed: "",
+    },
+  });
   const [files, setFiles] = useState<{
     photo: File | null;
     collegeId: File | null;
@@ -198,7 +213,7 @@ export default function RegistrationForm() {
           />
           <FormField
             control={form.control}
-            name="organization"
+            name="entityName"
             render={({ field }) => (
               <FormItem>
                 <FormLabel htmlFor="organization" className="text-xl">
@@ -219,7 +234,7 @@ export default function RegistrationForm() {
         <div className="grid grid-cols-2 gap-4">
           <FormField
             control={form.control}
-            name="collegeId"
+            name="collegeIdCard"
             render={({ field }) => (
               <FormItem>
                 <FormLabel htmlFor="college-id" className="text-xl">

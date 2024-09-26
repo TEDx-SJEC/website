@@ -33,7 +33,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       collegeIdCard,
       entityName,
       referralUsed,
-      createdById,
+      createdById
     } = body;
 
     let { finalPrice } = await getPrice(referralUsed);
@@ -60,8 +60,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
           collegeIdCard,
           entityName,
           referralUsed,
-          createdById,
-          paidAmount: finalPrice, 
+          paidAmount: finalPrice,
+          createdById 
         },
       });
       return NextResponse.json({ newFormEntry }, { status: 201 });
