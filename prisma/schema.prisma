@@ -8,12 +8,6 @@ datasource db {
   url      = "file:./dev.db"
 }
 
-// enum Role {
-//   ADMIN
-//   USER
-//   MODERATOR
-// }
-
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -68,12 +62,11 @@ model Referral {
   discountPercentage String   @default("20") @map("discount_percentage")
   createdById        String   @map("createdby_id")
   usedById           String?  @map("usedby_id")
-  isUsed             Boolean  @default(false) // Whether the referral has been used or not, itll use only once 
+  isUsed             Boolean  @default(false) 
   created_at         DateTime @default(now())
 
-  // Relations
   createdBy User   @relation("createdByUser", fields: [createdById], references: [id], onDelete: Cascade) // Admin who created the referral
-  usedBy    User?  @relation("usedByUser", fields: [usedById], references: [id]) // User who used the referral (nullable)
+  usedBy    User?  @relation("usedByUser", fields: [usedById], references: [id]) 
   forms     Form[]
 }
 
@@ -82,28 +75,28 @@ model Form {
   name          String
   usn           String
   email         String
-  emailVerified Boolean  @default(false) @map("email_verified")
   contact       String?
   designation   String?
   photo         String   @map("photo_url") // URL of the photo uploaded by the participan
   collegeIdCard String?  @map("college_id_card")
   entityName    String   @map("entity_name")
-  referralId    String?  @map("referral_id")
+  referralUsed    String?  @map("referral_used")
+  paidAmount    Float   @map("paid_amount")
   createdById   String   @map("created_by_id")
   created_at    DateTime @default(now())
   //registrationEmailSent Boolean? @default(false) @map("registration_email_sent")
 
   user     User      @relation(fields: [createdById], references: [id], onDelete: Cascade)
-  referral Referral? @relation(fields: [referralId], references: [id])
+  referral Referral? @relation(fields: [referralUsed], references: [code])
 }
 
-model VerificationRequest {
-  id         String   @id @default(cuid())
-  identifier String // Like email or phone number
-  otp        String
-  expires    DateTime
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+// model VerificationRequest {
+//   id         String   @id @default(cuid())
+//   identifier String // Like email or phone number
+//   otp        String
+//   expires    DateTime
+//   created_at DateTime @default(now())
+//   updated_at DateTime @updatedAt
 
-  @@unique([identifier, otp]) // Ensure OTP is unique for a given identifier
-}
+//   @@unique([identifier, otp]) // Ensure OTP is unique for a given identifier
+// }
