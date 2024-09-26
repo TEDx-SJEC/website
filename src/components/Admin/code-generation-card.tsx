@@ -1,6 +1,6 @@
 "use client";
 
-import { saveCoupon } from "@/app/_actions/create-coupon-code";
+import { saveCoupon } from "@/app/actions/create-coupon-code";
 import { Button } from "@/components/ui/button";
 import {
   Card,

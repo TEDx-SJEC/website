@@ -22,6 +22,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { getPrice } from "@/app/actions/get-price";
 
 export default function RegistrationForm() {
   const form = useForm();
@@ -61,6 +62,10 @@ export default function RegistrationForm() {
     setUploading(false);
   };
 
+  const verifyCoupon = async (coupon: string) => {
+    const { basePrice, discountAmount, finalPrice } = await getPrice(coupon);
+  };
+
   const designationOptions = useMemo(
     () => [
       { value: "student", label: "Student" },
@@ -72,18 +77,27 @@ export default function RegistrationForm() {
 
   return (
     <Form {...form}>
-      <form className="w-full p-16">
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-2">
+      <form className="w-full p-16 text-lg">
+        <div className="mx-auto max-w-md space-y-8 py-12">
+          <div className="text-center">
+            <h1 className="text-5xl font-bold">Registration Form</h1>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-2 my-8">
           <FormField
             control={form.control}
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <FormLabel className="text-xl">Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your name" {...field} />
+                  <Input
+                    className="w-full p-4 h-12 text-lg rounded-lg"
+                    placeholder="Enter your name"
+                    {...field}
+                  />
                 </FormControl>
-                <FormDescription>
+                <FormDescription className="text-base">
                   This is your public display name.
                 </FormDescription>
                 <FormMessage />
@@ -95,11 +109,15 @@ export default function RegistrationForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel className="text-xl">Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your email" {...field} />
+                  <Input
+                    className="w-full p-4 h-12 text-lg rounded-lg"
+                    placeholder="Enter your email"
+                    {...field}
+                  />
                 </FormControl>
-                <FormDescription>
+                <FormDescription className="text-base">
                   For an additional discount, please use your SJEC email ID.
                 </FormDescription>
                 <FormMessage />
@@ -107,17 +125,20 @@ export default function RegistrationForm() {
             )}
           />
         </div>
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-2">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-2 my-8">
           <FormField
             control={form.control}
             name="contact"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="contact">Contact</FormLabel>
+                <FormLabel htmlFor="contact" className="text-xl">
+                  Contact
+                </FormLabel>
                 <FormControl>
                   <Input
                     id="contact"
                     type="tel"
+                    className="w-full p-4 h-12 text-lg rounded-lg"
                     placeholder="Enter your phone number"
                     {...field}
                   />
@@ -130,7 +151,9 @@ export default function RegistrationForm() {
             name="designation"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="designation">Designation</FormLabel>
+                <FormLabel htmlFor="designation" className="text-xl">
+                  Designation
+                </FormLabel>
                 <Select
                   value={field.value}
                   onValueChange={(value) => {
@@ -138,12 +161,16 @@ export default function RegistrationForm() {
                     field.onChange(value);
                   }}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="w-full p-4 h-12 text-lg rounded-lg">
                     <SelectValue placeholder="Select designation" />
                   </SelectTrigger>
                   <SelectContent>
                     {designationOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
+                      <SelectItem
+                        key={option.value}
+                        value={option.value}
+                        className="w-full p-4 h-12 text-lg rounded-lg"
+                      >
                         {option.label}
                       </SelectItem>
                     ))}
@@ -153,18 +180,19 @@ export default function RegistrationForm() {
             )}
           />
         </div>
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-2">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-2 my-8">
           <FormField
             control={form.control}
             name="usn"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="usn">
+                <FormLabel htmlFor="usn" className="text-xl">
                   USN (University Seat Number)
                 </FormLabel>
                 <FormControl>
                   <Input
                     id="usn"
+                    className="w-full p-4 h-12 text-lg rounded-lg"
                     placeholder="Enter your USN"
                     {...field}
                     disabled={designation !== "student"}
@@ -178,12 +206,13 @@ export default function RegistrationForm() {
             name="organization"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="organization">
+                <FormLabel htmlFor="organization" className="text-xl">
                   Organization/College
                 </FormLabel>
                 <FormControl>
                   <Input
                     id="organization"
+                    className="w-full p-4 h-12 text-lg rounded-lg"
                     placeholder="Enter your organization or college"
                     {...field}
                   />
@@ -198,11 +227,14 @@ export default function RegistrationForm() {
             name="collegeId"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="college-id">College ID Card</FormLabel>
+                <FormLabel htmlFor="college-id" className="text-xl">
+                  College ID Card
+                </FormLabel>
                 <FormControl>
                   <Input
                     id="college-id"
                     type="file"
+                    className="w-full p-2 h-12 text-lg rounded-lg"
                     onChange={(e) => {
                       const file = e.target.files?.[0] || null;
                       setFiles((prev) => ({ ...prev, collegeId: file }));
@@ -218,11 +250,14 @@ export default function RegistrationForm() {
             name="photo"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="photo">Photo</FormLabel>
+                <FormLabel htmlFor="photo" className="text-xl">
+                  Photo
+                </FormLabel>
                 <FormControl>
                   <Input
                     id="photo"
                     type="file"
+                    className="w-full p-2 h-12 text-lg rounded-lg"
                     onChange={(e) => {
                       const file = e.target.files?.[0] || null;
                       setFiles((prev) => ({ ...prev, photo: file }));
@@ -234,26 +269,14 @@ export default function RegistrationForm() {
           />
         </div>
         <div className="grid grid-cols-2 gap-4">
-          <FormField
-            control={form.control}
-            name="coupon"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel htmlFor="coupon">Coupon</FormLabel>
-                <FormControl>
-                  <Input
-                    id="coupon"
-                    placeholder="Enter your coupon code"
-                    {...field}
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
           <div className="space-y-2">
-            <Button onClick={handleRegister} disabled={uploading}>
+            {/* <Button
+              className="text-lg p-4"
+              onClick={handleRegister}
+              disabled={uploading}
+            >
               Register
-            </Button>
+            </Button> */}
           </div>
         </div>
       </form>
