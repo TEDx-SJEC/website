@@ -66,7 +66,7 @@ model Referral {
   created_at         DateTime @default(now())
 
   createdBy User   @relation("createdByUser", fields: [createdById], references: [id], onDelete: Cascade) // Admin who created the referral
-  usedBy    User?  @relation("usedByUser", fields: [usedById], references: [id]) 
+  usedBy    User?  @relation("usedByUser", fields: [usedById], references: [email]) 
   forms     Form[]
 }
 
