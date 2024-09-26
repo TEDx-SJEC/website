@@ -1,5 +1,5 @@
 "use client";
-import { makeAdmin, makeParticipant } from "@/app/_actions/change-role";
+import { makeAdmin, makeParticipant } from "@/app/actions/change-role";
 import { Button } from "@/components/ui/button";
 
 export default function ChangeRole({

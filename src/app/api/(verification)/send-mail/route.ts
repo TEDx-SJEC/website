@@ -11,28 +11,28 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const parsedBody = emailSchema.parse(body);
 
-    const otp = otpGenerator.generate(6, {
-      upperCaseAlphabets: false,
-      lowerCaseAlphabets: false,
-      specialChars: false,
-    });
+    // const otp = otpGenerator.generate(6, {
+    //   upperCaseAlphabets: false,
+    //   lowerCaseAlphabets: false,
+    //   specialChars: false,
+    // });
 
-    const expiresIn = 10; // OTP valid for 10 minutes
-    const expiresAt = new Date(Date.now() + expiresIn * 60 * 1000);
+    // const expiresIn = 10; // OTP valid for 10 minutes
+    // const expiresAt = new Date(Date.now() + expiresIn * 60 * 1000);
 
-    await prisma.verificationRequest.create({
-      data: {
-        identifier: parsedBody.email,
-        otp,
-        expires: expiresAt,
-      },
-    });
+    // await prisma.verificationRequest.create({
+    //   data: {
+    //     identifier: parsedBody.email,
+    //     otp,
+    //     expires: expiresAt,
+    //   },
+    // });
 
-    const mailResponse = await MailUsingResend({
-      email: parsedBody.email,
-      name: parsedBody.name,
-      OTP: otp,
-    });
+    // const mailResponse = await MailUsingResend({
+    //   email: parsedBody.email,
+    //   name: parsedBody.name,
+    //   OTP: otp,
+    // });
 
     // const mailResponse1 = await addToQueue({
     //   email: parsedBody.email,
@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({
       message: "Email sent successfully!",
-      mailResponse,
+      // mailResponse,
     });
   } catch (error: unknown) {
     const errorMessage = getErrorMessage(error);
