@@ -6,16 +6,15 @@ import { useState } from "react";
 import { Input } from "./ui/input";
 
 export function Payment() {
-  const [basePrice, setBasePrice] = useState(1200);
-  const [discountAmount, setDiscountAmount] = useState(0);
-  const [finalPrice, setFinalPrice] = useState(basePrice);
   const [coupon, setCoupon] = useState("");
+  const [pricing, setPricing] = useState({
+    basePrice: 1200,
+    discountAmount: 0,
+    finalPrice: 1200,
+  });
   const verifyCoupon = async () => {
     const { basePrice, discountAmount, finalPrice } = await getPrice(coupon);
-    console.log(basePrice, discountAmount, finalPrice);
-    setBasePrice(basePrice);
-    setDiscountAmount(discountAmount);
-    setFinalPrice(finalPrice);
+    setPricing({ basePrice, discountAmount, finalPrice });
   };
   return (
     <Card className="w-full max-w-md p-6 rounded-lg shadow-lg">
@@ -24,7 +23,7 @@ export function Payment() {
           <h2 className="text-2xl font-bold">Order Summary</h2>
         </header>
         <div className="flex justify-center py-8">
-          <h1 className="text-6xl">₹{finalPrice}</h1>
+          <h1 className="text-6xl">₹{pricing.finalPrice}</h1>
         </div>
         <div className="flex justify-between gap-2">
           <Input
@@ -38,16 +37,16 @@ export function Payment() {
         <hr className="my-4" />
         <div className="flex justify-between">
           <span>Subtotal</span>
-          <span>₹{basePrice}</span>
+          <span>₹{pricing.basePrice}</span>
         </div>
         <div className="flex justify-between">
           <span>Discount</span>
-          <span>₹{discountAmount}</span>
+          <span>₹{pricing.discountAmount}</span>
         </div>
         <hr className="my-4" />
         <div className="flex justify-between font-bold">
           <span>Total Amount</span>
-          <span>₹{finalPrice}</span>
+          <span>₹{pricing.finalPrice}</span>
         </div>
         <Button className="w-full  py-2 mt-4">
           Confirm and update
