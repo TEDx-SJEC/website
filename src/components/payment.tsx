@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { getPrice } from "@/app/actions/get-price";
 import { useState } from "react";
 import { Input } from "./ui/input";
+import { toast } from "sonner";
+import getErrorMessage from "@/utils/getErrorMessage";
 
 export function Payment() {
   const [coupon, setCoupon] = useState("");
@@ -13,8 +15,16 @@ export function Payment() {
     finalPrice: 1200,
   });
   const verifyCoupon = async () => {
-    const { basePrice, discountAmount, finalPrice } = await getPrice(coupon);
+    try{
+      const { basePrice, discountAmount, finalPrice } = await getPrice(coupon);
     setPricing({ basePrice, discountAmount, finalPrice });
+      toast.success("Coupon applied successfully");
+    }catch(e){
+      console.error(e);
+      const message = getErrorMessage(e);
+      toast.error(`${message}`);
+    }
+    
   };
   return (
     <Card className="w-full max-w-md p-6 rounded-lg shadow-lg">
