@@ -22,7 +22,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { getPrice } from "@/app/actions/get-price";
 
 export default function RegistrationForm() {
   const form = useForm();
@@ -60,10 +59,6 @@ export default function RegistrationForm() {
     }
     toast.success("Registered successfully");
     setUploading(false);
-  };
-
-  const verifyCoupon = async (coupon: string) => {
-    const { basePrice, discountAmount, finalPrice } = await getPrice(coupon);
   };
 
   const designationOptions = useMemo(

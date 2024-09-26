@@ -73,7 +73,7 @@ model Referral {
 model Form {
   id            String   @id @default(cuid())
   name          String
-  usn           String
+  usn           String?  
   email         String
   contact       String?
   designation   String?

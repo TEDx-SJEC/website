@@ -1,8 +1,7 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+
 import { NextRequest, NextResponse } from "next/server";
 import { RegistrationFormSchema, TRegistrationForm } from "@/utils/zod-schemas";
 import prisma from "@/server/db";
-import determinePrice from "@/utils/determinePrice";
 import { getPrice } from "@/app/actions/get-price";
 import getErrorMessage from "@/utils/getErrorMessage";
 
@@ -53,7 +52,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       const newFormEntry = await prisma.form.create({
         data: {
           name,
-          usn,
+          usn: usn || "",
           email,
           contact,
           designation,
