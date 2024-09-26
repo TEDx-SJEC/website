@@ -60,7 +60,7 @@ export default function RegistrationForm() {
     },
   });
 
-  const handleRegister = async () => {
+  const handleRegister = async (values: TRegistrationForm) => {
     setUploading(true);
     const { photo, collegeId } = files;
 
@@ -87,7 +87,7 @@ export default function RegistrationForm() {
 
   return (
     <Form {...form}>
-      <form className="w-full p-16 text-lg">
+      <form onSubmit={form.handleSubmit(handleRegister)} className="w-full p-16 text-lg">
         <div className="mx-auto max-w-md space-y-8 py-12">
           <div className="text-center">
             <h1 className="text-5xl font-bold">Registration Form</h1>
@@ -280,13 +280,12 @@ export default function RegistrationForm() {
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            {/* <Button
+            <Button
               className="text-lg p-4"
-              onClick={handleRegister}
               disabled={uploading}
             >
-              Register
-            </Button> */}
+              Next
+            </Button>
           </div>
         </div>
       </form>

@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const RegistrationFormSchema = z
   .object({
-    name: z.string(),
+    name: z.string().min(1),
     usn: z
       .string()
       .regex(/^4SO\d{2}[A-Za-z]{2}\d{3}$/, {
@@ -11,8 +11,13 @@ export const RegistrationFormSchema = z
       })
       .optional(),
     email: z.string().email(),
-    contact: z.string(),
-    designation: z.string(),
+    contact: z.string().min(10).max(10),
+    designation: z.string().refine(
+      (value) => ["Student", "Faculty", "Alumni"].includes(value),
+      {
+        message: "Invalid designation",
+      }
+    ),
     photo: z
       .string()
       .refine(
@@ -22,7 +27,7 @@ export const RegistrationFormSchema = z
         }
       ),
     collegeIdCard: z.string().optional(),
-    entityName: z.string(),
+    entityName: z.string().min(1),
     referralUsed: z.string().optional(),
     createdById: z.string(),
   })
