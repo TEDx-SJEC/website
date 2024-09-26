@@ -44,21 +44,20 @@ export async function POST(req: NextRequest) {
       message: "Email sent successfully!",
       mailResponse,
     });
-
-  } catch (error:unknown) {
+  } catch (error: unknown) {
     const errorMessage = getErrorMessage(error);
 
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { message: "Validation error", errors: errorMessage },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     // Handle general server errors
     return NextResponse.json(
       { message: "Internal Server Error", errorMessage },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

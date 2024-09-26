@@ -82,12 +82,15 @@ export default function RegistrationForm() {
       { value: "employee", label: "Employee" },
       { value: "faculty", label: "Faculty" },
     ],
-    []
+    [],
   );
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleRegister)} className="w-full p-16 text-lg">
+      <form
+        onSubmit={form.handleSubmit(handleRegister)}
+        className="w-full p-16 text-lg"
+      >
         <div className="mx-auto max-w-md space-y-8 py-12">
           <div className="text-center">
             <h1 className="text-5xl font-bold">Registration Form</h1>
@@ -280,10 +283,7 @@ export default function RegistrationForm() {
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Button
-              className="text-lg p-4"
-              disabled={uploading}
-            >
+            <Button className="text-lg p-4" disabled={uploading}>
               Next
             </Button>
           </div>

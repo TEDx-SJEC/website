@@ -9,7 +9,13 @@ class CouponError extends Error {
   }
 }
 
-export const getPrice = async (couponCode?: string): Promise<{ basePrice: number; discountAmount: number; finalPrice: number }> => {
+export const getPrice = async (
+  couponCode?: string,
+): Promise<{
+  basePrice: number;
+  discountAmount: number;
+  finalPrice: number;
+}> => {
   const basePrice = 1000;
   let discountAmount = 0;
   let finalPrice = basePrice;
@@ -34,5 +40,3 @@ export const getPrice = async (couponCode?: string): Promise<{ basePrice: number
   }
   return { basePrice, discountAmount, finalPrice };
 };
-
-

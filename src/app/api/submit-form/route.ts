@@ -1,4 +1,3 @@
-
 import { NextRequest, NextResponse } from "next/server";
 import { RegistrationFormSchema, TRegistrationForm } from "@/utils/zod-schemas";
 import prisma from "@/server/db";
@@ -19,7 +18,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     if (!validationResult.success) {
       throw new Error(
         "Validation error: " +
-          validationResult.error.errors.map((e) => e.message).join(", ")
+          validationResult.error.errors.map((e) => e.message).join(", "),
       );
     }
 
@@ -33,7 +32,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       collegeIdCard,
       entityName,
       referralUsed,
-      createdById
+      createdById,
     } = body;
 
     let { finalPrice } = await getPrice(referralUsed);
@@ -61,7 +60,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
           entityName,
           referralUsed,
           paidAmount: finalPrice,
-          createdById 
+          createdById,
         },
       });
       return NextResponse.json({ newFormEntry }, { status: 201 });
@@ -71,7 +70,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const message = getErrorMessage(error);
     return NextResponse.json(
       { error: message || "An error occurred" },
-      { status: 400 } // Error response
+      { status: 400 }, // Error response
     );
   }
 }

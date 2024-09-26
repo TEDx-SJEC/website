@@ -12,19 +12,18 @@ export const RegistrationFormSchema = z
       .optional(),
     email: z.string().email(),
     contact: z.string().min(10).max(10),
-    designation: z.string().refine(
-      (value) => ["Student", "Faculty", "Alumni"].includes(value),
-      {
+    designation: z
+      .string()
+      .refine((value) => ["Student", "Faculty", "Alumni"].includes(value), {
         message: "Invalid designation",
-      }
-    ),
+      }),
     photo: z
       .string()
       .refine(
         (value) => value.startsWith("http://") || value.startsWith("https://"),
         {
           message: "Invalid photo URL",
-        }
+        },
       ),
     collegeIdCard: z.string().optional(),
     entityName: z.string().min(1),
@@ -41,7 +40,7 @@ export const RegistrationFormSchema = z
     {
       message: "College ID Card and USN are required for students",
       path: ["usn", "collegeIdCard"],
-    }
+    },
   );
 
 export type TRegistrationForm = z.infer<typeof RegistrationFormSchema>;

@@ -17,10 +17,9 @@ export const sendEmail = async (options: SendEmailType) => {
       <EmailTemplate
         name={options.name}
         email={options.email}
-        OTP={options
-          .OTP}
-      />
-    )
+        OTP={options.OTP}
+      />,
+    );
 
     const mailOptions: EmailOptions = {
       from: `"Tedx SJEC" <${process.env.GMAIL_USER}>`,

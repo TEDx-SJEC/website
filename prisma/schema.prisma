@@ -62,26 +62,26 @@ model Referral {
   discountPercentage String   @default("20") @map("discount_percentage")
   createdById        String   @map("createdby_id")
   usedById           String?  @map("usedby_id")
-  isUsed             Boolean  @default(false) 
+  isUsed             Boolean  @default(false)
   created_at         DateTime @default(now())
 
   createdBy User   @relation("createdByUser", fields: [createdById], references: [id], onDelete: Cascade) // Admin who created the referral
-  usedBy    User?  @relation("usedByUser", fields: [usedById], references: [email]) 
+  usedBy    User?  @relation("usedByUser", fields: [usedById], references: [email])
   forms     Form[]
 }
 
 model Form {
   id            String   @id @default(cuid())
   name          String
-  usn           String?  
+  usn           String?
   email         String
   contact       String?
   designation   String?
   photo         String   @map("photo_url") // URL of the photo uploaded by the participan
   collegeIdCard String?  @map("college_id_card")
   entityName    String   @map("entity_name")
-  referralUsed    String?  @map("referral_used")
-  paidAmount    Float   @map("paid_amount")
+  referralUsed  String?  @map("referral_used")
+  paidAmount    Float    @map("paid_amount")
   createdById   String   @map("created_by_id")
   created_at    DateTime @default(now())
   //registrationEmailSent Boolean? @default(false) @map("registration_email_sent")
@@ -89,14 +89,3 @@ model Form {
   user     User      @relation(fields: [createdById], references: [id], onDelete: Cascade)
   referral Referral? @relation(fields: [referralUsed], references: [code])
 }
-
-// model VerificationRequest {
-//   id         String   @id @default(cuid())
-//   identifier String // Like email or phone number
-//   otp        String
-//   expires    DateTime
-//   created_at DateTime @default(now())
-//   updated_at DateTime @updatedAt
-
-//   @@unique([identifier, otp]) // Ensure OTP is unique for a given identifier
-// }
