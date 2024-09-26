@@ -1,6 +1,7 @@
 "use server";
 
 import prisma from "@/server/db";
+import { basePrice, initialdiscount } from "@/constants";
 
 class CouponError extends Error {
   constructor(message: string) {
@@ -16,8 +17,7 @@ export const getPrice = async (
   discountAmount: number;
   finalPrice: number;
 }> => {
-  const basePrice = 1000;
-  let discountAmount = 0;
+  let discountAmount = initialdiscount;
   let finalPrice = basePrice;
   if (couponCode) {
     const coupon = await prisma.referral.findUnique({

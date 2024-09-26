@@ -6,13 +6,14 @@ import { useState } from "react";
 import { Input } from "./ui/input";
 import { toast } from "sonner";
 import getErrorMessage from "@/utils/getErrorMessage";
+import { basePrice, initialdiscount } from "@/constants";
 
 export function Payment() {
   const [coupon, setCoupon] = useState("");
   const [pricing, setPricing] = useState({
-    basePrice: 1200,
-    discountAmount: 0,
-    finalPrice: 1200,
+    basePrice: basePrice,
+    discountAmount: initialdiscount,
+    finalPrice: basePrice,
   });
   const verifyCoupon = async () => {
     try {
