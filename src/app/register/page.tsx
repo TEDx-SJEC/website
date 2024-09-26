@@ -6,7 +6,7 @@ export default function page() {
   return (
     <div>
         <RegistrationForm />
-        <Payment price={3000} discount={200}/>
+        <Payment/>
     </div>
   )
 }
