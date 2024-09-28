@@ -5,6 +5,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "@/server/db";
 import { UserRoleType } from "@/types";
 import { JWT } from "next-auth/jwt";
+import { getUserById } from "@/app/actions/get-user-by-id";
 
 declare module "next-auth" {
     interface Session {
@@ -37,6 +38,13 @@ export const authOptions: NextAuthOptions = {
                     ...token,
                     id: user.id,
                     role: user.role,
+                };
+            }
+            if (token.id) {
+                const updatedUser = await getUserById(token.id);
+                return {
+                    ...token,
+                    role: updatedUser?.role,
                 };
             }
             return token;
