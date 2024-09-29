@@ -1,3 +1,4 @@
+"use server"
 import { getServerSideSession } from "@/lib/get-server-session";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
