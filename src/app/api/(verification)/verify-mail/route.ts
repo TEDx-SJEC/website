@@ -14,37 +14,37 @@ export async function POST(req: NextRequest) {
   }
   try {
     await prisma.$transaction(async (tx) => {
-      const request = await tx.verificationRequest.findFirst({
-        where: {
-          identifier,
-          otp,
-          expires: {
-            gte: new Date(),
-          },
-        },
-        orderBy: {
-          created_at: "desc",
-        },
-      });
+    //   const request = await tx.verificationRequest.findFirst({
+    //     where: {
+    //       identifier,
+    //       otp,
+    //       expires: {
+    //         gte: new Date(),
+    //       },
+    //     },
+    //     orderBy: {
+    //       created_at: "desc",
+    //     },
+    //   });
 
-      if (!request) {
-        throw new Error("Verification failed: Invalid or expired OTP");
-      }
+    //   if (!request) {
+    //     throw new Error("Verification failed: Invalid or expired OTP");
+    //   }
 
-      await tx.form.updateMany({
-        where: {
-          email: identifier,
-        },
-        data: {
-          emailVerified: true,
-        },
-      });
+    //   await tx.form.updateMany({
+    //     where: {
+    //       email: identifier,
+    //     },
+    //     data: {
+    //       emailVerified: true,
+    //     },
+    //   });
 
-      await tx.verificationRequest.deleteMany({
-        where: {
-          identifier,
-        },
-      });
+    //   await tx.verificationRequest.deleteMany({
+    //     where: {
+    //       identifier,
+    //     },
+    //   });
     });
 
     return NextResponse.json(

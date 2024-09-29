@@ -44,7 +44,7 @@ const worker = new Worker(
   },
   {
     connection: redisConnection,
-  }
+  },
 );
 
 worker.on("ready", () => {

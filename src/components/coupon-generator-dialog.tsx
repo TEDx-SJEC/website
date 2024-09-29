@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Button } from "@/components/ui/button"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -8,32 +8,35 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { AlertCircle, CheckCircle } from 'lucide-react'
-import clsx from 'clsx'
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { AlertCircle, CheckCircle } from "lucide-react";
+import clsx from "clsx";
 
 interface CouponGeneratorDialogProps {
-  className?: string
+  className?: string;
   onGenerateCoupon: () => void;
 }
 
-export default function CouponGeneratorDialog({ className, onGenerateCoupon}: CouponGeneratorDialogProps) {
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
-  const [isOpen, setIsOpen] = useState(false)
+export default function CouponGeneratorDialog({
+  className,
+  onGenerateCoupon,
+}: CouponGeneratorDialogProps) {
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleGenerateCoupon = () => {
     if (password === process.env.NEXT_PUBLIC_ADMIN_PASSWORD) {
-      onGenerateCoupon()
-      setIsOpen(false)
-      setPassword('')
-      setError('')
+      onGenerateCoupon();
+      setIsOpen(false);
+      setPassword("");
+      setError("");
     } else {
-      setError('Incorrect password. Please try again.')
+      setError("Incorrect password. Please try again.");
     }
-  }
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -65,9 +68,11 @@ export default function CouponGeneratorDialog({ className, onGenerateCoupon}: Co
           )}
         </div>
         <DialogFooter className="sm:justify-start">
-          <Button type="submit" onClick={handleGenerateCoupon}>Generate Coupon</Button>
+          <Button type="submit" onClick={handleGenerateCoupon}>
+            Generate Coupon
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

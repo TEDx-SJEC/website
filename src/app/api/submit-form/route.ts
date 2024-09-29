@@ -1,8 +1,8 @@
-import type { NextApiRequest, NextApiResponse } from "next";
 import { NextRequest, NextResponse } from "next/server";
 import { RegistrationFormSchema, TRegistrationForm } from "@/utils/zod-schemas";
 import prisma from "@/server/db";
-import determinePrice from "@/utils/determinePrice";
+import { getPrice } from "@/app/actions/get-price";
+import getErrorMessage from "@/utils/getErrorMessage";
 
 export async function GET() {
   return NextResponse.json({ message: "Hello from the API!" });
@@ -18,7 +18,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     if (!validationResult.success) {
       throw new Error(
         "Validation error: " +
-          validationResult.error.errors.map((e) => e.message).join(", ")
+          validationResult.error.errors.map((e) => e.message).join(", "),
       );
     }
 
@@ -31,36 +31,46 @@ export async function POST(req: NextRequest, res: NextResponse) {
       photo,
       collegeIdCard,
       entityName,
-      referralId,
+      referralUsed,
       createdById,
     } = body;
 
-    let price = await determinePrice(email, referralId);
+    let { finalPrice } = await getPrice(referralUsed);
 
-    const newFormEntry = await prisma.form.create({
-      data: {
-        name,
-        usn,
-        email,
-        contact,
-        designation,
-        photo,
-        collegeIdCard,
-        entityName,
-        referralId,
-        createdById,
-      },
+    await prisma.$transaction(async (tx) => {
+      prisma.referral.update({
+        where: {
+          code: referralUsed,
+        },
+        data: {
+          usedById: email,
+          isUsed: true,
+        },
+      });
+
+      const newFormEntry = await prisma.form.create({
+        data: {
+          name,
+          usn: usn || "",
+          email,
+          contact,
+          designation,
+          photo,
+          collegeIdCard,
+          entityName,
+          referralUsed,
+          paidAmount: finalPrice,
+          createdById,
+        },
+      });
+      return NextResponse.json({ newFormEntry }, { status: 201 });
     });
-
-    return NextResponse.json({ newFormEntry }, { status: 201 });
   } catch (error: any) {
     console.error(error);
+    const message = getErrorMessage(error);
     return NextResponse.json(
-      { error: error.message || "An error occurred" },
-      { status: 400 } // Error response
+      { error: message || "An error occurred" },
+      { status: 400 }, // Error response
     );
   }
 }
-
-
-

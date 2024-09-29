@@ -9,7 +9,7 @@ export async function middleware(request: NextRequest) {
   const url = request.nextUrl;
 
   if (url.pathname.startsWith("/admin")) {
-    if (token?.role!=="ADMIN") {
+    if (token?.role !== "ADMIN") {
       return NextResponse.redirect(new URL("/", request.url));
     }
   }
