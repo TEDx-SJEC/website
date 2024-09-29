@@ -1,4 +1,8 @@
-import { DefaultSession, type NextAuthOptions, type Session as NextAuthSession } from "next-auth";
+import {
+  DefaultSession,
+  type NextAuthOptions,
+  type Session as NextAuthSession,
+} from "next-auth";
 import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
@@ -8,18 +12,18 @@ import { JWT } from "next-auth/jwt";
 import { getUserById } from "@/app/actions/get-user-by-id";
 
 declare module "next-auth" {
-    interface Session {
-        user: {
-            id: string;
-            role: UserRoleType;
-        } & DefaultSession["user"];
-    }
+  interface Session {
+    user: {
+      id: string;
+      role: UserRoleType;
+    } & DefaultSession["user"];
+  }
 }
 
 declare module "next-auth/jwt" {
-    interface JWT {
-        role: UserRoleType;
-    }
+  interface JWT {
+    role: UserRoleType;
+  }
 }
 
 export const authOptions: NextAuthOptions = {
@@ -60,13 +64,15 @@ export const authOptions: NextAuthOptions = {
                 },
             };
         },
+      };
     },
+  },
 
-    session: {
-        strategy: "jwt",
-    },
-    secret: process.env.NEXTAUTH_SECRET,
-    // debug: process.env.NODE_ENV === "development",
+  session: {
+    strategy: "jwt",
+  },
+  secret: process.env.NEXTAUTH_SECRET,
+  // debug: process.env.NODE_ENV === "development",
 };
 
 export const handlers = NextAuth(authOptions);

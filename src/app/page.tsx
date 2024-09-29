@@ -47,9 +47,10 @@ export default function Home() {
                 identifier: "joywinbennis0987@gmail.com",
                 otp,
               });
-              console.log("1",response.data);
+              console.log("1", response.data);
               if (response.data.status === 200) alert(response.data.message);
-              else if (response.data.status === 400) alert(response.data.message);
+              else if (response.data.status === 400)
+                alert(response.data.message);
             } catch (error) {
               console.error("Error verifying OTP:", error);
             }

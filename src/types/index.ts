@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
 
-
 export type UserRoleType = "ADMIN" | "PARTICIPANT";
 
 export interface EmailOptions {
@@ -18,9 +17,9 @@ export interface sendEmail {
 }
 
 export interface ResendEmailOptions {
-    from: string;
-    to: string;
-    subject: string;
-    react: ReactNode;
-    text: string;
-  }
+  from: string;
+  to: string;
+  subject: string;
+  react: ReactNode;
+  text: string;
+}
