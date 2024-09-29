@@ -7,14 +7,15 @@ import { getToken } from "next-auth/jwt";
 export async function middleware(request: NextRequest) {
     const token = await getToken({ req: request });
     const url = request.nextUrl;
-  
+
     if (url.pathname.startsWith("/admin")) {
         if (token?.role !== "ADMIN") {
             return NextResponse.redirect(new URL("/", request.url));
         }
+    }
+}
 
 // See "Matching Paths" below to learn more
 export const config = {
-
     matcher: ["/:path*", "/"],
 };
