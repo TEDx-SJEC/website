@@ -23,6 +23,7 @@ model User {
   updated_at       DateTime   @updatedAt
   createdReferrals Referral[] @relation("createdByUser")
   usedReferrals    Referral[] @relation("usedByUser")
+  Payment          Payment[]
 }
 
 model Account {
@@ -88,4 +89,19 @@ model Form {
 
   user     User      @relation(fields: [createdById], references: [id], onDelete: Cascade)
   referral Referral? @relation(fields: [referralUsed], references: [code])
+  Payment  Payment[]
+}
+
+model Payment {
+  signature         String?
+  userId            String   @map("form_id")
+  amount            Float
+  orderCreationId   String   @map("order_creation_id")
+  razorpayPaymentId String   @id @map("razorpay_payment_id")
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  formId String?
+  Form   Form?   @relation(fields: [formId], references: [id])
 }
