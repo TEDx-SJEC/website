@@ -8,7 +8,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "migrate-latest": "export $(grep -v '^#' .env | xargs) && LATEST_MIGRATION=$(find prisma/migrations/*/ -type d -name '[0-9]*_*' | sort -r | head -n 1) && turso db shell $TURSO_DB_NAME < ${LATEST_MIGRATION}migration.sql"
+    "migrate-latest": "export $(grep -v '^#' .env | xargs) && LATEST_MIGRATION=$(find prisma/migrations/*/ -type d -name '[0-9]*_*' | sort -r | head -n 1) && turso db shell $TURSO_DB_NAME < ${LATEST_MIGRATION}migration.sql",
+    "migrate-latest-w": "wsl sh -c \"export $(grep -v '^#' .env.local | xargs) && LATEST_MIGRATION=$(find prisma/migrations/*/ -type d -name '[0-9]*_*' | sort -r | head -n 1) && turso db shell $TURSO_DB_NAME < '${LATEST_MIGRATION}migration.sql'\""
+
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -31,6 +33,7 @@
     "@react-email/components": "^0.0.25",
     "@react-three/drei": "^9.114.0",
     "@tanstack/react-query": "^5.56.2",
+    "@types/canvas-confetti": "^1.6.4",
     "@types/ioredis": "^4.28.10",
     "@types/lodash.debounce": "^4.0.9",
     "@uploadthing/react": "^7.0.2",
@@ -49,6 +52,7 @@
     "next-auth": "^4.24.7",
     "nodemailer": "^6.9.15",
     "otp-generator": "^4.0.1",
+    "razorpay": "^2.9.4",
     "react": "^18.3.1",
     "react-dom": "^18",
     "react-email": "^3.0.1",
