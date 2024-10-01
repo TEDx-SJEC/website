@@ -3,12 +3,13 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import { IconType } from "react-icons";
 import { FiChevronDown, FiChevronsRight, FiUser } from "react-icons/fi";
 import { RiCoupon3Line } from "react-icons/ri";
+import { MdPayment } from "react-icons/md";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
 export const AdminNavbar = () => {
     return (
-        <div className="flex bg-indigo-50 h-screen">
+        <div className="flex bg-indigo-50 h-screen ">
             <Sidebar />
             <NavbarContent />
         </div>
@@ -22,7 +23,7 @@ const Sidebar = () => {
     return (
         <motion.nav
             layout
-            className="sticky top-0 bottom-0 h-screen shrink-0 border-r border-slate-300 bg-white p-2"
+            className=" sticky top-0 h-screen shrink-0 border-r border-slate-300 bg-white p-2"
             style={{
                 width: open ? "225px" : "fit-content",
             }}
@@ -45,6 +46,14 @@ const Sidebar = () => {
                     setSelected={setSelected}
                     open={open}
                     href="/admin/users"
+                />
+                <Option
+                    Icon={MdPayment}
+                    title="Payments"
+                    selected={selected}
+                    setSelected={setSelected}
+                    open={open}
+                    href="/admin/payment"
                 />
             </div>
 
