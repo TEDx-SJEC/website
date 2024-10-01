@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import getErrorMessage from "@/utils/getErrorMessage";
 import { basePrice, initialdiscount } from "@/constants";
 import Script from "next/script";
+import { ConfettiSideCannons } from "./confetti-display";
 
 declare global {
     interface Window {
@@ -34,6 +35,8 @@ export function Payment() {
         finalPrice: basePrice,
     });
     const [isProcessing, setIsProcessing] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
+    const [trigger, setTrigger] = useState(false);
 
     const handlePayment = async () => {
         setIsProcessing(true);
@@ -54,6 +57,8 @@ export function Payment() {
                 order_id: (await data).orderId,
                 handler: (response: RazorpayResponse) => {
                     console.log("Payment successful");
+                    setIsSuccess(true);
+                    setTrigger(true);
                 },
                 prefill: {
                     name: "John Doe",
@@ -83,6 +88,13 @@ export function Payment() {
             toast.error(`${message}`);
         }
     };
+    if (isSuccess) {
+        return (
+            <div>
+                <ConfettiSideCannons trigger={trigger} />
+            </div>
+        );
+    }
     return (
         <Card className="w-full h-screen max-w-md p-6 rounded-lg shadow-lg">
             <Script src="https://checkout.razorpay.com/v1/checkout.js" />
