@@ -37,6 +37,7 @@ jobs:
           echo "TURSO_AUTH_TOKEN is set: ${{ env.TURSO_AUTH_TOKEN != '' }}"
           echo "TURSO_DATABASE_URL is set: ${{ env.TURSO_DATABASE_URL != '' }}"
           echo "RESEND_API_KEY" is set ${{ env.RESEND_API_KEY != '' }}
+          echo 
         env:
           NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
           NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
@@ -56,6 +57,9 @@ jobs:
           TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
           TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RAZORPAY_KEY_ID: ${{ secrets.RAZORPAY_KEY_ID }}
+          RAZORPAY_SECRET: ${{ secrets.RAZORPAY_SECRET }}
+          NEXT_PUBLIC_RAZORPAY_KEY_ID: ${{ secrets.NEXT_PUBLIC_RAZORPAY_KEY_ID }}
 
       - name: Upload build artifacts (optional)
         if: always()
