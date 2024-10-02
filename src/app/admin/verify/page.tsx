@@ -1,10 +1,10 @@
 "use client";
-
 import { useState, useEffect } from "react";
-import { QrReader } from "react-qr-reader";
+import { Scanner } from "@yudiel/react-qr-scanner";
 import { useRouter } from "next/navigation";
+import { IDetectedBarcode } from "@yudiel/react-qr-scanner";
 
-export default function QRCodeScanner() {
+const QRCodeScanner = () => {
     const [isMobile, setIsMobile] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
@@ -17,27 +17,34 @@ export default function QRCodeScanner() {
                 userAgent.toLowerCase()
             );
         };
-
         setIsMobile(checkMobile());
     }, []);
 
-    const handleScan = (result: string | null) => {
-        if (result) {
-            // Validate URL before redirecting
-            try {
-                new URL(result);
-                router.push(result);
-            } catch {
-                setError("Invalid QR code. Please scan a valid URL.");
+    const handleScan = (detectedCodes: IDetectedBarcode[]) => {
+        if (detectedCodes.length > 0) {
+            const result = detectedCodes[0].rawValue;
+            if (result) {
+                try {
+                    // Validate if the scanned result is a valid URL
+                    const url = new URL(result);
+                    // Redirect to the scanned URL
+                    router.push(url.toString());
+                } catch {
+                    setError("Invalid QR code. Please scan a valid URL.");
+                }
             }
         }
     };
 
-    const handleError = (error: Error) => {
-        setError("Error accessing camera: " + error.message);
+    const handleError = (error: unknown) => {
+        if (error instanceof Error) {
+            setError("Error accessing camera: " + error.message);
+        } else {
+            setError("An unknown error occurred.");
+        }
     };
 
-    if (!isMobile) {
+    if (isMobile) {
         return (
             <div className="flex items-center justify-center h-screen bg-gray-100">
                 <div className="bg-white p-8 rounded-lg shadow-md max-w-md w-full">
@@ -58,12 +65,9 @@ export default function QRCodeScanner() {
                 {error ? (
                     <p className="text-red-500 text-center mb-4">{error}</p>
                 ) : (
-                    <QrReader
-                        onResult={(result: any) => {
-                            if (result) {
-                                handleScan(result?.text);
-                            }
-                        }}
+                    <Scanner
+                        onScan={handleScan}
+                        onError={handleError}
                         constraints={{ facingMode: "environment" }}
                     />
                 )}
@@ -73,4 +77,6 @@ export default function QRCodeScanner() {
             </div>
         </div>
     );
-}
+};
+
+export default QRCodeScanner;
