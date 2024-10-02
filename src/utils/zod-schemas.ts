@@ -17,14 +17,7 @@ export const RegistrationFormSchema = z
       .refine((value) => ["Student", "Faculty", "Alumni"].includes(value), {
         message: "Invalid designation",
       }),
-    photo: z
-      .string()
-      .refine(
-        (value) => value.startsWith("http://") || value.startsWith("https://"),
-        {
-          message: "Invalid photo URL",
-        },
-      ),
+    photo: z.string(),
     collegeIdCard: z.string().optional(),
     entityName: z.string().min(1),
     referralUsed: z.string().optional(),
