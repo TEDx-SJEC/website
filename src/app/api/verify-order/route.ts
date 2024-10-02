@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
             await sendRegistrationEmail({
                 email: session.user?.email!,
                 name: session.user?.name!,
-                registrationLink: `http://localhost:3000/verify/${razorpayPaymentId}`,
+                registrationLink: `http://localhost:3000/admin/verify/${razorpayPaymentId}`,
             });
         } catch (error) {
             console.log(error);
