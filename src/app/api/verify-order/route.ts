@@ -1,18 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import crypto from "crypto";
 import { getServerSideSession } from "@/lib/get-server-session";
 import prisma from "@/server/db";
 import { sendRegistrationEmail } from "@/lib/send-registration-email";
+import { generatedSignature } from "@/lib/helper";
 
-export const generatedSignature = (razorpayOrderId: string, razorpayPaymentId: string) => {
-    const keySecret = process.env.RAZORPAY_KEY_SECRET!;
 
-    const sig = crypto
-        .createHmac("sha256", keySecret)
-        .update(razorpayOrderId + "|" + razorpayPaymentId)
-        .digest("hex");
-    return sig;
-};
 
 export async function POST(request: NextRequest) {
     const { orderId, razorpayPaymentId, razorpaySignature, amount } = await request.json();
