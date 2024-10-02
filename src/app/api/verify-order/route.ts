@@ -1,36 +1,48 @@
 import { NextRequest, NextResponse } from "next/server";
-import crypto from "crypto";
 import { getServerSideSession } from "@/lib/get-server-session";
 import prisma from "@/server/db";
+import { sendRegistrationEmail } from "@/lib/send-registration-email";
+import { generatedSignature } from "@/lib/helper";
 
-const generatedSignature = (razorpayOrderId: string, razorpayPaymentId: string) => {
-    const keySecret = process.env.RAZORPAY_KEY_SECRET!;
 
-    const sig = crypto
-        .createHmac("sha256", keySecret)
-        .update(razorpayOrderId + "|" + razorpayPaymentId)
-        .digest("hex");
-    return sig;
-};
 
 export async function POST(request: NextRequest) {
     const { orderId, razorpayPaymentId, razorpaySignature, amount } = await request.json();
     const session = await getServerSideSession();
-    if(!session){
+    if (!session) {
         return NextResponse.json({ message: "No session", isOk: false }, { status: 400 });
     }
     const signature = generatedSignature(orderId, razorpayPaymentId);
     if (signature !== razorpaySignature) {
         return NextResponse.json({ message: "payment verification failed", isOk: false }, { status: 400 });
     }
-    await prisma.payment.create({
-        data: {
-            signature: razorpaySignature as string,
-            userId: session?.user.id!,
-            amount,
-            orderCreationId: orderId,
-            razorpayPaymentId: razorpayPaymentId,
-        },
-    });
-    return NextResponse.json({ message: "payment verified successfully", isOk: true }, { status: 200 });
+    if (signature === razorpaySignature) {
+        const user = await prisma.user.findUnique({
+            where: {
+                email: session.user?.email!,
+            },
+        });
+
+        try {
+            await sendRegistrationEmail({
+                email: session.user?.email!,
+                name: session.user?.name!,
+                registrationLink: `http://localhost:3000/admin/verify/${razorpayPaymentId}`,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+        await prisma.$transaction(async (prisma) => {
+            await prisma.payment.create({
+                data: {
+                    amount: amount,
+                    orderCreationId: orderId,
+                    razorpayPaymentId: razorpayPaymentId,
+                    signature: razorpaySignature,
+                    user: { connect: { email: session.user?.email! } },
+                },
+            });
+        });
+        return NextResponse.json({ message: "payment verified successfully", isOk: true }, { status: 200 });
+    }
 }
