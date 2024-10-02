@@ -94,7 +94,7 @@ model Form {
 
 model Payment {
   signature         String?
-  userId            String   @map("form_id")
+  userId            String   @map("user_id")
   amount            Float
   orderCreationId   String   @map("order_creation_id")
   razorpayPaymentId String   @id @map("razorpay_payment_id")
@@ -102,6 +102,6 @@ model Payment {
   updated_at        DateTime @updatedAt
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  formId String?
+  formId String? @map("form_id")
   Form   Form?   @relation(fields: [formId], references: [id])
 }
