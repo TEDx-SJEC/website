@@ -100,6 +100,7 @@ export default function page() {
               handleRegister={handleRegister}
               form={form}
               nextStep={nextStep}
+              files={files}
               setFiles={setFiles}
             />
           )}

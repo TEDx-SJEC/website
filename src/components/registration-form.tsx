@@ -25,11 +25,13 @@ import { Button } from "@/components/ui/button";
 
 interface RegistrationFormProps {
   form: {
+    formState: any;
     control: Control<TRegistrationForm>;
     handleSubmit: UseFormHandleSubmit<TRegistrationForm>;
   };
   nextStep: () => void;
   handleRegister: (data: TRegistrationForm) => void;
+  files: { collegeId: File | null; photo: File | null };
   setFiles: React.Dispatch<
     React.SetStateAction<{ collegeId: File | null; photo: File | null }>
   >;
@@ -39,6 +41,7 @@ export default function RegistrationForm({
   form,
   nextStep,
   handleRegister,
+  files,
   setFiles,
 }: RegistrationFormProps) {
   const [designation, setDesignation] = useState<string | undefined>(undefined);
@@ -227,6 +230,11 @@ export default function RegistrationForm({
                     disabled={designation !== "Student"}
                   />
                 </FormControl>
+                {designation === "Student" && !files.collegeId && (
+                  <span className="text-red-500 text-sm">
+                    College ID Card is required for students
+                  </span>
+                )}
               </FormItem>
             )}
           />
@@ -252,9 +260,9 @@ export default function RegistrationForm({
                     onBlur={() => field.onBlur()} // Ensure the input is marked as blurred
                   />
                 </FormControl>
-                {form.formState.errors.photo && (
+                {designation === "Student" && !files.photo && (
                   <span className="text-red-500 text-sm">
-                    {form.formState.errors.photo.message}
+                    College ID Card is required for students
                   </span>
                 )}
               </FormItem>
