@@ -4,7 +4,7 @@ import { getServerSideSession } from "@/lib/get-server-session";
 import prisma from "@/server/db";
 import { sendRegistrationEmail } from "@/lib/send-registration-email";
 
-const generatedSignature = (razorpayOrderId: string, razorpayPaymentId: string) => {
+export const generatedSignature = (razorpayOrderId: string, razorpayPaymentId: string) => {
     const keySecret = process.env.RAZORPAY_KEY_SECRET!;
 
     const sig = crypto
