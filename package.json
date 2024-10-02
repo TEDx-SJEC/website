@@ -8,9 +8,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "email": "email dev",
     "migrate-latest": "export $(grep -v '^#' .env | xargs) && LATEST_MIGRATION=$(find prisma/migrations/*/ -type d -name '[0-9]*_*' | sort -r | head -n 1) && turso db shell $TURSO_DB_NAME < ${LATEST_MIGRATION}migration.sql",
     "migrate-latest-w": "wsl sh -c \"export $(grep -v '^#' .env.local | xargs) && LATEST_MIGRATION=$(find prisma/migrations/*/ -type d -name '[0-9]*_*' | sort -r | head -n 1) && turso db shell $TURSO_DB_NAME < '${LATEST_MIGRATION}migration.sql'\""
-
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -31,6 +31,7 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tabs": "^1.1.0",
     "@react-email/components": "^0.0.25",
+    "@react-email/tailwind": "0.1.0",
     "@react-three/drei": "^9.114.0",
     "@tanstack/react-query": "^5.56.2",
     "@types/canvas-confetti": "^1.6.4",
@@ -56,8 +57,8 @@
     "react": "^18.3.1",
     "react-dom": "^18",
     "react-email": "^3.0.1",
-    "react-icons": "^5.3.0",
     "react-hook-form": "^7.53.0",
+    "react-icons": "^5.3.0",
     "resend": "^4.0.0",
     "sonner": "^1.5.0",
     "tailwind-merge": "^2.5.2",
