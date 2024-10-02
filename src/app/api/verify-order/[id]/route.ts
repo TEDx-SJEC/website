@@ -3,13 +3,13 @@ import { razorpay } from "@/lib/razorpay";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: Request, context: { params: { id: string } }) {
-    const session = await getServerSideSession();
-    if (!session) {
-        return NextResponse.json({ message: "Unauthorized", isOk: false }, { status: 401 });
-    }
-    if (session.user.role !== "ADMIN") {
-        return NextResponse.json({ message: "Forbidden", isOk: false }, { status: 403 });
-    }
+    // const session = await getServerSideSession();
+    // if (!session) {
+    //     return NextResponse.json({ message: "Unauthorized", isOk: false }, { status: 401 });
+    // }
+    // if (session.user.role !== "ADMIN") {
+    //     return NextResponse.json({ message: "Forbidden", isOk: false }, { status: 403 });
+    // }
 
     const { id } = context.params;
     try {
