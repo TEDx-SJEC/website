@@ -55,6 +55,14 @@ const Sidebar = () => {
           open={open}
           href="/admin/payment"
         />
+        <Option
+          Icon={MdPayment}
+          title="Verify"
+          selected={selected}
+          setSelected={setSelected}
+          open={open}
+          href="/admin/verify"
+        />
       </div>
 
       <ToggleClose open={open} setOpen={setOpen} />
