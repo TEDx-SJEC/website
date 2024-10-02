@@ -21,7 +21,7 @@ import {
 import { TRegistrationForm } from "@/utils/zod-schemas";
 
 import { Control, UseFormHandleSubmit } from "react-hook-form";
-import { Button } from "@react-email/components";
+import { Button } from "@/components/ui/button";
 
 interface RegistrationFormProps {
   form: {
@@ -55,7 +55,7 @@ export default function RegistrationForm({
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(handleRegister)}
+        onSubmit={form.handleSubmit(nextStep)}
         className="w-full p-16 text-lg"
       >
         <div className="mx-auto max-w-md space-y-8 py-12">
@@ -178,6 +178,11 @@ export default function RegistrationForm({
                     disabled={designation !== "Student"}
                   />
                 </FormControl>
+                {form.formState.errors.usn && (
+                  <span className="text-red-500 text-sm">
+                    {form.formState.errors.usn.message}
+                  </span>
+                )}
               </FormItem>
             )}
           />
@@ -240,17 +245,25 @@ export default function RegistrationForm({
                     className="w-full p-2 h-12 text-lg rounded-lg"
                     onChange={(e) => {
                       const file = e.target.files?.[0] || null;
+                      field.onChange(file);
                       setFiles((prev) => ({ ...prev, photo: file }));
                     }}
+                    // Optional: Set the value to null to clear the input after a selection
+                    onBlur={() => field.onBlur()} // Ensure the input is marked as blurred
                   />
                 </FormControl>
+                {form.formState.errors.photo && (
+                  <span className="text-red-500 text-sm">
+                    {form.formState.errors.photo.message}
+                  </span>
+                )}
               </FormItem>
             )}
           />
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Button className="text-lg p-4">
+            <Button className="text-lg p-4" type="submit">
               Next
             </Button>
           </div>
