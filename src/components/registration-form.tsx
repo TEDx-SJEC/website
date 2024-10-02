@@ -78,9 +78,9 @@ export default function RegistrationForm() {
 
   const designationOptions = useMemo(
     () => [
-      { value: "student", label: "Student" },
-      { value: "employee", label: "Employee" },
-      { value: "faculty", label: "Faculty" },
+      { value: "Student", label: "Student" },
+      { value: "Employee", label: "Employee" },
+      { value: "Faculty", label: "Faculty" },
     ],
     [],
   );
