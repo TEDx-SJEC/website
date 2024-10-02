@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -8,11 +7,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useUploadThing } from "@/utils/uploadthing";
 import "@uploadthing/react/styles.css";
 import { useState, useMemo } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import {
   Form,
   FormControl,
@@ -22,59 +18,30 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { RegistrationFormSchema, TRegistrationForm } from "@/utils/zod-schemas";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { TRegistrationForm } from "@/utils/zod-schemas";
 
-export default function RegistrationForm() {
-  const form = useForm<TRegistrationForm>({
-    resolver: zodResolver(RegistrationFormSchema),
-    defaultValues: {
-      name: "",
-      usn: "",
-      email: "",
-      contact: "",
-      designation: "",
-      photo: "",
-      collegeIdCard: "",
-      entityName: "",
-      referralUsed: "",
-    },
-  });
-  const [files, setFiles] = useState<{
-    photo: File | null;
-    collegeId: File | null;
-  }>({ photo: null, collegeId: null });
-  const [uploading, setUploading] = useState(false);
-  const [designation, setDesignation] = useState<string | undefined>(undefined);
+import { Control, UseFormHandleSubmit } from "react-hook-form";
+import { Button } from "@react-email/components";
 
-  //uploadthing code -- custom one
-  const { startUpload } = useUploadThing("imageUploader", {
-    onClientUploadComplete: (res) => {
-      console.log("Client upload complete, response:", res[0].url);
-    },
-    onUploadError: () => {
-      toast.error("Upload failed");
-    },
-    onUploadBegin: (file: string) => {
-      console.log("upload has begun for", file);
-    },
-  });
-
-  const handleRegister = async (values: TRegistrationForm) => {
-    setUploading(true);
-    const { photo, collegeId } = files;
-
-    if (collegeId) {
-      await startUpload([collegeId]);
-      toast.success("College ID uploaded");
-    }
-    if (photo) {
-      await startUpload([photo]);
-      toast.success("Photo uploaded");
-    }
-    toast.success("Registered successfully");
-    setUploading(false);
+interface RegistrationFormProps {
+  form: {
+    control: Control<TRegistrationForm>;
+    handleSubmit: UseFormHandleSubmit<TRegistrationForm>;
   };
+  nextStep: () => void;
+  handleRegister: (data: TRegistrationForm) => void;
+  setFiles: React.Dispatch<
+    React.SetStateAction<{ collegeId: File | null; photo: File | null }>
+  >;
+}
+
+export default function RegistrationForm({
+  form,
+  nextStep,
+  handleRegister,
+  setFiles,
+}: RegistrationFormProps) {
+  const [designation, setDesignation] = useState<string | undefined>(undefined);
 
   const designationOptions = useMemo(
     () => [
@@ -82,7 +49,7 @@ export default function RegistrationForm() {
       { value: "Employee", label: "Employee" },
       { value: "Faculty", label: "Faculty" },
     ],
-    [],
+    []
   );
 
   return (
@@ -208,7 +175,7 @@ export default function RegistrationForm() {
                     className="w-full p-4 h-12 text-lg rounded-lg"
                     placeholder="Enter your USN"
                     {...field}
-                    disabled={designation !== "student"}
+                    disabled={designation !== "Student"}
                   />
                 </FormControl>
               </FormItem>
@@ -252,7 +219,7 @@ export default function RegistrationForm() {
                       const file = e.target.files?.[0] || null;
                       setFiles((prev) => ({ ...prev, collegeId: file }));
                     }}
-                    disabled={designation !== "student"}
+                    disabled={designation !== "Student"}
                   />
                 </FormControl>
               </FormItem>
@@ -283,7 +250,7 @@ export default function RegistrationForm() {
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Button className="text-lg p-4" disabled={uploading}>
+            <Button className="text-lg p-4">
               Next
             </Button>
           </div>

@@ -112,6 +112,7 @@ export function Payment() {
         );
     }
     return (
+        <>
         <Card className="w-full h-screen max-w-md p-6 rounded-lg shadow-lg">
             <Script src="https://checkout.razorpay.com/v1/checkout.js" />
             <div className="space-y-4">
@@ -158,5 +159,9 @@ export function Payment() {
         </div> */}
             </div>
         </Card>
+        <Button type="submit">
+            Register
+        </Button>
+        </>
     );
 }
