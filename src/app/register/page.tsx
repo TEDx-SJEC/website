@@ -85,10 +85,12 @@ export default function page() {
   };
 
   const nextStep = () => {
+    console.log("next step");
     setStep(step + 1);
   };
 
   const prevStep = () => {
+
     setStep(step - 1);
   };
   return (

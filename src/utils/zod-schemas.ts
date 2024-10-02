@@ -3,22 +3,16 @@ import { z } from "zod";
 export const RegistrationFormSchema = z
   .object({
     name: z.string().min(1),
-    usn: z
-      .string()
-      .regex(/^4SO\d{2}[A-Za-z]{2}\d{3}$/, {
-        message:
-          "USN must follow the format 4SO followed by two digits, two letters, and three digits (e.g., 4SO21CS071)",
-      })
-      .optional(),
+    usn: z.string().optional(),
     email: z.string().email(),
     contact: z.string().min(10).max(10),
     designation: z
       .string()
-      .refine((value) => ["Student", "Faculty", "Alumni"].includes(value), {
+      .refine((value) => ["Student", "Faculty", "Employee"].includes(value), {
         message: "Invalid designation",
       }),
-    photo: z.string(),
-    collegeIdCard: z.string().optional(),
+    photo: z.instanceof(File),
+    collegeIdCard: z.instanceof(File).optional(),
     entityName: z.string().min(1),
     referralUsed: z.string().optional(),
     createdById: z.string(),
@@ -26,14 +20,14 @@ export const RegistrationFormSchema = z
   .refine(
     (data) => {
       if (data.designation === "Student") {
-        return data.usn && data.collegeIdCard;
+        return data.collegeIdCard;
       }
       return true;
     },
     {
-      message: "College ID Card and USN are required for students",
-      path: ["usn", "collegeIdCard"],
-    },
+      message: "College ID Card are required for students",
+      path: ["collegeIdCard"],
+    }
   );
 
 export type TRegistrationForm = z.infer<typeof RegistrationFormSchema>;
