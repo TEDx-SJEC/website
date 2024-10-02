@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import { ourFileRouter } from "@/app/api/uploadthing/core";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
