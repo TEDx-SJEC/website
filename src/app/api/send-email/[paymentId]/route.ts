@@ -1,9 +1,9 @@
 import { getServerSideSession } from "@/lib/get-server-session";
 import { razorpay } from "@/lib/razorpay";
 import { NextRequest, NextResponse } from "next/server";
-import { generatedSignature } from "../../verify-order/route";
 import prisma from "@/server/db";
 import { sendRegistrationEmail } from "@/lib/send-registration-email";
+import { generatedSignature } from "@/lib/helper";
 
 export async function POST(request: NextRequest, context: { params: { paymentId: string } }) {
     const session = await getServerSideSession();
