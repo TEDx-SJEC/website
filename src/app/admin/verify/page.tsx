@@ -27,6 +27,10 @@ const QRCodeScanner = () => {
                 try {
                     // Validate if the scanned result is a valid URL
                     const url = new URL(result);
+
+                    // if (!url.href.startsWith("https://tedxsjec")) {
+                    //     throw new Error("Invalid QR code . Please scan a valid QR code");
+                    // }
                     // Redirect to the scanned URL
                     router.push(url.toString());
                 } catch {
@@ -61,7 +65,7 @@ const QRCodeScanner = () => {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
             <div className="bg-white p-6 rounded-lg shadow-md max-w-md w-full">
-                <h1 className="text-2xl font-bold mb-4 text-center">QR Code Scanner</h1>
+                <h1 className="text-2xl font-bold text-center">QR Code Scanner</h1>
                 {error ? (
                     <p className="text-red-500 text-center mb-4">{error}</p>
                 ) : (
