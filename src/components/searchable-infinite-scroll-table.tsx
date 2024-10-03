@@ -154,7 +154,7 @@ export function SearchableInfiniteScrollTable() {
                             <TableCell>{item.usn}</TableCell>
                             <TableCell>{item.razorpayPaymentId}</TableCell>
                             <TableCell>{item.contactNumber}</TableCell>
-                            <TableCell>${item.amount.toFixed(2)}</TableCell>
+                            <TableCell>₹{item.amount.toFixed(2)}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
