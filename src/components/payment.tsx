@@ -9,6 +9,7 @@ import { basePrice, initialdiscount } from "@/constants";
 import Script from "next/script";
 import { ConfettiSideCannons } from "./confetti-display";
 import { toast } from "sonner";
+import { invalidateCouponCode } from "@/app/actions/invalidate-coupon";
 
 declare global {
     interface Window {
@@ -69,7 +70,8 @@ export function Payment() {
                     const data = await resp.json();
                     console.log(data);
                     if (data.isOk) {
-                        alert("Payment sucessfull");
+                        toast.success("Payment sucessfull");
+                        await invalidateCouponCode(coupon);
                         setTrigger(!trigger);
                         setIsSuccess(true);
                     } else {
