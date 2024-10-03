@@ -78,6 +78,12 @@ export function Payment() {
                         alert("Payment failed");
                     }
                 },
+                // change to dynamic
+                notes: {
+                    customerName: "John Doe",
+                    customerEmail: "jhondoe@something.com",
+                    customerContact: "9999999999",
+                },
                 prefill: {
                     name: "John Doe",
                     email: "jhondoe@something.com",
