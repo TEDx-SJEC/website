@@ -225,6 +225,7 @@ export default function RegistrationForm({
                     className="w-full p-2 h-12 text-lg rounded-lg"
                     onChange={(e) => {
                       const file = e.target.files?.[0] || null;
+                      field.onChange(file);
                       setFiles((prev) => ({ ...prev, collegeId: file }));
                     }}
                     disabled={designation !== "Student"}
