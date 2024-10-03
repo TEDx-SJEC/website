@@ -65,7 +65,7 @@ export default async function PaymentPage({ params }: { params: { id: string } }
               </div>
             )}
             <div className="text-center mt-6">
-              <Link href="/">
+              <Link href="/admin/verify">
                 <Button>
                   {paymentData ? "Back to Dashboard" : "Try Another Payment"}
                 </Button>
