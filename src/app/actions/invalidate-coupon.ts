@@ -1,14 +1,15 @@
-"use server"
+"use server";
 
-import prisma from "@/server/db"
+import prisma from "@/server/db";
 
-export async function invalidateCouponCode(couponCode:string){
+export async function invalidateCouponCode(couponCode: string) {
+    if (!couponCode) return;
     const resp = await prisma.referral.update({
-        where:{
-            code:couponCode
+        where: {
+            code: couponCode,
         },
-        data:{
-            isUsed:true
-        }
-    })
+        data: {
+            isUsed: true,
+        },
+    });
 }

@@ -17,9 +17,8 @@ export async function sendRegistrationEmail({
         await resend.emails.send({
             from: '"Tedx SJEC" <conceevo@joywincodes.tech>',
             to: email,
-            subject: "Tedx SJEC - Email Verification",
+            subject: "Event Registration Successful - TEDx SJEC",
             react: TedxRegistrationEmail({ name, registrationLink }),
-            text: `Hello ${name},\n\nThank you for registering for Tedx 2024.\n\nPlease click on the link below to complete your registration.\n\n${registrationLink}\n\nThank you!\n\nTedx SJEC Team`,
         });
     } catch (error) {
         console.log(error);
