@@ -7,7 +7,7 @@ import TextReveal from "@/components/ui/text-reveal";
 import Lenis from 'lenis'
 import Nav from "@/components/widget/header";
 import ScrollProgress from "@/components/ui/progressBar";
-import { VortexDemo } from "@/components/widget/hero";
+
 export default function Home() {
   const lenis = new Lenis()
 
