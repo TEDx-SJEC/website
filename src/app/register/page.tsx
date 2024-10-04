@@ -4,9 +4,9 @@ import React from "react";
 
 export default function page() {
   return (
-    <div className="flex">
+    <div className="flex h-screen justify-center items-center mt-8">
       <RegistrationForm />
-      <Payment />
+      {/* <Payment /> */}
     </div>
   );
 }
