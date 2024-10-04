@@ -25,6 +25,7 @@ import { basePrice, initialdiscount } from "@/constants";
 import { invalidateCouponCode } from "@/app/actions/invalidate-coupon";
 import { useSession } from "next-auth/react";
 import Script from "next/script";
+import { UploadDropzone } from "@/utils/uploadthing";
 
 declare global {
     interface Window {
@@ -44,24 +45,18 @@ interface RazorpayResponse {
     razorpay_signature: string;
 }
 
-const baseSchema = z.object({
+export const baseSchema = z.object({
     designation: z.enum(["student", "faculty", "employee"]),
     name: z.string().min(2, { message: "Name must be at least 2 characters." }),
     email: z.string().email({ message: "Invalid email address." }),
     phone: z.string().regex(/^\d{10}$/, { message: "Phone number must be 10 digits." }),
-    photo: z
-        .any()
-        .refine((file) => file instanceof File, "Photo is required")
-        .refine((file) => file instanceof File && file.size <= 5000000, "Max file size is 5MB."),
+    photo: z.string(),
     couponCode: z.string().optional(),
 });
 
-const studentSchema = baseSchema.extend({
+export const studentSchema = baseSchema.extend({
     usn: z.string().min(1, { message: "USN is required for students." }),
-    idCard: z
-        .any()
-        .refine((file) => file instanceof File, "Id card image is required")
-        .refine((file) => file instanceof File && file.size <= 3000000, "Max file size is 3MB."),
+    idCard: z.string(),
 });
 
 export default function RegistrationForm() {
@@ -84,6 +79,11 @@ export default function RegistrationForm() {
             couponCode: "",
         },
     });
+
+    const handleSubmitForm = async () => {
+        const data = form.getValues();
+        console.log(data);
+    };
 
     const handlePayment = async () => {
         setIsProcessing(true);
@@ -119,6 +119,7 @@ export default function RegistrationForm() {
                     if (data.isOk) {
                         toast.success("Payment sucessfull");
                         await invalidateCouponCode(couponCode ?? "", session!);
+                        await handleSubmitForm();
                     } else {
                         alert("Payment failed");
                     }
@@ -150,7 +151,8 @@ export default function RegistrationForm() {
     const onSubmit = async (
         values: z.infer<typeof studentSchema | typeof baseSchema | typeof baseSchema>
     ) => {
-        await handlePayment();
+        await handleSubmitForm();
+        // await handlePayment();
         // Handle form submission here
     };
 
@@ -282,12 +284,13 @@ export default function RegistrationForm() {
                                                 <FormItem>
                                                     <FormLabel>ID Card</FormLabel>
                                                     <FormControl>
-                                                        <Input
-                                                            type="file"
-                                                            accept="image/*"
-                                                            onChange={(e) =>
-                                                                field.onChange(e.target.files?.[0])
-                                                            }
+                                                        <UploadDropzone
+                                                            endpoint="imageUploader"
+                                                            onClientUploadComplete={(res) => {
+                                                                console.log("Files: ", res);
+                                                                form.setValue("photo", res[0].url);
+                                                                alert("Upload Completed");
+                                                            }}
                                                         />
                                                     </FormControl>
                                                     <FormDescription>
@@ -306,10 +309,13 @@ export default function RegistrationForm() {
                                         <FormItem>
                                             <FormLabel>Photo</FormLabel>
                                             <FormControl>
-                                                <Input
-                                                    type="file"
-                                                    accept="image/*"
-                                                    onChange={(e) => field.onChange(e.target.files?.[0])}
+                                                <UploadDropzone
+                                                    endpoint="imageUploader"
+                                                    onClientUploadComplete={(res) => {
+                                                        console.log("Files: ", res);
+                                                        form.setValue("idCard", res[0].url);
+                                                        alert("Upload Completed");
+                                                    }}
                                                 />
                                             </FormControl>
                                             <FormDescription>Upload your photo (max 5MB)</FormDescription>
