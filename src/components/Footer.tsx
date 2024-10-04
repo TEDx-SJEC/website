@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import TextGlitch from "./edil-ozi/text-glitch";
 
 type Props = {};
 
@@ -26,8 +27,8 @@ const Footer = (props: Props) => {
               </div>
               <div className="flex flex-col mt-8">
                 <div className="flex flex-col mx-8">
-                  <h1 className="text-2xl font-bold my-4">Contact</h1>
-                  <p>
+                  <h1 className="text-xl font-bold my-4">Contact</h1>
+                  <p className="text-lg">
                     Dr. Binu K G :{" "}
                     <a href="tel:+91-9739866947" className="text-red-600">
                       +91-9739866947
@@ -40,19 +41,19 @@ const Footer = (props: Props) => {
                   </h1>
                   <Link
                     href={"https://instagram.com/tedxsjec"}
-                    className="underline hover:decoration-4 transition-all  decoration-red-600 my-2"
+                    className=" my-2 text-xl"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
-                    Instagram
+                    <TextGlitch text="Instagram" />
                   </Link>
                   <Link
                     href={"https://www.linkedin.com/company/tedxsjec"}
-                    className="underline hover:decoration-4 transition-all decoration-red-600"
+                    className="text-xl"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
-                    LinkedIn
+                    <TextGlitch text="LinkedIn" />
                   </Link>
                 </div>
               </div>

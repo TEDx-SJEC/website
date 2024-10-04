@@ -32,11 +32,11 @@ export const TextRevealByWord: FC<TextRevealByWordProps> = ({
     <div ref={targetRef} className={cn("relative z-0 h-[200vh]", className)}>
       <div
         className={
-          "sticky top-0 mx-auto flex h-[50%]  max-w-8xl justify-center items-start flex-col  bg-transparent py-[1rem]"
+          "sticky top-0 mx-auto flex h-[50%]  max-w-8xl justify-center items-start flex-col  bg-transparent px-[7rem] md:py-[1rem]"
         }
       >
         <motion.h1
-          className="text-8xl text-start font-extrabold uppercase text-[#ff0000]"
+          className="md:text-8xl text-5xl md:text-start text-center px-12 font-extrabold uppercase text-[#ff0000]"
           // ref={ref}
           initial={{ opacity: 1, y: -30 }}
           // animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -50,7 +50,7 @@ export const TextRevealByWord: FC<TextRevealByWordProps> = ({
         <p
           ref={targetRef}
           className={
-            "flex flex-wrap p-5 w-full text-2xl my-32 font-bold text-black/20 dark:text-white/20 md:p-8 md:text- xl lg:p-10 lg:text-4xl xl:text-6xl "
+            "flex flex-wrap p-1 w-full text-2xl md:my-32 font-bold text-black/20 dark:text-white/20 md:p-8 md:text- xl lg:p-10 lg:text-4xl xl:text-6xl "
           }
         >
           {words.map((word, i) => {
