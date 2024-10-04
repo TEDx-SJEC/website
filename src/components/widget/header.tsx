@@ -148,7 +148,7 @@ const Nav = () => {
     />  
   </div>
   <div className='lg:flex hidden text-nowrap  text-4xl relative bottom-32 justify-center items-center text-center'>
-    <h1 className='life uppercase font-bold text-black'>Life - Explore What's Worth Living</h1>
+  <h1 className="life uppercase font-bold text-black">Life - Explore What&#39;s Worth Living</h1>
   </div>
 </div>
 
