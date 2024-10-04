@@ -71,7 +71,7 @@ export function Payment() {
                     console.log(data);
                     if (data.isOk) {
                         toast.success("Payment sucessfull");
-                        await invalidateCouponCode(coupon);
+                        
                         setTrigger(!trigger);
                         setIsSuccess(true);
                     } else {
