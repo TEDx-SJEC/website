@@ -5,23 +5,21 @@ import HorizontalScroll from "@/components/HorizontalScrollCarousel";
 import TextReveal from "@/components/ui/text-reveal";
 import HeroVideoDialog from "@/components/ui/hero-video-dialog";
 import ParallaxFooter from "@/components/Footer";
-import Lenis from 'lenis'
-import Nav from "@/components/widget/header";
-import ScrollProgress from "@/components/ui/progressBar";
+// import Lenis from 'lenis'
 
 export default function Home() {
-  const lenis = new Lenis()
+  // const lenis = new Lenis()
 
-  lenis.on('scroll', (e) => {
-    console.log(e)
-  })
+  // lenis.on('scroll', (e) => {
+  //   console.log(e)
+  // })
   
-  function raf(time: number) {
-    lenis.raf(time)
-    requestAnimationFrame(raf)
-  }
+  // function raf(time: number) {
+  //   lenis.raf(time)
+  //   requestAnimationFrame(raf)
+  // }
   
-  requestAnimationFrame(raf)
+  // requestAnimationFrame(raf)
   return (
     <>
       <div className="z-20 relative bg-black ">
