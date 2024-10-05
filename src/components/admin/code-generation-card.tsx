@@ -16,7 +16,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { createCouponCode } from "@/lib/helper";
 import { useQuery } from "@tanstack/react-query";
 import { type Session as NextAuthSession } from "next-auth";
-import CouponGeneratorDialog from "../coupon-generator-dialog";
+import CouponGeneratorDialog from "../payment/coupon-generator-dialog";
 import { Checkbox } from "../ui/checkbox";
 import { useState } from "react";
 

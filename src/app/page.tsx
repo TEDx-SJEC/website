@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import HorizontalScroll from "@/components/HorizontalScrollCarousel";
+import HorizontalScroll from "@/components/common/HorizontalScrollCarousel";
 import TextReveal from "@/components/ui/text-reveal";
 import HeroVideoDialog from "@/components/ui/hero-video-dialog";
 import ParallaxFooter from "@/components/Footer";

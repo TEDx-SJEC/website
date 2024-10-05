@@ -1,23 +1,27 @@
 "use client";
 import { FC } from "react";
+import { cn } from "@/lib/utils";
 
 interface Props {
-  text: string;
+  textOne: string; 
+  textTwo: string; 
+  className?: string;
 }
 
-const TextGlitch: FC<Props> = ({ text }) => {
-  text;
+const TextGlitchEffect: FC<Props> = ({ textOne, textTwo, className }) => {
   return (
-    <div className="group relative inline-block overflow-hidden">
-      <span className="invisible">Text Glitch Effect</span>
-      <span className="absolute left-0 top-0 text-white transition duration-300 ease-in-out group-hover:-translate-y-full ">
-        {text}
+    <div
+      className={cn("group relative inline-block overflow-hidden leading-tight", className)}
+    >
+      <span className="invisible whitespace-nowrap">{textOne}</span>
+      <span className="absolute left-0 top-0 text-black transition-transform duration-300 ease-in-out group-hover:-translate-y-full whitespace-nowrap">
+        {textOne}
       </span>
-      <span className="absolute left-0 top-0 translate-y-full  transition duration-300 ease-in-out group-hover:translate-y-0 text-red-600">
-        tedxsjec
+      <span className="absolute left-0 top-0 translate-y-full transition-transform duration-300 ease-in-out group-hover:translate-y-0 text-red-600 whitespace-nowrap">
+        {textTwo}
       </span>
     </div>
   );
 };
 
-export default TextGlitch;
+export default TextGlitchEffect;

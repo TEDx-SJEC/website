@@ -1,5 +1,5 @@
 "use client";
-import { Coupon } from "@/components/Admin/code-generation-card";
+import { Coupon } from "@/components/admin/code-generation-card";
 import { useSession } from "next-auth/react";
 export default function AdminPage() {
   const { data: session } = useSession();
