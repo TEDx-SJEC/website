@@ -7,9 +7,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { tedxsjecAssetsPrefix } from "@/lib/utils";
 import React from "react";
 import Link from "next/link";
-import NavItem from "./nav-items";
+import NavItem from "../navbar/nav-items";
 import SocialLinks from "../common/social-links";
 
+
+//this component has been split into different components for better readability in navbar. donnot use this component, as its not in use
 const Nav = () => {
   gsap.registerPlugin(ScrollTrigger);
 
