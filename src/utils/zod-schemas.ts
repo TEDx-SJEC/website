@@ -2,46 +2,21 @@ import { z } from "zod";
 
 export const RegistrationFormSchema = z
   .object({
-    name: z.string().min(1),
-    usn: z
-      .string()
-      .regex(/^4SO\d{2}[A-Za-z]{2}\d{3}$/, {
-        message:
-          "USN must follow the format 4SO followed by two digits, two letters, and three digits (e.g., 4SO21CS071)",
-      })
-      .optional(),
-    email: z.string().email(),
-    contact: z.string().min(10).max(10),
+    name: z.string().min(1, "Name is required"),
+    usn: z.string().optional(),
+    email: z.string().email("Invalid email format"),
+    contact: z.string().length(10, "Contact must be exactly 10 digits"),
     designation: z
       .string()
-      .refine((value) => ["Student", "Faculty", "Alumni"].includes(value), {
+      .refine((value) => ["Student", "Faculty", "Employee"].includes(value), {
         message: "Invalid designation",
       }),
-    photo: z
-      .string()
-      .refine(
-        (value) => value.startsWith("http://") || value.startsWith("https://"),
-        {
-          message: "Invalid photo URL",
-        },
-      ),
+    photo: z.string().optional(),
     collegeIdCard: z.string().optional(),
-    entityName: z.string().min(1),
+    entityName: z.string().min(1, "Entity name is required"),
     referralUsed: z.string().optional(),
     createdById: z.string(),
   })
-  .refine(
-    (data) => {
-      if (data.designation === "Student") {
-        return data.usn && data.collegeIdCard;
-      }
-      return true;
-    },
-    {
-      message: "College ID Card and USN are required for students",
-      path: ["usn", "collegeIdCard"],
-    },
-  );
 
 export type TRegistrationForm = z.infer<typeof RegistrationFormSchema>;
 
