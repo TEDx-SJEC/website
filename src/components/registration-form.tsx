@@ -26,6 +26,9 @@ import { invalidateCouponCode } from "@/app/actions/invalidate-coupon";
 import { useSession } from "next-auth/react";
 import Script from "next/script";
 import { UploadDropzone } from "@/utils/uploadthing";
+import { submitForm } from "@/app/actions/submit-form";
+import { PaymentLoading } from "./Loading/payment-loading";
+import { PaymentSuccessfulComponent } from "./payment-successful";
 
 declare global {
     interface Window {
@@ -54,6 +57,18 @@ export const baseSchema = z.object({
     couponCode: z.string().optional(),
 });
 
+export interface FormDataInterface {
+    designation: "student" | "faculty" | "employee";
+    name: string;
+    email: string;
+    phone: string;
+    photo: string;
+    idCard?: string;
+    usn?: string;
+    amount: string;
+    couponCode?: string;
+}
+
 export const studentSchema = baseSchema.extend({
     usn: z.string().min(1, { message: "USN is required for students." }),
     idCard: z.string(),
@@ -67,6 +82,9 @@ export default function RegistrationForm() {
         finalPrice: basePrice,
     });
     const [isProcessing, setIsProcessing] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
+
     const { data: session } = useSession();
 
     const form = useForm<z.infer<typeof studentSchema | typeof baseSchema | typeof baseSchema>>({
@@ -80,10 +98,10 @@ export default function RegistrationForm() {
         },
     });
 
-    const handleSubmitForm = async () => {
-        const data = form.getValues();
-        console.log(data);
-    };
+    // const handleSubmitForm = async () => {
+    //     const data = form.getValues();
+    //     const resp = await submitForm(data as FormDataInterface);
+    // };
 
     const handlePayment = async () => {
         setIsProcessing(true);
@@ -114,13 +132,17 @@ export default function RegistrationForm() {
                             amount: pricing.finalPrice,
                         }),
                     });
+
                     const data = await resp.json();
                     console.log(data);
                     if (data.isOk) {
-                        toast.success("Payment sucessfull");
                         await invalidateCouponCode(couponCode ?? "", session!);
-                        await handleSubmitForm();
+                        const formResponse = form.getValues();
+                        await submitForm(formResponse as FormDataInterface, pricing.finalPrice);
+                        setIsProcessing(false);
+                        setSuccess(true);
                     } else {
+                        setIsProcessing(false);
                         alert("Payment failed");
                     }
                 },
@@ -143,16 +165,13 @@ export default function RegistrationForm() {
             rzp1.open();
         } catch (error) {
             toast.error(`Some error ${error}`);
-        } finally {
-            setIsProcessing(false);
         }
     };
 
     const onSubmit = async (
         values: z.infer<typeof studentSchema | typeof baseSchema | typeof baseSchema>
     ) => {
-        await handleSubmitForm();
-        // await handlePayment();
+        await handlePayment();
         // Handle form submission here
     };
 
@@ -186,6 +205,20 @@ export default function RegistrationForm() {
             setStep(step + 1);
         }
     };
+    if (isProcessing) {
+        return (
+            <div className="w-screen h-screen flex justify-center items-center">
+                <PaymentLoading />
+            </div>
+        );
+    }
+    if (success) {
+        return (
+            <div className="w-screen h-screen flex justify-center items-center">
+                <PaymentSuccessfulComponent />
+            </div>
+        );
+    }
 
     return (
         <Card className="w-[550px]">
@@ -222,7 +255,7 @@ export default function RegistrationForm() {
                             />
                         )}
                         {step === 2 && (
-                            <div className="mt-5">
+                            <div className="mt-56">
                                 <FormField
                                     control={form.control}
                                     name="name"
@@ -294,7 +327,7 @@ export default function RegistrationForm() {
                                                         />
                                                     </FormControl>
                                                     <FormDescription>
-                                                        Upload your photo (max 3MB)
+                                                        Click upload once you select the photo
                                                     </FormDescription>
                                                     <FormMessage />
                                                 </FormItem>
@@ -318,7 +351,9 @@ export default function RegistrationForm() {
                                                     }}
                                                 />
                                             </FormControl>
-                                            <FormDescription>Upload your photo (max 5MB)</FormDescription>
+                                            <FormDescription>
+                                                Click upload once you select the photo
+                                            </FormDescription>
                                             <FormMessage />
                                         </FormItem>
                                     )}
