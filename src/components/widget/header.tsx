@@ -11,7 +11,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { tedxsjecAssetsPrefix } from "@/lib/utils";
 import React from "react";
 import Link from "next/link";
-import TextGlitch from "../edil-ozi/text-glitch";
+import NavItem from "./nav-items";
 
 const Nav = () => {
   gsap.registerPlugin(ScrollTrigger);
@@ -175,103 +175,33 @@ const Nav = () => {
         </div>
         <div className="fullpage-menu-inner flex items-center  h-full px-[50px] py-[10px] md:px-[80px] md:py-[40px]">
           <div className="menu-bg h-full w-full  absolute  left-0 top-0">
-            <span className="bg-white    block back w-full h-[34%]"></span>
+            <span className="bg-white   block back w-full h-[34%]"></span>
             <span className="bg-white   block back w-full h-[34%]"></span>
             <span className="bg-white   block back w-full h-[34%]"></span>
           </div>
           <nav className=" relative z-10 flex flex-row  w-full">
             <div>
               <ul className="main-menu mt-10">
-                <li className="listo list-none overflow-hidden mt-[20px] leading-[1] font-bold text-[40px] md:text-[50px] text-black">
-                  <Link
-                    href={"https://instagram.com/tedxsjec"}
-                    className=" my-2 text-xl font-bold text-[40px] md:text-[50px]"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    <TextGlitch
-                      textOne="ABOUT"
-                      textTwo="ABOUT"
-                      className="font-bold text-black  text-[40px] md:text-[50px] leading-tight"
-                    />
-                  </Link>
-                </li>
-                <li className="listo list-none overflow-hidden mt-[10px] leading-[1] font-bold text-black  text-[40px] md:text-[50px]">
-                  <Link
-                    href={"https://instagram.com/tedxsjec"}
-                    className=" my-2 text-xl font-bold text-[40px] md:text-[50px]"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    <TextGlitch
-                      textOne="SPEAKERS"
-                      textTwo="SPEAKERS"
-                      className="font-bold text-black  text-[40px] md:text-[50px] leading-tight"
-                    />
-                  </Link>
-                </li>
-                <li className="listo list-none overflow-hidden mt-[10px] leading-[1] font-bold text-black  text-[40px] md:text-[50px]">
-                  <Link
-                    href={"https://instagram.com/tedxsjec"}
-                    className=" my-2 text-xl font-bold text-[40px] md:text-[50px]"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    <TextGlitch
-                      textOne="PERFORMERS"
-                      textTwo="PERFORMERS"
-                      className="font-bold text-black  text-[40px] md:text-[50px] leading-tight"
-                    />
-                  </Link>
-                </li>
-                <li className="listo list-none overflow-hidden mt-[10px] leading-[1] font-bold text-black  text-[40px] md:text-[50px]">
-                  <Link
-                    href={"https://instagram.com/tedxsjec"}
-                    className=" my-2 text-xl font-bold text-[40px] md:text-[50px]"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    <TextGlitch
-                      textOne="TEAM"
-                      textTwo="TEAM"
-                      className="font-bold text-black  text-[40px] md:text-[50px] leading-tight"
-                    />
-                  </Link>
-                </li>
-                <li className="listo list-none overflow-hidden mt-[10px] leading-[1] font-bold text-black  text-[40px] md:text-[50px]">
-                  <Link
-                    href={"https://instagram.com/tedxsjec"}
-                    className=" my-2 text-xl font-bold text-[40px] md:text-[50px]"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    <TextGlitch
-                      textOne="GALLERY"
-                      textTwo="GALLERY"
-                      className="font-bold text-black  text-[40px] md:text-[50px] leading-tight"
-                    />
-                  </Link>
-                </li>
-                <li className="listo list-none overflow-hidden mt-[10px] leading-[1] font-bold text-black  text-[40px] md:text-[50px]">
-                  <Link
-                    href={"https://instagram.com/tedxsjec"}
-                    className=" my-2 text-xl font-bold text-[40px] md:text-[50px]"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    <TextGlitch
-                      textOne="CONTACT"
-                      textTwo="CONTACT"
-                      className="font-bold text-black  text-[40px] md:text-[50px] leading-tight"
-                    />
-                  </Link>
-                </li>
+                <NavItem href="/contact" textOne="ABOUT" textTwo="ABOUT" />
+                <NavItem
+                  href="/contact"
+                  textOne="SPEAKERS"
+                  textTwo="SPEAKERS"
+                />
+                <NavItem
+                  href="/contact"
+                  textOne="PERFORMERS"
+                  textTwo="PERFORMERS"
+                />
+                <NavItem href="/contact" textOne="TEAM" textTwo="TEAM" />
+                <NavItem href="/contact" textOne="GALLERY" textTwo="GALLERY" />
+                <NavItem href="/contact" textOne="CONTACT" textTwo="CONTACT" />
                 <li className="list-none listo overflow-hidden  leading-[1] font-bold text-white mt-[30px]">
-                  <a href="">
+                  <Link href="/">
                     <button className="px-8 shadow-sm  py-5 rounded-md  bg-[#EB0028]">
                       REGISTER
                     </button>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
