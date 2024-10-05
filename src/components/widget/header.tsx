@@ -11,6 +11,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { tedxsjecAssetsPrefix } from "@/lib/utils";
 import React from "react";
 import Link from "next/link";
+import TextGlitch from "../edil-ozi/text-glitch";
 
 const Nav = () => {
   gsap.registerPlugin(ScrollTrigger);
@@ -97,7 +98,6 @@ const Nav = () => {
     //   ],
     //   yoyo: true
     // });
-    
 
     menuBar.reverse();
     tl.reverse();
@@ -119,7 +119,7 @@ const Nav = () => {
                 height={200}
                 width={200}
                 alt="logo"
-                layout="fixed" 
+                layout="fixed"
                 priority={true}
               />
             </Link>
@@ -169,7 +169,7 @@ const Nav = () => {
             height={200}
             width={200}
             alt="logo"
-            layout="fixed" 
+            layout="fixed"
             priority={true}
           />
         </div>
@@ -182,23 +182,89 @@ const Nav = () => {
           <nav className=" relative z-10 flex flex-row  w-full">
             <div>
               <ul className="main-menu mt-10">
-                <li className="listo list-none overflow-hidden mt-[20px] leading-[1] font-bold text-black  text-[40px] md:text-[50px]">
-                  <a href="">ABOUT</a>
+                <li className="listo list-none overflow-hidden mt-[20px] leading-[1] font-bold text-[40px] md:text-[50px] text-black">
+                  <Link
+                    href={"https://instagram.com/tedxsjec"}
+                    className=" my-2 text-xl font-bold text-[40px] md:text-[50px]"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <TextGlitch
+                      textOne="ABOUT"
+                      textTwo="ABOUT"
+                      className="font-bold text-black  text-[40px] md:text-[50px] leading-tight"
+                    />
+                  </Link>
                 </li>
-                <li className="listo list-none overflow-hidden mt-[20px] leading-[1] font-bold text-black  text-[40px] md:text-[50px]">
-                  <a href="">SPEAKERS</a>
+                <li className="listo list-none overflow-hidden mt-[10px] leading-[1] font-bold text-black  text-[40px] md:text-[50px]">
+                  <Link
+                    href={"https://instagram.com/tedxsjec"}
+                    className=" my-2 text-xl font-bold text-[40px] md:text-[50px]"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <TextGlitch
+                      textOne="SPEAKERS"
+                      textTwo="SPEAKERS"
+                      className="font-bold text-black  text-[40px] md:text-[50px] leading-tight"
+                    />
+                  </Link>
                 </li>
-                <li className="listo list-none overflow-hidden mt-[20px] leading-[1] font-bold text-black  text-[40px] md:text-[50px]">
-                  <a href="">PERFORMERS</a>
+                <li className="listo list-none overflow-hidden mt-[10px] leading-[1] font-bold text-black  text-[40px] md:text-[50px]">
+                  <Link
+                    href={"https://instagram.com/tedxsjec"}
+                    className=" my-2 text-xl font-bold text-[40px] md:text-[50px]"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <TextGlitch
+                      textOne="PERFORMERS"
+                      textTwo="PERFORMERS"
+                      className="font-bold text-black  text-[40px] md:text-[50px] leading-tight"
+                    />
+                  </Link>
                 </li>
-                <li className="listo list-none overflow-hidden mt-[20px] leading-[1] font-bold text-black  text-[40px] md:text-[50px]">
-                  <a href="">TEAM</a>
+                <li className="listo list-none overflow-hidden mt-[10px] leading-[1] font-bold text-black  text-[40px] md:text-[50px]">
+                  <Link
+                    href={"https://instagram.com/tedxsjec"}
+                    className=" my-2 text-xl font-bold text-[40px] md:text-[50px]"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <TextGlitch
+                      textOne="TEAM"
+                      textTwo="TEAM"
+                      className="font-bold text-black  text-[40px] md:text-[50px] leading-tight"
+                    />
+                  </Link>
                 </li>
-                <li className="listo list-none overflow-hidden mt-[20px] leading-[1] font-bold text-black  text-[40px] md:text-[50px]">
-                  <a href="">GALLARY</a>
+                <li className="listo list-none overflow-hidden mt-[10px] leading-[1] font-bold text-black  text-[40px] md:text-[50px]">
+                  <Link
+                    href={"https://instagram.com/tedxsjec"}
+                    className=" my-2 text-xl font-bold text-[40px] md:text-[50px]"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <TextGlitch
+                      textOne="GALLERY"
+                      textTwo="GALLERY"
+                      className="font-bold text-black  text-[40px] md:text-[50px] leading-tight"
+                    />
+                  </Link>
                 </li>
-                <li className="listo list-none overflow-hidden mt-[20px] leading-[1] font-bold text-black  text-[40px] md:text-[50px]">
-                  <a href="">CONTACT</a>
+                <li className="listo list-none overflow-hidden mt-[10px] leading-[1] font-bold text-black  text-[40px] md:text-[50px]">
+                  <Link
+                    href={"https://instagram.com/tedxsjec"}
+                    className=" my-2 text-xl font-bold text-[40px] md:text-[50px]"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <TextGlitch
+                      textOne="CONTACT"
+                      textTwo="CONTACT"
+                      className="font-bold text-black  text-[40px] md:text-[50px] leading-tight"
+                    />
+                  </Link>
                 </li>
                 <li className="list-none listo overflow-hidden  leading-[1] font-bold text-white mt-[30px]">
                   <a href="">
