@@ -113,14 +113,14 @@ const Nav = () => {
       <header className="fixed  z-[100] aboute left-0 top-0 w-screen">
         <div className="header-1 flex md:py-[20px] md:px-[30px] p-[30px]  justify-between  items-center  ">
           <div className="logo">
-            <a href="">
+            <Link href="/">
               <Image
                 src={`${tedxsjecAssetsPrefix}/logo/whiteLogo.png`}
                 height={200}
                 width={200}
                 alt="logo"
               />
-            </a>
+            </Link>
           </div>
           <div className="flex justify-between items-center ">
             <li className="list-none overflow-hidden  leading-[1] font-bold text-white reg">
