@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle2 } from "lucide-react";
+import Link from "next/link";
 
 export function PaymentSuccessfulComponent() {
     const confettiRef = useRef(null);
@@ -77,16 +78,16 @@ export function PaymentSuccessfulComponent() {
                             <CheckCircle2 className="w-16 h-16 text-green-400 mx-auto mb-4" />
                         </motion.div>
                         <p className="text-gray-300">
-                            Thank you for your payment. Your transaction has been completed successfully.
+                            Thank you for your payment. Your transaction was successful. Please check your
+                            email for further details regarding TEDxSJEC.
                         </p>
                     </CardContent>
                     <CardFooter className="flex justify-center">
-                        <Button
-                            onClick={fireConfetti}
-                            className="bg-purple-600 hover:bg-purple-700 text-white"
-                        >
-                            Celebrate Again!
-                        </Button>
+                        <Link href={"/"}>
+                            <Button className="bg-purple-600 hover:bg-purple-700 text-white">
+                                Go to home page
+                            </Button>
+                        </Link>
                     </CardFooter>
                 </Card>
             </motion.div>
