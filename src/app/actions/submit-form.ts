@@ -1,6 +1,6 @@
 "use server";
 
-import { FormDataInterface } from "@/components/registration-form";
+import { FormDataInterface } from "@/components/common/registration-form";
 import { getServerSideSession } from "@/lib/get-server-session";
 import prisma from "@/server/db";
 

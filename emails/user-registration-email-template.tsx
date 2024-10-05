@@ -32,7 +32,7 @@ export const TedxRegistrationEmail = ({ name, registrationLink }: TedxRegistrati
                         {/* Logo Section */}
                         <Section className="text-center">
                             <Img
-                                src={`${tedxsjecAssetsPrefix}/logo/tedxsjec-logo.avif`} // Add the logo image URL here
+                                src={`${tedxsjecAssetsPrefix}/logo/tedxsjec-logo.avif`} 
                                 alt="TEDxSJEC Logo"
                                 className="mx-auto w-[150px] h-auto mb-[20px]"
                             />
