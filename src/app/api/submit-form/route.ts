@@ -55,7 +55,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
           email,
           contact,
           designation,
-          photo,
+          photo: photo || "",
           collegeIdCard,
           entityName,
           referralUsed,

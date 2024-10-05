@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import HorizontalScroll from "@/components/HorizontalScrollCarousel";
+import HorizontalScroll from "@/components/common/HorizontalScrollCarousel";
 import TextReveal from "@/components/ui/text-reveal";
 import HeroVideoDialog from "@/components/ui/hero-video-dialog";
-import ParallaxFooter from "@/components/Footer";
+import ParallaxFooter from "@/components/common/Footer";
 // import Lenis from 'lenis'
 
 export default function Home() {
@@ -13,12 +13,12 @@ export default function Home() {
   // lenis.on('scroll', (e) => {
   //   console.log(e)
   // })
-  
+
   // function raf(time: number) {
   //   lenis.raf(time)
   //   requestAnimationFrame(raf)
   // }
-  
+
   // requestAnimationFrame(raf)
   return (
     <>

@@ -1,8 +1,8 @@
 "use server";
 
 import prisma from "@/server/db";
-
-export async function invalidateCouponCode(couponCode: string) {
+import { type Session as NextAuthSession } from "next-auth";
+export async function invalidateCouponCode(couponCode: string, session: NextAuthSession) {
     if (!couponCode) return;
     const resp = await prisma.referral.update({
         where: {
@@ -10,6 +10,7 @@ export async function invalidateCouponCode(couponCode: string) {
         },
         data: {
             isUsed: true,
+            usedById: session.user.id,
         },
     });
 }
