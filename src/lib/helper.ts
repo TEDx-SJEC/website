@@ -12,13 +12,15 @@ export const createCouponCode = () => {
   return generateCouponCode(10);
 };
 
-
-export const generatedSignature = (razorpayOrderId: string, razorpayPaymentId: string) => {
+export const generatedSignature = (
+  razorpayOrderId: string,
+  razorpayPaymentId: string,
+) => {
   const keySecret = process.env.RAZORPAY_KEY_SECRET!;
 
   const sig = crypto
-      .createHmac("sha256", keySecret)
-      .update(razorpayOrderId + "|" + razorpayPaymentId)
-      .digest("hex");
+    .createHmac("sha256", keySecret)
+    .update(razorpayOrderId + "|" + razorpayPaymentId)
+    .digest("hex");
   return sig;
 };

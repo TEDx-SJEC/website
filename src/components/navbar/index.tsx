@@ -28,7 +28,7 @@ const Navbar = () => {
           x: 1,
           ease: "Power2.easeInOut",
         },
-        "start"
+        "start",
       )
       .to(".bar-2", 2, { autoAlpha: 0, stroke: "#000" }, "start")
       .to(
@@ -40,7 +40,7 @@ const Navbar = () => {
           stroke: "#000",
           ease: "Power2.easeInOut",
         },
-        "start"
+        "start",
       );
 
     tl.to(".logo", { x: -300 }, "go")
@@ -60,7 +60,7 @@ const Navbar = () => {
       .from(
         ".listo",
         { duration: 0.3, x: "-50%", stagger: 0.1, opacity: 0 },
-        "-=0.5"
+        "-=0.5",
       )
       .from(
         ".social-links li",
@@ -71,7 +71,7 @@ const Navbar = () => {
           stagger: 0.1,
           ease: "Expo.easeInOut",
         },
-        "-=0.5"
+        "-=0.5",
       )
       .from(".hero-icon", { scale: 0, duration: 0.5 }, "end")
       .from(".life", { x: 800, duration: 0.5 }, "end");

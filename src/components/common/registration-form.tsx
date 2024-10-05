@@ -157,7 +157,7 @@ export default function RegistrationForm() {
             const formResponse = form.getValues();
             await submitForm(
               formResponse as FormDataInterface,
-              pricing.finalPrice
+              pricing.finalPrice,
             );
             setIsProcessing(false);
             setSuccess(true);
@@ -191,7 +191,7 @@ export default function RegistrationForm() {
   const onSubmit = async (
     values: z.infer<
       typeof studentSchema | typeof baseSchema | typeof baseSchema
-    >
+    >,
   ) => {
     await handlePayment();
     // Handle form submission here
@@ -200,9 +200,8 @@ export default function RegistrationForm() {
   const verifyCoupon = async () => {
     const couponCode = form.getValues("couponCode");
     try {
-      const { basePrice, discountAmount, finalPrice } = await getPrice(
-        couponCode
-      );
+      const { basePrice, discountAmount, finalPrice } =
+        await getPrice(couponCode);
       setPricing({ basePrice, discountAmount, finalPrice });
       toast.success("Coupon applied successfully");
     } catch (e) {
