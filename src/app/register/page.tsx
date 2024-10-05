@@ -1,5 +1,5 @@
 "use client";
-import RegistrationForm from "@/components/registration-form";
+import RegistrationForm from "@/components/common/registration-form";
 import { signIn, useSession } from "next-auth/react";
 import React from "react";
 

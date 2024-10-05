@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import TextGlitch from "./edil-ozi/text-glitch";
+import TextGlitch from "../edil-ozi/text-glitch";
 
 type Props = {};
 

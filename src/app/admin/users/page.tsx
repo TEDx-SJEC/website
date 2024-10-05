@@ -1,4 +1,4 @@
-import UsersList from "@/components/Admin/user-list";
+import UsersList from "@/components/admin/user-list";
 import prisma from "@/server/db";
 import React from "react";
 

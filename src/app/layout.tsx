@@ -1,4 +1,4 @@
-import Providers from "@/components/Layout/Provider";
+import Providers from "@/components/layout/Provider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -19,9 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={inter.className="overflow-x-hidden"}>
-       <Nav/>
-          <StarsCanvas />
+      <body className={(inter.className = "overflow-x-hidden")}>
+        <Nav />
+        <StarsCanvas />
         <Providers>{children} </Providers>
       </body>
     </html>

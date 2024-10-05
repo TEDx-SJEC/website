@@ -1,4 +1,4 @@
-import { SearchableInfiniteScrollTable } from "@/components/searchable-infinite-scroll-table";
+import { SearchableInfiniteScrollTable } from "@/components/common/searchable-infinite-scroll-table";
 import React from "react";
 
 export default async function Payments() {
