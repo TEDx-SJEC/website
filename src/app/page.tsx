@@ -4,7 +4,7 @@ import React from "react";
 import HorizontalScroll from "@/components/common/HorizontalScrollCarousel";
 import TextReveal from "@/components/ui/text-reveal";
 import HeroVideoDialog from "@/components/ui/hero-video-dialog";
-import ParallaxFooter from "@/components/Footer";
+import ParallaxFooter from "@/components/common/Footer";
 import StackedCards from "@/components/stacking-cards/stacked";
 
 export default function Home() {
