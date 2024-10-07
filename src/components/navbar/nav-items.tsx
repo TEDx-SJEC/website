@@ -26,10 +26,5 @@ const NavItem = ({ href, textOne, textTwo }: NavItemProps) => {
   );
 };
 
-NavItem.defaultProps = {
-  href: "#",
-  textOne: "ABOUT",
-  textTwo: "ABOUT",
-};
 
 export default NavItem;
