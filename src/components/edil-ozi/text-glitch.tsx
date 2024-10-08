@@ -3,21 +3,24 @@ import { FC } from "react";
 import { cn } from "@/lib/utils";
 
 interface Props {
-  textOne: string; 
-  textTwo: string; 
+  textOne: string;
+  textTwo: string;
   className?: string;
 }
 
 const TextGlitchEffect: FC<Props> = ({ textOne, textTwo, className }) => {
   return (
     <div
-      className={cn("group relative inline-block overflow-hidden leading-tight", className)}
+      className={cn(
+        "group relative inline-block overflow-hidden leading-tight",
+        className
+      )}
     >
       <span className="invisible whitespace-nowrap">{textOne}</span>
-      <span className="absolute left-0 top-0 text-black transition-transform duration-300 ease-in-out group-hover:-translate-y-full whitespace-nowrap">
+      <span className="absolute left-0 top-0 text-red-600 transition-transform duration-300 ease-in-out group-hover:-translate-y-full whitespace-nowrap">
         {textOne}
       </span>
-      <span className="absolute left-0 top-0 translate-y-full transition-transform duration-300 ease-in-out group-hover:translate-y-0 text-red-600 whitespace-nowrap">
+      <span className="absolute left-0 top-0 translate-y-full transition-transform duration-300 ease-in-out group-hover:translate-y-0 text-white whitespace-nowrap">
         {textTwo}
       </span>
     </div>

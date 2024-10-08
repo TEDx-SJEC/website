@@ -1,6 +1,7 @@
 .sticky-section {
   box-sizing: border-box;
   position: relative;
+  margin-top: 200px;
 }
 
 .cards__item {
