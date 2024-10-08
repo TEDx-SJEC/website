@@ -30,7 +30,7 @@ export default function StackedCards() {
 
       if (i !== cardsEl.length - 1) {
         scale = 0.9 + 0.025 * i;
-        rotate = -10;
+        rotate = -5;
       }
       // console.log(`Card Index: ${i}, Scale: ${scale}, Rotate: ${rotate}`);
 
@@ -41,7 +41,7 @@ export default function StackedCards() {
         ease: "none",
         scrollTrigger: {
           trigger: e,
-          start: "top " + (50 + 30 * i),
+          start: "top " + (120 + 30 * i),
           end: "bottom +=650px",
           endTrigger: ".end-animation",
           pin: e,
