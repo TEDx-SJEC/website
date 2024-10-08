@@ -6,14 +6,18 @@ import TextReveal from "@/components/ui/text-reveal";
 import ParallaxFooter from "@/components/common/Footer";
 import StackedCards from "@/components/stacking-cards/stacked";
 import { PreviousEdition } from "@/components/common/Container-Scroll";
+import About from "@/components/common/About";
 
 export default function Home() {
   return (
     <>
       <div className="z-20 relative bg-black overflow-x-clip">
-        <div className="flex flex-col items-center justify-center h-screen p-4"></div>
-        <div className="z-10 flex min-h-64 items-center justify-center rounded-lg ">
-          <TextReveal text="TEDxSJEC is a platform that brings together curious, creative, and progressive thinkers from St. Joseph Engineering College." />
+        <div
+          className="flex flex-col items-center justify-center h-screen p-4  bg-gradient-to-tr from-red-600 via-black to-black  "
+          id="hero"
+        ></div>
+        <div className="h-screen" id="about">
+          <About />
         </div>
         <div>
           <StackedCards />
