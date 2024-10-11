@@ -26,21 +26,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
-        run: |
-          npm ci
-
-      # Ensure SQLite database is properly set up
-      - name: Run Prisma Migrations
-        run: |
-          npx prisma migrate deploy
-        env:
-          DATABASE_URL: "file:./dev.db"  # Use SQLite file-based DB during CI
-
-      - name: Generate Prisma Client
-        run: |
-          npx prisma generate
-        env:
-          DATABASE_URL: "file:./dev.db"  # Same SQLite DB for Prisma client
+        run: npm install
 
       - name: Check Environment Variables
         run: |
@@ -50,7 +36,8 @@ jobs:
           echo "GOOGLE_SECRET is set: ${{ env.GOOGLE_SECRET != '' }}"
           echo "TURSO_AUTH_TOKEN is set: ${{ env.TURSO_AUTH_TOKEN != '' }}"
           echo "TURSO_DATABASE_URL is set: ${{ env.TURSO_DATABASE_URL != '' }}"
-          echo "RESEND_API_KEY is set: ${{ env.RESEND_API_KEY != '' }}"
+          echo "RESEND_API_KEY" is set ${{ env.RESEND_API_KEY != '' }}
+          echo 
         env:
           NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
           NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
