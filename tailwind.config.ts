@@ -23,6 +23,9 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       colors: {
+        blackTheme: "#0f0f0f",
+        whiteTheme: "#F2F2F2",
+        redTheme: "#FE0222",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
