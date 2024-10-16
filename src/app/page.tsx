@@ -21,11 +21,11 @@ export default function Home() {
         <div>
           <StackedCards />
         </div>
-        <div className=" bg-gradient-to-b bg-blackTheme from-blackTheme via-redTheme  to-whiteTheme to-95%">
+        <div className=" bg-gradient-to-b bg-blackTheme from-blackTheme via-redTheme  to-blackTheme to-95%">
           <PreviousEdition />
         </div>
-        <div className="bg-whiteTheme mb-[100vh] min-h-screen h-fit">
-          <h1 className="md:text-8xl text-4xl text-center font-black text-blackTheme px-10">
+        <div className="bg-blackTheme mb-[100vh] h-fit ">
+          <h1 className="md:text-8xl text-4xl text-center font-black text-whiteTheme px-10">
             The Team
           </h1>
           <Team />
