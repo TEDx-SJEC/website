@@ -27,10 +27,15 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          <div className="flex">
-            <AdminNavbar />
-            {children}
+          <div className="flex h-screen">
+            <div className="fixed h-full">
+              <AdminNavbar />
+            </div>
+            <div className="flex-1 ml-[250px] overflow-y-auto">
+              {children}
+            </div>
           </div>
+        
         </Providers>
       </body>
     </html>
