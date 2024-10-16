@@ -14,10 +14,15 @@ export function PreviousEdition() {
           </>
         }
       >
-        <video width="100%" height="100%" controls preload="none" poster="">
+        {/* <video width="100%" height="100%" controls preload="none" poster="">
           <source src="/path/to/video.mp4" type="video/mp4" />
           Your browser does not support the video tag.
-        </video>
+        </video> */}
+        <iframe
+          width="100%"
+          height="450"
+          src="http://www.youtube.com/embed/NCWwTsAjiys?si=xBkmPtQEYQl_tEIX"
+        ></iframe>
       </ContainerScroll>
     </div>
   );
