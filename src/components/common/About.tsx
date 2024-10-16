@@ -6,19 +6,19 @@ const AboutSection: React.FC = () => {
       {/* Background decorative layers */}
       <div className="absolute inset-0">
         <motion.div
-          className="absolute w-full h-full bg-gradient-to-br from-red-600 via-black to-black opacity-70"
+          className="absolute w-full h-full bg-gradient-to-br from-redTheme via-blackTheme to-blackTheme opacity-70"
           initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
         />
         <motion.div
-          className="absolute -top-20 -left-20 w-64 h-64 md:w-96 md:h-96 bg-gradient-to-r from-red-600 to-black opacity-30 rounded-full"
+          className="absolute -top-20 -left-20 w-64 h-64 animate-pulse md:w-96 md:h-96 bg-gradient-to-r from-red-600 to-black opacity-30 rounded-full"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ duration: 1.5, ease: "easeOut" }}
         />
         <motion.div
-          className="absolute -bottom-20 -right-20 w-64 h-64 md:w-96 md:h-96 bg-gradient-to-r from-red-600 to-black opacity-30 rounded-full"
+          className="absolute -bottom-20 -right-20 w-64 h-64 md:w-96 md:h-96 animate-pulse bg-gradient-to-r from-red-600 to-black opacity-30 rounded-full"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ duration: 1.5, ease: "easeOut", delay: 0.3 }}
@@ -32,19 +32,15 @@ const AboutSection: React.FC = () => {
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 1, ease: "easeOut" }}
       >
-        <h2 className="text-4xl md:text-7xl font-bold text-red-600 mb-4 md:mb-6 leading-tight">
+        <h2 className="text-4xl md:text-8xl font-black text-red-600 mb-4 md:mb-6 leading-tight">
           About TEDxSJEC
         </h2>
-        <p className="text-base md:text-lg leading-relaxed mb-4 md:mb-6 text-gray-300">
+        <p className="text-base md:text-3xl leading-relaxed mb-4 md:mb-6 text-gray-300">
           TEDxSJEC is an independently organized event bringing together
           innovators, thinkers, and visionaries from around the world. Our goal
           is to inspire change, provoke deep discussions, and foster creativity
-          through groundbreaking ideas.
-        </p>
-        <p className="text-base md:text-lg leading-relaxed text-gray-300">
-          Join us for a day of inspiring talks, immersive experiences, and
-          powerful conversations. Together, we will explore the future and share
-          ideas that are truly worth spreading.
+          through groundbreaking ideas. Our goal is to inspire change, provoke
+          deep discussions, and foster creativity through groundbreaking ideas.
         </p>
 
         {/* Decorative line */}

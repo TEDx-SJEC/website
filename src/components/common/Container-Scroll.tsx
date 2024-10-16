@@ -8,7 +8,7 @@ export function PreviousEdition() {
       <ContainerScroll
         titleComponent={
           <>
-            <h1 className="md:text-7xl text-3xl font-semibold text-black dark:text-white">
+            <h1 className="md:text-8xl text-3xl font-semibold text-black dark:text-white">
               Check out the Previous Edition
             </h1>
           </>
