@@ -32,7 +32,7 @@ const AboutSection: React.FC = () => {
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 1, ease: "easeOut" }}
       >
-        <h2 className="text-4xl md:text-8xl font-black text-red-600 mb-4 md:mb-6 leading-tight">
+        <h2 className="text-4xl md:text-[89px] font-black text-red-600 mb-4 md:mb-6 leading-tight">
           About TEDxSJEC
         </h2>
         <p className="text-base md:text-3xl leading-relaxed mb-4 md:mb-6 text-gray-300">
