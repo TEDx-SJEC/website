@@ -48,7 +48,7 @@ jobs:
                   RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
 
             - name: Build project
-              run: npx prisma generate && npx prisma migrate deploy && next build
+              run: npx prisma generate && npx prisma migrate deploy && npm build
               env:
                   GOOGLE_ID: ${{ secrets.GOOGLE_ID }}
                   GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
