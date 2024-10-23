@@ -24,7 +24,7 @@ export default function Home() {
         {/* <div className=" bg-gradient-to-b bg-blackTheme from-blackTheme via-redTheme  to-blackTheme to-95%">
           <PreviousEdition />
         </div> */}
-        <div className="bg-blackTheme mb-[100vh] h-fit ">
+        <div className="bg-blackTheme mb-[100vh] h-fit mt-14">
           <h1 className="md:text-8xl text-4xl text-center font-black text-whiteTheme px-10">
             The Team
           </h1>
