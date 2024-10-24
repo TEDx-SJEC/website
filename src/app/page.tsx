@@ -7,6 +7,7 @@ import { PreviousEdition } from "@/components/common/Container-Scroll";
 import About from "@/components/common/About";
 import Team from "@/components/common/Team-Section";
 import { CtaSection } from "@/components/common/cta-section";
+import Performers from "@/components/widget/performers";
 
 export default function Home() {
     return (
@@ -21,12 +22,16 @@ export default function Home() {
                 </div>
 
                 <div>
-                    <StackedCards />
+                    {/* <StackedCards /> */}
+                    <h1 className="md:text-8xl mb-[40px] text-4xl text-center font-black text-whiteTheme px-10">
+                        The Performers
+                    </h1>
+                    <Performers />
                 </div>
-                {/* <div className=" bg-gradient-to-b bg-blackTheme from-blackTheme via-redTheme  to-blackTheme to-95%">
-          <PreviousEdition />
-        </div> */}
-                <div className="bg-blackTheme mb-[100vh] h-fit ">
+                <div className=" bg-gradient-to-b bg-blackTheme from-blackTheme via-redTheme  to-blackTheme to-95%">
+                    <PreviousEdition />
+                </div>
+                <div className="bg-blackTheme mb-[100vh] h-fit mt-14">
                     <h1 className="md:text-8xl text-4xl text-center font-black text-whiteTheme px-10">
                         The Team
                     </h1>
