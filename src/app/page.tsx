@@ -6,6 +6,7 @@ import StackedCards from "@/components/stacking-cards/stacked";
 import { PreviousEdition } from "@/components/common/Container-Scroll";
 import About from "@/components/common/About";
 import Team from "@/components/common/Team-Section";
+import { CtaSection } from "@/components/common/cta-section";
 import Performers from "@/components/widget/performers";
 
 export default function Home() {
@@ -35,6 +36,7 @@ export default function Home() {
                         The Team
                     </h1>
                     <Team />
+                    <CtaSection />
                 </div>
             </div>
             <ParallaxFooter />
