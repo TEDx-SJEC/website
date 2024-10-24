@@ -6,7 +6,7 @@ import StackedCards from "@/components/stacking-cards/stacked";
 import { PreviousEdition } from "@/components/common/Container-Scroll";
 import About from "@/components/common/About";
 import Team from "@/components/common/Team-Section";
-import { CtaSection } from "@/components/common/hero-section";
+import { CtaSection } from "@/components/common/cta-section";
 
 export default function Home() {
     return (
@@ -31,8 +31,6 @@ export default function Home() {
                         The Team
                     </h1>
                     <Team />
-                </div>
-                <div>
                     <CtaSection />
                 </div>
             </div>
