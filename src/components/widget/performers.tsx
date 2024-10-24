@@ -1,97 +1,103 @@
 /* eslint-disable @next/next/no-img-element */
-import { useEffect } from "react";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
-import Lenis from "lenis";
-import { useGSAP } from "@gsap/react";
-gsap.registerPlugin(ScrollTrigger);
+'use client'
+
+import { useEffect, useRef } from "react"
+import { gsap } from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import Lenis from "@studio-freight/lenis"
+import { useGSAP } from "@gsap/react"
+
+gsap.registerPlugin(ScrollTrigger)
+
+interface PerformerSection {
+  image: string
+  title: string
+  subtitle: string
+}
+
+const performerSections: PerformerSection[] = [
+  {
+    image: "https://images.unsplash.com/photo-1506157491319-81aab3add711?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "The Spotlight Crew",
+    subtitle: "Shining brightest when it matters most.",
+  },
+  {
+    image: "https://images.unsplash.com/photo-1540908625033-6e2d915074fb?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "The Spotlight Crew",
+    subtitle: "Shining brightest when it matters most.",
+  },
+  {
+    image: "https://images.unsplash.com/photo-1707716489310-0bee7330ff6b?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "The Spotlight Crew",
+    subtitle: "Shining brightest when it matters most.",
+  },
+]
 
 export default function Performers() {
-    useGSAP(() => {
-        // Initialize Lenis for smooth scrolling
-        const lenis = new Lenis({
-            lerp: 0.07,
-        });
+  const containerRef = useRef<HTMLDivElement>(null)
 
-        lenis.on("scroll", ScrollTrigger.update);
+  useGSAP(() => {
+    const lenis = new Lenis({ lerp: 0.07 })
 
-        gsap.ticker.add((time) => {
-            lenis.raf(time * 1000);
-        });
+    lenis.on("scroll", ScrollTrigger.update)
 
-        // Parallax effect for images
-        gsap.utils.toArray<HTMLDivElement>(".img-container").forEach((container) => {
-            const img = container.querySelector("img");
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000)
+    })
 
-            if (img) {
-                const tl = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: container,
-                        scrub: true,
-                        pin: false,
-                    },
-                });
+    gsap.utils.toArray<HTMLDivElement>(".img-container").forEach((container) => {
+      const img = container.querySelector("img")
 
-                tl.fromTo(img, { yPercent: -20 }, { yPercent: 20 });
-            }
-        });
-    }, []);
+      if (img) {
+        gsap.fromTo(
+          img,
+          { yPercent: -10 },
+          {
+            yPercent: 10,
+            ease: "none",
+            scrollTrigger: {
+              trigger: container,
+              scrub: true,
+              start: "top bottom",
+              end: "bottom top",
+            },
+          }
+        )
+      }
+    })
 
-    return (
-        <div>
-            <section className="flex items-center justify-center z-0 relative">
-                <div className="relative w-[1000vw] max-w-[1000px]">
-                    <div className="relative w-full pt-[80%] overflow-hidden img-container">
-                        <img
-                            src="https://images.unsplash.com/photo-1506157491319-81aab3add711?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            alt="First Image"
-                            className="absolute w-auto h-full top-0"
-                        />
-                        <h1 className="absolute bottom-[100px] shadow-2xl  left-10 font-satoshi font-[450]  text-white text-center  p-2 text-6xl ">
-                            The Spotlight Crew
-                        </h1>
-                        <p className="absolute bottom-14 left-10 font-satoshi ml-20 shadow-2xl  text-white text-center  p-2 text-2xl ">
-                            &quot;Shining brightest when it matters most.&quot;
-                        </p>
-                    </div>
-                </div>
-            </section>
+    return () => {
+      lenis.destroy()
+      ScrollTrigger.getAll().forEach((st) => st.kill())
+    }
+  }, [])
 
-            <section className="flex items-center justify-center mt-32 ">
-                <div className="relative w-[100vw] max-w-[1000px]">
-                    <div className="relative w-full pt-[80%] overflow-hidden  img-container">
-                        <img
-                            src="https://images.unsplash.com/photo-1540908625033-6e2d915074fb?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            alt="Second Image"
-                            className="absolute w-auto h-full top-0  "
-                        />
-                    </div>
-                    <h1 className="absolute bottom-[100px] left-10 font-satoshi font-[450] shadow-sm  text-white text-center  p-2 text-6xl ">
-                        The Spotlight Crew
-                    </h1>
-                    <p className="absolute bottom-14 left-10 font-satoshi ml-20   text-white shadow-sm text-center  p-2 text-2xl ">
-                        &quot;Shining brightest when it matters most.&quot;
-                    </p>
-                </div>
-            </section>
-
-            <section className="flex items-center justify-center mt-32  mb-10">
-                <div className="relative w-[100vw] max-w-[1000px] ">
-                    <div className="relative w-full pt-[80%] overflow-hidden  img-container">
-                        <img
-                            src="https://images.unsplash.com/photo-1707716489310-0bee7330ff6b?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            alt="Third Image"
-                            className="absolute w-auto h-full top-0 "
-                        />
-                    </div>
-                    <h1 className="absolute bottom-[100px] left-10 font-satoshi font-[450] shadow-sm  text-white text-center  p-2 text-6xl ">
-                        The Spotlight Crew
-                    </h1>
-                    <p className="absolute bottom-14 left-10 font-satoshi ml-20   text-white shadow-sm text-center  p-2 text-2xl ">
-                        &quot;Shining brightest when it matters most.&quot;
-                    </p>
-                </div>
-            </section>
-        </div>
-    );
+  return (
+    <div ref={containerRef} className="overflow-hidden">
+      {performerSections.map((section, index) => (
+        <section
+          key={index}
+          className="flex items-center justify-center relative my-16 first:mt-0 last:mb-0"
+          aria-labelledby={`section-title-${index}`}
+        >
+          <div className="relative w-full max-w-5xl aspect-[16/9] overflow-hidden img-container">
+            <img
+              src={section.image}
+              alt={`Performer section ${index + 1}`}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-8">
+              <h2
+                id={`section-title-${index}`}
+                className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-2"
+              >
+                {section.title}
+              </h2>
+              <p className="text-xl md:text-2xl text-white italic">{section.subtitle}</p>
+            </div>
+          </div>
+        </section>
+      ))}
+    </div>
+  )
 }
