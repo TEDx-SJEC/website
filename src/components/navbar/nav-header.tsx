@@ -27,9 +27,6 @@ const NavHeader: React.FC<NavHeaderProps> = ({ handleClick }) => {
           </Link>
         </div>
         <div className="flex justify-between items-center ">
-          <li className="list-none overflow-hidden  leading-[1] font-bold text-white reg">
-            <RegisterButton />
-          </li>
           <button
             id="menuToggle"
             ref={menuToggle}
