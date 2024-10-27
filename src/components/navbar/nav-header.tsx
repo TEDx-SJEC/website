@@ -11,9 +11,10 @@ interface NavHeaderProps {
 
 const NavHeader: React.FC<NavHeaderProps> = ({ handleClick }) => {
   const menuToggle = useRef(null);
-  return (
-    <header className="fixed  z-[100] aboute left-0 top-0 w-screen">
-      <div className="header-1 flex md:py-[20px] md:px-[30px] p-[30px]  justify-between  items-center  ">
+  return (  
+    <>
+    <header className="fixed  z-50 aboute left-0 top-0 w-screen">
+      <div className="header-1 flex md:py-[15px] md:px-[30px] px-3 py-4  justify-between  items-center  ">
         <div className="logo">
           <Link href="/">
             <Image
@@ -56,6 +57,7 @@ const NavHeader: React.FC<NavHeaderProps> = ({ handleClick }) => {
         </div>
       </div>
     </header>
+    </>
   );
 };
 

@@ -16,27 +16,21 @@ type TimeLeft = {
 
 const StaticShadow = ({ children }: { children: React.ReactNode }) => {
   return (
-    <motion.div 
+    <div 
       className="relative w-72 h-72 md:w-[500px] md:h-[500px]"
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
       style={{
         filter: 'drop-shadow(0 0 15px rgba(255, 255, 255, 0.4))'
       }}
     >
       {children}
-    </motion.div>
+    </div>
   )
 }
 
 const FlipCard = ({ value, label }: { value: number; label: string }) => {
   return (
-    <motion.div 
+    <div 
       className="flex flex-col items-center justify-center bg-gradient-to-b from-red-900 to-red-950 rounded-lg shadow-lg p-2 w-full aspect-square overflow-hidden border border-red-500/30"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
     >
       <div className="relative w-full h-2/3 bg-black/30 rounded-md flex items-center justify-center">
         <AnimatePresence mode="popLayout">
@@ -53,7 +47,7 @@ const FlipCard = ({ value, label }: { value: number; label: string }) => {
         </AnimatePresence>
       </div>
       <span className="text-xs sm:text-sm md:text-base capitalize text-white mt-2 font-semibold">{label}</span>
-    </motion.div>
+    </div>
   )
 }
 
@@ -112,12 +106,7 @@ export default function HeroHighlight() {
       </svg>
 
       <div className="container mx-auto py-8 lg:py-0 flex flex-col-reverse lg:flex-row items-center justify-between relative z-10">
-        <motion.div 
-          className="lg:w-1/2 space-y-8 hero-2"
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
+        <div className="lg:w-1/2 space-y-8 hero-2">
           <h1 className="text-[28px] py-1 md:text-5xl font-satoshi lg:mt-16 font-extrabold bg-clip-text text-white">
             Ideas Worth Spreading
           </h1>
@@ -139,7 +128,7 @@ export default function HeroHighlight() {
               <p>Venue: Grand Convention Center</p>
             </div>
           </div>
-        </motion.div>
+        </div>
         <div className="lg:w-[50%] lg:mt-0 flex flex-col mb-10 items-center lg:items-end">
           <StaticShadow>
             <Image
@@ -149,29 +138,19 @@ export default function HeroHighlight() {
               alt="TEDx Event Logo"
             />
           </StaticShadow>
-          <motion.p 
-            className="text-xl md:text-3xl font-semibold mt-4 lg:mr-2 text-white"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
-          >
-              Life - Explore What&#39;s Worth Living
-          </motion.p>
+          <p className="text-xl md:text-3xl font-semibold mt-4 lg:mr-2 text-white">
+            Life - Explore What&#39;s Worth Living
+          </p>
         </div>
       </div>
-      <motion.div 
-        className="container mx-auto px-4 py-2 relative z-10"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
-      >
+      <div className="container mx-auto px-4 py-2 relative z-10">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 font-satoshi text-white">Event Starts In</h2>
         <div className="grid grid-cols-4 font-satoshi gap-2 sm:gap-4 md:gap-6 max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto">
           {timeUnits.map((unit) => (
             <FlipCard key={unit} value={timeLeft[unit]} label={unit} />
           ))}
         </div>
-      </motion.div>
+      </div>
     </section>
   )
-} 
+}

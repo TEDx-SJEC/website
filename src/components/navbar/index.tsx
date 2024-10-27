@@ -44,7 +44,7 @@ const Navbar = () => {
       );
 
     tl.to(".logo", { x: -300 }, "go")
-      .to(".reg", { y: -300 }, "go")
+      .to(".head-5", { y: -300 }, "go")
       .to(".fullpage-menu", {
         duration: 0,
         display: "block",
