@@ -2,16 +2,16 @@ import { motion } from "framer-motion";
 
 const AboutSection: React.FC = () => {
   return (
-    <section className="relative flex items-center justify-center min-h-screen bg-black text-white">
+    <section className="relative flex items-center justify-center  bg-blackTheme text-white">
       {/* Background decorative layers */}
       <div className="absolute inset-0">
-        <motion.div
+        {/* <motion.div
           className="absolute w-full h-full bg-gradient-to-br from-redTheme via-blackTheme to-blackTheme opacity-70"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
-        />
-        <motion.div
+        /> */}
+        {/* <motion.div
           className="absolute -top-20 -left-20 w-64 h-64 animate-pulse md:w-96 md:h-96 bg-gradient-to-r from-red-600 to-black opacity-30 rounded-full"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
@@ -22,7 +22,7 @@ const AboutSection: React.FC = () => {
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ duration: 1.5, ease: "easeOut", delay: 0.3 }}
-        />
+        /> */}
       </div>
 
       {/* About content */}

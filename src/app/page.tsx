@@ -8,16 +8,20 @@ import About from "@/components/common/About";
 import Team from "@/components/common/Team-Section";
 import { CtaSection } from "@/components/common/cta-section";
 import Performers from "@/components/widget/performers";
+import HeroHighlight from "@/components/widget/hero";
+import Landing_page from "@/components/widget/landing";
 
 export default function Home() {
     return (
-        <>
+        <>   
+            {/* <Landing_page/> */}
             <div className="z-20 relative bg-blackTheme overflow-x-clip">
-                <div
+               <HeroHighlight/>
+                {/* <div
                     className="flex flex-col items-center justify-center h-screen w-full p-4  bg-gradient-to-tr from-red-600 via-black to-black  "
                     id="hero"
-                ></div>
-                <div className="h-screen" id="about">
+                ></div> */}
+                <div className="h-full mt-20 mb-52" id="about">
                     <About />
                 </div>
 
