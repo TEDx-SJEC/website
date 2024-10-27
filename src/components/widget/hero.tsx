@@ -92,7 +92,7 @@ export default function HeroHighlight() {
   const timeUnits: (keyof TimeLeft)[] = ['days', 'hours', 'minutes', 'seconds']
 
   return (
-    <section className="w-full px-10 h-full bg-gradient-to-b from-blackTheme via-red-800 to-blackTheme text-white overflow-hidden relative">
+    <section className="w-full lg:px-10 px-5 h-full bg-gradient-to-b from-blackTheme via-red-800 to-blackTheme text-white overflow-hidden relative">
       <svg
         ref={svgRef}
         className="absolute top-0 left-0 w-full h-full pointer-events-none"
