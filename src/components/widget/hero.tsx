@@ -92,7 +92,7 @@ export default function HeroHighlight() {
   const timeUnits: (keyof TimeLeft)[] = ['days', 'hours', 'minutes', 'seconds']
 
   return (
-    <section className="w-full min-h-screen bg-gradient-to-b from-blackTheme via-red-900 to-blackTheme text-white overflow-hidden relative">
+    <section className="w-full px-10 h-full bg-gradient-to-b from-blackTheme via-red-800 to-blackTheme text-white overflow-hidden relative">
       <svg
         ref={svgRef}
         className="absolute top-0 left-0 w-full h-full pointer-events-none"
@@ -111,14 +111,14 @@ export default function HeroHighlight() {
         />
       </svg>
 
-      <div className="container mx-auto px-4 py-8 flex flex-col-reverse lg:flex-row items-center justify-between relative z-10">
+      <div className="container mx-auto py-8 lg:py-0 flex flex-col-reverse lg:flex-row items-center justify-between relative z-10">
         <motion.div 
           className="lg:w-1/2 space-y-8 hero-2"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <h1 className="text-[28px] py-1 md:text-6xl font-satoshi lg:mt-10 font-extrabold bg-clip-text text-white">
+          <h1 className="text-[28px] py-1 md:text-5xl font-satoshi lg:mt-16 font-extrabold bg-clip-text text-white">
             Ideas Worth Spreading
           </h1>
           <p className="text-xl md:text-2xl font-satoshi text-white max-w-2xl leading-relaxed">
@@ -160,7 +160,7 @@ export default function HeroHighlight() {
         </div>
       </div>
       <motion.div 
-        className="container mx-auto px-4 py-6 relative z-10"
+        className="container mx-auto px-4 py-2 relative z-10"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
