@@ -54,6 +54,7 @@ export default function Performers() {
   const [currentImageIndices, setCurrentImageIndices] = useState<number[]>(
     performerSections.map(() => 0)
   )
+  const intervalRefs = useRef<(NodeJS.Timeout | null)[]>([])
 
   useGSAP(() => {
     const lenis = new Lenis({ lerp: 0.07 })
@@ -106,15 +107,22 @@ export default function Performers() {
   }, [])
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setCurrentImageIndices((prevIndices) =>
-        prevIndices.map((index, sectionIndex) => 
-          (index + 1) % performerSections[sectionIndex].images.length
-        )
-      )
-    }, 2500)
+    performerSections.forEach((_, index) => {
+      intervalRefs.current[index] = setInterval(() => {
+        setCurrentImageIndices((prevIndices) => {
+          const newIndices = [...prevIndices]
+          newIndices[index] = (newIndices[index] + 1) % performerSections[index].images.length
+          return newIndices
+        })
+      }, 2500 + index * 1000) // Stagger the intervals to make the changes less synchronized
+    })
 
-    return () => clearInterval(intervalId)
+    return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      intervalRefs.current.forEach((interval) => {
+        if (interval) clearInterval(interval)
+      })
+    }
   }, [])
 
   return (
@@ -122,7 +130,7 @@ export default function Performers() {
       {performerSections.map((section, sectionIndex) => (
         <section
           key={sectionIndex}
-          className=" flex items-center justify-center relative my-16 first:mt-0 last:mb-0"
+          className="flex items-center justify-center relative my-16 first:mt-0 last:mb-0"
           aria-labelledby={`section-title-${sectionIndex}`}
         >
           <div className="relative w-full max-w-5xl aspect-[16/9] overflow-hidden img-container performer-section">
