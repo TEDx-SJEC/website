@@ -155,7 +155,7 @@ export default function HeroHighlight() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
           >
-            Life - Explore What's Worth Living
+              Life - Explore What&#39;s Worth Living
           </motion.p>
         </div>
       </div>
