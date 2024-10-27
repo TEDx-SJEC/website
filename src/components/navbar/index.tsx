@@ -5,13 +5,14 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Button } from "../ui/button";
 
 const Navbar = () => {
     const menuBar = useRef(gsap.timeline({ paused: true }));
     const tl = useRef(gsap.timeline({ paused: true }));
     const menuToggleRef = useRef(null);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     useGSAP(() => {
         menuBar.current
@@ -65,6 +66,7 @@ const Navbar = () => {
     const handleClick = () => {
         menuBar.current.reversed(!menuBar.current.reversed());
         tl.current.reversed(!tl.current.reversed());
+        setIsMenuOpen(!isMenuOpen);
     };
 
     const NavItem = ({ href, textOne, textTwo }: { href: string; textOne: string; textTwo: string }) => (
@@ -100,30 +102,31 @@ const Navbar = () => {
     );
 
     const RegisterButton = () => (
-        <Button className="bg-orange-600 hover:bg-orange-700 text-white font-semibold  text-lg rounded-md">
+        <Button className="bg-orange-600 hover:bg-orange-700 text-white font-semibold text-lg rounded-md">
             Register Now
         </Button>
     );
 
     return (
         <>
-            <header className="fixed z-[100] left-0 top-0 w-full">
+            <header
+                className={`fixed z-[100] left-0 top-0 w-full blur-class ${
+                    !isMenuOpen ? "backdrop-blur-md bg-black/30" : ""
+                }`}
+            >
                 <div className="header-1 flex md:py-5 md:px-8 p-6 justify-between items-center">
                     <div className="logo">
                         <Link href="/">
                             <Image
                                 src={`${tedxsjecAssetsPrefix}/logo/whiteLogo.png`}
-                                height={150}
-                                width={150}
+                                height={180}
+                                width={180}
                                 alt="TEDxSJEC logo"
                                 priority={true}
                             />
                         </Link>
                     </div>
                     <div className="flex items-center space-x-4">
-                        <div className="hidden lg:block overflow-hidden leading-[1] font-bold text-white reg">
-                            <RegisterButton />
-                        </div>
                         <button
                             id="menuToggle"
                             ref={menuToggleRef}
@@ -144,8 +147,8 @@ const Navbar = () => {
                 <div className="header-2 fixed left-0 top-0 w-full flex md:py-5 md:px-8 p-6 z-[60] justify-between items-center">
                     <Image
                         src={`${tedxsjecAssetsPrefix}/logo/blackLogo.webp`}
-                        height={150}
-                        width={150}
+                        height={180}
+                        width={180}
                         alt="TEDxSJEC logo"
                         priority={true}
                     />
@@ -169,7 +172,7 @@ const Navbar = () => {
                             </li>
                         </ul>
                     </nav>
-                    <div className="w-full flex flex-col items-center">
+                    <div className="w-full flex flex-col ">
                         <div className="lg:self-center lg:flex hidden lg:flex-col">
                             <Image
                                 className="mt-10 hero-icon"
@@ -179,7 +182,7 @@ const Navbar = () => {
                                 alt="TEDxSJEC hero logo"
                             />
                         </div>
-                        <div className="lg:flex hidden text-nowrap text-4xl relative -bottom-8 justify-center items-center text-center bg-blue-400 z-50">
+                        <div className="lg:flex hidden text-nowrap text-4xl relative  text-center  p-2 rounded-md">
                             <h1 className="life uppercase font-bold text-black">
                                 Life - Explore What&#39;s Worth Living
                             </h1>
