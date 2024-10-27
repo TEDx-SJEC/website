@@ -113,7 +113,7 @@ const Navbar = () => {
   )
 
   const RegisterButton = () => (
-    <Button className="bg-orange-600 text-3xl p-[30px] hover:bg-orange-700 text-white font-semibold rounded-md">
+    <Button className="bg-orange-600 text-lg md:text-3xl p-[30px] hover:bg-orange-700 text-white font-semibold rounded-md">
       Register Now
     </Button>
   )
