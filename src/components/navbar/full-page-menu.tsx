@@ -2,7 +2,6 @@
 import { tedxsjecAssetsPrefix } from "@/lib/utils";
 import Image from "next/image";
 import React from "react";
-import SocialLinks from "../common/social-links";
 import NavItem from "./nav-items";
 import RegisterButton from "./register-button";
 
@@ -58,7 +57,6 @@ const FullPageMenu = () => {
             </h1>
           </div>
         </div>
-        <SocialLinks />
       </div>
     </section>
   );

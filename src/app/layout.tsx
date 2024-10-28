@@ -20,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark font-satoshi">
       <body className={(inter.className = "overflow-x-hidden")}>
+      <div className="fixed top-0 w-full h-24 z-50 backdrop-blur-md head-5 bg-black/5" /> 
         <Navbar />
         <StarsCanvas />
         <Providers>{children} </Providers>
