@@ -28,6 +28,8 @@ const TeamCard: React.FC<Props> = ({ members }) => {
                 alt={name}
                 fill
                 className="object-cover rounded-2xl transition-transform duration-500 group-hover:scale-105"
+                priority
+                loading="eager"
               />
             </div>
 
