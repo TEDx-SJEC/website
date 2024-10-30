@@ -13,7 +13,7 @@ import HeroHighlight from "@/components/widget/hero";
 export default function Home() {
   return (
     <>
-      <div className="z-20 relative bg-blackTheme overflow-x-clip">
+      <div className="z-20 relative bg-blackTheme pt-20 overflow-x-clip">
         <HeroHighlight />
         <div className="h-full mt-20 mb-52" id="about">
           <About />
