@@ -6,49 +6,29 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
 import { useGSAP } from "@gsap/react";
+import { tedxsjecAssetsPrefix } from "@/lib/utils";
 
 gsap.registerPlugin(ScrollTrigger);
 
 interface PerformerSection {
   images: string[];
-  title: string;
-  subtitle: string;
+  name: String;
+  profession: string;
   description: string;
 }
 
 const performerSections: PerformerSection[] = [
   {
-    images: [
-      "https://images.unsplash.com/photo-1506157491319-81aab3add711?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    ],
-    title: "The Spotlight Crew",
-    subtitle: "Shining brightest when it matters most.",
+    name: "Yukthi Udupa",
+    profession: "Bharatanatyam artist",
     description:
-      "The Spotlight Crew is a dynamic ensemble of performers who thrive under pressure. With their electrifying energy and captivating stage presence, they turn every performance into an unforgettable experience. From dazzling choreography to powerful vocals, they leave audiences spellbound and craving more.",
-  },
-  {
+      "Yukthi Udupa, a passionate Bharatanatyam artist, began her journey at 12 under Guru Vid Smt. Pravitha Ashok at Nritya Vasantha Natyalaya® Kundapura. She completed her “Vidwath” exams with distinction and earned the Karnataka State Music and Dance Scholarship. Yukthi has won numerous awards, including “Natya Sammohini,” “Yuva Kala Prashasti,” and the “Kalashree Award,” excelling in international, national, and state-level competitions. Her Bharatanatyam Arangetram was a celebrated display of her technical skill and expressive artistry. Yukthi is also a ‘B’ grade Doordarshan artist, inspiring young dancers and honoring Bharatanatyam's legacy.",
     images: [
-      "https://images.unsplash.com/photo-1540908625033-6e2d915074fb?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      `${tedxsjecAssetsPrefix}/performers/Yukthi1.avif`,
+      `${tedxsjecAssetsPrefix}/performers/Yukthi1.avif`,
+      `${tedxsjecAssetsPrefix}/performers/Yukthi1.avif`,
+      // `${tedxsjecAssetsPrefix}/performers/Yukthi2.avif`,
     ],
-    title: "The Rhythm Masters",
-    subtitle: "Keeping the beat, moving your feet.",
-    description:
-      "The Rhythm Masters are the pulse of any performance. With their impeccable timing and infectious grooves, they create the foundation that drives the entire show. From thunderous drums to funky basslines, their rhythmic prowess keeps audiences moving and grooving all night long.",
-  },
-  {
-    images: [
-      "https://images.unsplash.com/photo-1707716489310-0bee7330ff6b?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    ],
-    title: "The Harmony Collective",
-    subtitle: "Blending voices, touching souls.",
-    description:
-      "The Harmony Collective is a group of vocal virtuosos who create magic with their voices. Their seamless harmonies and emotive performances transport listeners to another world. From soaring ballads to intricate a cappella arrangements, they showcase the true power and beauty of the human voice.",
   },
 ];
 
@@ -163,10 +143,10 @@ export default function Performers() {
                 id={`section-title-${sectionIndex}`}
                 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-2"
               >
-                {section.title}
+                {section.name}
               </h2>
               <p className="text-xl md:text-2xl text-white italic">
-                {section.subtitle}
+                {section.profession}
               </p>
             </div>
             <div className="description absolute inset-0 bg-black bg-opacity-75 flex items-center justify-center p-8 opacity-0">
