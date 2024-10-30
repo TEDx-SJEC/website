@@ -1,89 +1,99 @@
-'use client'
+"use client";
 
-import { tedxsjecAssetsPrefix } from "@/lib/utils"
-import { useState, useEffect, useRef } from "react"
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
-import { ArrowRight, Calendar, MapPin } from "lucide-react"
+import { tedxsjecAssetsPrefix } from "@/lib/utils";
+import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  AnimatePresence,
+} from "framer-motion";
+import { ArrowRight, Calendar, MapPin } from "lucide-react";
 
 type TimeLeft = {
-  days: number
-  hours: number
-  minutes: number
-  seconds: number
-}
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+};
 
 const StaticShadow = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div 
+    <div
       className="relative w-72 h-72 md:w-[500px] md:h-[500px]"
       style={{
-        filter: 'drop-shadow(0 0 15px rgba(255, 255, 255, 0.4))'
+        filter: "drop-shadow(0 0 15px rgba(255, 255, 255, 0.4))",
       }}
     >
       {children}
     </div>
-  )
-}
+  );
+};
 
 const FlipCard = ({ value, label }: { value: number; label: string }) => {
   return (
-    <div 
-      className="flex flex-col items-center justify-center bg-gradient-to-b from-red-900 to-red-950 rounded-lg shadow-lg p-2 w-full aspect-square overflow-hidden border border-red-500/30"
-    >
+    <div className="flex flex-col items-center justify-center bg-gradient-to-b from-red-900 to-red-950 rounded-lg shadow-lg p-2 w-full aspect-square overflow-hidden border border-red-500/30">
       <div className="relative w-full h-2/3 bg-black/30 rounded-md flex items-center justify-center">
         <AnimatePresence mode="popLayout">
           <motion.div
             key={value}
-            initial={{ y: '100%', opacity: 0 }}
+            initial={{ y: "100%", opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            exit={{ y: '-100%', opacity: 0 }}
-            transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+            exit={{ y: "-100%", opacity: 0 }}
+            transition={{ type: "spring", stiffness: 500, damping: 30 }}
             className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white"
           >
-            {value.toString().padStart(2, '0')}
+            {value.toString().padStart(2, "0")}
           </motion.div>
         </AnimatePresence>
       </div>
-      <span className="text-xs sm:text-sm md:text-base capitalize text-white mt-2 font-semibold">{label}</span>
+      <span className="text-xs sm:text-sm md:text-base capitalize text-white mt-2 font-semibold">
+        {label}
+      </span>
     </div>
-  )
-}
+  );
+};
 
 export default function HeroHighlight() {
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 })
-  const svgRef = useRef<SVGSVGElement>(null)
-  const targetDate = new Date('2024-12-14')
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+  const svgRef = useRef<SVGSVGElement>(null);
+  const targetDate = new Date("2024-12-14");
 
-  const { scrollYProgress } = useScroll()
-  const pathLength = useTransform(scrollYProgress, [0, 0.8], [0, 1])
+  const { scrollYProgress } = useScroll();
+  const pathLength = useTransform(scrollYProgress, [0, 0.8], [0, 1]);
 
   useEffect(() => {
-    setIsLoaded(true)
+    setIsLoaded(true);
 
     const intervalId = setInterval(() => {
-      const now = new Date()
-      const difference = targetDate.getTime() - now.getTime()
+      const now = new Date();
+      const difference = targetDate.getTime() - now.getTime();
 
       if (difference > 0) {
         setTimeLeft({
           days: Math.floor(difference / (1000 * 60 * 60 * 24)),
           hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
           minutes: Math.floor((difference / 1000 / 60) % 60),
-          seconds: Math.floor((difference / 1000) % 60)
-        })
+          seconds: Math.floor((difference / 1000) % 60),
+        });
       } else {
-        clearInterval(intervalId)
-        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 })
+        clearInterval(intervalId);
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
       }
-    }, 1000)
+    }, 1000);
 
-    return () => clearInterval(intervalId)
-  }, [targetDate])
+    return () => clearInterval(intervalId);
+  }, [targetDate]);
 
-  const timeUnits: (keyof TimeLeft)[] = ['days', 'hours', 'minutes', 'seconds']
+  const timeUnits: (keyof TimeLeft)[] = ["days", "hours", "minutes", "seconds"];
 
   return (
     <section className="w-full lg:px-10 px-5 h-full bg-gradient-to-b from-blackTheme via-red-800 to-blackTheme text-white overflow-hidden relative">
@@ -111,10 +121,14 @@ export default function HeroHighlight() {
             Ideas Worth Spreading
           </h1>
           <p className="text-xl md:text-2xl font-satoshi text-white max-w-2xl leading-relaxed">
-            Join us for an inspiring TEDx event featuring thought-provoking talks, innovative ideas, and transformative experiences.
+            Join us for an inspiring TEDx event featuring thought-provoking
+            talks, innovative ideas, and transformative experiences.
           </p>
           <div className="space-y-4 sm:space-y-0 sm:space-x-4 flex flex-col sm:flex-row">
-            <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white py-2 transition-all duration-300 transform hover:scale-105">
+            <Button
+              size="lg"
+              className="bg-red-600 hover:bg-red-700 text-white py-2 transition-all duration-300 transform hover:scale-105"
+            >
               Register Now <ArrowRight className="ml-2" />
             </Button>
           </div>
@@ -123,10 +137,10 @@ export default function HeroHighlight() {
               <Calendar className="mr-2" size={16} />
               <p>Date: September 15, 2023</p>
             </div>
-            <div className="flex items-center">
+            {/* <div className="flex items-center">
               <MapPin className="mr-2" size={16} />
               <p>Venue: Grand Convention Center</p>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="lg:w-[50%] lg:mt-0 flex flex-col mb-10 items-center lg:items-end">
@@ -144,7 +158,9 @@ export default function HeroHighlight() {
         </div>
       </div>
       <div className="container mx-auto px-4 py-2 relative z-10">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 font-satoshi text-white">Event Starts In</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 font-satoshi text-white">
+          Event Starts In
+        </h2>
         <div className="grid grid-cols-4 font-satoshi gap-2 sm:gap-4 md:gap-6 max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto">
           {timeUnits.map((unit) => (
             <FlipCard key={unit} value={timeLeft[unit]} label={unit} />
@@ -152,5 +168,5 @@ export default function HeroHighlight() {
         </div>
       </div>
     </section>
-  )
+  );
 }

@@ -53,7 +53,7 @@ const Footer = (props: Props) => {
                     <h1 className="md:text-2xl text-lg text-center sm:text-left font-bold mt-4 md:mt-8 no-underline">
                       Socials
                     </h1>
-                    <section className="flex sm:flex-col justify-evenly">
+                    <section className="flex sm:flex-col justify-evenly pt-2">
                       <Link
                         href={"https://instagram.com/tedxsjec"}
                         className=" text-sm "

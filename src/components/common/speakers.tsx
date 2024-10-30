@@ -20,63 +20,15 @@ const performers = [
     profession: "Advocate and Animal Welfare Activist",
     description:
       "Meet Mrs Suma R Nayak, an advocate by profession and animal & environment welfare activist by choice, who believes every creation of God has a right to live a life devoid of pain, suffering and live in dignity. She is the recipient of several awards for her services in the field of environment protection and animal welfare. She is the Trustee of Animal Care Trust, an NGO which runs a charitable hospital cum rescue center for sick and injured community animals and birds at Shakthinagar, Mangalore that rescues and helps over 150 animals every single month.",
-    img: `${tedxsjecAssetsPrefix}/speakers/Kshiti2.avif`,
+    img: `${tedxsjecAssetsPrefix}/speakers/Suma.avif`,
   },
   {
     id: 3,
     name: "Badekkila Pradeep",
-    profession: "Voice Artist and Actor",
+    profession: "Actor | Voice Artist | Anchor",
     description:
-      "Badekkila Pradeep is a versatile actor, model, writer, and distinguished voice artist from Karnataka. Beginning as a reporter in 2006, Pradeep found his passion in voice-over, transforming Kannada TV narration with his unique style. He's voiced popular shows like Bigg Boss Kannada, Bangalore metro announcements, and numerous campaigns across languages, including Kannada, Tulu, Telugu, Tamil, Hindi, and English. An established voice for major Kannada TV channels, Pradeep is also an actor in Kannada and Tamil films and a writer with over 20 years in Kannada publications.",
-    img: `${tedxsjecAssetsPrefix}/speakers/Kshiti3.avif`,
-  },
-  {
-    id: 4,
-    name: "Namitha Marimuthu",
-    profession: "Transgender Rights Activist and Actress",
-    description:
-      "Namitha Marimuthu is a passionate transgender rights activist and actress who rose to fame with her performances in Tamil cinema. She advocates for the inclusion and recognition of transgender people in the entertainment industry and society. Namitha has also represented the transgender community in various international forums and is committed to creating awareness and understanding through her work.",
-    img: `${tedxsjecAssetsPrefix}/speakers/Namitha_M1.avif`,
-  },
-  {
-    id: 5,
-    name: "Ashwin Shetty",
-    profession: "Entrepreneur and Innovator",
-    description:
-      "Ashwin Shetty is an inspiring entrepreneur and innovator known for his pioneering contributions to sustainable technology. With a background in environmental science, Ashwin has launched several successful green startups that focus on renewable energy and sustainable living solutions. He is a sought-after speaker at eco-friendly and tech events worldwide.",
-    img: `${tedxsjecAssetsPrefix}/speakers/Namitha_M2.avif`,
-  },
-  {
-    id: 6,
-    name: "Shriya Shetty",
-    profession: "Culinary Expert and Chef",
-    description:
-      "Shriya Shetty is a renowned culinary expert and chef who has brought traditional Karnataka cuisine to a global audience. She is celebrated for her innovative fusion of local flavors with international techniques, creating a unique culinary experience. Shriya has been featured in multiple food festivals and has authored cookbooks that highlight the diversity of Indian cuisine.",
-    img: `${tedxsjecAssetsPrefix}/speakers/Namitha_M3.avif`,
-  },
-  {
-    id: 7,
-    name: "Munita Veigas Rao",
-    profession: "Philanthropist and Social Worker",
-    description:
-      "Munita Veigas Rao is a dedicated philanthropist and social worker known for her unwavering support for education and healthcare in underprivileged communities. She runs several non-profit initiatives that focus on women’s empowerment, child welfare, and access to basic health services. Munita is committed to making a tangible difference in society through her charitable activities.",
-    img: `${tedxsjecAssetsPrefix}/speakers/Namitha_M4.avif`,
-  },
-  {
-    id: 8,
-    name: "Yukthi",
-    profession: "Classical Dancer and Cultural Ambassador",
-    description:
-      "Yukthi is a classical dancer and cultural ambassador specializing in Bharatanatyam and Odissi. With years of rigorous training and international performances, she promotes Indian classical dance and culture on a global stage. Yukthi is involved in mentoring young dancers and actively participates in cultural exchange programs to foster understanding and appreciation of Indian traditions.",
-    img: `${tedxsjecAssetsPrefix}/speakers/Kshiti1.avif`,
-  },
-  {
-    id: 9,
-    name: "Agasthyam Kalaripayattu",
-    profession: "Martial Arts Instructor",
-    description:
-      "Agasthyam Kalaripayattu is a respected martial arts instructor specializing in Kalaripayattu, an ancient Indian martial art. He has dedicated his life to preserving and promoting this traditional art form, teaching students around the world about the physical and mental discipline required. Agasthyam has also organized international workshops and demonstrations to showcase Kalaripayattu.",
-    img: `${tedxsjecAssetsPrefix}/speakers/Kshiti2.avif`,
+      "Badekkila Pradeep is a versatile actor, model, writer, and distinguished voice artist from Karnataka. Beginning as a reporter in 2006, Pradeep found his passion in voice-over, transforming Kannada TV narration with his unique style. He's voiced popular shows like Bigg Boss Kannada, Bangalore metro announcements, and numerous campaigns across languages, including Kannada, Tulu, Telugu, Tamil, Hindi, and English. An established voice for major Kannada TV channels, Pradeep is also an actor in Kannada and Tamil Television shows and films and a writer with over 20 years in Kannada publications.",
+    img: `${tedxsjecAssetsPrefix}/speakers/Pradeep.avif`,
   },
 ];
 
