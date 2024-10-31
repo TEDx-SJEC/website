@@ -18,12 +18,12 @@ export default function Home() {
         <div className="h-full mt-20 mb-52" id="about">
           <About />
         </div>
-        <div>
+        <div id="speakers" className="">
           <Speakers />
         </div>
 
         <div>
-          <h1 className="md:text-8xl mb-[40px] text-4xl text-center font-black text-redTheme px-10">
+          <h1  id="performers"  className="md:text-8xl mb-[40px] text-4xl mt-20 text-center font-black text-redTheme px-10">
             The Performers
           </h1>
           <Performers />
@@ -31,15 +31,17 @@ export default function Home() {
         <div className=" bg-gradient-to-b bg-blackTheme from-blackTheme via-redTheme  to-blackTheme to-95%">
           <PreviousEdition />
         </div>
-        <div className="bg-blackTheme mb-[100vh] h-fit mt-14">
+        <div id="team" className="bg-blackTheme  mb-[100vh] h-fit mt-14">
           <h1 className="md:text-8xl text-4xl text-center font-black text-redTheme px-10">
             The Team
           </h1>
-          <Team />
+          <Team  />
           <CtaSection />
         </div>
       </div>
+      <div id="contact">
       <ParallaxFooter />
+      </div>
     </>
   );
 }
