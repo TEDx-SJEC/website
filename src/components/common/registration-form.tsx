@@ -25,11 +25,12 @@ import { basePrice, initialdiscount } from "@/constants";
 import { invalidateCouponCode } from "@/app/actions/invalidate-coupon";
 import { useSession } from "next-auth/react";
 import Script from "next/script";
-import { UploadDropzone } from "@/utils/uploadthing";
+import { UploadDropzone, useUploadThing } from "@/utils/uploadthing";
 import { submitForm } from "@/app/actions/submit-form";
 import { PaymentLoading } from "../payment/payment-loading";
 import { PaymentSuccessfulComponent } from "../payment/payment-successful";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { FileUpload } from "../ui/file-upload";
 
 declare global {
     interface Window {
@@ -49,13 +50,20 @@ const baseSchema = z.object({
 
 const studentSchema = baseSchema.extend({
     usn: z.string().min(1, { message: "USN is required for students." }),
-    idCard: z.string(),
+    idCard: z.string().min(1, { message: "ID Card is required for students." }),
 });
+
 
 type FormSchema = z.infer<typeof studentSchema | typeof baseSchema>;
 
+type UploadedFile = {
+    id: string;
+    files: File[];
+};
+
 export default function RegistrationForm() {
     const [step, setStep] = useState(1);
+    const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
     const [pricing, setPricing] = useState({
         basePrice: basePrice,
         discountAmount: initialdiscount,
@@ -66,17 +74,46 @@ export default function RegistrationForm() {
 
     const { data: session } = useSession();
 
-    const form = useForm<FormSchema>({
-        resolver: zodResolver(baseSchema),
-        defaultValues: {
-            designation: "student",
-            name: "",
-            email: "",
-            phone: "",
-            couponCode: "",
-            foodPreference: "veg",
+   const form = useForm<FormSchema>({
+       resolver: zodResolver(baseSchema),
+       defaultValues: {
+           designation: "student",
+           name: "",
+           email: "",
+           phone: "",
+           couponCode: "",
+           foodPreference: "veg",
+       },
+   });
+
+    const { startUpload, routeConfig } = useUploadThing("imageUploader", {
+        onClientUploadComplete: (res) => {
+            if (res && res.length > 0) {
+                form.setValue("idCard", res[0].url);
+                form.setValue("photo", res[1].url);
+            }
+            toast.message("uploaded successfully!");
+        },
+        onUploadError: () => {
+            alert("error occurred while uploading");
+        },
+        onUploadBegin: (file) => {
+            console.log("upload has begun for", file);
         },
     });
+
+    const handleFileUpload = (id: "idCard" | "photo", files: File[]) => {
+        setUploadedFiles((prevFiles) => {
+            const existing = prevFiles.find((file) => file.id === id);
+            if (existing) {
+                return prevFiles.map((file) => (file.id === id ? { ...file, files } : file));
+            } else {
+                return [...prevFiles, { id, files }];
+            }
+        });
+
+        form.setValue(id, files.map((file) => file.name).join(", "));
+    };
 
     const handlePayment = async () => {
         setIsProcessing(true);
@@ -110,11 +147,24 @@ export default function RegistrationForm() {
 
                     const data = await resp.json();
                     if (data.isOk) {
-                        await invalidateCouponCode(couponCode ?? "", session!);
-                        const formResponse = form.getValues();
-                        await submitForm(formResponse, pricing.finalPrice);
-                        setIsProcessing(false);
-                        setSuccess(true);
+                        try {
+                            if (uploadedFiles.length > 0) {
+                                const allFiles = uploadedFiles.flatMap((file) => file.files);
+                                if (allFiles.length > 0) {
+                                    await startUpload(allFiles);
+                                }
+                            }
+                            if (couponCode) {
+                                await invalidateCouponCode(couponCode ?? "", session!);
+                            }
+                            const formResponse = form.getValues();
+                            await submitForm(formResponse, pricing.finalPrice);
+                            setIsProcessing(false);
+                            setSuccess(true);
+                        } catch (error) {
+                            setIsProcessing(false);
+                            toast.error("Payment failed");
+                        }
                     } else {
                         setIsProcessing(false);
                         toast.error("Payment failed");
@@ -158,23 +208,43 @@ export default function RegistrationForm() {
         }
     };
 
-    const handleNext = async () => {
-        let isValid = false;
-        if (step === 1) {
-            isValid = await form.trigger(["designation", "foodPreference"]);
-        } else if (step === 2) {
-            const designation = form.getValues("designation");
-            if (designation === "student") {
-                isValid = await form.trigger(["name", "email", "phone", "usn", "idCard", "photo"]);
-            } else {
-                isValid = await form.trigger(["name", "email", "phone", "photo"]);
-            }
-        }
+   const handleNext = async () => {
+       let isValid = false;
+       if (step === 1) {
+           isValid = await form.trigger(["designation", "foodPreference"]);
+       } else if (step === 2) {
+           const designation = form.getValues("designation");
+           if (designation === "student") {
+               form.clearErrors();
+               const studentFormSchema = z.object({
+                   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
+                   email: z.string().email({ message: "Invalid email address." }),
+                   phone: z.string().regex(/^\d{10}$/, { message: "Phone number must be 10 digits." }),
+                   usn: z.string().min(1, { message: "USN is required for students." }),
+                   idCard: z.string().min(1, { message: "ID Card is required for students." }),
+                   photo: z.string().min(1, { message: "Photo is required." }),
+               });
+               const validationResult = await studentFormSchema.safeParseAsync(form.getValues());
+               isValid = validationResult.success;
+               if (!isValid) {
+                   if (validationResult.error) {
+                       validationResult.error.issues.forEach((issue) => {
+                           form.setError(issue.path[0] as keyof FormSchema, {
+                               type: "manual",
+                               message: issue.message,
+                           });
+                       });
+                   }
+               }
+           } else {
+               isValid = await form.trigger(["name", "email", "phone", "photo"]);
+           }
+       }
 
-        if (isValid) {
-            setStep(step + 1);
-        }
-    };
+       if (isValid) {
+           setStep(step + 1);
+       }
+   };
 
     if (isProcessing) {
         return (
@@ -325,21 +395,10 @@ export default function RegistrationForm() {
                                                 <FormItem>
                                                     <FormLabel>ID Card</FormLabel>
                                                     <FormControl>
-                                                        <UploadDropzone
-                                                            endpoint="imageUploader"
-                                                            onClientUploadComplete={(res) => {
-                                                                if (res && res.length > 0) {
-                                                                    form.setValue("idCard", res[0].url);
-                                                                    toast.success(
-                                                                        "ID Card uploaded successfully"
-                                                                    );
-                                                                }
-                                                            }}
-                                                            onUploadError={(error: Error) => {
-                                                                toast.error(
-                                                                    `ID Card upload failed: ${error.message}`
-                                                                );
-                                                            }}
+                                                        <FileUpload
+                                                            onChange={(files) =>
+                                                                handleFileUpload("idCard", files)
+                                                            }
                                                         />
                                                     </FormControl>
                                                     <FormDescription>
@@ -358,17 +417,8 @@ export default function RegistrationForm() {
                                         <FormItem>
                                             <FormLabel>Photo</FormLabel>
                                             <FormControl>
-                                                <UploadDropzone
-                                                    endpoint="imageUploader"
-                                                    onClientUploadComplete={(res) => {
-                                                        if (res && res.length > 0) {
-                                                            form.setValue("photo", res[0].url);
-                                                            toast.success("Photo uploaded successfully");
-                                                        }
-                                                    }}
-                                                    onUploadError={(error: Error) => {
-                                                        toast.error(`Photo upload failed: ${error.message}`);
-                                                    }}
+                                                <FileUpload
+                                                    onChange={(files) => handleFileUpload("photo", files)}
                                                 />
                                             </FormControl>
                                             <FormDescription>Upload your photo</FormDescription>
