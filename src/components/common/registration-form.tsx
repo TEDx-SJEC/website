@@ -21,7 +21,7 @@ import { Label } from "@/components/ui/label";
 import { getPrice } from "@/app/actions/get-price";
 import { toast } from "sonner";
 import getErrorMessage from "@/utils/getErrorMessage";
-import { basePrice, initialdiscount } from "@/constants";
+import { basePrice, initialdiscount, sjecPrice } from "@/constants";
 import { invalidateCouponCode } from "@/app/actions/invalidate-coupon";
 import { useSession } from "next-auth/react";
 import Script from "next/script";
@@ -31,6 +31,7 @@ import { PaymentLoading } from "../payment/payment-loading";
 import { PaymentSuccessfulComponent } from "../payment/payment-successful";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { FileUpload } from "../ui/file-upload";
+import { isSjecStudent } from "@/lib/helper";
 
 declare global {
     interface Window {
@@ -53,7 +54,6 @@ const studentSchema = baseSchema.extend({
     idCard: z.string().min(1, { message: "ID Card is required for students." }),
 });
 
-
 type FormSchema = z.infer<typeof studentSchema | typeof baseSchema>;
 
 type UploadedFile = {
@@ -74,17 +74,19 @@ export default function RegistrationForm() {
 
     const { data: session } = useSession();
 
-   const form = useForm<FormSchema>({
-       resolver: zodResolver(baseSchema),
-       defaultValues: {
-           designation: "student",
-           name: "",
-           email: "",
-           phone: "",
-           couponCode: "",
-           foodPreference: "veg",
-       },
-   });
+    const isSJECStudent = isSjecStudent(session?.user.email ?? "");
+
+    const form = useForm<FormSchema>({
+        resolver: zodResolver(baseSchema),
+        defaultValues: {
+            designation: "student",
+            name: "",
+            email: session?.user.email!,
+            phone: "",
+            couponCode: "",
+            foodPreference: "veg",
+        },
+    });
 
     const { startUpload, routeConfig } = useUploadThing("imageUploader", {
         onClientUploadComplete: (res) => {
@@ -208,43 +210,43 @@ export default function RegistrationForm() {
         }
     };
 
-   const handleNext = async () => {
-       let isValid = false;
-       if (step === 1) {
-           isValid = await form.trigger(["designation", "foodPreference"]);
-       } else if (step === 2) {
-           const designation = form.getValues("designation");
-           if (designation === "student") {
-               form.clearErrors();
-               const studentFormSchema = z.object({
-                   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-                   email: z.string().email({ message: "Invalid email address." }),
-                   phone: z.string().regex(/^\d{10}$/, { message: "Phone number must be 10 digits." }),
-                   usn: z.string().min(1, { message: "USN is required for students." }),
-                   idCard: z.string().min(1, { message: "ID Card is required for students." }),
-                   photo: z.string().min(1, { message: "Photo is required." }),
-               });
-               const validationResult = await studentFormSchema.safeParseAsync(form.getValues());
-               isValid = validationResult.success;
-               if (!isValid) {
-                   if (validationResult.error) {
-                       validationResult.error.issues.forEach((issue) => {
-                           form.setError(issue.path[0] as keyof FormSchema, {
-                               type: "manual",
-                               message: issue.message,
-                           });
-                       });
-                   }
-               }
-           } else {
-               isValid = await form.trigger(["name", "email", "phone", "photo"]);
-           }
-       }
+    const handleNext = async () => {
+        let isValid = false;
+        if (step === 1) {
+            isValid = await form.trigger(["designation", "foodPreference"]);
+        } else if (step === 2) {
+            const designation = form.getValues("designation");
+            if (designation === "student") {
+                form.clearErrors();
+                const studentFormSchema = z.object({
+                    name: z.string().min(2, { message: "Name must be at least 2 characters." }),
+                    email: z.string().email({ message: "Invalid email address." }),
+                    phone: z.string().regex(/^\d{10}$/, { message: "Phone number must be 10 digits." }),
+                    usn: z.string().min(1, { message: "USN is required for students." }),
+                    idCard: z.string().min(1, { message: "ID Card is required for students." }),
+                    photo: z.string().min(1, { message: "Photo is required." }),
+                });
+                const validationResult = await studentFormSchema.safeParseAsync(form.getValues());
+                isValid = validationResult.success;
+                if (!isValid) {
+                    if (validationResult.error) {
+                        validationResult.error.issues.forEach((issue) => {
+                            form.setError(issue.path[0] as keyof FormSchema, {
+                                type: "manual",
+                                message: issue.message,
+                            });
+                        });
+                    }
+                }
+            } else {
+                isValid = await form.trigger(["name", "email", "phone", "photo"]);
+            }
+        }
 
-       if (isValid) {
-           setStep(step + 1);
-       }
-   };
+        if (isValid) {
+            setStep(step + 1);
+        }
+    };
 
     if (isProcessing) {
         return (
@@ -354,7 +356,12 @@ export default function RegistrationForm() {
                                         <FormItem>
                                             <FormLabel>Email</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="john@example.com" {...field} />
+                                                <Input
+                                                    placeholder="john@example.com"
+                                                    {...field}
+                                                    disabled
+                                                    value={session?.user.email!}
+                                                />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -433,7 +440,7 @@ export default function RegistrationForm() {
                                 <div className="space-y-4">
                                     <div>
                                         <Label>Total Amount</Label>
-                                        <p className="text-2xl font-bold">₹{pricing.finalPrice}</p>
+                                        <p className="text-2xl font-bold">₹{isSJECStudent ? sjecPrice :pricing.finalPrice}</p>
                                     </div>
                                     <FormField
                                         control={form.control}
@@ -443,9 +450,17 @@ export default function RegistrationForm() {
                                                 <FormLabel>Coupon Code</FormLabel>
                                                 <div className="flex space-x-2">
                                                     <FormControl>
-                                                        <Input placeholder="Enter coupon code" {...field} />
+                                                        <Input
+                                                            placeholder="Enter coupon code"
+                                                            {...field}
+                                                            disabled={isSJECStudent}
+                                                        />
                                                     </FormControl>
-                                                    <Button type="button" onClick={verifyCoupon}>
+                                                    <Button
+                                                        type="button"
+                                                        onClick={verifyCoupon}
+                                                        disabled={isSJECStudent}
+                                                    >
                                                         Verify
                                                     </Button>
                                                 </div>
