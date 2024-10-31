@@ -26,16 +26,16 @@ const FullPageMenu = () => {
         </div>
         <nav className="relative z-10 flex flex-row w-full">
           <ul className="main-menu mt-10">
-            <NavItem href="/contact" textOne="ABOUT" textTwo="ABOUT" />
-            <NavItem href="/contact" textOne="SPEAKERS" textTwo="SPEAKERS" />
+            <NavItem  textOne="ABOUT" textTwo="ABOUT" />
+            <NavItem textOne="SPEAKERS" textTwo="SPEAKERS" />
             <NavItem
-              href="/contact"
+
               textOne="PERFORMERS"
               textTwo="PERFORMERS"
             />
-            <NavItem href="/contact" textOne="TEAM" textTwo="TEAM" />
-            <NavItem href="/contact" textOne="GALLERY" textTwo="GALLERY" />
-            <NavItem href="/contact" textOne="CONTACT" textTwo="CONTACT" />
+            <NavItem  textOne="TEAM" textTwo="TEAM" />
+            <NavItem  textOne="GALLERY" textTwo="GALLERY" />
+            <NavItem  textOne="CONTACT" textTwo="CONTACT" />
             <li className="list-none listo overflow-hidden leading-[1] font-bold text-white mt-[30px]">
               <RegisterButton />
             </li>

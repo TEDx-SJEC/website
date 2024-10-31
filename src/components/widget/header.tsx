@@ -7,28 +7,17 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { tedxsjecAssetsPrefix } from "@/lib/utils";
 import React from "react";
 import Link from "next/link";
-import NavItem from "../navbar/nav-items";
 import SocialLinks from "../common/social-links";
+import NavItem from "../navbar/nav-items";
 
-
-//this component has been split into different components for better readability in navbar. donnot use this component, as its not in use
 const Nav = () => {
   gsap.registerPlugin(ScrollTrigger);
 
   const menuToggle = useRef(null);
-
   const menuBar = gsap.timeline({ paused: true });
   const tl = gsap.timeline({ paused: true });
 
   useGSAP(() => {
-    //   ScrollTrigger.create({
-    //     trigger: ".aboute",
-    //     markers: true,
-    //     toggleClass: "about",
-    //     start: "top 50%",
-    //     end: "+=9999", // Prevents it from ending
-    //   });
-
     menuBar
       .to(
         ".bar-1",
@@ -55,7 +44,7 @@ const Nav = () => {
       );
 
     tl.to(".logo", { x: -300 }, "go")
-      .to(".reg", { y: -300 }, "go")
+    .to(".head-5", { y: -300 }, "go")
       .to(".fullpage-menu", {
         duration: 0,
         display: "block",
@@ -85,32 +74,32 @@ const Nav = () => {
         "-=0.5"
       )
       .from(".hero-icon", { scale: 0, duration: 0.5 }, "end")
-      .from(".life", { x: 800, duration: 0.5 }, "end");
-
-    // gsap.to('.hero-icon', {
-    //   repeat: -1,
-    //   keyframes: [
-    //     { translateX: 10, translateY: 10, duration: 0.5 },
-    //     { translateX: 10, translateY: -10, duration: 0.5 },
-    //     { translateX: -10, translateY: 10, duration: 0.5 },
-    //     { translateX: 10, translateY: -10, duration: 0.5 }
-    //   ],
-    //   yoyo: true
-    // });
+      .from(".life", { x: 1000, duration: 0.5 }, "end");
 
     menuBar.reverse();
     tl.reverse();
   }, [menuBar, tl]);
 
-  const handleClick = () => {
+  const handleClick = (targetId: string) => {
     menuBar.reversed(!menuBar.reversed());
     tl.reversed(!tl.reversed());
+  
+    if (targetId) {
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        const offset = targetElement.getBoundingClientRect().top + window.scrollY - (window.innerHeight * 0.1);
+        window.scrollTo({
+          top: offset,
+          behavior: "smooth",
+        });
+      }
+    }
   };
 
   return (
     <>
-      <header className="fixed  z-[100] aboute left-0 top-0 w-screen">
-        <div className="header-1 flex md:py-[20px] md:px-[30px] p-[30px]  justify-between  items-center  ">
+      <header className="fixed z-[100] aboute left-0 top-0 w-screen">
+        <div className="header-1 flex md:py-[20px] md:px-[30px] p-[30px] justify-between items-center">
           <div className="logo">
             <Link href="/">
               <Image
@@ -123,18 +112,13 @@ const Nav = () => {
               />
             </Link>
           </div>
-          <div className="flex justify-between items-center ">
-            <li className="list-none overflow-hidden  leading-[1] font-bold text-white reg">
-              <Link href="/register">
-                <button className="px-3 shadow-sm  py-4 lg:block hidden  mr-7 rounded-md  bg-[#EB0028]">
-                  REGISTER
-                </button>
-              </Link>
+          <div className="flex justify-between items-center">
+            <li className="list-none overflow-hidden leading-[1] font-bold text-white reg">
             </li>
             <button
               id="menuToggle"
               ref={menuToggle}
-              onClick={handleClick}
+              onClick={() => handleClick("")}
               className="menu-toggle bg-transparent border-none cursor-pointer"
             >
               <svg
@@ -161,8 +145,8 @@ const Nav = () => {
         </div>
       </header>
 
-      <section className="fullpage-menu hidden fixed left-0 top-0 w-screen z-50  h-screen ">
-        <div className="header-2 fixed left-0 top-0 w-full  flex md:py-[20px] md:px-[30px] p-[30px] z-[60]  justify-between  items-center">
+      <section className="fullpage-menu hidden fixed left-0 top-0 w-screen z-50 h-screen">
+        <div className="header-2 fixed left-0 top-0 w-full flex md:py-[20px] md:px-[30px] p-[30px] z-[60] justify-between items-center">
           <Image
             src={`${tedxsjecAssetsPrefix}/logo/blackLogo.webp`}
             height={200}
@@ -172,32 +156,23 @@ const Nav = () => {
             priority={true}
           />
         </div>
-        <div className="fullpage-menu-inner flex items-center  h-full px-[50px] py-[10px] md:px-[80px] md:py-[40px]">
-          <div className="menu-bg h-full w-full  absolute  left-0 top-0">
-            <span className="bg-white   block back w-full h-[34%]"></span>
-            <span className="bg-white   block back w-full h-[34%]"></span>
-            <span className="bg-white   block back w-full h-[34%]"></span>
+        <div className="fullpage-menu-inner flex items-center h-full px-[50px] py-[10px] md:px-[80px] md:py-[40px]">
+          <div className="menu-bg h-full w-full absolute left-0 top-0">
+            <span className="bg-white block back w-full h-[34%]"></span>
+            <span className="bg-white block back w-full h-[34%]"></span>
+            <span className="bg-white block back w-full h-[34%]"></span>
           </div>
-          <nav className=" relative z-10 flex flex-row  w-full">
+          <nav className="relative z-10 flex flex-row w-full">
             <div>
               <ul className="main-menu mt-10">
-                <NavItem href="/contact" textOne="ABOUT" textTwo="ABOUT" />
-                <NavItem
-                  href="/contact"
-                  textOne="SPEAKERS"
-                  textTwo="SPEAKERS"
-                />
-                <NavItem
-                  href="/contact"
-                  textOne="PERFORMERS"
-                  textTwo="PERFORMERS"
-                />
-                <NavItem href="/contact" textOne="TEAM" textTwo="TEAM" />
-                <NavItem href="/contact" textOne="GALLERY" textTwo="GALLERY" />
-                <NavItem href="/contact" textOne="CONTACT" textTwo="CONTACT" />
-                <li className="list-none listo overflow-hidden  leading-[1] font-bold text-white mt-[30px]">
+                <NavItem  textOne="ABOUT" textTwo="ABOUT" onClick={() => handleClick('about')} />
+                <NavItem  textOne="SPEAKERS" textTwo="SPEAKERS" onClick={() => handleClick('speakers')} />
+                <NavItem textOne="PERFORMERS" textTwo="PERFORMERS" onClick={() => handleClick('performers')} />
+                <NavItem  textOne="TEAM" textTwo="TEAM" onClick={() => handleClick('team')} />
+                <NavItem  textOne="CONTACT" textTwo="CONTACT" onClick={() => handleClick('contact')} />
+                <li className="list-none listo overflow-hidden leading-[1] font-bold text-white mt-[30px]">
                   <Link href="/">
-                    <button className="px-8 shadow-sm  py-5 rounded-md  bg-[#EB0028]">
+                    <button className="px-8 shadow-sm py-5 rounded-md bg-[#EB0028]">
                       REGISTER
                     </button>
                   </Link>
@@ -206,7 +181,7 @@ const Nav = () => {
             </div>
           </nav>
           <div className="w-full flex flex-col items-center">
-            <div className="lg:self-center  lg:flex hidden lg:flex-col">
+            <div className="lg:self-center lg:flex hidden lg:flex-col">
               <Image
                 className="mt-10 hero-icon"
                 src={`${tedxsjecAssetsPrefix}/logo/ActualLogo.PNG`}
@@ -215,13 +190,12 @@ const Nav = () => {
                 alt="logo"
               />
             </div>
-            <div className="lg:flex hidden text-nowrap  text-4xl relative bottom-32 justify-center items-center text-center">
+            <div className="lg:flex hidden text-nowrap text-4xl relative bottom-32 justify-center items-center text-center">
               <h1 className="life uppercase font-bold text-black">
-                Life - Explore What&#39;s Worth Living
+                Life - Explore What's Worth Living
               </h1>
             </div>
           </div>
-          <SocialLinks />
         </div>
       </section>
     </>

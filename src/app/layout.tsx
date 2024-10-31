@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { StarsCanvas } from "@/components/ui/stars";
-import Navbar from "@/components/navbar";
+import Nav from "@/components/widget/header";
 // import ScrollProgress from "@/components/ui/progressBar";
 const inter = Inter({ subsets: ["latin"] });
 
@@ -38,7 +38,7 @@ export default function RootLayout({
       </head>
       <body className={(inter.className = "overflow-x-hidden")}>
         <div className="fixed top-0 w-full h-24 z-50 backdrop-blur-md head-5 bg-black/5" />
-        <Navbar />
+        <Nav />
         <StarsCanvas />
         <Providers>{children} </Providers>
       </body>
