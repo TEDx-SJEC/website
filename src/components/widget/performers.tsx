@@ -25,8 +25,8 @@ const performerSections: PerformerSection[] = [
       "Yukthi Udupa, a passionate Bharatanatyam artist, began her journey at 12 under Guru Vid Smt. Pravitha Ashok at Nritya Vasantha Natyalaya® Kundapura. She completed her “Vidwath” exams with distinction and earned the Karnataka State Music and Dance Scholarship. Yukthi has won numerous awards, including “Natya Sammohini,” “Yuva Kala Prashasti,” and the “Kalashree Award,” excelling in international, national, and state-level competitions. Her Bharatanatyam Arangetram was a celebrated display of her technical skill and expressive artistry. Yukthi is also a ‘B’ grade Doordarshan artist, inspiring young dancers and honoring Bharatanatyam's legacy.",
     images: [
       `${tedxsjecAssetsPrefix}/performers/Yukthi1.avif`,
-      `${tedxsjecAssetsPrefix}/performers/Yukthi1.avif`,
-      `${tedxsjecAssetsPrefix}/performers/Yukthi1.avif`,
+      // `${tedxsjecAssetsPrefix}/performers/Yukthi1.avif`,
+      // `${tedxsjecAssetsPrefix}/performers/Yukthi1.avif`,
       // `${tedxsjecAssetsPrefix}/performers/Yukthi2.avif`,
     ],
   },

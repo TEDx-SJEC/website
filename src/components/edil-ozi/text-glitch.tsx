@@ -17,7 +17,7 @@ const TextGlitchEffect: FC<Props> = ({ textOne, textTwo, className }) => {
       )}
     >
       <span className="invisible whitespace-nowrap">{textOne}</span>
-      <span className="absolute left-0 top-0 text-whiteTheme transition-transform duration-300 ease-in-out group-hover:-translate-y-full whitespace-nowrap">
+      <span className="absolute left-0 top-0 text-blackTheme transition-transform duration-300 ease-in-out group-hover:-translate-y-full whitespace-nowrap">
         {textOne}
       </span>
       <span className="absolute left-0 top-0 translate-y-full transition-transform duration-300 ease-in-out group-hover:translate-y-0 text-red-600 whitespace-nowrap">
