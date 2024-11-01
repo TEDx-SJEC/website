@@ -21,7 +21,7 @@ export const generatedSignature = (razorpayOrderId: string, razorpayPaymentId: s
     return sig;
 };
 
-export const isSjecStudent = (email: string) => {
+export const isSjecMember = (email: string) => {
     if (email.endsWith("@sjec.ac.in")) {
         return true;
     }
