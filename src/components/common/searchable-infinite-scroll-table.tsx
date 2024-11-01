@@ -140,9 +140,7 @@ export function SearchableInfiniteScrollTable() {
                     <TableRow>
                         <TableHead>Name</TableHead>
                         <TableHead>Email</TableHead>
-                        <TableHead>USN</TableHead>
                         <TableHead>Payment ID</TableHead>
-                        <TableHead>Contact Number</TableHead>
                         <TableHead>Amount</TableHead>
                     </TableRow>
                 </TableHeader>
@@ -151,9 +149,7 @@ export function SearchableInfiniteScrollTable() {
                         <TableRow key={index}>
                             <TableCell>{item.user.name}</TableCell>
                             <TableCell>{item.user.email}</TableCell>
-                            <TableCell>{item.usn}</TableCell>
                             <TableCell>{item.razorpayPaymentId}</TableCell>
-                            <TableCell>{item.contactNumber}</TableCell>
                             <TableCell>₹{item.amount.toFixed(2)}</TableCell>
                         </TableRow>
                     ))}
