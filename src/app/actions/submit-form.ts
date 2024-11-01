@@ -1,8 +1,8 @@
 "use server";
 
-import { FormDataInterface } from "@/components/common/registration-form";
 import { getServerSideSession } from "@/lib/get-server-session";
 import prisma from "@/server/db";
+import { FormDataInterface } from "@/types";
 
 export async function submitForm(data: FormDataInterface, amount: number) {
     const session = await getServerSideSession();
@@ -15,13 +15,14 @@ export async function submitForm(data: FormDataInterface, amount: number) {
             name: data.name,
             usn: data.usn,
             email: data.email,
+            foodPreference:data.foodPreference,
             contact: data.phone,
             designation: data.designation,
             paidAmount: amount,
             photo: data.photo,
             collegeIdCard: data.idCard,
             createdById: session.user.id,
-            entityName: data.name,
+            entityName: data.entityName,
         },
     });
 }

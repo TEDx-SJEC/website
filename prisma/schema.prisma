@@ -66,25 +66,26 @@ model Referral {
   isUsed             Boolean  @default(false)
   created_at         DateTime @default(now())
 
-  createdBy User   @relation("createdByUser", fields: [createdById], references: [id], onDelete: Cascade) // Admin who created the referral
-  usedBy    User?  @relation("usedByUser", fields: [usedById], references: [email])
+  createdBy User   @relation("createdByUser", fields: [createdById], references: [id], onDelete: Cascade) 
+  usedBy    User?  @relation("usedByUser", fields: [usedById], references: [id]) 
   forms     Form[]
 }
 
 model Form {
-  id            String   @id @default(cuid())
-  name          String
-  usn           String?
-  email         String
-  contact       String?
-  designation   String?
-  photo         String   @map("photo_url") // URL of the photo uploaded by the participan
-  collegeIdCard String?  @map("college_id_card")
-  entityName    String   @map("entity_name")
-  referralUsed  String?  @map("referral_used")
-  paidAmount    Float    @map("paid_amount")
-  createdById   String   @map("created_by_id")
-  created_at    DateTime @default(now())
+  id             String   @id @default(cuid())
+  name           String
+  usn            String?
+  email          String
+  contact        String?
+  designation    String?
+  foodPreference String   @default("veg") @map("food_preference")
+  photo          String   @map("photo_url") // URL of the photo uploaded by the participan
+  collegeIdCard  String?  @map("college_id_card")
+  entityName     String?  @map("entity_name")
+  referralUsed   String?  @map("referral_used")
+  paidAmount     Float    @map("paid_amount")
+  createdById    String   @map("created_by_id")
+  created_at     DateTime @default(now())
   //registrationEmailSent Boolean? @default(false) @map("registration_email_sent")
 
   user     User      @relation(fields: [createdById], references: [id], onDelete: Cascade)

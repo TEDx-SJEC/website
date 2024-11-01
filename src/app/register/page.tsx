@@ -1,28 +1,31 @@
 "use client";
+
+import { useEffect } from "react";
+import { useSession, signIn } from "next-auth/react";
 import RegistrationForm from "@/components/common/registration-form";
-import { signIn, useSession } from "next-auth/react";
-import React from "react";
 
-export default function Page() {
-  useSession({
-    required: true,
-    onUnauthenticated: async () => {
-      await signIn("google");
-    },
-  });
-  return (
-    <div className="flex h-screen justify-center items-center mt-8">
-      <RegistrationForm />
-      {/* <Payment /> */}
-    </div>
-  );
-}
+export default function RegistrationPage() {
+    const { status } = useSession({
+        required: true,
+        onUnauthenticated() {
+            signIn("google");
+        },
+    });
 
-{
-  /* <div className="mx-auto max-w-md space-y-8 py-12">
-<div className="text-center">
-  <h1 className="text-4xl font-bold">TEDx 2024</h1>
-  <p className="text-muted-foreground">Registration Form</p>
-</div>
-</div> */
+    useEffect(() => {
+        if (status === "loading") {
+            // You can add a loading state here if needed
+        }
+    }, [status]);
+
+    if (status !== "authenticated") {
+        return null; 
+    }
+
+    return (
+        <div className="flex min-h-screen flex-col items-center justify-center p-4">
+            <h1 className="mb-8 text-4xl font-bold">TEDx 2024</h1>
+            <RegistrationForm />
+        </div>
+    );
 }
