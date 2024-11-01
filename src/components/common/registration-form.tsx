@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -25,13 +25,14 @@ import { basePrice, initialdiscount, sjecPrice } from "@/constants";
 import { invalidateCouponCode } from "@/app/actions/invalidate-coupon";
 import { useSession } from "next-auth/react";
 import Script from "next/script";
-import { UploadDropzone, useUploadThing } from "@/utils/uploadthing";
+import { useUploadThing } from "@/utils/uploadthing";
 import { submitForm } from "@/app/actions/submit-form";
 import { PaymentLoading } from "../payment/payment-loading";
 import { PaymentSuccessfulComponent } from "../payment/payment-successful";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { FileUpload } from "../ui/file-upload";
-import { isSjecStudent } from "@/lib/helper";
+import { isSjecMember } from "@/lib/helper";
+import { FormDataInterface } from "@/types";
 
 declare global {
     interface Window {
@@ -45,6 +46,7 @@ const baseSchema = z.object({
     email: z.string().email({ message: "Invalid email address." }),
     phone: z.string().regex(/^\d{10}$/, { message: "Phone number must be 10 digits." }),
     photo: z.string(),
+    entityName: z.string().optional(),
     couponCode: z.string().optional(),
     foodPreference: z.enum(["veg", "non-veg"]),
 });
@@ -64,17 +66,27 @@ type UploadedFile = {
 export default function RegistrationForm() {
     const [step, setStep] = useState(1);
     const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
+    const [isProcessing, setIsProcessing] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [isSJECMember, setIsSJECMember] = useState(false);
     const [pricing, setPricing] = useState({
         basePrice: basePrice,
         discountAmount: initialdiscount,
-        finalPrice: basePrice,
+        finalPrice: isSJECMember ? sjecPrice : basePrice, // Updated to set sjecPrice if isSJECMember is true
     });
-    const [isProcessing, setIsProcessing] = useState(false);
-    const [success, setSuccess] = useState(false);
 
     const { data: session } = useSession();
 
-    const isSJECStudent = isSjecStudent(session?.user.email ?? "");
+    useEffect(() => {
+        setIsSJECMember(isSjecMember(session?.user.email!));
+        setPricing((prevPricing) => ({
+            ...prevPricing,
+            finalPrice: isSJECMember ? sjecPrice : basePrice, // Update finalPrice based on isSJECMember
+        }));
+    }, [session?.user.email, isSJECMember]);
+
+    if (isSJECMember) {
+    }
 
     const form = useForm<FormSchema>({
         resolver: zodResolver(baseSchema),
@@ -83,6 +95,7 @@ export default function RegistrationForm() {
             name: "",
             email: session?.user.email!,
             phone: "",
+            entityName: "",
             couponCode: "",
             foodPreference: "veg",
         },
@@ -90,9 +103,12 @@ export default function RegistrationForm() {
 
     const { startUpload, routeConfig } = useUploadThing("imageUploader", {
         onClientUploadComplete: (res) => {
-            if (res && res.length > 0) {
+            if (res && res.length == 2) {
                 form.setValue("idCard", res[0].url);
                 form.setValue("photo", res[1].url);
+            }
+            if (res && res.length == 1) {
+                form.setValue("photo", res[0].url);
             }
             toast.message("uploaded successfully!");
         },
@@ -157,10 +173,10 @@ export default function RegistrationForm() {
                                 }
                             }
                             if (couponCode) {
-                                await invalidateCouponCode(couponCode ?? "", session!);
+                                await invalidateCouponCode(couponCode, session!);
                             }
                             const formResponse = form.getValues();
-                            await submitForm(formResponse, pricing.finalPrice);
+                            await submitForm(formResponse as FormDataInterface, pricing.finalPrice);
                             setIsProcessing(false);
                             setSuccess(true);
                         } catch (error) {
@@ -380,6 +396,24 @@ export default function RegistrationForm() {
                                         </FormItem>
                                     )}
                                 />
+                                {!isSJECMember && (
+                                    <FormField
+                                        control={form.control}
+                                        name="entityName"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>College/Organization</FormLabel>
+                                                <FormControl>
+                                                    <Input
+                                                        placeholder="St Joseph Engineering College"
+                                                        {...field}
+                                                    />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                )}
                                 {form.watch("designation") === "student" && (
                                     <>
                                         <FormField
@@ -440,7 +474,7 @@ export default function RegistrationForm() {
                                 <div className="space-y-4">
                                     <div>
                                         <Label>Total Amount</Label>
-                                        <p className="text-2xl font-bold">₹{isSJECStudent ? sjecPrice :pricing.finalPrice}</p>
+                                        <p className="text-2xl font-bold">₹{pricing.finalPrice}</p>
                                     </div>
                                     <FormField
                                         control={form.control}
@@ -453,13 +487,13 @@ export default function RegistrationForm() {
                                                         <Input
                                                             placeholder="Enter coupon code"
                                                             {...field}
-                                                            disabled={isSJECStudent}
+                                                            disabled={isSJECMember}
                                                         />
                                                     </FormControl>
                                                     <Button
                                                         type="button"
                                                         onClick={verifyCoupon}
-                                                        disabled={isSJECStudent}
+                                                        disabled={isSJECMember}
                                                     >
                                                         Verify
                                                     </Button>
