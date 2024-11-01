@@ -10,7 +10,7 @@ export default function AdminPage() {
 
   return (
     <>
-      <div className="w-screen h-screen flex justify-center items-center">
+      <div className="h-screen flex  items-center justify-center">
         <Coupon session={session} />
       </div>
     </>
