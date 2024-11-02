@@ -129,13 +129,14 @@ export default function HeroHighlight() {
               size="lg"
               className="bg-red-600 hover:bg-red-700 text-white py-2 transition-all duration-300 transform hover:scale-105"
             >
-              Register Now <ArrowRight className="ml-2" />
+              Registrations Open Soon
+              {/* <ArrowRight className="ml-2" /> */}
             </Button>
           </div>
-          <div className="text-sm text-white space-y-2">
+          <div className="text-md text-white space-y-2">
             <div className="flex items-center">
-              <Calendar className="mr-2" size={16} />
-              <p>Date: September 15, 2023</p>
+              <Calendar className="mr-2" size={20} />
+              <p>Date: December 14, 2024</p>
             </div>
             {/* <div className="flex items-center">
               <MapPin className="mr-2" size={16} />

@@ -30,17 +30,17 @@ const performerSections: PerformerSection[] = [
       // `${tedxsjecAssetsPrefix}/performers/Yukthi2.avif`,
     ],
   },
-  {
-    name: "Agasthyam Kalaripayattu",
-    profession: "Martial Arts Institution",
-    description:
-      "Agasthyam Kalaripayattu, a premier martial arts institution, preserves and teaches the ancient art of Kalaripayattu from Kerala, India. Founded and led by Gurukkal S Mahesh, Agasthyam continues a legacy over 129 years old, deeply rooted in traditional combat techniques, self-defense, weaponry, and spiritual growth. This renowned school offers rigorous training that builds agility, strength, and resilience, merging physical discipline with profound cultural heritage. Agasthyam is a respected destination for those who seek not only to master Kalaripayattu but also to forge a deeper, spiritual connection to this timeless art form.",
-    images: [
-      `${tedxsjecAssetsPrefix}/performers/Agasthyam1.avif`,
-      // `${tedxsjecAssetsPrefix}/performers/Agasthyam2.avif`,
-      // `${tedxsjecAssetsPrefix}/performers/Agasthyam3.avif`,
-    ],
-  },
+  // {
+  //   name: "Agasthyam Kalaripayattu",
+  //   profession: "Martial Arts Institution",
+  //   description:
+  //     "Agasthyam Kalaripayattu, a premier martial arts institution, preserves and teaches the ancient art of Kalaripayattu from Kerala, India. Founded and led by Gurukkal S Mahesh, Agasthyam continues a legacy over 129 years old, deeply rooted in traditional combat techniques, self-defense, weaponry, and spiritual growth. This renowned school offers rigorous training that builds agility, strength, and resilience, merging physical discipline with profound cultural heritage. Agasthyam is a respected destination for those who seek not only to master Kalaripayattu but also to forge a deeper, spiritual connection to this timeless art form.",
+  //   images: [
+  //     `${tedxsjecAssetsPrefix}/performers/Agasthyam1.avif`,
+  //     // `${tedxsjecAssetsPrefix}/performers/Agasthyam2.avif`,
+  //     // `${tedxsjecAssetsPrefix}/performers/Agasthyam3.avif`,
+  //   ],
+  // },
 ];
 
 export default function Performers() {
