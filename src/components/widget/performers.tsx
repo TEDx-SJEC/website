@@ -6,9 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 import Lenis from "@studio-freight/lenis"
 import { useGSAP } from "@gsap/react"
 import { tedxsjecAssetsPrefix } from "@/lib/utils"
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
-import { X } from "lucide-react"
-
+import { Dialog, DialogContent } from "@/components/ui/dialog"
 gsap.registerPlugin(ScrollTrigger)
 
 interface PerformerSection {
