@@ -63,7 +63,7 @@ const Footer = (props: Props) => {
                         <TextGlitch
                           textOne="INSTAGRAM"
                           textTwo="tedxsjec"
-                          className="font-bold text-black  text-[15px] lg:text-[20px] leading-tight"
+                          className="font-bold text-[15px] lg:text-[20px] leading-tight"
                         />
                       </Link>
                       <Link
@@ -75,7 +75,7 @@ const Footer = (props: Props) => {
                         <TextGlitch
                           textOne="LINKEDIN"
                           textTwo="tedxsjec"
-                          className="font-bold text-black  text-[15 px] lg:text-[20px] leading-tight"
+                          className="font-bold  text-[15 px] lg:text-[20px] leading-tight"
                         />
                       </Link>
                     </section>

@@ -21,7 +21,7 @@ export function PreviousEdition() {
         <iframe
           width="100%"
           height="450"
-          src="http://www.youtube.com/embed/NCWwTsAjiys?si=xBkmPtQEYQl_tEIX"
+          src="https://www.youtube.com/embed/NCWwTsAjiys?si=xBkmPtQEYQl_tEIX"
         ></iframe>
       </ContainerScroll>
     </div>
