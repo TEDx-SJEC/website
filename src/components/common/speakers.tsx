@@ -4,8 +4,9 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import { tedxsjecAssetsPrefix } from "@/lib/utils";
+import MoreInfo from "../ui/SpringModal";
 
-const performers = [
+const speakers = [
   {
     id: 1,
     name: "Karen Kshiti Suvarna",
@@ -29,6 +30,14 @@ const performers = [
     description:
       "Badekkila Pradeep is a versatile actor, model, writer, and distinguished voice artist from Karnataka. Beginning as a reporter in 2006, Pradeep found his passion in voice-over, transforming Kannada TV narration with his unique style. He's voiced popular shows like Bigg Boss Kannada, Bangalore metro announcements, and numerous campaigns across languages, including Kannada, Tulu, Telugu, Tamil, Hindi, and English. An established voice for major Kannada TV channels, Pradeep is also an actor in Kannada and Tamil Television shows and films and a writer with over 20 years in Kannada publications.",
     img: `${tedxsjecAssetsPrefix}/speakers/Pradeep.avif`,
+  },
+  {
+    id: 4,
+    name: "Namitha Marimuthu",
+    profession: "International Model, Actress, and Social Activist",
+    description:
+      "Namitha Marimuthu is an international model, actress, and social activist who has made history as the first transgender woman to reach the finals of Miss Universe India in 2024. She is the CEO and founder of Miss Queen India and the owner of Alfeem India, both of which promote inclusivity and empowerment. Namitha’s accolades include titles like Miss Trans Star International 2019, Miss International Queen 2022, and Miss Popular of the World 2022. Her appearance on Bigg Boss Tamil Season 5 amplified her voice as a champion for LGBTQ+ rights in India. Through her achievements and advocacy, Namitha continues to inspire and pave the way for future generations.",
+    img: `${tedxsjecAssetsPrefix}/speakers/Namitha_M1.avif`,
   },
 ];
 
@@ -80,8 +89,8 @@ export default function Speakers() {
       <h1 className="md:text-8xl text-4xl font-black text-center pt-8 text-redTheme">
         The Speakers
       </h1>
-      <div className="grid md:max-w-[1200px] mx-auto grid-rows-4 px-4 box-border">
-        {performers.map((card, index) => (
+      <div className="grid md:max-w-[1200px] mx-auto grid-rows-4 gap-y-20 px-4 box-border">
+        {speakers.map((card, index) => (
           <div
             className="sticky top-0 rounded-2xl"
             data-index={index}
@@ -90,24 +99,27 @@ export default function Speakers() {
               if (el) cardsRef.current[index] = el;
             }}
           >
-            <div className="flex overflow-hidden mt-40 bg-white will-change-transform md:h-[700px] h-[450px]  transform-origin-top-center w-full">
-              <div className="flex flex-shrink-0 w-1/2">
+            <div className="flex flex-col md:flex-row my-32  overflow-hidden bg-white will-change-transform md:h-[700px] h-[470px]  transform-origin-top-center w-full">
+              <div className="flex flex-shrink-0 md:w-1/2 md:h-full h-2/3">
                 <img
                   className="w-full h-full object-cover aspect-square"
                   src={card.img}
                   alt={`Card Image ${index + 1}`}
                 />
               </div>
-              <div className="flex flex-col w-1/2 md:p-[40px_30px] p-3">
+              <div className="flex flex-col md:w-1/2 md:p-[40px_30px] p-3">
                 <h1 className="text-2xl lg:text-5xl font-black text-blackTheme m-0 p-0 leading-tight md:py-4 py-2">
                   {card.name}
                 </h1>
                 <p className="md:text-2xl  font-semibold text-blackTheme leading-tight md:pb-4 pb-2">
                   {card.profession}
                 </p>
-                <p className="md:text-xl text-xs leading-tight  text-blackTheme ">
+                <p className="md:text-xl text-xs leading-tight hidden md:block  text-blackTheme ">
                   {card.description}
                 </p>
+                <div className="block md:hidden">
+                  <MoreInfo description={card.description} />
+                </div>
               </div>
             </div>
           </div>
