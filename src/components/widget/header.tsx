@@ -87,7 +87,7 @@ const Nav = () => {
     if (targetId) {
       const targetElement = document.getElementById(targetId);
       if (targetElement) {
-        const offset = targetElement.getBoundingClientRect().top + window.scrollY - (window.innerHeight * 0.1);
+        const offset = targetElement.getBoundingClientRect().top + window.scrollY - (window.innerHeight * 0.12);
         window.scrollTo({
           top: offset,
           behavior: "smooth",
