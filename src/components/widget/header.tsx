@@ -7,9 +7,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { tedxsjecAssetsPrefix } from "@/lib/utils";
 import React from "react";
 import Link from "next/link";
-import SocialLinks from "../common/social-links";
 import NavItem from "../navbar/nav-items";
-
+import { Button } from "../ui/button";
 const Nav = () => {
   gsap.registerPlugin(ScrollTrigger);
 
@@ -172,9 +171,13 @@ const Nav = () => {
                 <NavItem  textOne="CONTACT" textTwo="CONTACT" onClick={() => handleClick('contact')} />
                 <li className="list-none listo overflow-hidden leading-[1] font-bold text-white mt-[30px]">
                   <Link href="/">
-                    <button className="px-8 shadow-sm py-5 rounded-md bg-[#EB0028]">
-                      REGISTER
-                    </button>
+                  <Button
+              size="lg"
+              className="bg-red-600 hover:bg-red-700 text-white py-4 "
+            >
+              Registrations Open Soon
+              {/* <ArrowRight className="ml-2" /> */}
+            </Button>
                   </Link>
                 </li>
               </ul>
