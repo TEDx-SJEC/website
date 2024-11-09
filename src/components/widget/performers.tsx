@@ -160,6 +160,8 @@ export default function Component() {
                 <Image
                   key={imageIndex}
                   src={image}
+                  width={1200}
+                  height={675}
                   alt={`Performer section ${sectionIndex + 1}, slide ${imageIndex + 1} of ${section.images.length}`}
                   className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${imageIndex === currentImageIndices[sectionIndex] ? "opacity-100" : "opacity-0"}`}
                   aria-hidden={imageIndex !== currentImageIndices[sectionIndex]}
@@ -189,7 +191,9 @@ export default function Component() {
         <DialogContent className="rounded-md  sm:max-w-[calc(95vw-15px)] max-w-[calc(100vw-15px)] max-h-[calc(100vh-15px)] overflow-hidden flex z-[999] items-center justify-center p-2">
           <div className="flex flex-col md:flex-col gap-6 max-h-full overflow-y-auto p-2">
             <div className="">
-              <img
+              <Image
+                width={600}
+                height={600}
                 src={selectedSection.images[0]}
                 alt={`${selectedSection.name} - ${selectedSection.profession}`}
                 className="w-full h-auto object-cover rounded-lg"
