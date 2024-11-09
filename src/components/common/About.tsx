@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 const AboutSection: React.FC = () => {
   return (
-    <section className="relative flex items-center justify-center  bg-blackTheme text-white">
+    <section className="relative flex items-center justify-center  bg-transparent text-white">
       {/* Background decorative layers */}
       <div className="absolute inset-0">
         {/* <motion.div

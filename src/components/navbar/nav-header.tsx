@@ -11,7 +11,7 @@ interface NavHeaderProps {
 
 const NavHeader: React.FC<NavHeaderProps> = ({ handleClick }) => {
   const menuToggle = useRef(null);
-  
+
   const handleMenuClick = () => {
     handleClick();
 

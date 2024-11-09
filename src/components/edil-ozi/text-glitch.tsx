@@ -13,7 +13,7 @@ const TextGlitchEffect: FC<Props> = ({ textOne, textTwo, className }) => {
     <div
       className={cn(
         "group relative inline-block overflow-hidden leading-tight",
-        className
+        className,
       )}
     >
       <span className="invisible whitespace-nowrap">{textOne}</span>
