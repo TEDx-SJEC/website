@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { Users, Mic2, Guitar, Calendar, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
