@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import { Users, Mic2, Guitar, Calendar, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -8,7 +7,7 @@ export default function FullScreenCTA() {
     <div className="min-h-screen   text-white flex items-center justify-center p-4">
       <div className="max-w-7xl w-full mx-auto space-y-12">
         <h1 className="text-4xl text-red-500 md:text-6xl font-bold text-center leading-tight">
-          Explore What's Worth Living: <br />
+          Explore What&apos;s Worth Living: <br />
           {/* <span className="text-red-500">Inspiration Unleashed: Join Us at TEDx 2024</span> */}
         </h1>
 
@@ -76,7 +75,7 @@ export default function FullScreenCTA() {
 
         <div className="text-center space-y-6">
           <p className="text-xl text-gray-300">
-            Limited spots available. Don't miss this life-changing opportunity!
+            Limited spots available. Don&apos;t miss this life-changing opportunity!
           </p>
           <Button
             size="lg"
