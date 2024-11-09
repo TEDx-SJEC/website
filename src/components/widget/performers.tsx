@@ -6,6 +6,7 @@ import Lenis from "@studio-freight/lenis";
 import { useGSAP } from "@gsap/react";
 import { tedxsjecAssetsPrefix } from "@/lib/utils";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import Image from "next/image";
 gsap.registerPlugin(ScrollTrigger);
 
 interface PerformerSection {
@@ -156,7 +157,7 @@ export default function Component() {
               onClick={() => handleSectionClick(section)}
             >
               {section.images.map((image, imageIndex) => (
-                <img
+                <Image
                   key={imageIndex}
                   src={image}
                   alt={`Performer section ${sectionIndex + 1}, slide ${imageIndex + 1} of ${section.images.length}`}
