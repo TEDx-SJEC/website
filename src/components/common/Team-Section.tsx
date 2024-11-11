@@ -18,7 +18,7 @@ const team = [
     url: `${tedxsjecAssetsPrefix}/team/hanniele.avif`,
     title: "Technical Head",
     id: 3,
-    name: "Hanniel Andrede",
+    name: "Hanniel Andrade",
   },
   {
     url: `${tedxsjecAssetsPrefix}/team/vyasa.avif`,
