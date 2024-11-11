@@ -26,7 +26,7 @@ const speakers = [
     profession: "Actor | Voice Artist | Anchor",
     description:
       "Badekkila Pradeep is a versatile actor, model, writer, and distinguished voice artist from Karnataka. Beginning as a reporter in 2006, Pradeep found his passion in voice-over, transforming Kannada TV narration with his unique style. He's voiced popular shows like Bigg Boss Kannada, Bangalore metro announcements, and numerous campaigns across languages.",
-    img: `${tedxsjecAssetsPrefix}/speakers/Pradeep.avif`,
+    img: `${tedxsjecAssetsPrefix}/speakers/Pradeep 2.avif`,
   },
   {
     id: 4,
