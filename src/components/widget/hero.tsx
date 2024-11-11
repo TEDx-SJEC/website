@@ -34,8 +34,8 @@ const StaticShadow = ({ children }: { children: React.ReactNode }) => {
 
 const FlipCard = ({ value, label }: { value: number; label: string }) => {
   return (
-    <div className="flex flex-col items-center justify-center bg-gradient-to-b from-red-900 to-red-950 rounded-lg shadow-lg p-2 w-full aspect-square overflow-hidden border border-red-500/30">
-      <div className="relative w-full h-2/3 bg-black/30 rounded-md flex items-center justify-center">
+    <div className="flex flex-col items-center justify-center bg-gradient-to-b from-[#EB0028]   rounded-lg shadow-lg p-2 w-full aspect-square overflow-hidden border border-red-500/50">
+      <div className="relative w-full h-2/3 bg-black/20 rounded-md flex items-center justify-center">
         <AnimatePresence mode="popLayout">
           <motion.div
             key={value}
@@ -96,10 +96,13 @@ export default function HeroHighlight() {
   const timeUnits: (keyof TimeLeft)[] = ["days", "hours", "minutes", "seconds"];
 
   return (
-    <section className="w-full lg:px-10 px-5 h-full bg-gradient-to-b from-blackTheme via-red-800 to-blackTheme text-white overflow-hidden relative">
+    <section className="w-full lg:px-10 px-5 h-full  text-white overflow-hidden relative">
+      {/* Semi-transparent overlay to allow stars to show through */}
+      <div className="absolute inset-0  z-0"></div>
+
       <svg
         ref={svgRef}
-        className="absolute top-0 left-0 w-full h-full pointer-events-none"
+        className="absolute top-0 left-0 w-full h-full pointer-events-none z-10"
         xmlns="http://www.w3.org/2000/svg"
       >
         <motion.path
@@ -115,7 +118,7 @@ export default function HeroHighlight() {
         />
       </svg>
 
-      <div className="container mx-auto py-8 lg:py-0 flex flex-col-reverse lg:flex-row items-center justify-between relative z-10">
+      <div className="container mx-auto py-8 lg:py-0 flex flex-col-reverse lg:flex-row items-center justify-between relative z-20">
         <div className="lg:w-1/2 space-y-8 hero-2">
           <h1 className="text-[28px] py-1 md:text-5xl font-satoshi lg:mt-16 font-extrabold bg-clip-text text-white">
             Ideas Worth Spreading
@@ -130,7 +133,6 @@ export default function HeroHighlight() {
               className="bg-red-600 hover:bg-red-700 text-white py-2 transition-all duration-300 transform hover:scale-105"
             >
               Registrations Open Soon
-              {/* <ArrowRight className="ml-2" /> */}
             </Button>
           </div>
           <div className="text-md text-white space-y-2">
@@ -138,10 +140,6 @@ export default function HeroHighlight() {
               <Calendar className="mr-2" size={20} />
               <p>Date: December 14, 2024</p>
             </div>
-            {/* <div className="flex items-center">
-              <MapPin className="mr-2" size={16} />
-              <p>Venue: Grand Convention Center</p>
-            </div> */}
           </div>
         </div>
         <div className="lg:w-[50%] lg:mt-0 flex flex-col mb-10 items-center lg:items-end">
@@ -158,7 +156,7 @@ export default function HeroHighlight() {
           </p>
         </div>
       </div>
-      <div className="container mx-auto px-4 py-2 relative z-10">
+      <div className="container mx-auto px-4 py-2 relative z-20">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 font-satoshi text-white">
           Event Starts In
         </h2>

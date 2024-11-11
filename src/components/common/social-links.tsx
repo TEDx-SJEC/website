@@ -1,7 +1,7 @@
-import React from 'react';
-import { FiInstagram } from 'react-icons/fi';
-import { FaLinkedinIn, FaLocationArrow } from 'react-icons/fa';
-import { IoMail } from 'react-icons/io5';
+import React from "react";
+import { FiInstagram } from "react-icons/fi";
+import { FaLinkedinIn, FaLocationArrow } from "react-icons/fa";
+import { IoMail } from "react-icons/io5";
 
 const SocialLinks: React.FC = () => {
   return (

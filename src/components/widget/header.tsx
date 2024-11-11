@@ -27,7 +27,7 @@ const Nav = () => {
           x: 1,
           ease: "Power2.easeInOut",
         },
-        "start"
+        "start",
       )
       .to(".bar-2", 2, { autoAlpha: 0, stroke: "#000" }, "start")
       .to(
@@ -39,11 +39,11 @@ const Nav = () => {
           stroke: "#000",
           ease: "Power2.easeInOut",
         },
-        "start"
+        "start",
       );
 
     tl.to(".logo", { x: -300 }, "go")
-    .to(".head-5", { y: -300 }, "go")
+      .to(".head-5", { y: -300 }, "go")
       .to(".fullpage-menu", {
         duration: 0,
         display: "block",
@@ -59,7 +59,7 @@ const Nav = () => {
       .from(
         ".listo",
         { duration: 0.3, x: "-50%", stagger: 0.1, opacity: 0 },
-        "-=0.5"
+        "-=0.5",
       )
       .from(
         ".social-links li",
@@ -70,7 +70,7 @@ const Nav = () => {
           stagger: 0.1,
           ease: "Expo.easeInOut",
         },
-        "-=0.5"
+        "-=0.5",
       )
       .from(".hero-icon", { scale: 0, duration: 0.5 }, "end")
       .from(".life", { x: 1000, duration: 0.5 }, "end");
@@ -82,11 +82,14 @@ const Nav = () => {
   const handleClick = (targetId: string) => {
     menuBar.reversed(!menuBar.reversed());
     tl.reversed(!tl.reversed());
-  
+
     if (targetId) {
       const targetElement = document.getElementById(targetId);
       if (targetElement) {
-        const offset = targetElement.getBoundingClientRect().top + window.scrollY - (window.innerHeight * 0.12);
+        const offset =
+          targetElement.getBoundingClientRect().top +
+          window.scrollY -
+          window.innerHeight * 0.12;
         window.scrollTo({
           top: offset,
           behavior: "smooth",
@@ -112,8 +115,7 @@ const Nav = () => {
             </Link>
           </div>
           <div className="flex justify-between items-center">
-            <li className="list-none overflow-hidden leading-[1] font-bold text-white reg">
-            </li>
+            <li className="list-none overflow-hidden leading-[1] font-bold text-white reg"></li>
             <button
               id="menuToggle"
               ref={menuToggle}
@@ -164,20 +166,40 @@ const Nav = () => {
           <nav className="relative z-10 flex flex-row w-full">
             <div>
               <ul className="main-menu mt-10">
-                <NavItem  textOne="ABOUT" textTwo="ABOUT" onClick={() => handleClick('about')} />
-                <NavItem  textOne="SPEAKERS" textTwo="SPEAKERS" onClick={() => handleClick('speakers')} />
-                <NavItem textOne="PERFORMERS" textTwo="PERFORMERS" onClick={() => handleClick('performers')} />
-                <NavItem  textOne="TEAM" textTwo="TEAM" onClick={() => handleClick('team')} />
-                <NavItem  textOne="CONTACT" textTwo="CONTACT" onClick={() => handleClick('contact')} />
+                <NavItem
+                  textOne="ABOUT"
+                  textTwo="ABOUT"
+                  onClick={() => handleClick("about")}
+                />
+                <NavItem
+                  textOne="SPEAKERS"
+                  textTwo="SPEAKERS"
+                  onClick={() => handleClick("speakers")}
+                />
+                <NavItem
+                  textOne="PERFORMERS"
+                  textTwo="PERFORMERS"
+                  onClick={() => handleClick("performers")}
+                />
+                <NavItem
+                  textOne="TEAM"
+                  textTwo="TEAM"
+                  onClick={() => handleClick("team")}
+                />
+                <NavItem
+                  textOne="CONTACT"
+                  textTwo="CONTACT"
+                  onClick={() => handleClick("contact")}
+                />
                 <li className="list-none listo overflow-hidden leading-[1] font-bold text-white mt-[30px]">
                   <Link href="/">
-                  <Button
-              size="lg"
-              className="bg-red-600 hover:bg-red-700 text-white py-4 "
-            >
-              Registrations Open Soon
-              {/* <ArrowRight className="ml-2" /> */}
-            </Button>
+                    <Button
+                      size="lg"
+                      className="bg-red-600 hover:bg-red-700 text-white py-4 "
+                    >
+                      Registrations Open Soon
+                      {/* <ArrowRight className="ml-2" /> */}
+                    </Button>
                   </Link>
                 </li>
               </ul>
@@ -195,7 +217,7 @@ const Nav = () => {
             </div>
             <div className="lg:flex hidden text-nowrap text-4xl relative bottom-32 justify-center items-center text-center">
               <h1 className="life uppercase font-bold text-black">
-              Life - Explore What&#39;s Worth Living
+                Life - Explore What&#39;s Worth Living
               </h1>
             </div>
           </div>

@@ -1,12 +1,12 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 
 export function CtaSection() {
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-blackTheme    ">
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-transparent    ">
       <div
-        className="absolute inset-0 bg-gradient-to-b from-black via-black to-redTheme"
+        className="absolute inset-0 "
         style={{
           maskImage:
             "radial-gradient(ellipse 100% 80% at 50% 100%, black, transparent)",
