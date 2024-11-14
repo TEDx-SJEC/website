@@ -1,9 +1,8 @@
-"use client";
+"use client";;
 import { tedxsjecAssetsPrefix } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useRef } from "react";
-import RegisterButton from "./register-button";
 
 interface NavHeaderProps {
   handleClick: () => void;
