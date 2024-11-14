@@ -23,7 +23,7 @@ export const TedxRegistrationEmail = ({
   name,
   registrationLink,
 }: TedxRegistrationEmailProps) => {
-  const previewText = `TEDxSJEC Talk Registration Successful!`;
+  const previewText = `TEDxSJEC 2024 Registration Successful!`;
 
   return (
     <Html>
@@ -43,7 +43,7 @@ export const TedxRegistrationEmail = ({
             {/* Heading Section */}
             <Section className="mt-[32px] items-center">
               <Heading className="text-black text-[24px] font-bold text-center p-0 my-[30px] mx-0">
-                <strong>TEDxSJEC Talk Registration Confirmed!</strong>
+                <strong>TEDxSJEC 2024 Registration Confirmed!</strong>
               </Heading>
             </Section>
             <Text className="text-black text-[14px] leading-[24px]">
