@@ -163,8 +163,8 @@ export default function RegistrationForm() {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
         amount: pricing.finalPrice * 100,
         currency: "INR",
-        name: "Test Name",
-        description: "Test Transaction",
+        name: "TEDxSJEC",
+        description: "Registration Fee",
         order_id: data.orderId,
         handler: async (response: any) => {
           setIsProcessing(true);
