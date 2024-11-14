@@ -156,7 +156,7 @@ export default function Component() {
                                     alt={`Performer section ${sectionIndex + 1}, slide ${imageIndex + 1} of ${
                                         section.images.length
                                     }`}
-                                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-8000 ${
                                         imageIndex === currentImageIndices[sectionIndex]
                                             ? "opacity-100"
                                             : "opacity-0"

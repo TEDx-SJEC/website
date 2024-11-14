@@ -99,38 +99,52 @@ const Nav = () => {
   };
 
   return (
-      <>
-          <header className="fixed z-[100] aboute left-0 top-0 w-screen">
-              <div className="header-1 flex md:py-[20px] md:px-[30px] p-[30px] justify-between items-center">
-                  <div className="logo">
-                      <Link href="/">
-                          <Image
-                              src={`${tedxsjecAssetsPrefix}/logo/whiteLogo.png`}
-                              height={200}
-                              width={200}
-                              alt="logo"
-                              layout="fixed"
-                              priority={true}
-                          />
-                      </Link>
-                  </div>
-                  <div className="flex justify-between items-center">
-                      <li className="list-none overflow-hidden leading-[1] font-bold text-white reg"></li>
-                      <button
-                          id="menuToggle"
-                          ref={menuToggle}
-                          onClick={() => handleClick("")}
-                          className="menu-toggle bg-transparent border-none cursor-pointer"
-                      >
-                          <svg viewBox="0 0 12 10" className="hamburger" height="40px" width="40px">
-                              <path d="M10,2 L2,2" className="bar-1 fill-none stroke-white"></path>
-                              <path d="M2,5 L10,5" className="bar-2 fill-none stroke-white"></path>
-                              <path d="M10,8 L2,8" className="bar-3 fill-none stroke-white"></path>
-                          </svg>
-                      </button>
-                  </div>
-              </div>
-          </header>
+    <>
+      <header className="fixed z-[100] aboute left-0 top-0 w-screen">
+        <div className="header-1 flex md:py-[20px] md:px-[30px] p-[30px] justify-between items-center">
+          <div className="logo">
+            <Link href="/">
+              <Image
+                src={`${tedxsjecAssetsPrefix}/logo/whiteLogo.png`}
+                height={200}
+                width={200}
+                alt="logo"
+                // layout="fixed"
+                priority={true}
+              />
+            </Link>
+          </div>
+          <div className="flex justify-between items-center">
+            <li className="list-none overflow-hidden leading-[1] font-bold text-white reg"></li>
+            <button
+              id="menuToggle"
+              ref={menuToggle}
+              onClick={() => handleClick("")}
+              className="menu-toggle bg-transparent border-none cursor-pointer"
+            >
+              <svg
+                viewBox="0 0 12 10"
+                className="hamburger"
+                height="40px"
+                width="40px"
+              >
+                <path
+                  d="M10,2 L2,2"
+                  className="bar-1 fill-none stroke-white"
+                ></path>
+                <path
+                  d="M2,5 L10,5"
+                  className="bar-2 fill-none stroke-white"
+                ></path>
+                <path
+                  d="M10,8 L2,8"
+                  className="bar-3 fill-none stroke-white"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </header>
 
           <section className="fullpage-menu hidden fixed left-0 top-0 w-screen z-50 h-screen">
               <div className="header-2 fixed left-0 top-0 w-full flex md:py-[20px] md:px-[30px] p-[30px] z-[60] justify-between items-center">
