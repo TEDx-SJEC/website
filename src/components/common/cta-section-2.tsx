@@ -80,7 +80,7 @@ export default function FullScreenCTA() {
                   <Link href="/register">
                       <Button
                           size="lg"
-                          className="bg-red-600 hover:bg-red-700 text-white py-6 px-4 text-xl transition-all duration-300 transform hover:scale-105"
+                          className="bg-red-600 hover:bg-red-700 text-white py-6 px-4 text-xl transition-all duration-300 transform hover:scale-105 mt-8"
                       >
                           Register Now
                       </Button>
