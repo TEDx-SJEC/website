@@ -33,14 +33,17 @@ const AboutSection: React.FC = () => {
         transition={{ duration: 1, ease: "easeOut" }}
       >
         <h2 className="text-4xl md:text-[89px] font-black text-red-600 mb-4 md:mb-6 leading-tight">
-          About TEDxSJEC
+          About TED<sup>x</sup>
+          <span className="pl-1 font-semibold">SJEC</span>
         </h2>
         <p className="text-base md:text-3xl leading-relaxed mb-4 md:mb-6 text-gray-300">
-          TEDxSJEC is an independently organized event bringing together
-          innovators, thinkers, and visionaries from around the world. Our goal
-          is to inspire change, provoke deep discussions, and foster creativity
-          through groundbreaking ideas. Our goal is to inspire change, provoke
-          deep discussions, and foster creativity through groundbreaking ideas.
+          TED<sup>x</sup>
+          <span className="pl-1">SJEC</span> is an independently organized event
+          bringing together innovators, thinkers, and visionaries from around
+          the world. Our goal is to inspire change, provoke deep discussions,
+          and foster creativity through groundbreaking ideas. Our goal is to
+          inspire change, provoke deep discussions, and foster creativity
+          through groundbreaking ideas.
         </p>
 
         {/* Decorative line */}
