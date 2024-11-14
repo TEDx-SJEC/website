@@ -110,7 +110,7 @@ const Footer = (props: Props) => {
               height={150}
               width={150}
               alt="logo"
-              layout="fixed"
+              // layout="fixed"
               priority={true}
               className="hidden md:block"
             />
