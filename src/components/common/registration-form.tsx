@@ -305,8 +305,8 @@ export default function RegistrationForm() {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="student">Student</SelectItem>
-                          <SelectItem value="faculty">Faculty</SelectItem>
+                          <SelectItem value="student">SJEC - Student</SelectItem>
+                          <SelectItem value="faculty">SJEC - Faculty</SelectItem>
                           <SelectItem value="employee">Employee</SelectItem>
                         </SelectContent>
                       </Select>
