@@ -48,12 +48,14 @@ import { PaymentSuccessfulComponent } from "../payment/payment-successful";
 import { FileUpload } from "../ui/file-upload";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import InfoButton from "../ui/info-button";
+import { redirect } from "next/navigation";
 
 declare global {
   interface Window {
     Razorpay: any;
   }
 }
+
 
 type FormSchema = z.infer<typeof studentSchema | typeof baseSchema>;
 
@@ -75,6 +77,12 @@ export default function RegistrationForm() {
   });
 
   const { data: session } = useSession();
+
+
+  if(!session){
+    redirect("/auth/signin/?callbackUrl=/register");
+    
+  }
 
   useEffect(() => {
     setSjecMemberType(getSjecMemberType(session?.user.email!));
