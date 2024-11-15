@@ -51,7 +51,6 @@ export default function Component() {
                 index % 2 === 0 ? "" : "md:flex-row-reverse"
               } items-stretch justify-between bg-black/40 rounded-2xl  overflow-hidden shadow-xl border border-white border-opacity-20`}
             >
-    
               <div className="w-full md:w-1/2  h-auto md:h-auto">
                 <img
                   className="w-full h-full object-cover"
@@ -60,7 +59,6 @@ export default function Component() {
                 />
               </div>
 
-    
               <div className="w-full md:w-1/2 p-4 md:p-10 flex flex-col justify-center">
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 animate-float">
                   {speaker.name}

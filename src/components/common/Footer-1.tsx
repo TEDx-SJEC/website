@@ -1,7 +1,7 @@
-'use client'
-import Link from 'next/link'
-import { Mail, Phone, MapPin, Instagram, Linkedin } from 'lucide-react'
-import { motion } from 'framer-motion'
+"use client";
+import Link from "next/link";
+import { Mail, Phone, MapPin, Instagram, Linkedin } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function ContactPage() {
   return (
@@ -9,7 +9,9 @@ export default function ContactPage() {
       <h1 className="text-4xl md:text-5xl font-bold text-center mb-3">
         Contact TEDxSJEC
       </h1>
-      <p className='text-center text-2xl text-gray-400 mb-5'>Have questions or want to get involved? We'd love to hear from you!</p>
+      <p className="text-center text-2xl text-gray-400 mb-5">
+        Have questions or want to get involved? We&#39;d love to hear from you!
+      </p>
       <div className="flex-grow grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
         <div className="flex items-center justify-center bg-black/40 rounded-lg shadow-md overflow-hidden">
           <iframe
@@ -31,57 +33,79 @@ export default function ContactPage() {
               <h2 className="text-2xl font-bold">CONNECT WITH TEDxSJEC</h2>
             </div>
             <div className="space-y-4 text-sm mb-6">
-              <motion.div 
+              <motion.div
                 className="flex items-center space-x-3"
                 whileHover={{ x: 10 }}
-                transition={{ type: 'spring', stiffness: 300 }}
+                transition={{ type: "spring", stiffness: 300 }}
               >
                 <Mail className="h-5 w-5 text-red-600" />
-                <a href="mailto:tedx@sjec.ac.in" className="hover:text-red-600 transition-colors">tedx@sjec.ac.in</a>
+                <a
+                  href="mailto:tedx@sjec.ac.in"
+                  className="hover:text-red-600 transition-colors"
+                >
+                  tedx@sjec.ac.in
+                </a>
               </motion.div>
-              <motion.div 
+              <motion.div
                 className="flex items-center space-x-3"
                 whileHover={{ x: 10 }}
-                transition={{ type: 'spring', stiffness: 300 }}
+                transition={{ type: "spring", stiffness: 300 }}
               >
                 <Phone className="h-5 w-5 text-red-600" />
                 <div>
                   <p className="font-semibold">Dr. Binu KG</p>
-                  <a href="tel:+91-9739866947" className="hover:text-red-600 transition-colors">+91-9739866947</a>
+                  <a
+                    href="tel:+91-9739866947"
+                    className="hover:text-red-600 transition-colors"
+                  >
+                    +91-9739866947
+                  </a>
                 </div>
               </motion.div>
-              <motion.div 
+              <motion.div
                 className="flex items-start space-x-3"
                 whileHover={{ x: 10 }}
-                transition={{ type: 'spring', stiffness: 300 }}
+                transition={{ type: "spring", stiffness: 300 }}
               >
                 <MapPin className="h-5 w-5 text-red-600 mt-1" />
                 <address className="not-italic">
-                  St Joseph Engineering College,<br />
-                  Vamanjoor, Mangalore - 575028<br />
+                  St Joseph Engineering College,
+                  <br />
+                  Vamanjoor, Mangalore - 575028
+                  <br />
                   Karnataka, India
                 </address>
               </motion.div>
             </div>
           </div>
           <div className="flex flex-col space-y-4">
-            <motion.div 
+            <motion.div
               className="flex items-center space-x-3"
               whileHover={{ x: 10 }}
-              transition={{ type: 'spring', stiffness: 300 }}
+              transition={{ type: "spring", stiffness: 300 }}
             >
               <Instagram className="h-6 w-6 text-red-600" />
-              <Link href="https://instagram.com/tedxsjec" target="_blank" rel="noopener noreferrer" className="hover:text-red-600 transition-colors">
+              <Link
+                href="https://instagram.com/tedxsjec"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-red-600 transition-colors"
+              >
                 Instagram
               </Link>
             </motion.div>
-            <motion.div 
+            <motion.div
               className="flex items-center space-x-3"
               whileHover={{ x: 10 }}
-              transition={{ type: 'spring', stiffness: 300 }}
+              transition={{ type: "spring", stiffness: 300 }}
             >
               <Linkedin className="h-6 w-6 text-red-600" />
-              <Link href="https://www.linkedin.com/company/tedxsjec" target="_blank" rel="noopener noreferrer" className="hover:text-red-600 transition-colors">
+              <Link
+                href="https://www.linkedin.com/company/tedxsjec"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-red-600 transition-colors"
+              >
                 LinkedIn
               </Link>
             </motion.div>
@@ -90,12 +114,25 @@ export default function ContactPage() {
       </div>
 
       <div className="text-center text-sm text-gray-400">
-        <p>© 2024 TEDxSJEC. This independent TEDx event is operated under license from TED.</p>
+        <p>
+          © 2024 TEDxSJEC. This independent TEDx event is operated under
+          license from TED.
+        </p>
         <div className="mt-2">
-          <Link href="/privacy-policy" className="mr-4 hover:text-red-600 transition-colors">Privacy Policy</Link>
-          <Link href="/terms-of-service" className="hover:text-red-600 transition-colors">Terms of Service</Link>
+          <Link
+            href="/privacy-policy"
+            className="mr-4 hover:text-red-600 transition-colors"
+          >
+            Privacy Policy
+          </Link>
+          <Link
+            href="/terms-of-service"
+            className="hover:text-red-600 transition-colors"
+          >
+            Terms of Service
+          </Link>
         </div>
       </div>
     </div>
-  )
+  );
 }

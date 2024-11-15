@@ -40,12 +40,13 @@ export default function Home() {
           <Performers />
         </div>
         <div className=" ">
-
           <PreviousEdition />
           <div>
-            <h1 className="md:text-8xl mb-10  text-4xl  text-center  font-black px-10">2022 Edition</h1>
+            <h1 className="md:text-8xl mb-10  text-4xl  text-center  font-black px-10">
+              2022 Edition
+            </h1>
           </div>
-          <UnsplashGrid/>
+          <UnsplashGrid />
         </div>
         <div id="team" className="bg-transparent h-fit mt-14">
           <h1 className="md:text-8xl text-4xl text-center font-black text-redTheme px-10">
@@ -57,10 +58,9 @@ export default function Home() {
           <CTA />
         </div>
         <div id="contact">
-        <Footer />
+          <Footer />
         </div>
       </div>
     </>
   );
 }
-

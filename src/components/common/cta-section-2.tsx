@@ -1,7 +1,7 @@
-import {  Mic2, Guitar, Calendar, MapPin } from "lucide-react";
+import { Mic2, Guitar, Calendar, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Gift } from 'lucide-react';
+import { Gift } from "lucide-react";
 export default function FullScreenCTA() {
   return (
     <div className="min-h-screen   text-white flex items-center justify-center p-4">
@@ -37,30 +37,30 @@ export default function FullScreenCTA() {
           </div>
 
           <div className="space-y-8">
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-    <Card className="bg-black/30 border-none">
-      <CardContent className="p-6 text-center">
-        <Gift className="h-12 w-12 mx-auto mb-7 text-red-500" />
-        <h3 className="text-3xl font-semibold">Goodies</h3>
-      </CardContent>
-    </Card>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+              <Card className="bg-black/30 border-none">
+                <CardContent className="p-6 text-center">
+                  <Gift className="h-12 w-12 mx-auto mb-7 text-red-500" />
+                  <h3 className="text-3xl font-semibold">Goodies</h3>
+                </CardContent>
+              </Card>
 
-    <Card className="bg-black/30 border-none">
-      <CardContent className="p-6 text-center">
-        <Mic2 className="h-12 w-12 mx-auto mb-3 text-red-500" />
-        <h3 className="text-3xl font-semibold mb-2">12</h3>
-        <p className="text-gray-300">Speakers</p>
-      </CardContent>
-    </Card>
+              <Card className="bg-black/30 border-none">
+                <CardContent className="p-6 text-center">
+                  <Mic2 className="h-12 w-12 mx-auto mb-3 text-red-500" />
+                  <h3 className="text-3xl font-semibold mb-2">12</h3>
+                  <p className="text-gray-300">Speakers</p>
+                </CardContent>
+              </Card>
 
-    <Card className="bg-black/30 border-none col-span-2 md:col-span-1">
-      <CardContent className="p-6 text-center">
-        <Guitar className="h-12 w-12 mx-auto mb-3 text-red-500" />
-        <h3 className="text-3xl font-semibold mb-2">4</h3>
-        <p className="text-gray-300">Performers</p>
-      </CardContent>
-    </Card>
-  </div>
+              <Card className="bg-black/30 border-none col-span-2 md:col-span-1">
+                <CardContent className="p-6 text-center">
+                  <Guitar className="h-12 w-12 mx-auto mb-3 text-red-500" />
+                  <h3 className="text-3xl font-semibold mb-2">4</h3>
+                  <p className="text-gray-300">Performers</p>
+                </CardContent>
+              </Card>
+            </div>
             <div className="bg-black/20 p-6 rounded-lg">
               <h4 className="text-xl font-semibold mb-4">What to Expect:</h4>
               <ul className="list-disc list-inside space-y-2 text-gray-300">
@@ -76,7 +76,8 @@ export default function FullScreenCTA() {
 
         <div className="text-center space-y-6">
           <p className="text-xl text-gray-300">
-            Limited spots available. Don&apos;t miss this life-changing opportunity!
+            Limited spots available. Don&apos;t miss this life-changing
+            opportunity!
           </p>
           <Button
             size="lg"
