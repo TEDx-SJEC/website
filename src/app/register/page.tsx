@@ -3,15 +3,20 @@
 import { useEffect, useState } from "react";
 import { useSession, signIn } from "next-auth/react";
 import RegistrationForm from "@/components/common/registration-form";
+<<<<<<< HEAD
 import FABEmail from "@/components/common/fab-email";
 import { tailChase } from "ldrs";
+=======
+import { redirect } from "next/navigation";
+>>>>>>> 6153698 (Fix registration page authentication and redirect)
 
 export default function RegistrationPage() {
-  const { status } = useSession({
+const session = useSession({
     required: true,
-    onUnauthenticated() {
-      signIn("google");
+    onUnauthenticated: async () => {
+        await signIn("google");
     },
+<<<<<<< HEAD
   });
   if (typeof window !== "undefined") {
     tailChase.register();
@@ -39,6 +44,16 @@ export default function RegistrationPage() {
       </div>
     );
   }
+=======
+});
+
+if(!session){
+  redirect("/auth/signin/?callbackUrl=/register");
+  
+}
+
+
+>>>>>>> 6153698 (Fix registration page authentication and redirect)
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center p-4">
