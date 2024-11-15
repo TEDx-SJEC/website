@@ -34,7 +34,7 @@ import { Label } from "@/components/ui/label";
 import { getPrice } from "@/app/actions/get-price";
 import { toast } from "sonner";
 import getErrorMessage from "@/utils/getErrorMessage";
-import { basePrice, initialdiscount, sjecPrice } from "@/constants";
+import { basePrice, initialdiscount, sjecStudentPrice,sjecFacultyPrice } from "@/constants";
 import { invalidateCouponCode } from "@/app/actions/invalidate-coupon";
 import { useSession } from "next-auth/react";
 import Script from "next/script";
@@ -44,7 +44,7 @@ import { PaymentLoading } from "../payment/payment-loading";
 import { PaymentSuccessfulComponent } from "../payment/payment-successful";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { FileUpload } from "../ui/file-upload";
-import { isSjecMember } from "@/lib/helper";
+import { getSjecMemberType } from "@/lib/helper";
 import { FormDataInterface } from "@/types";
 
 declare global {
@@ -83,25 +83,23 @@ export default function RegistrationForm() {
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [isSJECMember, setIsSJECMember] = useState(false);
+  const [sjecMemberType, setSjecMemberType] = useState<"student" | "faculty" | "unknown">("unknown");
   const [pricing, setPricing] = useState({
     basePrice: basePrice,
     discountAmount: initialdiscount,
-    finalPrice: isSJECMember ? sjecPrice : basePrice, // Updated to set sjecPrice if isSJECMember is true
+    finalPrice: basePrice, 
   });
 
   const { data: session } = useSession();
 
   useEffect(() => {
-    setIsSJECMember(isSjecMember(session?.user.email!));
+    setSjecMemberType(getSjecMemberType(session?.user.email!));
     setPricing((prevPricing) => ({
       ...prevPricing,
-      finalPrice: isSJECMember ? sjecPrice : basePrice, // Update finalPrice based on isSJECMember
+      finalPrice: sjecMemberType === "student" ? sjecStudentPrice : sjecMemberType === "faculty" ? sjecFacultyPrice : basePrice,
     }));
-  }, [session?.user.email, isSJECMember]);
+  }, [session?.user.email, sjecMemberType]);
 
-  if (isSJECMember) {
-  }
 
   const form = useForm<FormSchema>({
     resolver: zodResolver(baseSchema),
@@ -151,7 +149,7 @@ export default function RegistrationForm() {
   };
 
   const handlePayment = async () => {
-    setIsProcessing(true);
+    
     const couponCode = form.getValues("couponCode");
     try {
       const response = await fetch("/api/create-order", {
@@ -165,10 +163,11 @@ export default function RegistrationForm() {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
         amount: pricing.finalPrice * 100,
         currency: "INR",
-        name: "Test Name",
-        description: "Test Transaction",
+        name: "TEDxSJEC",
+        description: "Registration Fee",
         order_id: data.orderId,
         handler: async (response: any) => {
+          setIsProcessing(true);
           const resp = await fetch("/api/verify-order", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -428,7 +427,7 @@ export default function RegistrationForm() {
                     </FormItem>
                   )}
                 />
-                {!isSJECMember && (
+                {sjecMemberType === "unknown" && (
                   <FormField
                     control={form.control}
                     name="entityName"
@@ -519,13 +518,13 @@ export default function RegistrationForm() {
                             <Input
                               placeholder="Enter coupon code"
                               {...field}
-                              disabled={isSJECMember}
+                              disabled={sjecMemberType !== "unknown"}
                             />
                           </FormControl>
                           <Button
                             type="button"
                             onClick={verifyCoupon}
-                            disabled={isSJECMember}
+                            disabled={sjecMemberType !== "unknown"}
                           >
                             Verify
                           </Button>
