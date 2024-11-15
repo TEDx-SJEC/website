@@ -1,18 +1,17 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
+import { getPrice } from "@/app/actions/get-price";
+import { invalidateCouponCode } from "@/app/actions/invalidate-coupon";
+import { submitForm } from "@/app/actions/submit-form";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -22,54 +21,38 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { getPrice } from "@/app/actions/get-price";
-import { toast } from "sonner";
-import getErrorMessage from "@/utils/getErrorMessage";
-import { basePrice, initialdiscount, sjecStudentPrice,sjecFacultyPrice } from "@/constants";
-import { invalidateCouponCode } from "@/app/actions/invalidate-coupon";
-import { useSession } from "next-auth/react";
-import Script from "next/script";
-import { useUploadThing } from "@/utils/uploadthing";
-import { submitForm } from "@/app/actions/submit-form";
-import { PaymentLoading } from "../payment/payment-loading";
-import { PaymentSuccessfulComponent } from "../payment/payment-successful";
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import { FileUpload } from "../ui/file-upload";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { basePrice, initialdiscount, sjecFacultyPrice, sjecStudentPrice } from "@/constants";
 import { getSjecMemberType } from "@/lib/helper";
 import { FormDataInterface } from "@/types";
+import getErrorMessage from "@/utils/getErrorMessage";
+import { useUploadThing } from "@/utils/uploadthing";
+import { baseSchema, studentFormSchema, studentSchema } from "@/utils/zod-schemas";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useSession } from "next-auth/react";
+import Script from "next/script";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import * as z from "zod";
+import { PaymentLoading } from "../payment/payment-loading";
+import { PaymentSuccessfulComponent } from "../payment/payment-successful";
+import { FileUpload } from "../ui/file-upload";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 
 declare global {
   interface Window {
     Razorpay: any;
   }
 }
-
-const baseSchema = z.object({
-  designation: z.enum(["student", "faculty", "employee"]),
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  email: z.string().email({ message: "Invalid email address." }),
-  phone: z
-    .string()
-    .regex(/^\d{10}$/, { message: "Phone number must be 10 digits." }),
-  photo: z.string(),
-  entityName: z.string().optional(),
-  couponCode: z.string().optional(),
-  foodPreference: z.enum(["veg", "non-veg"]),
-});
-
-const studentSchema = baseSchema.extend({
-  usn: z.string().min(1, { message: "USN is required for students." }),
-  idCard: z.string().min(1, { message: "ID Card is required for students." }),
-});
 
 type FormSchema = z.infer<typeof studentSchema | typeof baseSchema>;
 
@@ -254,20 +237,6 @@ export default function RegistrationForm() {
       const designation = form.getValues("designation");
       if (designation === "student") {
         form.clearErrors();
-        const studentFormSchema = z.object({
-          name: z
-            .string()
-            .min(2, { message: "Name must be at least 2 characters." }),
-          email: z.string().email({ message: "Invalid email address." }),
-          phone: z
-            .string()
-            .regex(/^\d{10}$/, { message: "Phone number must be 10 digits." }),
-          usn: z.string().min(1, { message: "USN is required for students." }),
-          idCard: z
-            .string()
-            .min(1, { message: "ID Card is required for students." }),
-          photo: z.string().min(1, { message: "Photo is required." }),
-        });
         const validationResult = await studentFormSchema.safeParseAsync(
           form.getValues(),
         );

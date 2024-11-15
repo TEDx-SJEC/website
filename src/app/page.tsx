@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 // import ParallaxFooter from "@/components/common/Footer";
 import Speakers from "@/components/common/speakers";
-import { PreviousEdition } from "@/components/common/Container-Scroll";
+import { PreviousEdition } from "@/components/common/container-scroll";
 import About from "@/components/common/About";
 import Team from "@/components/common/Team-Section";
 // import { CtaSection } from "@/components/common/cta-section";
