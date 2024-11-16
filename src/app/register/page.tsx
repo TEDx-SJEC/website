@@ -24,7 +24,7 @@ export default function RegistrationPage() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center p-4">
-      <h1 className="mb-8 text-4xl font-bold mt-24">TEDx 2024</h1>
+      {/* <h1 className="mb-8 text-4xl font-bold mt-24">TEDx 2024</h1> */}
       <RegistrationForm />
     </div>
   );

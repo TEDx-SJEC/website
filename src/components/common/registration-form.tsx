@@ -279,10 +279,10 @@ export default function RegistrationForm() {
   }
 
   return (
-    <Card className="w-[550px]">
+    <Card className="w-[550px] bg-[#1a0a0a]">
       <Script src="https://checkout.razorpay.com/v1/checkout.js" />
       <CardHeader>
-        <CardTitle>Registration Form</CardTitle>
+        <CardTitle className="text-[#e62b1e] text-center text-3xl">Registration Form</CardTitle>
         <CardDescription>Step {step} of 3</CardDescription>
       </CardHeader>
       <CardContent>
@@ -309,6 +309,7 @@ export default function RegistrationForm() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Email</FormLabel>
+                      <div className="flex items-center space-x-2">
                       <FormControl>
                         <Input
                           placeholder="john@example.com"
@@ -328,6 +329,8 @@ export default function RegistrationForm() {
                       >
                         Change
                       </Button>
+                      </div>
+                    
                       <FormMessage />
                     </FormItem>
                   )}
