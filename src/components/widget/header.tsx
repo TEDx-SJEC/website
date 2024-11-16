@@ -153,7 +153,7 @@ const Nav = () => {
                       height={200}
                       width={200}
                       alt="logo"
-                      layout="fixed"
+                      // layout="fixed"
                       priority={true}
                   />
               </div>
