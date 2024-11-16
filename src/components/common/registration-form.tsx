@@ -279,7 +279,7 @@ export default function RegistrationForm() {
   }
 
   return (
-    <Card className="w-[550px] bg-[#1a0a0a]">
+    <Card className="w-[550px] bg-[#1a0a0a] mt-20">
       <Script src="https://checkout.razorpay.com/v1/checkout.js" />
       <CardHeader>
         <CardTitle className="text-[#e62b1e] text-center text-3xl">Registration Form</CardTitle>
