@@ -307,7 +307,7 @@ export default function RegistrationForm() {
                         <SelectContent>
                           <SelectItem value="student">SJEC - Student</SelectItem>
                           <SelectItem value="faculty">SJEC - Faculty</SelectItem>
-                          <SelectItem value="employee">Employee</SelectItem>
+                          <SelectItem value="employee">External Participant</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
