@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSession, signIn } from "next-auth/react";
 import RegistrationForm from "@/components/common/registration-form";
+import { tailChase } from "ldrs";
 
 export default function RegistrationPage() {
   const { status } = useSession({
@@ -11,20 +12,35 @@ export default function RegistrationPage() {
       signIn("google");
     },
   });
+  if (typeof window !== "undefined") {
+    tailChase.register();
+  }
+
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (status === "loading") {
-      // You can add a loading state here if needed
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
     }
   }, [status]);
 
-  if (status !== "authenticated") {
-    return null;
+  if (isLoading || status !== "authenticated") {
+    // Show the loading spinner if session is loading or not authenticated
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen">
+        <l-tail-chase
+          size={"88"}
+          speed={"1.75"}
+          color={"#FF0000"}
+        ></l-tail-chase>
+      </div>
+    );
   }
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center p-4">
-      {/* <h1 className="mb-8 text-4xl font-bold mt-24">TEDx 2024</h1> */}
       <RegistrationForm />
     </div>
   );
