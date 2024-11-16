@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useSession, signIn } from "next-auth/react";
 import RegistrationForm from "@/components/common/registration-form";
+import FABEmail from "@/components/common/fab-email";
 import { tailChase } from "ldrs";
 
 export default function RegistrationPage() {
@@ -42,6 +43,7 @@ export default function RegistrationPage() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center p-4">
       <RegistrationForm />
+      <FABEmail/>
     </div>
   );
 }
