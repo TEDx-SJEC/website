@@ -88,7 +88,7 @@ export default function RegistrationForm() {
     resolver: zodResolver(baseSchema),
     defaultValues: {
       designation: "student",
-      name: "",
+      name: session?.user.name!,
       email: session?.user.email!,
       phone: "",
       entityName: "",
@@ -289,6 +289,48 @@ export default function RegistrationForm() {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             {step === 1 && (
               <>
+              <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="John Doe" {...field} value={session?.user.name!} disabled/>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="john@example.com"
+                          {...field}
+                          disabled
+                          value={session?.user.email!}
+                        />
+                      </FormControl>
+                      <Button
+                        type="button"
+                        onClick={() => {
+                          signOut();
+                          signIn();
+                          form.setValue("email", session?.user.email!);
+                        }}
+                        variant="outline"
+                      >
+                        Change
+                      </Button>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={form.control}
                   name="designation"
@@ -352,48 +394,6 @@ export default function RegistrationForm() {
             )}
             {step === 2 && (
               <>
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="John Doe" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="john@example.com"
-                          {...field}
-                          disabled
-                          value={session?.user.email!}
-                        />
-                      </FormControl>
-                      <Button
-                        type="button"
-                        onClick={() => {
-                          signOut();
-                          signIn();
-                          form.setValue("email", session?.user.email!);
-                        }}
-                        variant="outline"
-                      >
-                        Change
-                      </Button>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
                 <FormField
                   control={form.control}
                   name="phone"
