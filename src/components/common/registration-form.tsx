@@ -30,21 +30,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  basePrice,
-  initialdiscount,
-  sjecFacultyPrice,
-  sjecStudentPrice,
-} from "@/constants";
+import { basePrice, initialdiscount, sjecFacultyPrice, sjecStudentPrice } from "@/constants";
 import { getSjecMemberType } from "@/lib/helper";
 import { FormDataInterface } from "@/types";
 import getErrorMessage from "@/utils/getErrorMessage";
 import { useUploadThing } from "@/utils/uploadthing";
-import {
-  baseSchema,
-  studentFormSchema,
-  studentSchema,
-} from "@/utils/zod-schemas";
+import { baseSchema, studentFormSchema, studentSchema } from "@/utils/zod-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Script from "next/script";
@@ -76,13 +67,11 @@ export default function RegistrationForm() {
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [sjecMemberType, setSjecMemberType] = useState<
-    "student" | "faculty" | "unknown"
-  >("unknown");
+  const [sjecMemberType, setSjecMemberType] = useState<"student" | "faculty" | "unknown">("unknown");
   const [pricing, setPricing] = useState({
     basePrice: basePrice,
     discountAmount: initialdiscount,
-    finalPrice: basePrice,
+    finalPrice: basePrice, 
   });
 
   const { data: session } = useSession();
@@ -91,14 +80,10 @@ export default function RegistrationForm() {
     setSjecMemberType(getSjecMemberType(session?.user.email!));
     setPricing((prevPricing) => ({
       ...prevPricing,
-      finalPrice:
-        sjecMemberType === "student"
-          ? sjecStudentPrice
-          : sjecMemberType === "faculty"
-          ? sjecFacultyPrice
-          : basePrice,
+      finalPrice: sjecMemberType === "student" ? sjecStudentPrice : sjecMemberType === "faculty" ? sjecFacultyPrice : basePrice,
     }));
   }, [session?.user.email, sjecMemberType]);
+
 
   const form = useForm<FormSchema>({
     resolver: zodResolver(baseSchema),
@@ -137,7 +122,7 @@ export default function RegistrationForm() {
       const existing = prevFiles.find((file) => file.id === id);
       if (existing) {
         return prevFiles.map((file) =>
-          file.id === id ? { ...file, files } : file
+          file.id === id ? { ...file, files } : file,
         );
       } else {
         return [...prevFiles, { id, files }];
@@ -148,6 +133,7 @@ export default function RegistrationForm() {
   };
 
   const handlePayment = async () => {
+    
     const couponCode = form.getValues("couponCode");
     try {
       const response = await fetch("/api/create-order", {
@@ -192,7 +178,7 @@ export default function RegistrationForm() {
               const formResponse = form.getValues();
               await submitForm(
                 formResponse as FormDataInterface,
-                pricing.finalPrice
+                pricing.finalPrice,
               );
               setIsProcessing(false);
               setSuccess(true);
@@ -234,9 +220,8 @@ export default function RegistrationForm() {
   const verifyCoupon = async () => {
     const couponCode = form.getValues("couponCode");
     try {
-      const { basePrice, discountAmount, finalPrice } = await getPrice(
-        couponCode
-      );
+      const { basePrice, discountAmount, finalPrice } =
+        await getPrice(couponCode);
       setPricing({ basePrice, discountAmount, finalPrice });
       toast.success("Coupon applied successfully");
     } catch (e) {
@@ -305,19 +290,14 @@ export default function RegistrationForm() {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             {step === 1 && (
               <>
-                <FormField
+              <FormField
                   control={form.control}
                   name="name"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Name</FormLabel>
                       <FormControl>
-                        <Input
-                          placeholder="John Doe"
-                          {...field}
-                          value={session?.user.name!}
-                          disabled
-                        />
+                        <Input placeholder="John Doe" {...field} value={session?.user.name!} disabled/>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -357,7 +337,7 @@ export default function RegistrationForm() {
                   name="designation"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Designation</FormLabel>
+                      <FormLabel><span className="flex items-center">Designation<InfoButton /></span></FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
@@ -368,35 +348,9 @@ export default function RegistrationForm() {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem
-                            value="student"
-                            disabled={sjecMemberType === "unknown"}
-                          >
-                            SJEC - Student
-                            <span className="absolute right-2">
-                              {sjecMemberType === "unknown" ? (
-                                <InfoButton />
-                              ) : (
-                                ""
-                              )}
-                            </span>
-                          </SelectItem>
-                          <SelectItem
-                            value="faculty"
-                            disabled={sjecMemberType === "unknown"}
-                          >
-                            SJEC - Faculty
-                            <span className="absolute right-2">
-                              {sjecMemberType === "unknown" ? (
-                                <InfoButton />
-                              ) : (
-                                ""
-                              )}
-                            </span>
-                          </SelectItem>
-                          <SelectItem value="employee">
-                            External Participant
-                          </SelectItem>
+                          <SelectItem value="student" disabled={sjecMemberType === "unknown"}>SJEC - Student</SelectItem>
+                          <SelectItem value="faculty" disabled={sjecMemberType === "unknown"}>SJEC - Faculty</SelectItem>
+                          <SelectItem value="employee">External Participant</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
