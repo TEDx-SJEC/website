@@ -37,7 +37,7 @@ import getErrorMessage from "@/utils/getErrorMessage";
 import { useUploadThing } from "@/utils/uploadthing";
 import { baseSchema, studentFormSchema, studentSchema } from "@/utils/zod-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Script from "next/script";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -379,6 +379,17 @@ export default function RegistrationForm() {
                           value={session?.user.email!}
                         />
                       </FormControl>
+                      <Button
+                        type="button"
+                        onClick={() => {
+                          signOut();
+                          signIn();
+                          form.setValue("email", session?.user.email!);
+                        }}
+                        variant="outline"
+                      >
+                        Change
+                      </Button>
                       <FormMessage />
                     </FormItem>
                   )}
