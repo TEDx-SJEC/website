@@ -26,7 +26,7 @@ export default function Component() {
         }`}
       />
       <span
-        className={`hidden whitespace-nowrap font-medium transition-opacity duration-300 ease-in-out ${
+        className={`whitespace-nowrap font-medium transition-opacity duration-300 ease-in-out ${
           isHovered ? "opacity-100 delay-200" : "opacity-0"
         }`}
         style={{
