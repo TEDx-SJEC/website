@@ -353,9 +353,9 @@ export default function RegistrationForm() {
                         </FormControl>
                         <Button
                           type="button"
-                          onClick={() => {
-                            signOut();
-                            signIn();
+                          onClick={async () => {
+                            await signOut();
+                            await signIn();
                             form.setValue("email", session?.user.email!);
                           }}
                           variant="outline"
