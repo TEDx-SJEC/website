@@ -77,7 +77,7 @@ export default function RegistrationForm() {
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [sjecMemberType, setSjecMemberType] = useState<
+  const [memberType, setMemberType] = useState<
     "student" | "faculty" | "external"
   >("external");
   const [pricing, setPricing] = useState({
@@ -93,18 +93,18 @@ export default function RegistrationForm() {
   }
 
   useEffect(() => {
-    setSjecMemberType(getSjecMemberType(session?.user.email!));
+    setMemberType(getSjecMemberType(session?.user.email!));
     setPricing((prevPricing) => ({
       ...prevPricing,
       finalPrice:
-        sjecMemberType === "student"
+        memberType === "student"
           ? sjecStudentPrice
-          : sjecMemberType === "faculty"
+          : memberType === "faculty"
           ? sjecFacultyPrice
           : basePrice,
     }));
-    console.log("Member Type: ", sjecMemberType); 
-  }, [session?.user.email, sjecMemberType]);
+    console.log("Member Type: ", memberType); 
+  }, [session?.user.email, memberType]);
 
   const form = useForm<FormSchema>({
     resolver: zodResolver(baseSchema),
@@ -391,13 +391,13 @@ export default function RegistrationForm() {
                         <SelectContent>
                           <SelectItem
                             value="student"
-                            disabled={sjecMemberType === "external"}
+                            disabled={memberType === "external"}
                           >
                             SJEC - Student
                           </SelectItem>
                           <SelectItem
                             value="faculty"
-                            disabled={sjecMemberType === "external"}
+                            disabled={memberType === "external"}
                           >
                             SJEC - Faculty
                           </SelectItem>
@@ -461,7 +461,7 @@ export default function RegistrationForm() {
                     </FormItem>
                   )}
                 />
-                {sjecMemberType === "external" && (
+                {memberType === "external" && (
                   <FormField
                     control={form.control}
                     name="entityName"
@@ -552,13 +552,13 @@ export default function RegistrationForm() {
                             <Input
                               placeholder="Enter coupon code"
                               {...field}
-                              disabled={sjecMemberType !== "external"}
+                              disabled={memberType !== "external"}
                             />
                           </FormControl>
                           <Button
                             type="button"
                             onClick={verifyCoupon}
-                            disabled={sjecMemberType !== "external"}
+                            disabled={memberType !== "external"}
                           >
                             Verify
                           </Button>
