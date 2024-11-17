@@ -26,10 +26,10 @@ export const generatedSignature = (
 };
 
 
-export const getSjecMemberType = (email: string): "student" | "faculty" | "unknown" => {
+export const getSjecMemberType = (email: string): "student" | "faculty" | "external" => {
     if (email.endsWith("@sjec.ac.in")) {
         // Check if the email starts with a number
         return /^\d/.test(email) ? "student" : "faculty";
     }
-    return "unknown";
+    return "external";
 };
