@@ -204,11 +204,11 @@ export default function RegistrationForm() {
               setSuccess(true);
             } catch (error) {
               setIsProcessing(false);
-              toast.error("Payment failed");
+              toast.error(`Payment failed: ${getErrorMessage(data.error)}`);
             }
           } else {
             setIsProcessing(false);
-            toast.error("Payment failed");
+            toast.error(`Payment failed: ${getErrorMessage(data.error)}`);
           }
         },
         notes: {
@@ -245,10 +245,17 @@ export default function RegistrationForm() {
   const verifyCoupon = async () => {
     const couponCode = form.getValues("couponCode");
     try {
-      const { basePrice, discountAmount, finalPrice } = await getPrice(
-        couponCode
-      );
-      setPricing({ basePrice, discountAmount, finalPrice });
+      const result = await getPrice(couponCode);
+      if (!result.success) {
+        toast.error(result.message || "An error occurred while applying the coupon");
+        return;
+      }
+      const { basePrice, discountAmount, finalPrice } = result;
+      setPricing({
+        basePrice: basePrice ?? pricing.basePrice,
+        discountAmount: discountAmount ?? pricing.discountAmount,
+        finalPrice: finalPrice ?? pricing.finalPrice,
+      });
       toast.success("Coupon applied successfully");
     } catch (e) {
       console.error(e);
