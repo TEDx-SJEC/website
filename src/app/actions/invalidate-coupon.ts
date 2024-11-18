@@ -2,19 +2,35 @@
 
 import prisma from "@/server/db";
 import { type Session as NextAuthSession } from "next-auth";
+
 export async function invalidateCouponCode(
   couponCode: string,
   session: NextAuthSession,
 ) {
   console.log("coupon code = " + couponCode, "session = " + session.user.id);
-  if (!couponCode) return;
-  return await prisma.referral.update({
-    where: {
-      code: couponCode,
-    },
-    data: {
-      isUsed: true,
-      usedById: session.user.id,
-    },
-  });
+
+  if (!couponCode) {
+    return { success: false, message: "Coupon code is required" };
+  }
+
+  try {
+    const updatedCoupon = await prisma.referral.update({
+      where: {
+        code: couponCode,
+      },
+      data: {
+        isUsed: true,
+        usedById: session.user.id,
+      },
+    });
+
+    return { success: true, updatedCoupon };
+  } catch (error) {
+    if ((error as { code: string }).code === "P2025") {
+      return { success: false, message: "Invalid or non-existent coupon code" };
+    }
+
+    console.error("Unexpected error:", error);
+    return { success: false, message: "An unexpected error occurred" };
+  }
 }

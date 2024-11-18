@@ -128,10 +128,10 @@ export default function RegistrationForm() {
       if (res && res.length == 1) {
         form.setValue("photo", res[0].url);
       }
-      toast.message("uploaded successfully!");
+      console.log("Images uploaded successfully!");
     },
     onUploadError: () => {
-      alert("error occurred while uploading");
+      toast.error("error occurred while uploading");
     },
     onUploadBegin: (file) => {
       console.log("upload has begun for", file);
@@ -193,7 +193,10 @@ export default function RegistrationForm() {
                 }
               }
               if (couponCode) {
-                await invalidateCouponCode(couponCode, session!);
+                const result = await invalidateCouponCode(couponCode, session!);
+                if (!result.success) {
+                  toast.error(result.message || "An error occurred while invalidating the coupon");
+                }
               }
               const formResponse = form.getValues();
               await submitForm(
