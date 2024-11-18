@@ -6,7 +6,16 @@ import { type Session as NextAuthSession } from "next-auth";
 export async function invalidateCouponCode(
   couponCode: string,
   session: NextAuthSession,
-) {
+): Promise<{
+  success: boolean;
+  message?: string;
+  updatedCoupon?: {
+    code: string;
+    discountPercentage: string;
+    isUsed: boolean;
+    usedById: string;
+  };
+}> {
   console.log("coupon code = " + couponCode, "session = " + session.user.id);
 
   if (!couponCode) {
@@ -24,7 +33,15 @@ export async function invalidateCouponCode(
       },
     });
 
-    return { success: true, updatedCoupon };
+    return {
+      success: true,
+      updatedCoupon: {
+        code: updatedCoupon.code,
+        discountPercentage: updatedCoupon.discountPercentage,
+        isUsed: updatedCoupon.isUsed,
+        usedById: updatedCoupon.usedById || "",
+      },
+    };
   } catch (error) {
     if ((error as { code: string }).code === "P2025") {
       return { success: false, message: "Invalid or non-existent coupon code" };
