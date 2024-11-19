@@ -129,7 +129,7 @@ export default function HeroHighlight() {
                                 size="lg"
                                 className="bg-red-600 hover:bg-red-700 text-white py-2 transition-all duration-300 transform hover:scale-105"
                             >
-                                Register Now
+                                Registrations Open Soon
                             </Button>
                         </Link>
                     </div>

@@ -189,7 +189,7 @@ const Nav = () => {
                                           size="lg"
                                           className="bg-red-600 hover:bg-red-700 text-white py-4 "
                                       >
-                                          Register Now
+                                          Registrations Open Soon
                                           {/* <ArrowRight className="ml-2" /> */}
                                       </Button>
                                   </Link>
