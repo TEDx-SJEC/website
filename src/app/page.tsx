@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Speakers from "@/components/common/speakers";
 import { PreviousEdition } from "@/components/common/Container-Scroll";
 import About from "@/components/common/About";
@@ -10,7 +10,6 @@ import HeroHighlight from "@/components/widget/hero";
 import Footer from "@/components/common/Footer-1";
 import CTA from "@/components/common/cta-section-2";
 import UnsplashGrid from "@/components/common/gridsplash";
-import Index from "@/components/ui/mask";
 export default function Home() {
   // const [loading, setLoading] = useState(true);
 
