@@ -2,9 +2,9 @@
 
 import React from "react";
 import Speakers from "@/components/common/speakers";
-import { PreviousEdition } from "@/components/common/Container-Scroll";
-import About from "@/components/common/About";
-import Team from "@/components/common/Team-Section";
+import { PreviousEdition } from "@/components/common/container-scroll";
+import About from "@/components/common/about";
+import Team from "@/components/common/team-section";
 import Performers from "@/components/widget/performers";
 import HeroHighlight from "@/components/widget/hero";
 import Footer from "@/components/common/Footer-1";
