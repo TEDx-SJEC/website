@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Gift } from "lucide-react";
 export default function FullScreenCTA() {
   return (
-    <div className="min-h-screen   text-white flex items-center justify-center p-4">
+    <div className="min-h-screen   text-white flex items-center justify-center p-5 md:p-10">
       <div className="max-w-7xl w-full mx-auto space-y-12">
         <h1 className="text-4xl text-red-500 md:text-6xl font-bold text-center leading-tight">
           Explore What&apos;s Worth Living: <br />
@@ -38,26 +38,27 @@ export default function FullScreenCTA() {
 
           <div className="space-y-8">
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-              <Card className="bg-black/30 border-none">
-                <CardContent className="p-6 text-center">
-                  <Gift className="h-12 w-12 mx-auto mb-7 text-red-500" />
-                  <h3 className="text-3xl font-semibold">Goodies</h3>
-                </CardContent>
-              </Card>
+    
 
               <Card className="bg-black/30 border-none">
                 <CardContent className="p-6 text-center">
                   <Mic2 className="h-12 w-12 mx-auto mb-3 text-red-500" />
-                  <h3 className="text-3xl font-semibold mb-2">12</h3>
+                  <h3 className="text-3xl font-semibold mb-2">8</h3>
                   <p className="text-gray-300">Speakers</p>
                 </CardContent>
               </Card>
 
-              <Card className="bg-black/30 border-none col-span-2 md:col-span-1">
+              <Card className="bg-black/30 border-none">
                 <CardContent className="p-6 text-center">
                   <Guitar className="h-12 w-12 mx-auto mb-3 text-red-500" />
                   <h3 className="text-3xl font-semibold mb-2">4</h3>
                   <p className="text-gray-300">Performers</p>
+                </CardContent>
+              </Card>
+              <Card className="bg-black/30 border-none col-span-2 md:col-span-1">
+                <CardContent className="p-6 text-center">
+                  <Gift className="h-12 w-12 mx-auto mb-3 text-red-500" />
+                  <h3 className="text-2xl mb-2 font-semibold">Food  &  Goodies</h3>
                 </CardContent>
               </Card>
             </div>

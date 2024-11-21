@@ -1,6 +1,9 @@
 "use client";
 import { tedxsjecAssetsPrefix } from "@/lib/utils";
-
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+import { useEffect } from "react";
+import { useGSAP } from "@gsap/react";
 const speakers = [
   {
     id: 1,
@@ -37,6 +40,25 @@ const speakers = [
 ];
 
 export default function Component() {
+  useGSAP(() => {
+    // Register the ScrollTrigger plugin
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Animate each speaker as they come into view
+    speakers.forEach((_, index) => {
+      gsap.from(`.speaker-${index}`, {
+        opacity: 0,
+        y: 100,
+        duration: 1,
+        scrollTrigger: {
+          trigger: `.speaker-${index}`,
+          start: "top 80%", // Adjust this to control when the animation starts
+          toggleActions: "play none none reverse", // Animation behavior
+        },
+      });
+    });
+  }, []);
+
   return (
     <div className="min-h-screen overflow-hidden p-2">
       <div className="relative z-10 w-full ma-4xl max-w-5xl mx-auto">
@@ -47,7 +69,7 @@ export default function Component() {
           {speakers.map((speaker, index) => (
             <div
               key={speaker.id}
-              className={`flex flex-col md:flex-row ${
+              className={`speaker-${index} flex flex-col md:flex-row ${
                 index % 2 === 0 ? "" : "md:flex-row-reverse"
               } items-stretch justify-between bg-black/40 rounded-2xl  overflow-hidden shadow-xl border border-white border-opacity-20`}
             >
@@ -60,10 +82,10 @@ export default function Component() {
               </div>
 
               <div className="w-full md:w-1/2 p-4 md:p-10 flex flex-col justify-center">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 animate-float">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3">
                   {speaker.name}
                 </h2>
-                <p className="text-lg md:text-xl lg:text-2xl font-semibold text-[#EB0028] mb-5 animate-float-delayed">
+                <p className="text-lg md:text-xl lg:text-2xl font-semibold text-[#EB0028] mb-5">
                   {speaker.profession}
                 </p>
                 <p className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed">

@@ -10,6 +10,7 @@ import HeroHighlight from "@/components/widget/hero";
 import Footer from "@/components/common/Footer-1";
 import CTA from "@/components/common/cta-section-2";
 import UnsplashGrid from "@/components/common/gridsplash";
+import Index from "@/components/ui/mask";
 export default function Home() {
   const [loading, setLoading] = useState(true);
 
