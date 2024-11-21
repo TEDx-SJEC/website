@@ -1,18 +1,17 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
+import { getPrice } from "@/app/actions/get-price";
+import { invalidateCouponCode } from "@/app/actions/invalidate-coupon";
+import { submitForm } from "@/app/actions/submit-form";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -22,54 +21,49 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { getPrice } from "@/app/actions/get-price";
-import { toast } from "sonner";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  basePrice,
+  initialdiscount,
+  sjecFacultyPrice,
+  sjecStudentPrice,
+} from "@/constants";
+import { getSjecMemberType } from "@/lib/helper";
+import { FormDataInterface } from "@/types";
 import getErrorMessage from "@/utils/getErrorMessage";
-import { basePrice, initialdiscount, sjecPrice } from "@/constants";
-import { invalidateCouponCode } from "@/app/actions/invalidate-coupon";
-import { useSession } from "next-auth/react";
-import Script from "next/script";
 import { useUploadThing } from "@/utils/uploadthing";
-import { submitForm } from "@/app/actions/submit-form";
+import {
+  baseSchema,
+  studentFormSchema,
+  studentSchema,
+} from "@/utils/zod-schemas";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn, signOut, useSession } from "next-auth/react";
+import Script from "next/script";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import * as z from "zod";
 import { PaymentLoading } from "../payment/payment-loading";
 import { PaymentSuccessfulComponent } from "../payment/payment-successful";
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { FileUpload } from "../ui/file-upload";
-import { isSjecMember } from "@/lib/helper";
-import { FormDataInterface } from "@/types";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import InfoButton from "../ui/info-button";
+import { redirect } from "next/navigation";
 
 declare global {
   interface Window {
     Razorpay: any;
   }
 }
-
-const baseSchema = z.object({
-  designation: z.enum(["student", "faculty", "employee"]),
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  email: z.string().email({ message: "Invalid email address." }),
-  phone: z
-    .string()
-    .regex(/^\d{10}$/, { message: "Phone number must be 10 digits." }),
-  photo: z.string(),
-  entityName: z.string().optional(),
-  couponCode: z.string().optional(),
-  foodPreference: z.enum(["veg", "non-veg"]),
-});
-
-const studentSchema = baseSchema.extend({
-  usn: z.string().min(1, { message: "USN is required for students." }),
-  idCard: z.string().min(1, { message: "ID Card is required for students." }),
-});
 
 type FormSchema = z.infer<typeof studentSchema | typeof baseSchema>;
 
@@ -83,31 +77,40 @@ export default function RegistrationForm() {
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [isSJECMember, setIsSJECMember] = useState(false);
+  const [memberType, setMemberType] = useState<
+    "student" | "faculty" | "external"
+  >("external");
   const [pricing, setPricing] = useState({
     basePrice: basePrice,
     discountAmount: initialdiscount,
-    finalPrice: isSJECMember ? sjecPrice : basePrice, // Updated to set sjecPrice if isSJECMember is true
+    finalPrice: basePrice,
   });
 
   const { data: session } = useSession();
 
+  if (!session) {
+    redirect("/auth/signin/?callbackUrl=/register");
+  }
+
   useEffect(() => {
-    setIsSJECMember(isSjecMember(session?.user.email!));
+    setMemberType(getSjecMemberType(session?.user.email!));
     setPricing((prevPricing) => ({
       ...prevPricing,
-      finalPrice: isSJECMember ? sjecPrice : basePrice, // Update finalPrice based on isSJECMember
+      finalPrice:
+        memberType === "student"
+          ? sjecStudentPrice
+          : memberType === "faculty"
+          ? sjecFacultyPrice
+          : basePrice,
     }));
-  }, [session?.user.email, isSJECMember]);
-
-  if (isSJECMember) {
-  }
+    console.log("Member Type: ", memberType); 
+  }, [session?.user.email, memberType]);
 
   const form = useForm<FormSchema>({
     resolver: zodResolver(baseSchema),
     defaultValues: {
-      designation: "student",
-      name: "",
+      designation: getSjecMemberType(session?.user.email!),
+      name: session?.user.name!,
       email: session?.user.email!,
       phone: "",
       entityName: "",
@@ -125,10 +128,10 @@ export default function RegistrationForm() {
       if (res && res.length == 1) {
         form.setValue("photo", res[0].url);
       }
-      toast.message("uploaded successfully!");
+      console.log("Images uploaded successfully!");
     },
     onUploadError: () => {
-      alert("error occurred while uploading");
+      toast.error("error occurred while uploading");
     },
     onUploadBegin: (file) => {
       console.log("upload has begun for", file);
@@ -140,7 +143,7 @@ export default function RegistrationForm() {
       const existing = prevFiles.find((file) => file.id === id);
       if (existing) {
         return prevFiles.map((file) =>
-          file.id === id ? { ...file, files } : file,
+          file.id === id ? { ...file, files } : file
         );
       } else {
         return [...prevFiles, { id, files }];
@@ -165,8 +168,8 @@ export default function RegistrationForm() {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
         amount: pricing.finalPrice * 100,
         currency: "INR",
-        name: "Test Name",
-        description: "Test Transaction",
+        name: "TEDxSJEC",
+        description: "Registration Fee",
         order_id: data.orderId,
         handler: async (response: any) => {
           const resp = await fetch("/api/verify-order", {
@@ -190,22 +193,25 @@ export default function RegistrationForm() {
                 }
               }
               if (couponCode) {
-                await invalidateCouponCode(couponCode, session!);
+                const result = await invalidateCouponCode(couponCode, session!);
+                if (!result.success) {
+                  toast.error(result.message || "An error occurred while invalidating the coupon");
+                }
               }
               const formResponse = form.getValues();
               await submitForm(
                 formResponse as FormDataInterface,
-                pricing.finalPrice,
+                pricing.finalPrice
               );
               setIsProcessing(false);
               setSuccess(true);
             } catch (error) {
               setIsProcessing(false);
-              toast.error("Payment failed");
+              toast.error(`Payment failed: ${getErrorMessage(data.error)}`);
             }
           } else {
             setIsProcessing(false);
-            toast.error("Payment failed");
+            toast.error(`Payment failed: ${getErrorMessage(data.error)}`);
           }
         },
         notes: {
@@ -220,6 +226,11 @@ export default function RegistrationForm() {
         },
         theme: {
           color: "#3399cc",
+        },
+        modal: {
+          ondismiss: () => {
+            setIsProcessing(false);
+          },
         },
       };
       const rzp1 = new window.Razorpay(options);
@@ -237,9 +248,17 @@ export default function RegistrationForm() {
   const verifyCoupon = async () => {
     const couponCode = form.getValues("couponCode");
     try {
-      const { basePrice, discountAmount, finalPrice } =
-        await getPrice(couponCode);
-      setPricing({ basePrice, discountAmount, finalPrice });
+      const result = await getPrice(couponCode);
+      if (!result.success) {
+        toast.error(result.message || "An error occurred while applying the coupon");
+        return;
+      }
+      const { basePrice, discountAmount, finalPrice } = result;
+      setPricing({
+        basePrice: basePrice ?? pricing.basePrice,
+        discountAmount: discountAmount ?? pricing.discountAmount,
+        finalPrice: finalPrice ?? pricing.finalPrice,
+      });
       toast.success("Coupon applied successfully");
     } catch (e) {
       console.error(e);
@@ -255,22 +274,8 @@ export default function RegistrationForm() {
       const designation = form.getValues("designation");
       if (designation === "student") {
         form.clearErrors();
-        const studentFormSchema = z.object({
-          name: z
-            .string()
-            .min(2, { message: "Name must be at least 2 characters." }),
-          email: z.string().email({ message: "Invalid email address." }),
-          phone: z
-            .string()
-            .regex(/^\d{10}$/, { message: "Phone number must be 10 digits." }),
-          usn: z.string().min(1, { message: "USN is required for students." }),
-          idCard: z
-            .string()
-            .min(1, { message: "ID Card is required for students." }),
-          photo: z.string().min(1, { message: "Photo is required." }),
-        });
         const validationResult = await studentFormSchema.safeParseAsync(
-          form.getValues(),
+          form.getValues()
         );
         isValid = validationResult.success;
         if (!isValid) {
@@ -310,10 +315,12 @@ export default function RegistrationForm() {
   }
 
   return (
-    <Card className="w-[550px]">
+    <Card className="w-full lg:w-[550px] bg-[#1a0a0a] mt-24 md:mt-20">
       <Script src="https://checkout.razorpay.com/v1/checkout.js" />
       <CardHeader>
-        <CardTitle>Registration Form</CardTitle>
+        <CardTitle className="text-[#e62b1e] text-center text-3xl">
+          Registration Form
+        </CardTitle>
         <CardDescription>Step {step} of 3</CardDescription>
       </CardHeader>
       <CardContent>
@@ -323,13 +330,68 @@ export default function RegistrationForm() {
               <>
                 <FormField
                   control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="John Doe"
+                          {...field}
+                          value={session?.user.name!}
+                          disabled
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <div className="flex items-center space-x-2">
+                        <FormControl>
+                          <Input
+                            placeholder="john@example.com"
+                            {...field}
+                            disabled
+                            value={session?.user.email!}
+                          />
+                        </FormControl>
+                        <Button
+                          type="button"
+                          onClick={async () => {
+                            await signOut();
+                            await signIn();
+                            form.setValue("email", session?.user.email!);
+                          }}
+                          variant="outline"
+                        >
+                          Change
+                        </Button>
+                      </div>
+
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
                   name="designation"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Designation</FormLabel>
+                      <FormLabel>
+                        <span className="flex items-center">
+                          Designation
+                          <InfoButton />
+                        </span>
+                      </FormLabel>
                       <Select
                         onValueChange={field.onChange}
-                        defaultValue={field.value}
+                        value={field.value}
                       >
                         <FormControl>
                           <SelectTrigger>
@@ -337,9 +399,21 @@ export default function RegistrationForm() {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="student">Student</SelectItem>
-                          <SelectItem value="faculty">Faculty</SelectItem>
-                          <SelectItem value="employee">Employee</SelectItem>
+                          <SelectItem
+                            value="student"
+                            disabled={memberType === "external"}
+                          >
+                            SJEC - Student
+                          </SelectItem>
+                          <SelectItem
+                            value="faculty"
+                            disabled={memberType === "external"}
+                          >
+                            SJEC - Faculty
+                          </SelectItem>
+                          <SelectItem value="external">
+                            External Participant
+                          </SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -386,37 +460,6 @@ export default function RegistrationForm() {
               <>
                 <FormField
                   control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="John Doe" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="john@example.com"
-                          {...field}
-                          disabled
-                          value={session?.user.email!}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
                   name="phone"
                   render={({ field }) => (
                     <FormItem>
@@ -428,7 +471,7 @@ export default function RegistrationForm() {
                     </FormItem>
                   )}
                 />
-                {!isSJECMember && (
+                {memberType === "external" && (
                   <FormField
                     control={form.control}
                     name="entityName"
@@ -519,13 +562,13 @@ export default function RegistrationForm() {
                             <Input
                               placeholder="Enter coupon code"
                               {...field}
-                              disabled={isSJECMember}
+                              disabled={memberType !== "external"}
                             />
                           </FormControl>
                           <Button
                             type="button"
                             onClick={verifyCoupon}
-                            disabled={isSJECMember}
+                            disabled={memberType !== "external"}
                           >
                             Verify
                           </Button>

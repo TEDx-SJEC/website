@@ -64,13 +64,13 @@ export function PaymentSuccessfulComponent() {
   }, [fireConfetti]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black">
+    <div className="min-h-screen px-2 flex items-center justify-center">
       <motion.div
         initial={{ scale: 0.5, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
-        <Card className="w-full max-w-md text-center bg-gray-900 border-gray-800">
+       <Card className="w-full max-w-md text-center bg-[#1a0a0a] border-[#140808]">
           <CardHeader>
             <CardTitle className="text-2xl font-bold text-white">
               Payment Successful!
@@ -96,7 +96,7 @@ export function PaymentSuccessfulComponent() {
           </CardContent>
           <CardFooter className="flex justify-center">
             <Link href={"/"}>
-              <Button className="bg-purple-600 hover:bg-purple-700 text-white">
+            <Button className="bg-[#EB0028] hover:bg-[#C60022] text-white">
                 Go to home page
               </Button>
             </Link>

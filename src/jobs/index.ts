@@ -1,6 +1,6 @@
 import { Queue, Worker } from "bullmq";
 import { Redis } from "ioredis";
-import sendEmail from "@/lib/sendMail";
+// import sendEmail from "@/lib/sendMail";
 
 const redisConnection = new Redis({
   host: process.env.REDIS_HOST,
@@ -40,7 +40,7 @@ const worker = new Worker(
     if (!email) {
       throw new Error("No recipients defined");
     }
-    await sendEmail({ email, name, OTP });
+    // await sendEmail({ email, name, OTP });
   },
   {
     connection: redisConnection,

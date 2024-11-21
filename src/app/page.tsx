@@ -12,12 +12,12 @@ import CTA from "@/components/common/cta-section-2";
 import UnsplashGrid from "@/components/common/gridsplash";
 import Index from "@/components/ui/mask";
 export default function Home() {
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false));
-    return () => clearTimeout(timer);
-  }, []);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => setLoading(false)); 
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   return (
     <>
