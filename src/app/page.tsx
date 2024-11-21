@@ -11,12 +11,12 @@ import Footer from "@/components/common/Footer-1";
 import CTA from "@/components/common/cta-section-2";
 
 export default function Home() {
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false)); 
-    return () => clearTimeout(timer);
-  }, []);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => setLoading(false)); 
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   return (
     <>
