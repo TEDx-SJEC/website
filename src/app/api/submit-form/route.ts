@@ -3,6 +3,7 @@ import { RegistrationFormSchema, TRegistrationForm } from "@/utils/zod-schemas";
 import prisma from "@/server/db";
 import { getPrice } from "@/app/actions/get-price";
 import getErrorMessage from "@/utils/getErrorMessage";
+import {basePrice} from "@/constants";
 
 export async function GET() {
   return NextResponse.json({ message: "Hello from the API!" });
@@ -36,6 +37,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     } = body;
 
     let { finalPrice } = await getPrice(referralUsed);
+    finalPrice = finalPrice ?? basePrice; // Ensure finalPrice is a number
 
     await prisma.$transaction(async (tx) => {
       prisma.referral.update({

@@ -1,5 +1,5 @@
 import { tedxsjecAssetsPrefix } from "@/lib/utils";
-import TeamCard from "./TeamCard";
+import TeamCard from "./team-card";
 
 const team = [
   {

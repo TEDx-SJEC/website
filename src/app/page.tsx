@@ -1,38 +1,25 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-// import ParallaxFooter from "@/components/common/Footer";
 import Speakers from "@/components/common/speakers";
-import { PreviousEdition } from "@/components/common/Container-Scroll";
-import About from "@/components/common/About";
-import Team from "@/components/common/Team-Section";
-// import { CtaSection } from "@/components/common/cta-section";
+import { PreviousEdition } from "@/components/common/container-scroll";
+import About from "@/components/common/about";
+import Team from "@/components/common/team-section";
 import Performers from "@/components/widget/performers";
 import HeroHighlight from "@/components/widget/hero";
 import Footer from "@/components/common/Footer-1";
 import CTA from "@/components/common/cta-section-2";
-// import Inkcursor from "@/components/common/ink";
-import CanvasCursor from "@/components/common/ink";
-// import Landing_page from "@/components/widget/landing";// Import the loading screen component
 
 export default function Home() {
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    // Set a timeout to hide the loading screen after the content is ready
-    const timer = setTimeout(() => setLoading(false)); // Adjust as needed
-    return () => clearTimeout(timer);
-  }, []);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => setLoading(false)); 
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   return (
     <>
-      {/* Ink Cursor overlay for the entire page */}
-      {/* <CanvasCursor /> */}
-
-      {/* Loading Screen */}
-      {/* <Landing_page  /> */}
-
-      {/* Main Page Content */}
       <div className="z-20 relative pt-20 overflow-x-clip 1">
         <HeroHighlight />
         <div className="h-full mt-20 mb-20" id="about">
@@ -68,4 +55,3 @@ export default function Home() {
     </>
   );
 }
-// ${loading ? 'hidden' : ''}`}

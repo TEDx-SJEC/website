@@ -23,3 +23,32 @@ export const emailSchema = z.object({
   email: z.string().email(),
   name: z.string().min(1),
 });
+
+export const baseSchema = z.object({
+  designation: z.enum(["student", "faculty", "external"]),
+  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
+  email: z.string().email({ message: "Invalid email address." }),
+  phone: z
+    .string()
+    .regex(/^\d{10}$/, { message: "Phone number must be 10 digits." }),
+  photo: z.string(),
+  entityName: z.string().optional(),
+  couponCode: z.string().optional(),
+  foodPreference: z.enum(["veg", "non-veg"]),
+});
+
+export const studentSchema = baseSchema.extend({
+  usn: z.string().min(1, { message: "USN is required for students." }),
+  idCard: z.string().min(1, { message: "ID Card is required for students." }),
+});
+
+export const studentFormSchema = z.object({
+  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
+  email: z.string().email({ message: "Invalid email address." }),
+  phone: z
+    .string()
+    .regex(/^\d{10}$/, { message: "Phone number must be 10 digits." }),
+  usn: z.string().min(1, { message: "USN is required for students." }),
+  idCard: z.string().min(1, { message: "ID Card is required for students." }),
+  photo: z.string().min(1, { message: "Photo is required." }),
+});

@@ -78,7 +78,7 @@ export default function Component() {
                 tl.fromTo(
                     description,
                     { yPercent: 100, opacity: 0 },
-                    { yPercent: 0, opacity: 1, duration: 0.3, ease: "power2.out" }
+                    { yPercent: 0, opacity: 1, duration: 0.5, ease: "power2.out" }
                 );
 
                 section.addEventListener("mouseenter", () => tl.play());
