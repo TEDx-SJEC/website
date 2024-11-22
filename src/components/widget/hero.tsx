@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { ArrowRight, Calendar, MapPin } from "lucide-react";
+import { Calendar } from "lucide-react";
 import Link from "next/link";
 
 type TimeLeft = {
