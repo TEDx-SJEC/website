@@ -127,18 +127,24 @@ export default function ContactPage() {
           © 2024 TEDxSJEC. This independent TEDx event is operated under license
           from TED.
         </p>
-        <div className="mt-4 md:pb-0 pb-4">
+        <div className="flex items-center justify-center mt-4 md:pb-0 pb-4 gap-4">
           <Link
-            href="/privacy-policy"
-            className="mr-4 hover:text-red-600 transition-colors"
+            href=""
+            className="hover:text-red-600 transition-colors"
           >
             Privacy Policy
           </Link>
           <Link
-            href="/terms-of-service"
+            href=""
             className="hover:text-red-600 transition-colors"
           >
             Terms of Service
+          </Link>
+          <Link
+            href="/refund"
+            className="hover:text-red-600 transition-colors"
+          >
+            Refund Policy
           </Link>
         </div>
       </div>
