@@ -89,7 +89,6 @@ export default function Component() {
                 end: "bottom top",
               },
             }
-            }
           );
         }
       });
