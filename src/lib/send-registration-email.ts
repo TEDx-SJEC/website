@@ -14,7 +14,7 @@ export async function sendRegistrationEmail({
 }) {
   try {
     await resend.emails.send({
-      from: '"Tedx SJEC" <no-reply@tedxsjec.in>',
+      from: '"TEDxSJEC" <no-reply@tedxsjec.in>',
       to: [email, "support.tedx@sjec.ac.in"],
       subject: "Event Registration Successful - TEDx SJEC",
       replyTo:"support.tedx@sjec.ac.in",
