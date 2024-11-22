@@ -2,6 +2,14 @@ import { ReactNode } from "react";
 
 export type UserRoleType = "ADMIN" | "PARTICIPANT";
 
+export interface Speaker {
+  id: number;
+  name: string;
+  profession: string;
+  description: string;
+  img: string;
+}
+
 export interface EmailOptions {
   from: string;
   to: string;
