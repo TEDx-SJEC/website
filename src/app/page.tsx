@@ -38,7 +38,7 @@ export default function Home() {
 
           <Performers />
         </div>
-        <div className=" ">
+        <div className="">
           <PreviousEdition />
           {/* <div>
             <h1 className="md:text-8xl mb-10  text-4xl  text-center  font-black px-10">

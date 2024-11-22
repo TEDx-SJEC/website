@@ -93,9 +93,9 @@ export default function FullScreenCTA() {
           </p>
           <Button
             size="lg"
-            className="bg-red-600 hover:bg-red-700 text-white py-6 px-4 text-xl transition-all duration-300 transform hover:scale-105"
+            className="bg-red-600 hover:bg-red-700 text-white py-6 px-8 text-xl transition-all duration-300 transform hover:scale-105"
           >
-            Registrations Open Soon
+          Claim Your Spot !
           </Button>
           {/* <p className="text-sm text-gray-400">
             Early bird pricing ends May 1st. Secure your spot today and save!

@@ -13,11 +13,12 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL("/", request.url));
     }
   }
-  if (url.pathname.startsWith("/register")) {
-    if (token?.role !== "ADMIN") {
-      return NextResponse.redirect(new URL("/", request.url));
-    }
-  }
+  // if (url.pathname.startsWith("/register")) {
+  //   if (token?.role !== "ADMIN") {
+  //     return NextResponse.redirect(new URL("/", request.url));
+  //   }
+  // }
+  
 }
 
 // See "Matching Paths" below to learn more

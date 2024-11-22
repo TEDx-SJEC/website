@@ -14,6 +14,7 @@ interface PerformerSection {
   name: string;
   profession: string;
   description: string;
+
 }
 
 const performerSections: PerformerSection[] = [
@@ -27,12 +28,34 @@ const performerSections: PerformerSection[] = [
       `${tedxsjecAssetsPrefix}/performers/Yukthi 3.avif`,
     ],
   },
+  {
+    name: "Agasthyam Kalaripayattu",
+    profession: "Martial Arts Institution",
+    description:
+      'Agasthyam Kalaripayattu, a premier martial arts institution, preserves and teaches the ancient art of Kalaripayattu from Kerala, India. Founded and led by Gurukkal S Mahesh, Agasthyam carries forward a legacy over 129 years old, deeply rooted in traditional combat techniques, self-defense, weaponry, and spiritual growth. The renowned school offers rigorous training that builds agility, strength, and resilience, blending physical discipline with profound cultural heritage. Among its notable achievements is the "Shakthi" program, which has empowered nearly 12,000 women and continues to inspire and nurture many more.',
+    images: [
+      `${tedxsjecAssetsPrefix}/performers/Agasthyam1.avif`,
+      `${tedxsjecAssetsPrefix}/performers/Agasthyam2.avif`,
+      `${tedxsjecAssetsPrefix}/performers/Agasthyam3.avif`,
+    ],
+  },
+  //   ,
+  //   {
+  //     name: "Munita Veigas Rao",
+  //     profession: "Singer | Songwriter | Performer | Vocal Trainer",
+  //     description:
+  //       'Munita Veigas Rao, fondly known as the "Nightingale of Mangalore," is an award-winning singer, songwriter, and vocal trainer celebrated for her dynamic performances across Konkani, regional, and Western music. Having been recently awarded the Dakshina Kannada District Rajyotsava Award in November 2024, Munita has a career spanning over two decades with more than 500 stage performances worldwide. As the founder of her music school, "Musically by Munita," she dedicates her time to nurturing new talent. Her exceptional vocal skills and commitment to music have made her a cherished figure in the community.',
+  //     images: [
+  //       `${tedxsjecAssetsPrefix}/performers/Munita1.avif`,
+  //       `${tedxsjecAssetsPrefix}/performers/Munita2.avif`,
+  //     ],
+  //   },
 ];
 
 export default function Component() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentImageIndices, setCurrentImageIndices] = useState<number[]>(
-    performerSections.map(() => 0),
+    performerSections.map(() => 0)
   );
   const intervalRefs = useRef<(NodeJS.Timeout | null)[]>([]);
   const [selectedSection, setSelectedSection] =
@@ -66,7 +89,7 @@ export default function Component() {
                 start: "top bottom",
                 end: "bottom top",
               },
-            },
+            }
           );
         }
       });
@@ -81,18 +104,32 @@ export default function Component() {
         .forEach((section) => {
           const description = section.querySelector(".description");
           const tl = gsap.timeline({ paused: true });
+          mm.add("(min-width: 1200px)", () => {
+            setIsLargeScreen(true);
+            gsap.utils
+              .toArray<HTMLDivElement>(".performer-section")
+              .forEach((section) => {
+                const description = section.querySelector(".description");
+                const tl = gsap.timeline({ paused: true });
 
-          tl.fromTo(
-            description,
-            { yPercent: 100, opacity: 0 },
-            { yPercent: 0, opacity: 1, duration: 0.3, ease: "power2.out" },
-          );
+                tl.fromTo(
+                  description,
+                  { yPercent: 100, opacity: 0 },
+                  { yPercent: 0, opacity: 1, duration: 0.5, ease: "power2.out" }
+                );
 
+                section.addEventListener("mouseenter", () => tl.play());
+                section.addEventListener("mouseleave", () => tl.reverse());
+              });
+          });
           section.addEventListener("mouseenter", () => tl.play());
           section.addEventListener("mouseleave", () => tl.reverse());
         });
     });
 
+    mm.add("(max-width: 1200px)", () => {
+      setIsLargeScreen(false);
+    });
     mm.add("(max-width: 1200px)", () => {
       setIsLargeScreen(false);
     });
@@ -106,17 +143,14 @@ export default function Component() {
 
   useEffect(() => {
     performerSections.forEach((_, index) => {
-      intervalRefs.current[index] = setInterval(
-        () => {
-          setCurrentImageIndices((prevIndices) => {
-            const newIndices = [...prevIndices];
-            newIndices[index] =
-              (newIndices[index] + 1) % performerSections[index].images.length;
-            return newIndices;
-          });
-        },
-        2500 + index * 1000,
-      );
+      intervalRefs.current[index] = setInterval(() => {
+        setCurrentImageIndices((prevIndices) => {
+          const newIndices = [...prevIndices];
+          newIndices[index] =
+            (newIndices[index] + 1) % performerSections[index].images.length;
+          return newIndices;
+        });
+      }, 2500 + index * 1000);
     });
 
     return () => {
@@ -167,10 +201,10 @@ export default function Component() {
                   src={image}
                   width={1200}
                   height={675}
-                  alt={`Performer section ${sectionIndex + 1}, slide ${imageIndex + 1} of ${
-                    section.images.length
-                  }`}
-                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                  alt={`Performer section ${sectionIndex + 1}, slide ${
+                    imageIndex + 1
+                  } of ${section.images.length}`}
+                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-8000 ${
                     imageIndex === currentImageIndices[sectionIndex]
                       ? "opacity-100"
                       : "opacity-0"

@@ -95,10 +95,15 @@ function FetchRazorpayPaymentData({ params }: { params: { id: string } }) {
     const fetchData = async () => {
       try {
         const res = await fetch(`/api/verify-order/${id}`);
+        if (!res.ok) {
+          throw new Error("Failed to fetch payment data");
+        }
         const data = await res.json();
+        console.log("Payment data:", data);
         setPaymentData(data);
       } catch (error) {
-        console.error("Error fetching payment data:", error);
+        toast.error("Error fetching payment data");
+        
       } finally {
         setLoading(false);
       }
