@@ -17,6 +17,17 @@ interface PerformerSection {
 }
 
 const performerSections: PerformerSection[] = [
+  // {
+  //   name: "Yukthi Udupa",
+  //   profession: "Bharatanatyam artist",
+  //   description:
+  //     "Yukthi Udupa, a passionate Bharatanatyam artist, began her journey at 12 under Guru Vid Smt. Pravitha Ashok at Nritya Vasantha Natyalaya® Kundapura. She completed her exams with distinction and earned the Karnataka State Music and Dance Scholarship. Yukthi has won numerous awards, including  and the excelling in international, national, and state-level competitions. Her Bharatanatyam Arangetram was a celebrated display of her technical skill and expressive artistry. Yukthi is also a 'B' grade Doordarshan artist, inspiring young dancers and honoring Bharatanatyam's legacy.",
+  //   images: [
+  //     `${tedxsjecAssetsPrefix}/performers/Yukthi1.avif`,
+  //     `${tedxsjecAssetsPrefix}/performers/Yukthi 3.avif`,
+  //   ],
+  // },
+
   {
     name: "Yukthi Udupa",
     profession: "Bharatanatyam artist",
@@ -27,12 +38,23 @@ const performerSections: PerformerSection[] = [
       `${tedxsjecAssetsPrefix}/performers/Yukthi 3.avif`,
     ],
   },
+  {
+    name: "Agasthyam Kalaripayattu",
+    profession: "Martial Arts Institution",
+    description:
+      'Agasthyam Kalaripayattu, a premier martial arts institution, preserves and teaches the ancient art of Kalaripayattu from Kerala, India. Founded and led by Gurukkal S Mahesh, Agasthyam carries forward a legacy over 129 years old, deeply rooted in traditional combat techniques, self-defense, weaponry, and spiritual growth. The renowned school offers rigorous training that builds agility, strength, and resilience, blending physical discipline with profound cultural heritage. Among its notable achievements is the "Shakthi" program, which has empowered nearly 12,000 women and continues to inspire and nurture many more.',
+    images: [
+      `${tedxsjecAssetsPrefix}/performers/Agasthyam1.avif`,
+      `${tedxsjecAssetsPrefix}/performers/Agasthyam2.avif`,
+      `${tedxsjecAssetsPrefix}/performers/Agasthyam3.avif`,
+    ],
+  },
 ];
 
 export default function Component() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentImageIndices, setCurrentImageIndices] = useState<number[]>(
-    performerSections.map(() => 0),
+    performerSections.map(() => 0)
   );
   const intervalRefs = useRef<(NodeJS.Timeout | null)[]>([]);
   const [selectedSection, setSelectedSection] =
@@ -66,7 +88,7 @@ export default function Component() {
                 start: "top bottom",
                 end: "bottom top",
               },
-            },
+            }
           );
         }
       });
@@ -85,7 +107,7 @@ export default function Component() {
           tl.fromTo(
             description,
             { yPercent: 100, opacity: 0 },
-            { yPercent: 0, opacity: 1, duration: 0.3, ease: "power2.out" },
+            { yPercent: 0, opacity: 1, duration: 0.3, ease: "power2.out" }
           );
 
           section.addEventListener("mouseenter", () => tl.play());
@@ -106,17 +128,14 @@ export default function Component() {
 
   useEffect(() => {
     performerSections.forEach((_, index) => {
-      intervalRefs.current[index] = setInterval(
-        () => {
-          setCurrentImageIndices((prevIndices) => {
-            const newIndices = [...prevIndices];
-            newIndices[index] =
-              (newIndices[index] + 1) % performerSections[index].images.length;
-            return newIndices;
-          });
-        },
-        2500 + index * 1000,
-      );
+      intervalRefs.current[index] = setInterval(() => {
+        setCurrentImageIndices((prevIndices) => {
+          const newIndices = [...prevIndices];
+          newIndices[index] =
+            (newIndices[index] + 1) % performerSections[index].images.length;
+          return newIndices;
+        });
+      }, 2500 + index * 1000);
     });
 
     return () => {
@@ -167,9 +186,9 @@ export default function Component() {
                   src={image}
                   width={1200}
                   height={675}
-                  alt={`Performer section ${sectionIndex + 1}, slide ${imageIndex + 1} of ${
-                    section.images.length
-                  }`}
+                  alt={`Performer section ${sectionIndex + 1}, slide ${
+                    imageIndex + 1
+                  } of ${section.images.length}`}
                   className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
                     imageIndex === currentImageIndices[sectionIndex]
                       ? "opacity-100"
@@ -208,6 +227,8 @@ export default function Component() {
                 src={selectedSection.images[0]}
                 alt={`${selectedSection.name} - ${selectedSection.profession}`}
                 className="w-full h-auto object-cover rounded-lg"
+                priority={true}
+                loading="eager"
               />
             </div>
             <div className="">
