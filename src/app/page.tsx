@@ -9,12 +9,11 @@ import Performers from "@/components/widget/performers";
 import HeroHighlight from "@/components/widget/hero";
 import Footer from "@/components/common/Footer-1";
 import CTA from "@/components/common/cta-section-2";
-import UnsplashGrid from "@/components/common/gridsplash";
 export default function Home() {
   // const [loading, setLoading] = useState(true);
 
   // useEffect(() => {
-  //   const timer = setTimeout(() => setLoading(false)); 
+  //   const timer = setTimeout(() => setLoading(false));
   //   return () => clearTimeout(timer);
   // }, []);
 
@@ -22,7 +21,7 @@ export default function Home() {
     <>
       <div className="z-20 relative pt-20 overflow-x-clip 1">
         <HeroHighlight />
-        <div className="h-full mt-20 mb-20" id="about">
+        <div className="h-full  mt-20 mb-20 lg:mb-40" id="about">
           <About />
         </div>
         <div id="speakers" className="">
@@ -41,12 +40,12 @@ export default function Home() {
         </div>
         <div className=" ">
           <PreviousEdition />
-          <div>
+          {/* <div>
             <h1 className="md:text-8xl mb-10  text-4xl  text-center  font-black px-10">
               2022 Edition
             </h1>
           </div>
-          <UnsplashGrid />
+          <UnsplashGrid /> */}
         </div>
         <div id="team" className="bg-transparent h-fit mt-14">
           <h1 className="md:text-8xl text-4xl text-center font-black text-redTheme px-10">
@@ -57,7 +56,7 @@ export default function Home() {
           </div>
           <CTA />
         </div>
-        <div id="contact">
+        <div id="contact" className="mt-10">
           <Footer />
         </div>
       </div>

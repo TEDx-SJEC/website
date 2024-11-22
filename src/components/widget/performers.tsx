@@ -178,14 +178,14 @@ export default function Component() {
                   aria-hidden={imageIndex !== currentImageIndices[sectionIndex]}
                 />
               ))}
-              <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-8">
+              <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-4 lg:p-8">
                 <h2
                   id={`section-title-${sectionIndex}`}
-                  className="text-2xl md:text-5xl lg:text-6xl font-bold text-white mb-2"
+                  className="text-xl md:text-5xl lg:text-6xl font-bold text-white "
                 >
                   {section.name}
                 </h2>
-                <p className="text-lg md:text-2xl text-white italic">
+                <p className="text-md md:text-3xl text-white italic">
                   {section.profession}
                 </p>
               </div>

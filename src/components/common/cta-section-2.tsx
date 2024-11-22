@@ -13,13 +13,13 @@ export default function FullScreenCTA() {
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           <div className="space-y-8">
-            <p className="text-xl lg:text-2xl text-gray-300 leading-relaxed">
+            <p className="text-xl lg:text-2xl lg:text-left text-center text-gray-300 leading-relaxed">
               Join us for an extraordinary day of inspiration, innovation, and
               connection. Our TEDx event brings together visionaries, thought
               leaders, and change-makers from diverse fields to share ideas that
               will challenge your perspective and ignite your curiosity.
             </p>
-            <div className="space-y-4">
+            <div className="space-y-4 hidden lg:block">
               <div className="flex items-center space-x-3 text-lg">
                 <Calendar className="h-6 w-6 text-red-500" />
                 <span>December 14, 2024 | 9:00 AM - 6:00 PM</span>
@@ -29,7 +29,7 @@ export default function FullScreenCTA() {
                 <span>St Joseph Engineering College - Kalam Hall</span>
               </div>
             </div>
-            <p className="text-lg text-gray-400">
+            <p className="text-lg  text-center lg:text-left hidden lg:block text-gray-400">
               Experience powerful talks, interactive workshops, and networking
               opportunities that will leave you inspired and ready to make a
               difference in your community and beyond.
@@ -38,8 +38,6 @@ export default function FullScreenCTA() {
 
           <div className="space-y-8">
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-    
-
               <Card className="bg-black/30 border-none">
                 <CardContent className="p-6 text-center">
                   <Mic2 className="h-12 w-12 mx-auto mb-3 text-red-500" />
@@ -58,10 +56,13 @@ export default function FullScreenCTA() {
               <Card className="bg-black/30 border-none col-span-2 md:col-span-1">
                 <CardContent className="p-6 text-center">
                   <Gift className="h-12 w-12 mx-auto mb-3 text-red-500" />
-                  <h3 className="text-2xl mb-2 font-semibold">Food  &  Goodies</h3>
+                  <h3 className="text-2xl mb-2 font-semibold">
+                    Food & Goodies
+                  </h3>
                 </CardContent>
               </Card>
             </div>
+
             <div className="bg-black/20 p-6 rounded-lg">
               <h4 className="text-xl font-semibold mb-4">What to Expect:</h4>
               <ul className="list-disc list-inside space-y-2 text-gray-300">
@@ -71,6 +72,16 @@ export default function FullScreenCTA() {
                 <li>Live musical and artistic performances</li>
                 <li>Delicious catered meals and refreshments</li>
               </ul>
+            </div>
+            <div className="space-y-4 block ml-4 lg:hidden">
+              <div className="flex items-center space-x-3 text-lg">
+                <Calendar className="h-6 w-6 text-red-500" />
+                <span>December 14, 2024 | 9:00 AM - 6:00 PM</span>
+              </div>
+              <div className="flex items-center space-x-3 text-lg">
+                <MapPin className="h-6 w-6 text-red-500" />
+                <span>St Joseph Engineering College - Kalam Hall</span>
+              </div>
             </div>
           </div>
         </div>

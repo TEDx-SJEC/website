@@ -25,11 +25,12 @@ export const generatedSignature = (
   return sig;
 };
 
-
-export const getSjecMemberType = (email: string): "student" | "faculty" | "external" => {
-    if (email.endsWith("@sjec.ac.in")) {
-        // Check if the email starts with a number
-        return /^\d/.test(email) ? "student" : "faculty";
-    }
-    return "external";
+export const getSjecMemberType = (
+  email: string,
+): "student" | "faculty" | "external" => {
+  if (email.endsWith("@sjec.ac.in")) {
+    // Check if the email starts with a number
+    return /^\d/.test(email) ? "student" : "faculty";
+  }
+  return "external";
 };

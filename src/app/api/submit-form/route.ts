@@ -3,7 +3,7 @@ import { RegistrationFormSchema, TRegistrationForm } from "@/utils/zod-schemas";
 import prisma from "@/server/db";
 import { getPrice } from "@/app/actions/get-price";
 import getErrorMessage from "@/utils/getErrorMessage";
-import {basePrice} from "@/constants";
+import { basePrice } from "@/constants";
 
 export async function GET() {
   return NextResponse.json({ message: "Hello from the API!" });

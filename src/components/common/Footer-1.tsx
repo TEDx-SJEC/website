@@ -7,14 +7,14 @@ import { motion } from "framer-motion";
 export default function ContactPage() {
   return (
     <div className="h-[700px] flex flex-col text-white px-5 py-4 md:px-10 md:py-4">
-      <h1 className="text-3xl md:text-5xl font-bold text-center mb-4">
-        Contact TEDxSJEC
+      <h1 className="text-4xl md:text-6xl font-bold text-center mb-4">
+        Contact Us
       </h1>
       <p className="text-center text-xl text-gray-400 mb-8">
         Have questions or want to get involved? We&#39;d love to hear from you!
       </p>
       <div className="flex-grow grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-        <div className="flex items-center justify-center bg-black/40 rounded-lg shadow-md overflow-hidden">
+        <div className="flex items-center justify-center bg-black/40 shadow-md overflow-hidden">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.9520361386985!2d74.89609701022555!3d12.910804316156533!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba359dfac132663%3A0xa7bf228838232d32!2sSt%20Joseph%20Engineering%20College!5e0!3m2!1sen!2sin!4v1713257369845!5m2!1sen!2sin"
             width="100%"
@@ -31,9 +31,11 @@ export default function ContactPage() {
         <div className="p-6 bg-black/30 rounded-lg shadow-md flex flex-col justify-between">
           <div>
             <div className="flex justify-between items-center mb-8">
-              <h2 className="text-2xl font-bold text-center">CONNECT WITH TEDxSJEC</h2>
+              <h2 className="text-xl lg:text-2xl font-bold text-center">
+                CONNECT WITH TEDxSJEC
+              </h2>
             </div>
-            <div className="flex flex-col ml-5 md:ml-5 md:flex-row justify-between">
+            <div className="flex flex-col  md:ml-5 md:flex-row justify-between">
               <div className="space-y-4 text-sm mb-6">
                 <motion.div
                   className="flex items-center space-x-3"
@@ -124,8 +126,8 @@ export default function ContactPage() {
 
       <div className="text-center text-sm text-gray-400">
         <p className="">
-          © 2024 TEDxSJEC. This independent TEDx event is operated under license
-          from TED.
+          © 2024 TEDxSJEC. This independent TEDx event is operated under
+          license from TED.
         </p>
         <div className="mt-4 md:pb-0 pb-4">
           <Link
