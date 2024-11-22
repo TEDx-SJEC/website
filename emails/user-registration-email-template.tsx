@@ -1,26 +1,29 @@
 import { tedxsjecAssetsPrefix } from "@/lib/utils";
 import {
-    Body,
-    Button,
-    Container,
-    Head,
-    Heading,
-    Hr,
-    Html,
-    Img,
-    Preview,
-    Section,
-    Text,
+  Body,
+  Button,
+  Container,
+  Head,
+  Heading,
+  Hr,
+  Html,
+  Img,
+  Preview,
+  Section,
+  Text,
 } from "@react-email/components";
 import { Tailwind } from "@react-email/tailwind";
 
 interface TedxRegistrationEmailProps {
-    name?: string;
-    registrationLink: string;
+  name?: string;
+  registrationLink: string;
 }
 
-export const TedxRegistrationEmail = ({ name, registrationLink }: TedxRegistrationEmailProps) => {
-    const previewText = `TEDxSJEC 2024 Registration Successful!`;
+export const TedxRegistrationEmail = ({
+  name,
+  registrationLink,
+}: TedxRegistrationEmailProps) => {
+  const previewText = `TEDxSJEC 2024 Registration Successful!`;
 
     return (
         <Html>

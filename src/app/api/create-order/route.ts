@@ -1,13 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { razorpay } from "@/lib/razorpay";
+import { randomUUID } from "crypto";
 
 export async function POST(request: NextRequest) {
   const { amount } = await request.json();
+  if (!amount || typeof amount !== "number" || amount <= 0) {
+    return NextResponse.json({ error: "Invalid amount" }, { status: 400 });
+  }
   try {
     const order = await razorpay.orders.create({
       amount: amount * 100,
       currency: "INR",
-      receipt: "receipt_" + Math.random().toString(36).substring(7),
+      receipt: `receipt_${Date.now()}_${randomUUID()}`,
     });
 
     return NextResponse.json(
@@ -16,17 +20,17 @@ export async function POST(request: NextRequest) {
       },
       {
         status: 200,
-      },
+      }
     );
   } catch (error) {
-    console.log(error);
+    console.error("Razorpay order creation error:", error);
     return NextResponse.json(
       {
         error: "Error creating order ",
       },
       {
         status: 500,
-      },
+      }
     );
   }
 }

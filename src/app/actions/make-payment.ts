@@ -41,16 +41,16 @@ export async function makePayment({
         });
         const data = await resp.json();
         if (data.isOk) {
-            toast.success("✅ Payment successful", {
-              description: "Your payment was successful",
-            });
-            window.location.href = "/";
-          } else {
-            toast.error("❌ Payment failed", {
-              description:
-                "Please try again. Contact support for help. " + data.error,
-            });
-          }
+          toast.success("✅ Payment successful", {
+            description: "Your payment was successful",
+          });
+          window.location.href = "/";
+        } else {
+          toast.error("❌ Payment failed", {
+            description:
+              "Please try again. Contact support for help. " + data.error,
+          });
+        }
       },
       notes: {
         customerName: session?.user?.name,

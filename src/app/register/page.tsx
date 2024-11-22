@@ -8,22 +8,19 @@ import { tailChase } from "ldrs";
 import { redirect } from "next/navigation";
 
 export default function RegistrationPage() {
-const {status} = useSession({
+  const { status } = useSession({
     required: true,
     onUnauthenticated: async () => {
-        await signIn("google");
+      await signIn("google");
     },
   });
 
-
-  
   if (typeof window !== "undefined") {
     tailChase.register();
   }
 
   const [isLoading, setIsLoading] = useState(true);
 
-  
   useEffect(() => {
     if (status === "loading") {
       setIsLoading(true);
@@ -45,14 +42,10 @@ const {status} = useSession({
     );
   }
 
-
-
-
-
   return (
     <div className="flex min-h-screen flex-col items-center justify-center p-4">
       <RegistrationForm />
-      <FABEmail/>
+      <FABEmail />
     </div>
   );
 }

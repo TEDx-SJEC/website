@@ -100,10 +100,10 @@ export default function RegistrationForm() {
         memberType === "student"
           ? sjecStudentPrice
           : memberType === "faculty"
-          ? sjecFacultyPrice
-          : basePrice,
+            ? sjecFacultyPrice
+            : basePrice,
     }));
-    console.log("Member Type: ", memberType); 
+    console.log("Member Type: ", memberType);
   }, [session?.user.email, memberType]);
 
   const form = useForm<FormSchema>({
@@ -143,7 +143,7 @@ export default function RegistrationForm() {
       const existing = prevFiles.find((file) => file.id === id);
       if (existing) {
         return prevFiles.map((file) =>
-          file.id === id ? { ...file, files } : file
+          file.id === id ? { ...file, files } : file,
         );
       } else {
         return [...prevFiles, { id, files }];
@@ -195,13 +195,16 @@ export default function RegistrationForm() {
               if (couponCode) {
                 const result = await invalidateCouponCode(couponCode, session!);
                 if (!result.success) {
-                  toast.error(result.message || "An error occurred while invalidating the coupon");
+                  toast.error(
+                    result.message ||
+                      "An error occurred while invalidating the coupon",
+                  );
                 }
               }
               const formResponse = form.getValues();
               await submitForm(
                 formResponse as FormDataInterface,
-                pricing.finalPrice
+                pricing.finalPrice,
               );
               setIsProcessing(false);
               setSuccess(true);
@@ -250,7 +253,9 @@ export default function RegistrationForm() {
     try {
       const result = await getPrice(couponCode);
       if (!result.success) {
-        toast.error(result.message || "An error occurred while applying the coupon");
+        toast.error(
+          result.message || "An error occurred while applying the coupon",
+        );
         return;
       }
       const { basePrice, discountAmount, finalPrice } = result;
@@ -275,7 +280,7 @@ export default function RegistrationForm() {
       if (designation === "student") {
         form.clearErrors();
         const validationResult = await studentFormSchema.safeParseAsync(
-          form.getValues()
+          form.getValues(),
         );
         isValid = validationResult.success;
         if (!isValid) {
@@ -315,7 +320,7 @@ export default function RegistrationForm() {
   }
 
   return (
-    <Card className="w-full lg:w-[550px] bg-[#1a0a0a] mt-24 md:mt-20">
+    <Card className="w-full lg:w-[550px] bg-[#1a0a0a] mt-24 md:mt-28 mb-16">
       <Script src="https://checkout.razorpay.com/v1/checkout.js" />
       <CardHeader>
         <CardTitle className="text-[#e62b1e] text-center text-3xl">
