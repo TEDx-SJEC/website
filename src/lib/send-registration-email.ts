@@ -1,6 +1,5 @@
 import { TedxRegistrationEmail } from "../../emails/user-registration-email-template";
 import { Resend } from "resend";
-import { ResendEmailOptions } from "@/types";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
