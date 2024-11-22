@@ -14,10 +14,20 @@ interface PerformerSection {
   name: string;
   profession: string;
   description: string;
-
 }
 
 const performerSections: PerformerSection[] = [
+  // {
+  //   name: "Yukthi Udupa",
+  //   profession: "Bharatanatyam artist",
+  //   description:
+  //     "Yukthi Udupa, a passionate Bharatanatyam artist, began her journey at 12 under Guru Vid Smt. Pravitha Ashok at Nritya Vasantha Natyalaya® Kundapura. She completed her exams with distinction and earned the Karnataka State Music and Dance Scholarship. Yukthi has won numerous awards, including  and the excelling in international, national, and state-level competitions. Her Bharatanatyam Arangetram was a celebrated display of her technical skill and expressive artistry. Yukthi is also a 'B' grade Doordarshan artist, inspiring young dancers and honoring Bharatanatyam's legacy.",
+  //   images: [
+  //     `${tedxsjecAssetsPrefix}/performers/Yukthi1.avif`,
+  //     `${tedxsjecAssetsPrefix}/performers/Yukthi 3.avif`,
+  //   ],
+  // },
+
   {
     name: "Yukthi Udupa",
     profession: "Bharatanatyam artist",
@@ -39,17 +49,6 @@ const performerSections: PerformerSection[] = [
       `${tedxsjecAssetsPrefix}/performers/Agasthyam3.avif`,
     ],
   },
-  //   ,
-  //   {
-  //     name: "Munita Veigas Rao",
-  //     profession: "Singer | Songwriter | Performer | Vocal Trainer",
-  //     description:
-  //       'Munita Veigas Rao, fondly known as the "Nightingale of Mangalore," is an award-winning singer, songwriter, and vocal trainer celebrated for her dynamic performances across Konkani, regional, and Western music. Having been recently awarded the Dakshina Kannada District Rajyotsava Award in November 2024, Munita has a career spanning over two decades with more than 500 stage performances worldwide. As the founder of her music school, "Musically by Munita," she dedicates her time to nurturing new talent. Her exceptional vocal skills and commitment to music have made her a cherished figure in the community.',
-  //     images: [
-  //       `${tedxsjecAssetsPrefix}/performers/Munita1.avif`,
-  //       `${tedxsjecAssetsPrefix}/performers/Munita2.avif`,
-  //     ],
-  //   },
 ];
 
 export default function Component() {
@@ -115,7 +114,7 @@ export default function Component() {
                 tl.fromTo(
                   description,
                   { yPercent: 100, opacity: 0 },
-                  { yPercent: 0, opacity: 1, duration: 0.5, ease: "power2.out" }
+                  { yPercent: 0, opacity: 1, duration: 0.3, ease: "power2.out" }
                 );
 
                 section.addEventListener("mouseenter", () => tl.play());
@@ -143,6 +142,14 @@ export default function Component() {
 
   useEffect(() => {
     performerSections.forEach((_, index) => {
+      intervalRefs.current[index] = setInterval(() => {
+        setCurrentImageIndices((prevIndices) => {
+          const newIndices = [...prevIndices];
+          newIndices[index] =
+            (newIndices[index] + 1) % performerSections[index].images.length;
+          return newIndices;
+        });
+      }, 2500 + index * 1000);
       intervalRefs.current[index] = setInterval(() => {
         setCurrentImageIndices((prevIndices) => {
           const newIndices = [...prevIndices];
@@ -204,7 +211,7 @@ export default function Component() {
                   alt={`Performer section ${sectionIndex + 1}, slide ${
                     imageIndex + 1
                   } of ${section.images.length}`}
-                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-8000 ${
+                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
                     imageIndex === currentImageIndices[sectionIndex]
                       ? "opacity-100"
                       : "opacity-0"
@@ -242,6 +249,8 @@ export default function Component() {
                 src={selectedSection.images[0]}
                 alt={`${selectedSection.name} - ${selectedSection.profession}`}
                 className="w-full h-auto object-cover rounded-lg"
+                priority={true}
+                loading="eager"
               />
             </div>
             <div className="">
