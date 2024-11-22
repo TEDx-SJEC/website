@@ -27,26 +27,26 @@ export const TedxRegistrationEmail = ({ name, registrationLink }: TedxRegistrati
             <Head />
             <Preview>{previewText}</Preview>
             <Tailwind>
-                <Body className="bg-white my-auto mx-auto font-sans px-4">
-                    <Container className="border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] max-w-[465px]">
+                <Body className="bg-white my-auto mx-auto font-sans p-1">
+                    <Container className="border border-solid border-[#eaeaea] rounded mx-auto p-[20px] max-w-[465px]">
                         {/* Logo Section */}
                         <Section className="text-center">
                             <Img
-                                src={`${tedxsjecAssetsPrefix}/logo/tedxsjec-logo.avif`}
+                                src={`${tedxsjecAssetsPrefix}/logo/main-logo.png`}
                                 alt="TEDxSJEC Logo"
-                                className="mx-auto w-[150px] h-auto mb-[20px]"
+                                className="mx-auto w-[240px] h-[180px] mt-4"
                             />
                         </Section>
                         {/* Heading Section */}
                         <Section className="mt-[32px] items-center">
-                            <Heading className="text-black text-[24px] font-bold text-center p-0 my-[30px] mx-0">
+                            <Heading className="text-black text-[24px] font-bold text-center p-0 my-[20px] mx-0">
                                 <strong>TEDxSJEC 2024 Registration Confirmed!</strong>
                             </Heading>
                         </Section>
                         <Text className="text-black text-[14px] leading-[24px]">
                             Dear {name ?? "Participant"},
                         </Text>
-                        <Text className="text-black text-[14px] leading-[24px]">
+                        <Text className="text-black text-[14px] leading-[24px] justify-center">
                             We are excited to confirm your registration for TEDxSJEC 2024. <br />
                             You are all set to join us for an inspiring day filled with ideas worth sharing.
                             Please bring this email on the event day for a smooth entry process.

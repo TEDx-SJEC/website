@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { ContainerScroll } from "../ui/container-scroll-animation";
-
 export function PreviousEdition() {
   return (
     <div className="flex flex-col overflow-hidden">

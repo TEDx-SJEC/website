@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Speakers from "@/components/common/speakers";
 import { PreviousEdition } from "@/components/common/container-scroll";
 import About from "@/components/common/about";
@@ -9,7 +9,7 @@ import Performers from "@/components/widget/performers";
 import HeroHighlight from "@/components/widget/hero";
 import Footer from "@/components/common/Footer-1";
 import CTA from "@/components/common/cta-section-2";
-
+import UnsplashGrid from "@/components/common/gridsplash";
 export default function Home() {
   // const [loading, setLoading] = useState(true);
 
@@ -36,10 +36,17 @@ export default function Home() {
           >
             The Performers
           </h1>
+
           <Performers />
         </div>
-        <div className=" ">
+        <div className="">
           <PreviousEdition />
+          {/* <div>
+            <h1 className="md:text-8xl mb-10  text-4xl  text-center  font-black px-10">
+              2022 Edition
+            </h1>
+          </div>
+          <UnsplashGrid /> */}
         </div>
         <div id="team" className="bg-transparent h-fit mt-14">
           <h1 className="md:text-8xl text-4xl text-center font-black text-redTheme px-10">
@@ -50,7 +57,9 @@ export default function Home() {
           </div>
           <CTA />
         </div>
-        <Footer />
+        <div id="contact">
+          <Footer />
+        </div>
       </div>
     </>
   );

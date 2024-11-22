@@ -14,9 +14,23 @@ interface PerformerSection {
   name: string;
   profession: string;
   description: string;
+  images: string[];
+  name: string;
+  profession: string;
+  description: string;
 }
 
 const performerSections: PerformerSection[] = [
+  {
+    name: "Yukthi Udupa",
+    profession: "Bharatanatyam artist",
+    description:
+      "Yukthi Udupa, a passionate Bharatanatyam artist, began her journey at 12 under Guru Vid Smt. Pravitha Ashok at Nritya Vasantha Natyalaya® Kundapura. She completed her exams with distinction and earned the Karnataka State Music and Dance Scholarship. Yukthi has won numerous awards, including  and the excelling in international, national, and state-level competitions. Her Bharatanatyam Arangetram was a celebrated display of her technical skill and expressive artistry. Yukthi is also a 'B' grade Doordarshan artist, inspiring young dancers and honoring Bharatanatyam's legacy.",
+    images: [
+      `${tedxsjecAssetsPrefix}/performers/Yukthi1.avif`,
+      `${tedxsjecAssetsPrefix}/performers/Yukthi 3.avif`,
+    ],
+  },
   {
     name: "Yukthi Udupa",
     profession: "Bharatanatyam artist",
@@ -95,6 +109,8 @@ export default function Component() {
 
     // Set up hover animations for description on desktop
     const mm = gsap.matchMedia();
+    // Set up hover animations for description on desktop
+    const mm = gsap.matchMedia();
 
     mm.add("(min-width: 1200px)", () => {
       setIsLargeScreen(true);
@@ -103,18 +119,32 @@ export default function Component() {
         .forEach((section) => {
           const description = section.querySelector(".description");
           const tl = gsap.timeline({ paused: true });
+          mm.add("(min-width: 1200px)", () => {
+            setIsLargeScreen(true);
+            gsap.utils
+              .toArray<HTMLDivElement>(".performer-section")
+              .forEach((section) => {
+                const description = section.querySelector(".description");
+                const tl = gsap.timeline({ paused: true });
 
-          tl.fromTo(
-            description,
-            { yPercent: 100, opacity: 0 },
-            { yPercent: 0, opacity: 1, duration: 0.5, ease: "power2.out" }
-          );
+                tl.fromTo(
+                  description,
+                  { yPercent: 100, opacity: 0 },
+                  { yPercent: 0, opacity: 1, duration: 0.5, ease: "power2.out" }
+                );
 
+                section.addEventListener("mouseenter", () => tl.play());
+                section.addEventListener("mouseleave", () => tl.reverse());
+              });
+          });
           section.addEventListener("mouseenter", () => tl.play());
           section.addEventListener("mouseleave", () => tl.reverse());
         });
     });
 
+    mm.add("(max-width: 1200px)", () => {
+      setIsLargeScreen(false);
+    });
     mm.add("(max-width: 1200px)", () => {
       setIsLargeScreen(false);
     });
