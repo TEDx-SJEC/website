@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import { tedxsjecAssetsPrefix } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";

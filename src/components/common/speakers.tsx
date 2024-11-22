@@ -2,7 +2,6 @@
 import { tedxsjecAssetsPrefix } from "@/lib/utils";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import { useEffect } from "react";
 import { useGSAP } from "@gsap/react";
 const speakers =
   // {
@@ -120,7 +119,7 @@ export default function Component() {
   return (
     <div className="min-h-screen overflow-hidden p-2">
       <div className="relative z-10 w-full ma-4xl max-w-5xl mx-auto">
-        <h1 className="md:text-8xl mb-[40px] text-4xl mt-20 text-center font-black">
+        <h1 className="md:text-8xl mb-[40px] text-4xl  text-center font-black">
           The Speakers
         </h1>
         <div className="space-y-20 md:space-y-32">

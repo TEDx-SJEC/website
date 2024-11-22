@@ -89,6 +89,7 @@ export default function Component() {
                 end: "bottom top",
               },
             }
+            }
           );
         }
       });
@@ -103,18 +104,32 @@ export default function Component() {
         .forEach((section) => {
           const description = section.querySelector(".description");
           const tl = gsap.timeline({ paused: true });
+          mm.add("(min-width: 1200px)", () => {
+            setIsLargeScreen(true);
+            gsap.utils
+              .toArray<HTMLDivElement>(".performer-section")
+              .forEach((section) => {
+                const description = section.querySelector(".description");
+                const tl = gsap.timeline({ paused: true });
 
-          tl.fromTo(
-            description,
-            { yPercent: 100, opacity: 0 },
-            { yPercent: 0, opacity: 1, duration: 0.3, ease: "power2.out" }
-          );
+                tl.fromTo(
+                  description,
+                  { yPercent: 100, opacity: 0 },
+                  { yPercent: 0, opacity: 1, duration: 0.3, ease: "power2.out" }
+                );
 
+                section.addEventListener("mouseenter", () => tl.play());
+                section.addEventListener("mouseleave", () => tl.reverse());
+              });
+          });
           section.addEventListener("mouseenter", () => tl.play());
           section.addEventListener("mouseleave", () => tl.reverse());
         });
     });
 
+    mm.add("(max-width: 1200px)", () => {
+      setIsLargeScreen(false);
+    });
     mm.add("(max-width: 1200px)", () => {
       setIsLargeScreen(false);
     });
@@ -128,6 +143,14 @@ export default function Component() {
 
   useEffect(() => {
     performerSections.forEach((_, index) => {
+      intervalRefs.current[index] = setInterval(() => {
+        setCurrentImageIndices((prevIndices) => {
+          const newIndices = [...prevIndices];
+          newIndices[index] =
+            (newIndices[index] + 1) % performerSections[index].images.length;
+          return newIndices;
+        });
+      }, 2500 + index * 1000);
       intervalRefs.current[index] = setInterval(() => {
         setCurrentImageIndices((prevIndices) => {
           const newIndices = [...prevIndices];
@@ -197,14 +220,14 @@ export default function Component() {
                   aria-hidden={imageIndex !== currentImageIndices[sectionIndex]}
                 />
               ))}
-              <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-8">
+              <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-4 lg:p-8">
                 <h2
                   id={`section-title-${sectionIndex}`}
-                  className="text-2xl md:text-5xl lg:text-6xl font-bold text-white mb-2"
+                  className="text-xl md:text-5xl lg:text-6xl font-bold text-white "
                 >
                   {section.name}
                 </h2>
-                <p className="text-lg md:text-2xl text-white italic">
+                <p className="text-md md:text-3xl text-white italic">
                   {section.profession}
                 </p>
               </div>

@@ -4,7 +4,7 @@ import prisma from "@/server/db";
 import { basePrice, initialdiscount } from "@/constants";
 
 export const getPrice = async (
-  couponCode?: string
+  couponCode?: string,
 ): Promise<{
   success: boolean;
   message?: string;

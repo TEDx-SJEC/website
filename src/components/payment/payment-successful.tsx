@@ -70,7 +70,7 @@ export function PaymentSuccessfulComponent() {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
-       <Card className="w-full max-w-md text-center bg-[#1a0a0a] border-[#140808]">
+        <Card className="w-full max-w-md text-center bg-[#1a0a0a] border-[#140808]">
           <CardHeader>
             <CardTitle className="text-2xl font-bold text-white">
               Payment Successful!
@@ -96,7 +96,7 @@ export function PaymentSuccessfulComponent() {
           </CardContent>
           <CardFooter className="flex justify-center">
             <Link href={"/"}>
-            <Button className="bg-[#EB0028] hover:bg-[#C60022] text-white">
+              <Button className="bg-[#EB0028] hover:bg-[#C60022] text-white">
                 Go to home page
               </Button>
             </Link>

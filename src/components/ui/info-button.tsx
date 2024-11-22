@@ -1,19 +1,20 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip"
-import { Info } from "lucide-react"
+import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../ui/tooltip";
+import { Info } from "lucide-react";
 
 export default function InfoButton() {
   return (
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="rounded-full"
-          >
+          <Button variant="ghost" size="icon" className="rounded-full">
             <Info className="h-4 w-4" />
             <span className="sr-only">Info</span>
           </Button>
@@ -23,5 +24,5 @@ export default function InfoButton() {
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
-  )
+  );
 }

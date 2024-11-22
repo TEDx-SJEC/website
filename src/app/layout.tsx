@@ -5,6 +5,7 @@ import "./globals.css";
 import TEDxStarsCanvas from "@/components/ui/stars";
 import Nav from "@/components/widget/header";
 import Script from "next/script";
+import { ScrollProgressBar } from "@/components/common/scroll-progress";
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "TEDxSJEC",
@@ -42,6 +43,7 @@ export default function RootLayout({
       </head>
       <body className={(inter.className = "overflow-x-hidden")}>
         <div className="fixed top-0 w-full h-[100px] z-50 overflow-x-hidden  backdrop-blur-md head-5 bg-black/5" />
+        <ScrollProgressBar />
         <Nav />
         <TEDxStarsCanvas />
         <Providers>{children} </Providers>
