@@ -186,7 +186,7 @@ export default function Component() {
         {performerSections.map((section, sectionIndex) => (
           <section
             key={sectionIndex}
-            className="flex md:max-w-[1200px] items-center justify-center relative mx-auto px-4 my-24 first:mt-0 last:mb-0"
+            className="flex md:max-w-[1200px] items-center justify-center relative mx-auto px-4 my-12 first:mt-0 last:mb-0"
             aria-labelledby={`section-title-${sectionIndex}`}
           >
             <div
@@ -212,10 +212,10 @@ export default function Component() {
                   aria-hidden={imageIndex !== currentImageIndices[sectionIndex]}
                 />
               ))}
-              <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-4 lg:p-8">
+                  <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-4 lg:p-8">
                 <h2
                   id={`section-title-${sectionIndex}`}
-                  className="text-xl md:text-5xl lg:text-6xl font-bold text-white "
+                 className="text-xl md:text-5xl lg:text-6xl font-bold text-white "
                 >
                   {section.name}
                 </h2>
@@ -251,7 +251,7 @@ export default function Component() {
               <p className="text-xl italic mb-4">
                 {selectedSection.profession}
               </p>
-              <p className="text-base">{selectedSection.description}</p>
+              <p className=" text-sm">{selectedSection.description}</p>
             </div>
           </div>
         </DialogContent>

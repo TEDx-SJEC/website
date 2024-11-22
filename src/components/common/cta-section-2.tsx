@@ -93,7 +93,7 @@ export default function FullScreenCTA() {
           </p>
           <Button
             size="lg"
-            className="bg-red-600 hover:bg-red-700 text-white py-6 px-8 text-xl transition-all duration-300 transform hover:scale-105"
+            className="bg-red-600 hover:bg-red-700 font-bold text-white py-6 px-8 text-xl transition-all duration-300 transform hover:scale-105"
           >
           Claim Your Spot !
           </Button>
