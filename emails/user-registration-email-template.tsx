@@ -46,7 +46,7 @@ export const TedxRegistrationEmail = ({ name, registrationLink }: TedxRegistrati
                         <Text className="text-black text-[14px] leading-[24px]">
                             Dear {name ?? "Participant"},
                         </Text>
-                        <Text className="text-black text-[14px] leading-[24px] text-justify">
+                        <Text className="text-black text-[14px] leading-[24px] justify-center">
                             We are excited to confirm your registration for TEDxSJEC 2024. <br />
                             You are all set to join us for an inspiring day filled with ideas worth sharing.
                             Please bring this email on the event day for a smooth entry process.
