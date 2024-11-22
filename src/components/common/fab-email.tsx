@@ -8,7 +8,7 @@ export default function Component() {
 
   return (
     <Link
-      href="mailto:contact@example.com"
+      href="mailto:support.tedx@sjec.ac.in"
       className="fixed bottom-6 right-6 flex items-center justify-center bg-[#e62b1e] text-white rounded-full shadow-lg transition-all duration-500 ease-in-out hover:shadow-xl overflow-hidden"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
