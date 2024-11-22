@@ -2,6 +2,7 @@ import { Mic2, Guitar, Calendar, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Gift } from "lucide-react";
+import Link from "next/link";
 export default function FullScreenCTA() {
   return (
     <div className="min-h-screen   text-white flex items-center justify-center p-5 md:p-10">
@@ -88,18 +89,22 @@ export default function FullScreenCTA() {
 
         <div className="text-center space-y-6">
           <p className="text-xl text-gray-300">
-            Limited spots available. Don&apos;t miss this life-changing
-            opportunity!
+            Limited spots available! <br />
+            Register by{" "}
+            <span className="font-semibold text-gray-100">
+              December 10, 2024
+            </span>{" "}
+            to secure your spot. <br />
           </p>
-          <Button
-            size="lg"
-            className="bg-red-600 hover:bg-red-700 font-bold text-white py-6 px-8 text-xl transition-all duration-300 transform hover:scale-105"
-          >
-          Claim Your Spot !
-          </Button>
-          {/* <p className="text-sm text-gray-400">
-            Early bird pricing ends May 1st. Secure your spot today and save!
-          </p> */}
+
+          <Link href={"/register"}>
+            <Button
+              size="lg"
+              className="bg-red-600 hover:bg-red-700 mt-4 text-white py-6 px-8 text-xl transition-all duration-300 transform hover:scale-105"
+            >
+              Claim Your Spot!
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
