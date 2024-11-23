@@ -23,7 +23,7 @@ export default function FullScreenCTA() {
             <div className="space-y-4 hidden lg:block">
               <div className="flex items-center space-x-3 text-lg">
                 <Calendar className="h-6 w-6 text-red-500" />
-                <span>December 14, 2024 | 9:00 AM - 6:00 PM</span>
+                <span>December 14, 2024 | 9:00 AM - 4:00 PM</span>
               </div>
               <div className="flex items-center space-x-3 text-lg">
                 <MapPin className="h-6 w-6 text-red-500" />
@@ -77,7 +77,7 @@ export default function FullScreenCTA() {
             <div className="space-y-4 block ml-4 lg:hidden">
               <div className="flex items-center space-x-3 text-lg">
                 <Calendar className="h-6 w-6 text-red-500" />
-                <span>December 14, 2024 | 9:00 AM - 6:00 PM</span>
+                <span>December 14, 2024 | 9:00 AM - 4:00 PM</span>
               </div>
               <div className="flex items-center space-x-3 text-lg">
                 <MapPin className="h-6 w-6 text-red-500" />
