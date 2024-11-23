@@ -99,7 +99,6 @@ function FetchRazorpayPaymentData({ params }: { params: { id: string } }) {
           throw new Error("Failed to fetch payment data");
         }
         const data = await res.json();
-        console.log("Payment data:", data);
         setPaymentData(data);
       } catch (error) {
         toast.error("Error fetching payment data");

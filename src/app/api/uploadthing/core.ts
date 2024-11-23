@@ -13,7 +13,7 @@ const auth = async (req: Request) => {
 export const ourFileRouter = {
   imageUploader: f({ image: { maxFileSize: "4MB", maxFileCount: 2 } })
     .middleware(async ({ req }) => {
-      console.log("Middleware for imageUploader", req.url);
+     
       const user = await auth(req);
 
       if (!user) throw new UploadThingError("Unauthorized");
