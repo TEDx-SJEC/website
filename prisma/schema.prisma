@@ -66,8 +66,8 @@ model Referral {
   isUsed             Boolean  @default(false)
   created_at         DateTime @default(now())
 
-  createdBy User   @relation("createdByUser", fields: [createdById], references: [id], onDelete: Cascade) 
-  usedBy    User?  @relation("usedByUser", fields: [usedById], references: [id]) 
+  createdBy User   @relation("createdByUser", fields: [createdById], references: [id], onDelete: Cascade)
+  usedBy    User?  @relation("usedByUser", fields: [usedById], references: [id])
   forms     Form[]
 }
 
@@ -105,4 +105,12 @@ model Payment {
 
   formId String? @map("form_id")
   Form   Form?   @relation(fields: [formId], references: [id])
+}
+
+model SjecUser {
+  id    String @id @default(cuid())
+  name  String
+  email String @unique
+
+  @@map("sjec_user")
 }
