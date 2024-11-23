@@ -40,9 +40,9 @@ export async function POST(
   });
   try {
     await sendRegistrationEmail({
-      email: payment.email,
-      name: user?.name!,
-      registrationLink: `http://localhost:3000/admin/verify/${payment.id}`,
+        email: payment.email,
+        name: user?.name!,
+        registrationLink: `${process.env.NEXT_PUBLIC_SITE_URL}/admin/verify/${payment.id}`,
     });
   } catch (error) {
     console.log(error);
