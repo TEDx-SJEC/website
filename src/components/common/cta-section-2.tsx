@@ -68,7 +68,7 @@ export default function FullScreenCTA() {
               <h4 className="text-xl font-semibold mb-4">What to Expect:</h4>
               <ul className="list-disc list-inside space-y-2 text-gray-300">
                 <li>Thought-provoking talks from industry leaders</li>
-                <li>Interactive workshops and breakout sessions</li>
+                <li>Interactive and creative walkways</li>
                 <li>Networking opportunities with like-minded individuals</li>
                 <li>Live musical and artistic performances</li>
                 <li>Delicious catered meals and refreshments</li>
