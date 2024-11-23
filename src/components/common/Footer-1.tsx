@@ -131,13 +131,13 @@ export default function ContactPage() {
         </p>
         <div className="flex items-center justify-center mt-4 md:pb-0 pb-4 gap-4">
           <Link
-            href=""
+            href="/privacy"
             className="hover:text-red-600 transition-colors"
           >
             Privacy Policy
           </Link>
           <Link
-            href=""
+            href="/terms"
             className="hover:text-red-600 transition-colors"
           >
             Terms of Service
