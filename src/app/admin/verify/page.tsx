@@ -29,9 +29,9 @@ const QRCodeScanner = () => {
           // Validate if the scanned result is a valid URL
           const url = new URL(result);
 
-          // if (!url.href.startsWith("https://tedxsjec")) {
-          //     throw new Error("Invalid QR code . Please scan a valid QR code");
-          // }
+          if (!url.href.startsWith("https://tedxsjec")) {
+              throw new Error("Invalid QR code . Please scan a valid QR code");
+          }
           // Redirect to the scanned URL
           router.push(url.toString());
         } catch {
