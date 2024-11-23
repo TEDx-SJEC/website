@@ -7,7 +7,7 @@ import React from "react";
 async function getPaymentData(id: string) {
   // Simulate API call
   //Hardcoded the url because the other one just did'nt work
-  const response = await fetch(`http://localhost:3000/api/verify-order/${id}`);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/verify-order/${id}`);
   const data = await response.json();
   if (response.status === 200) {
     return data;
