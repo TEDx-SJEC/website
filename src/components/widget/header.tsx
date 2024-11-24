@@ -8,7 +8,6 @@ import { tedxsjecAssetsPrefix } from "@/lib/utils";
 import React from "react";
 import Link from "next/link";
 import NavItem from "../navbar/nav-items";
-import { Button } from "../ui/button";
 import RegisterButton from "../navbar/register-button";
 const Nav = () => {
   gsap.registerPlugin(ScrollTrigger);
@@ -101,21 +100,21 @@ const Nav = () => {
 
   return (
     <>
-      <header className="fixed z-[100] aboute left-0 top-0 w-screen">
-        <div className="header-1 flex md:py-[20px] md:px-[30px] p-[30px] justify-between items-center">
+      <header className="fixed z-[100] left-0 top-0 w-screen">
+        <div className="header-1 flex md:py-[10px] md:px-[30px] px-[10px] pt-1 justify-between items-center">
           <div className="logo">
             <Link href="/">
               <Image
                 src={`${tedxsjecAssetsPrefix}/logo/whiteLogo.png`}
-                height={200}
-                width={200}
+                height={180}
+                width={180}
                 alt="logo"
                 // layout="fixed"
                 priority={true}
               />
             </Link>
           </div>
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center pt-2">
             <li className="list-none overflow-hidden leading-[1] font-bold text-white reg"></li>
             <button
               id="menuToggle"

@@ -9,7 +9,7 @@ type Props = {};
 const Footer = (props: Props) => {
   return (
     <>
-      <footer className="pt-16 md:pt-2 text-center text-sm text-gray-400 md:pb-4">
+      <footer className="pt-16 md:pt-2 text-center text-sm text-gray-400 md:pb-4 mx-2">
         <div>
           <p className="">
             © 2024 TEDxSJEC. This independent TEDx event is operated under
