@@ -9,6 +9,7 @@ import React from "react";
 import Link from "next/link";
 import NavItem from "../navbar/nav-items";
 import { Button } from "../ui/button";
+import RegisterButton from "../navbar/register-button";
 const Nav = () => {
   gsap.registerPlugin(ScrollTrigger);
 
@@ -183,16 +184,8 @@ const Nav = () => {
                                   textTwo="CONTACT"
                                   onClick={() => handleClick("contact")}
                               />
-                              <li className="list-none listo overflow-hidden leading-[1] font-bold text-white mt-[30px]">
-                                  <Link href="/register">
-                                      <Button
-                                          size="lg"
-                                          className="bg-red-600 hover:bg-red-700 text-white py-4 "
-                                      >
-                                          Register
-                                          {/* <ArrowRight className="ml-2" /> */}
-                                      </Button>
-                                  </Link>
+                              <li className="list-none listo leading-[1] font-bold text-white mt-[20px]">
+                                <RegisterButton />
                               </li>
                           </ul>
                       </div>
