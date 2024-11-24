@@ -46,6 +46,7 @@ export const authOptions: NextAuthOptions = {
             // Define BE and MBA patterns
             const isBEEmail = /^[2][1-4]\d{3}\..+$/; // Matches 21XXXX, 22XXXX, 23XXXX, 24XXXX for BE
             const isMBAEmail = /^[2][3-4]ba\d{3}\..+$/; // Matches 23baXXX, 24baXXX for MBA
+            const isMCAEmail = /^[2][3-4]ca\d{3}\..+$/; // Matches 23maXXX, 24maXXX for MCA
 
             // Check BE email validity
             if (isBEEmail.test(emailPrefix)) {
@@ -55,6 +56,11 @@ export const authOptions: NextAuthOptions = {
             // Check MBA email validity
             if (isMBAEmail.test(emailPrefix)) {
                 return true; // Allow MBA students with valid years
+            }
+            
+            // Check MCA email validity
+            if (isMCAEmail.test(emailPrefix)) {
+                return true; // Allow MCA students with valid years
             }
 
             // If the email is sjec but does not fit the BE/MBA patterns, check the database
