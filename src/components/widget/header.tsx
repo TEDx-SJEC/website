@@ -150,14 +150,14 @@ const Nav = () => {
               <div className="header-2 fixed left-0 top-0 w-full flex md:py-[20px] md:px-[30px] p-[30px] z-[60] justify-between items-center">
                   <Image
                       src={`${tedxsjecAssetsPrefix}/logo/blackLogo.webp`}
-                      height={200}
-                      width={200}
+                      height={180}
+                      width={180}
                       alt="logo"
                       // layout="fixed"
                       priority={true}
                   />
               </div>
-              <div className="fullpage-menu-inner flex items-center h-full px-[50px] py-[10px] md:px-[80px] md:py-[40px]">
+              <div className="fullpage-menu-inner flex items-center h-full px-[40px] py-[10px] md:px-[80px] md:py-[40px]">
                   <div className="menu-bg h-full w-full absolute left-0 top-0">
                       <span className="bg-white block back w-full h-[34%]"></span>
                       <span className="bg-white block back w-full h-[34%]"></span>
