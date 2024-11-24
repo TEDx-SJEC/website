@@ -7,9 +7,12 @@ import { cn } from "@/lib/utils";
 
 export default function PrivacyPolicy() {
   return (
-    <Container className="mx-auto mt-20 mb-12">
-      <div className="py-10 px-6 sm:px-12 md:px-20 lg:px-32 space-y-8  text-white rounded-lg shadow-lg backdrop-blur-md">
-        <Text variant="h1" className={cn("text-4xl md:text-5xl font-bold text-center")}>
+    <Container className="mx-auto mt-32 mb-1">
+      <div className="py-10 px-6 sm:px-12 md:px-20 lg:px-32 space-y-8  text-red-600 rounded-lg shadow-lg backdrop-blur-md">
+        <Text
+          variant="h1"
+          className={cn("text-4xl md:text-5xl font-bold text-center")}
+        >
           Privacy Policy
         </Text>
 
@@ -18,21 +21,22 @@ export default function PrivacyPolicy() {
           {legalInfo.Privacy.map((privacy, index) => (
             <div
               key={index}
-              className="border-b border-gray-700 pb-6 mb-6 last:border-none last:pb-0 last:mb-0"
+              className=" border-gray-700 pb-2 mb-2 last:border-none last:pb-0 last:mb-0"
             >
               {/* Section Title */}
               <Text
                 variant="h3"
-                className={cn("text-2xl md:text-3xl font-semibold mb-4 text-gray-200")}
+                className={cn(
+                  "text-2xl md:text-3xl font-semibold mb-1 text-gray-200"
+                )}
               >
                 {privacy.title}
               </Text>
 
               {/* Section Description */}
-              <p
-                className="text-base md:text-lg text-gray-400 leading-7 md:leading-8"
-                dangerouslySetInnerHTML={{ __html: privacy.description }}
-              ></p>
+              <p className="text-base md:text-lg text-gray-400 leading-7 md:leading-8 text-justify">
+                {privacy.description}
+              </p>
             </div>
           ))}
         </div>
