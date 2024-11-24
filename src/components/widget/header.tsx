@@ -50,7 +50,7 @@ const Nav = () => {
         ease: "Expo.easeInOut",
       })
       .from(".menu-bg span", {
-        duration: 0.3,
+        duration: 0.15,
         x: "100%",
         stagger: 0.1,
         ease: "Expo.easeInOut",
@@ -58,13 +58,13 @@ const Nav = () => {
       .from(".header-2", { x: -300 })
       .from(
         ".listo",
-        { duration: 0.3, x: "-50%", stagger: 0.1, opacity: 0 },
+        { duration: 0.15, x: "-50%", stagger: 0.1, opacity: 0 },
         "-=0.5",
       )
       .from(
         ".social-links li",
         {
-          duration: 0.3,
+          duration: 0.15,
           y: "-100%",
           opacity: 0,
           stagger: 0.1,
@@ -72,8 +72,8 @@ const Nav = () => {
         },
         "-=0.5",
       )
-      .from(".hero-icon", { scale: 0, duration: 0.5 }, "end")
-      .from(".life", { x: 1000, duration: 0.5 }, "end");
+      .from(".hero-icon", { scale: 0, duration: 0.3 }, "end")
+      .from(".life", { x: 1000, duration: 0.35 }, "end");
 
     menuBar.reverse();
     tl.reverse();
