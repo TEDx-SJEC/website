@@ -2,6 +2,8 @@ import UsersList from "@/components/admin/user-list";
 import prisma from "@/server/db";
 import React from "react";
 
+export const dynamic = "force-dynamic";
+
 export default async function Users() {
     const initialUserData = await prisma.user.findMany({
         select: {
