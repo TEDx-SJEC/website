@@ -23,7 +23,7 @@ export default function FullScreenCTA() {
             <div className="space-y-4 hidden lg:block">
               <div className="flex items-center space-x-3 text-lg">
                 <Calendar className="h-6 w-6 text-red-500" />
-                <span>December 14, 2024 | 9:00 AM - 6:00 PM</span>
+                <span>December 14, 2024 | 9:00 AM - 4:00 PM</span>
               </div>
               <div className="flex items-center space-x-3 text-lg">
                 <MapPin className="h-6 w-6 text-red-500" />
@@ -31,9 +31,9 @@ export default function FullScreenCTA() {
               </div>
             </div>
             <p className="text-lg  text-center lg:text-left hidden lg:block text-gray-400">
-              Experience powerful talks, interactive workshops, and networking
-              opportunities that will leave you inspired and ready to make a
-              difference in your community and beyond.
+              Experience powerful talks, an interactive and creative walkway,
+              and networking opportunities that will leave you inspired and
+              ready to make a difference in your community and beyond
             </p>
           </div>
 
@@ -68,7 +68,7 @@ export default function FullScreenCTA() {
               <h4 className="text-xl font-semibold mb-4">What to Expect:</h4>
               <ul className="list-disc list-inside space-y-2 text-gray-300">
                 <li>Thought-provoking talks from industry leaders</li>
-                <li>Interactive workshops and breakout sessions</li>
+                <li>Interactive and creative walkways</li>
                 <li>Networking opportunities with like-minded individuals</li>
                 <li>Live musical and artistic performances</li>
                 <li>Delicious catered meals and refreshments</li>
@@ -77,7 +77,7 @@ export default function FullScreenCTA() {
             <div className="space-y-4 block ml-4 lg:hidden">
               <div className="flex items-center space-x-3 text-lg">
                 <Calendar className="h-6 w-6 text-red-500" />
-                <span>December 14, 2024 | 9:00 AM - 6:00 PM</span>
+                <span>December 14, 2024 | 9:00 AM - 4:00 PM</span>
               </div>
               <div className="flex items-center space-x-3 text-lg">
                 <MapPin className="h-6 w-6 text-red-500" />

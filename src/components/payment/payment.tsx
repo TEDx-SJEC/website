@@ -68,14 +68,14 @@ export function Payment() {
             }),
           });
           const data = await resp.json();
-          console.log(data);
+         
           if (data.isOk) {
-            toast.success("Payment sucessfull");
+            toast.success("✅ Payment sucessfull");
 
             setTrigger(!trigger);
             setIsSuccess(true);
           } else {
-            alert("Payment failed");
+            toast.error("❌ Payment failed");
           }
         },
         // change to dynamic

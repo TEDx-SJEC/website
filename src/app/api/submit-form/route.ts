@@ -13,7 +13,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const response = await req.json();
     const body: TRegistrationForm = response;
-    console.log(body);
+ 
     const validationResult = RegistrationFormSchema.safeParse(body);
 
     if (!validationResult.success) {

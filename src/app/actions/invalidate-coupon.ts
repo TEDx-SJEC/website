@@ -16,7 +16,7 @@ export async function invalidateCouponCode(
     usedById: string;
   };
 }> {
-  console.log("coupon code = " + couponCode, "session = " + session.user.id);
+  
 
   if (!couponCode) {
     return { success: false, message: "Coupon code is required" };

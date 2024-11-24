@@ -97,7 +97,7 @@ export default function HeroHighlight() {
   const timeUnits: (keyof TimeLeft)[] = ["days", "hours", "minutes", "seconds"];
 
   return (
-    <section className="w-full mt-2 h-full lg:px-10 px-3  text-white overflow-hidden relative">
+    <section className="w-full mt-10 h-full lg:px-10 px-3  text-white overflow-hidden relative">
       {/* Semi-transparent overlay to allow stars to show through */}
       <div className="absolute inset-0  z-0"></div>
 
