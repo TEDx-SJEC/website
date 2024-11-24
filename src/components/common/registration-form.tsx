@@ -510,7 +510,7 @@ export default function RegistrationForm() {
                                                     onChange={(files) => handleFileUpload("photo", files)}
                                                 />
                                             </FormControl>
-                                            <FormDescription>Upload your photo</FormDescription>
+                                            <FormDescription>Please upload a professional-looking photo</FormDescription>
                                             <FormMessage />
                                         </FormItem>
                                     )}
