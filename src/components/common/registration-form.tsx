@@ -220,6 +220,13 @@ export default function RegistrationForm() {
 
     const verifyCoupon = async () => {
         const couponCode = form.getValues("couponCode");
+        if (!couponCode) {
+            return;
+        }
+        if (couponCode.length !== 10) {
+            toast.error("Invalid Coupon Code");
+            return;
+        }
         try {
             const result = await getPrice(couponCode);
             if (!result.success) {
@@ -535,7 +542,7 @@ export default function RegistrationForm() {
                                                         <Input
                                                             placeholder="Enter coupon code"
                                                             {...field}
-                                                            disabled={memberType !== "external"}
+                                                            disabled={memberType !== "external" || isProcessing}
                                                         />
                                                     </FormControl>
                                                     <Button
