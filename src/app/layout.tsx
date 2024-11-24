@@ -6,6 +6,7 @@ import TEDxStarsCanvas from "@/components/ui/stars";
 import Nav from "@/components/widget/header";
 import Script from "next/script";
 import { ScrollProgressBar } from "@/components/common/scroll-progress";
+import Footer from "@/components/common/footer";
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "TEDxSJEC",
@@ -47,6 +48,7 @@ export default function RootLayout({
         <Nav />
         <TEDxStarsCanvas />
         <Providers>{children} </Providers>
+        <Footer />
       </body>
     </html>
   );
