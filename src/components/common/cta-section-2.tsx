@@ -31,9 +31,9 @@ export default function FullScreenCTA() {
               </div>
             </div>
             <p className="text-lg  text-center lg:text-left hidden lg:block text-gray-400">
-              Experience powerful talks, interactive workshops, and networking
-              opportunities that will leave you inspired and ready to make a
-              difference in your community and beyond.
+              Experience powerful talks, an interactive and creative walkway,
+              and networking opportunities that will leave you inspired and
+              ready to make a difference in your community and beyond
             </p>
           </div>
 
