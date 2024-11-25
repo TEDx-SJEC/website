@@ -1,10 +1,10 @@
 import { tedxsjecAssetsPrefix } from "@/lib/utils";
 import { Speaker } from "@/types";
 
-export const basePrice = 1000;
+export const basePrice = 980.39;
 export const initialdiscount = 0;
-export const sjecStudentPrice = 750;
-export const sjecFacultyPrice = 800;
+export const sjecStudentPrice = 735.29;
+export const sjecFacultyPrice = 784.31;
 export const speakers: Speaker[] = [
       {
         id: 1,
@@ -62,5 +62,12 @@ export const speakers: Speaker[] = [
         description:
           "Anish Shetty is a motorsport icon with over 206 podiums and 6 championships to his name, blazing trails on national and international platforms. As the first Asian to secure a podium in the eSC World Championship, he has consistently showcased excellence in racing. A multiple-time Indian National Motorcycle Racing and Rallying Champion, and the Royal Enfield Continental GT Cup Champion, Anish combines skill with endurance, earning the title of Fittest Man in Asia-2021 in the EF category. Founder of PRN Motorsport and a dedicated coach, he has trained over 1200+ participants, inspiring future racers through passion and perseverance.",
         img: `${tedxsjecAssetsPrefix}/speakers/cropped-Anish1.avif`,
+      },
+      {
+        id: 8,
+        name: " Dr Lavina Marilla Noronha",
+        profession: "Director of Ave Maria Palliative Care",
+        description:"Dr. Lavina Noronha, Director of Ave Maria Palliative Care, exemplifies humility and dedication. With an MPhil from NIMHANS and a Doctorate from the University of Illinois, she has served as an associate professor and director at Our Lady of the Lake University, USA, with extensive clinical experience in mental health, hospice, and crisis care. Her life changed when she returned to India realizing the lack of support for terminally ill patients. She founded Ave Maria Palliative Care, providing free, compassionate care to patients, regardless of their background, with a dedicated team and community support.",
+        img: `${tedxsjecAssetsPrefix}/speakers/dr-lavina-1.avif`,
       },
     ];

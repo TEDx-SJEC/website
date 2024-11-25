@@ -220,6 +220,13 @@ export default function RegistrationForm() {
 
     const verifyCoupon = async () => {
         const couponCode = form.getValues("couponCode");
+        if (!couponCode) {
+            return;
+        }
+        if (couponCode.length !== 10) {
+            toast.error("Invalid Coupon Code");
+            return;
+        }
         try {
             const result = await getPrice(couponCode);
             if (!result.success) {
@@ -522,7 +529,7 @@ export default function RegistrationForm() {
                                 <div className="space-y-4">
                                     <div>
                                         <Label>Total Amount</Label>
-                                        <p className="text-2xl font-bold">₹{pricing.finalPrice}</p>
+                                        <p className="text-2xl font-bold">₹{Math.round(pricing.finalPrice+ 0.02*pricing.finalPrice)}</p>
                                     </div>
                                     <FormField
                                         control={form.control}
@@ -535,7 +542,7 @@ export default function RegistrationForm() {
                                                         <Input
                                                             placeholder="Enter coupon code"
                                                             {...field}
-                                                            disabled={memberType !== "external"}
+                                                            disabled={memberType !== "external" || isProcessing}
                                                         />
                                                     </FormControl>
                                                     <Button
