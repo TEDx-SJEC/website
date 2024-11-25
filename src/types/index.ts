@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-export type UserRoleType = "ADMIN" | "PARTICIPANT";
+export type UserRoleType = "ADMIN" | "PARTICIPANT" ;
 
 export interface Speaker {
   id: number;
@@ -33,7 +33,7 @@ export interface ResendEmailOptions {
 }
 
 export interface FormDataInterface {
-  designation: "student" | "faculty" | "employee";
+  designation: "student" | "faculty" | "external";
   foodPreference: "veg" | "non-veg";
   name: string;
   email: string;
