@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
@@ -7,54 +7,72 @@ import { useGSAP } from "@gsap/react";
 import { tedxsjecAssetsPrefix } from "@/lib/utils";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import Image from "next/image";
+import { performers } from "@/constants";
+import { PerformerSection } from "@/types";
 gsap.registerPlugin(ScrollTrigger);
 
-interface PerformerSection {
-  images: string[];
-  name: string;
-  profession: string;
-  description: string;
-}
+const ImagePlaceholder: React.FC = () => (
+  <div
+    role="status"
+    className="animate-pulse flex items-center justify-center w-full h-full bg-gray-300 rounded-2xl dark:bg-gray-700"
+  >
+    <svg
+      className="w-10 h-10 text-gray-200 dark:text-gray-600"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+      viewBox="0 0 20 18"
+    >
+      <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z" />
+    </svg>
+    <span className="sr-only">Loading...</span>
+  </div>
+);
 
-const performerSections: PerformerSection[] = [
-  {
-    name: "Yukthi Udupa",
-    profession: "Bharatanatyam artist",
-    description:
-      "Yukthi Udupa, a passionate Bharatanatyam artist, began her journey at 12 under Guru Vid Smt. Pravitha Ashok at Nritya Vasantha Natyalaya® Kundapura. She completed her exams with distinction and earned the Karnataka State Music and Dance Scholarship. Yukthi has won numerous awards, including  and the excelling in international, national, and state-level competitions. Her Bharatanatyam Arangetram was a celebrated display of her technical skill and expressive artistry. Yukthi is also a 'B' grade Doordarshan artist, inspiring young dancers and honoring Bharatanatyam's legacy.",
-    images: [
-      `${tedxsjecAssetsPrefix}/performers/Yukthi1.avif`,
-      `${tedxsjecAssetsPrefix}/performers/Yukthi 3.avif`,
-    ],
-  },
-  {
-    name: "Agasthyam Kalaripayattu",
-    profession: "Martial Arts Institution",
-    description:
-      'Agasthyam Kalaripayattu, a premier martial arts institution, preserves and teaches the ancient art of Kalaripayattu from Kerala, India. Founded and led by Gurukkal S Mahesh, Agasthyam carries forward a legacy over 129 years old, deeply rooted in traditional combat techniques, self-defense, weaponry, and spiritual growth. The renowned school offers rigorous training that builds agility, strength, and resilience, blending physical discipline with profound cultural heritage. Among its notable achievements is the "Shakthi" program, which has empowered nearly 12,000 women and continues to inspire and nurture many more.',
-    images: [
-      `${tedxsjecAssetsPrefix}/performers/Agasthyam1.avif`,
-      `${tedxsjecAssetsPrefix}/performers/Agasthyam2.avif`,
-      `${tedxsjecAssetsPrefix}/performers/Agasthyam3.avif`,
-    ],
-  },
-  //   ,
-  //   {
-  //     name: "Munita Veigas Rao",
-  //     profession: "Singer | Songwriter | Performer | Vocal Trainer",
-  //     description:
-  //       'Munita Veigas Rao, fondly known as the "Nightingale of Mangalore," is an award-winning singer, songwriter, and vocal trainer celebrated for her dynamic performances across Konkani, regional, and Western music. Having been recently awarded the Dakshina Kannada District Rajyotsava Award in November 2024, Munita has a career spanning over two decades with more than 500 stage performances worldwide. As the founder of her music school, "Musically by Munita," she dedicates her time to nurturing new talent. Her exceptional vocal skills and commitment to music have made her a cherished figure in the community.',
-  //     images: [
-  //       `${tedxsjecAssetsPrefix}/performers/Munita1.avif`,
-  //       `${tedxsjecAssetsPrefix}/performers/Munita2.avif`,
-  //     ],
-  //   },
-];
+const DelayedImage: React.FC<{
+  src: string;
+  alt: string;
+  sectionIndex: number;
+  imageIndex: number;
+  section: PerformerSection;
+  currentImageIndices: number[];
+}> = ({ src, alt, sectionIndex, imageIndex, section, currentImageIndices }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }); // 2-second delay
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!isLoaded) {
+    return <ImagePlaceholder />;
+  }
+
+  return (
+    <Image
+      // key={imageIndex}
+      src={src}
+      width={1200}
+      height={675}
+      alt={`Performer section ${sectionIndex + 1}, slide ${imageIndex + 1} of ${
+        section.images.length
+      }`}
+      className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-8000 ${
+        imageIndex === currentImageIndices[sectionIndex]
+          ? "opacity-100"
+          : "opacity-0"
+      }`}
+      aria-hidden={imageIndex !== currentImageIndices[sectionIndex]}
+    />
+  );
+};
 
 export default function Component() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentImageIndices, setCurrentImageIndices] = useState<number[]>(
-    performerSections.map(() => 0)
+    performers.map(() => 0)
   );
   const intervalRefs = useRef<(NodeJS.Timeout | null)[]>([]);
   const [selectedSection, setSelectedSection] =
@@ -151,12 +169,12 @@ export default function Component() {
   }, []);
 
   useEffect(() => {
-    performerSections.forEach((_, index) => {
+    performers.forEach((_, index) => {
       intervalRefs.current[index] = setInterval(() => {
         setCurrentImageIndices((prevIndices) => {
           const newIndices = [...prevIndices];
           newIndices[index] =
-            (newIndices[index] + 1) % performerSections[index].images.length;
+            (newIndices[index] + 1) % performers[index].images.length;
           return newIndices;
         });
       }, 2500 + index * 1000);
@@ -192,7 +210,7 @@ export default function Component() {
       onOpenChange={(open) => !open && setSelectedSection(null)}
     >
       <div ref={containerRef} className="overflow-hidden ">
-        {performerSections.map((section, sectionIndex) => (
+        {performers.map((section, sectionIndex) => (
           <section
             key={sectionIndex}
             className="flex md:max-w-[1200px] items-center justify-center relative mx-auto px-4 my-12 first:mt-0 last:mb-0"
@@ -204,23 +222,19 @@ export default function Component() {
               }`}
               onClick={() => handleSectionClick(section)}
             >
-              {section.images.map((image, imageIndex) => (
-                <Image
-                  key={imageIndex}
-                  src={image}
-                  width={1200}
-                  height={675}
-                  alt={`Performer section ${sectionIndex + 1}, slide ${
-                    imageIndex + 1
-                  } of ${section.images.length}`}
-                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-8000 ${
-                    imageIndex === currentImageIndices[sectionIndex]
-                      ? "opacity-100"
-                      : "opacity-0"
-                  }`}
-                  aria-hidden={imageIndex !== currentImageIndices[sectionIndex]}
-                />
-              ))}
+              <Suspense fallback={<ImagePlaceholder />}>
+                {section.images.map((image, imageIndex) => (
+                  <DelayedImage
+                    key={imageIndex}
+                    src={image}
+                    alt={image}
+                    sectionIndex={sectionIndex}
+                    imageIndex={imageIndex}
+                    section={section}
+                    currentImageIndices={currentImageIndices}
+                  />
+                ))}
+              </Suspense>
               <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-4 lg:p-8">
                 <h2
                   id={`section-title-${sectionIndex}`}
