@@ -123,33 +123,6 @@ export default function ContactPage() {
           </div> */}
         </div>
       </div>
-
-      <div className="text-center text-sm text-gray-400">
-        <p className="">
-          © 2024 TEDxSJEC. This independent TEDx event is operated under
-          license from TED.
-        </p>
-        <div className="flex items-center justify-center mt-4 md:pb-0 pb-4 gap-4">
-          <Link
-            href=""
-            className="hover:text-red-600 transition-colors"
-          >
-            Privacy Policy
-          </Link>
-          <Link
-            href=""
-            className="hover:text-red-600 transition-colors"
-          >
-            Terms of Service
-          </Link>
-          <Link
-            href="/refund"
-            className="hover:text-red-600 transition-colors"
-          >
-            Refund Policy
-          </Link>
-        </div>
-      </div>
     </div>
   );
 }

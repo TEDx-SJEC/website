@@ -8,7 +8,7 @@ import { tedxsjecAssetsPrefix } from "@/lib/utils";
 import React from "react";
 import Link from "next/link";
 import NavItem from "../navbar/nav-items";
-import { Button } from "../ui/button";
+import RegisterButton from "../navbar/register-button";
 const Nav = () => {
   gsap.registerPlugin(ScrollTrigger);
 
@@ -50,7 +50,7 @@ const Nav = () => {
         ease: "Expo.easeInOut",
       })
       .from(".menu-bg span", {
-        duration: 0.3,
+        duration: 0.15,
         x: "100%",
         stagger: 0.1,
         ease: "Expo.easeInOut",
@@ -58,13 +58,13 @@ const Nav = () => {
       .from(".header-2", { x: -300 })
       .from(
         ".listo",
-        { duration: 0.3, x: "-50%", stagger: 0.1, opacity: 0 },
+        { duration: 0.15, x: "-50%", stagger: 0.1, opacity: 0 },
         "-=0.5",
       )
       .from(
         ".social-links li",
         {
-          duration: 0.3,
+          duration: 0.15,
           y: "-100%",
           opacity: 0,
           stagger: 0.1,
@@ -72,8 +72,8 @@ const Nav = () => {
         },
         "-=0.5",
       )
-      .from(".hero-icon", { scale: 0, duration: 0.5 }, "end")
-      .from(".life", { x: 1000, duration: 0.5 }, "end");
+      .from(".hero-icon", { scale: 0, duration: 0.3 }, "end")
+      .from(".life", { x: 1000, duration: 0.35 }, "end");
 
     menuBar.reverse();
     tl.reverse();
@@ -100,21 +100,21 @@ const Nav = () => {
 
   return (
     <>
-      <header className="fixed z-[100] aboute left-0 top-0 w-screen">
-        <div className="header-1 flex md:py-[20px] md:px-[30px] p-[30px] justify-between items-center">
+      <header className="fixed z-[100] left-0 top-0 w-screen">
+        <div className="header-1 flex md:py-[10px] md:px-[30px] px-[10px] pt-1 justify-between items-center">
           <div className="logo">
             <Link href="/">
               <Image
                 src={`${tedxsjecAssetsPrefix}/logo/whiteLogo.png`}
-                height={200}
-                width={200}
+                height={180}
+                width={180}
                 alt="logo"
                 // layout="fixed"
                 priority={true}
               />
             </Link>
           </div>
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center pt-2">
             <li className="list-none overflow-hidden leading-[1] font-bold text-white reg"></li>
             <button
               id="menuToggle"
@@ -150,14 +150,14 @@ const Nav = () => {
               <div className="header-2 fixed left-0 top-0 w-full flex md:py-[20px] md:px-[30px] p-[30px] z-[60] justify-between items-center">
                   <Image
                       src={`${tedxsjecAssetsPrefix}/logo/blackLogo.webp`}
-                      height={200}
-                      width={200}
+                      height={180}
+                      width={180}
                       alt="logo"
                       // layout="fixed"
                       priority={true}
                   />
               </div>
-              <div className="fullpage-menu-inner flex items-center h-full px-[50px] py-[10px] md:px-[80px] md:py-[40px]">
+              <div className="fullpage-menu-inner flex items-center h-full px-[40px] py-[10px] md:px-[80px] md:py-[40px]">
                   <div className="menu-bg h-full w-full absolute left-0 top-0">
                       <span className="bg-white block back w-full h-[34%]"></span>
                       <span className="bg-white block back w-full h-[34%]"></span>
@@ -183,16 +183,8 @@ const Nav = () => {
                                   textTwo="CONTACT"
                                   onClick={() => handleClick("contact")}
                               />
-                              <li className="list-none listo overflow-hidden leading-[1] font-bold text-white mt-[30px]">
-                                  <Link href="/register">
-                                      <Button
-                                          size="lg"
-                                          className="bg-red-600 hover:bg-red-700 text-white py-4 "
-                                      >
-                                          Register
-                                          {/* <ArrowRight className="ml-2" /> */}
-                                      </Button>
-                                  </Link>
+                              <li className="list-none listo leading-[1] font-bold text-white mt-[20px]">
+                                <RegisterButton />
                               </li>
                           </ul>
                       </div>

@@ -1,13 +1,17 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import { Button } from "../ui/button";
 
 const RegisterButton = () => {
   return (
     <Link href="/register">
-      <button className="px-8 shadow-sm py-5 rounded-md bg-[#EB0028]">
-        REGISTER
-      </button>
+      <Button
+        size="lg"
+        className="bg-red-600 hover:bg-red-700 text-xl text-white py-6 px-4 transition-all duration-300 transform hover:scale-105"
+      >
+        Register Now
+      </Button>
     </Link>
   );
 };

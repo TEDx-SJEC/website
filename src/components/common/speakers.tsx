@@ -4,6 +4,7 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { speakers } from "@/constants";
+import Image from "next/image";
 
 export default function Component() {
   useGSAP(() => {
@@ -40,10 +41,12 @@ export default function Component() {
               } items-stretch justify-between bg-black/40 rounded-2xl  overflow-hidden shadow-xl border border-white border-opacity-20`}
             >
               <div className="w-full md:w-1/2  h-auto md:h-auto">
-                <img
+                <Image
                   className="w-full h-full object-cover"
                   src={speaker.img}
                   alt={speaker.name}
+                  width={1920}
+                  height={1080}
                 />
               </div>
 
