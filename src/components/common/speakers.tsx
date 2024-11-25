@@ -19,7 +19,7 @@ export default function Component() {
         duration: 1,
         scrollTrigger: {
           trigger: `.speaker-${index}`,
-          start: "top 90%", // Adjust this to control when the animation starts
+          start: "top 92%", // Adjust this to control when the animation starts
           toggleActions: "play none none reverse", // Animation behavior
         },
       });

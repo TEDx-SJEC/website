@@ -124,7 +124,12 @@ export default function HeroHighlight() {
           {/* <h1 className="text-[28px] py-1 md:text-5xl font-satoshi  text-center  lg:text-start font-extrabold bg-clip-text text-white">
             Ideas Worth Spreading
           </h1> */}
-          <h1 className="text-[28px] md:h-14 lg:h-14 md:text-[40px] xl:text-5xl h-10 font-satoshi text-center lg:text-start font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-white to-red-500">
+          <h1
+            className="text-[28px] md:h-14 lg:h-14 md:text-[40px] xl:text-5xl h-10 font-satoshi text-center lg:text-start font-extrabold bg-clip-text text-transparent"
+            style={{
+              backgroundImage: "linear-gradient(45deg, white, #f56565)",
+            }}
+          >
             Ideas Worth Spreading
           </h1>
           <div className="flex flex-col items-center lg:items-start justify-center text-center lg:text-start">
