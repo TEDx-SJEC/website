@@ -529,7 +529,7 @@ export default function RegistrationForm() {
                                 <div className="space-y-4">
                                     <div>
                                         <Label>Total Amount</Label>
-                                        <p className="text-2xl font-bold">₹{pricing.finalPrice}</p>
+                                        <p className="text-2xl font-bold">₹{Math.round(pricing.finalPrice+ 0.02*pricing.finalPrice)}</p>
                                     </div>
                                     <FormField
                                         control={form.control}
