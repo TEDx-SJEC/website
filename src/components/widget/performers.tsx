@@ -179,9 +179,9 @@ export default function Component() {
         });
       }, 2500 + index * 1000);
     });
-
+    const currentInterval = intervalRefs.current;
     return () => {
-      intervalRefs.current.forEach((interval) => {
+      currentInterval.forEach((interval) => {
         if (interval) clearInterval(interval);
       });
     };
