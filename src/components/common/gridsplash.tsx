@@ -5,42 +5,63 @@ import Image from "next/image";
 import { X } from "lucide-react";
 import { tedxsjecAssetsPrefix } from "@/lib/utils";
 import { speakers } from "@/constants";
+import { prevEdition22, prevEdition20 } from "@/constants";
 
-function UnsplashGrid() {
+type UnsplashGridProps = {
+  year: number;
+};
+
+function UnsplashGrid(props: UnsplashGridProps) {
   const [selected, setSelected] = useState(null);
 
   return (
     <>
-      <div className="flex justify-center">
-        <div className="container mx-auto p-2 sm:p-4 lg:px-20 ">
-          <div className="columns-2 md:columns-3 2xl:columns-3 gap-3">
-            <>
-              {speakers.map((speaker, index) => (
-                <ImageItem
-                  key={speaker.id}
-                  item={speaker}
-                  index={index}
-                  setSelected={setSelected}
-                />
-              ))}
-            </>
+      {props.year === 2022 ? (
+        <div className="flex justify-center">
+          <div className="container mx-auto p-2 sm:p-4 lg:px-20 ">
+            <div className="columns-2 md:columns-3 2xl:columns-3 gap-3">
+              <>
+                {prevEdition22.map((img, index) => (
+                  <ImageItem
+                    key={img.id}
+                    item={img}
+                    index={index}
+                    setSelected={setSelected}
+                  />
+                ))}
+              </>
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="flex justify-center">
+          <div className="container mx-auto p-2 sm:p-4 lg:px-20 ">
+            <div className="columns-2 md:columns-3 2xl:columns-3 gap-3">
+              <>
+                {prevEdition20.map((img, index) => (
+                  <ImageItem
+                    key={img.id}
+                    item={img}
+                    index={index}
+                    setSelected={setSelected}
+                  />
+                ))}
+              </>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
 
-interface Speaker {
+interface PreviousEdition {
   id: number;
   img: string;
-  name: string;
-  profession: string;
-  description: string;
 }
 
 interface ImageItemProps {
-  item: Speaker;
+  item: PreviousEdition;
   index: number | string;
   setSelected: any;
 }
@@ -68,7 +89,7 @@ function ImageItem({ item, index, setSelected }: ImageItemProps) {
 }
 
 interface ModalProps {
-  selected: Speaker | null;
+  selected: PreviousEdition | null;
   setSelected: any;
 }
 
@@ -139,10 +160,10 @@ function Modal({ selected, setSelected }: ModalProps) {
                 variants={itemVariants}
                 className="text-2xl font-bold mb-2"
               >
-                {selected.name}
+                {/* {selected.name} */}
               </motion.h3>
               <motion.p variants={itemVariants} className="my-4">
-                {selected.description}
+                {/* {selected.description} */}
               </motion.p>
             </motion.div>
           </motion.div>
