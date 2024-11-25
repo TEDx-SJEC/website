@@ -86,7 +86,7 @@ export default function RegistrationForm() {
         resolver: zodResolver(baseSchema),
         defaultValues: {
             designation: getSjecMemberType(session?.user.email!),
-            name: session?.user.name!,
+            name:session?.user.name!,
             email: session?.user.email!,
             phone: "",
             entityName: "",
@@ -249,7 +249,7 @@ export default function RegistrationForm() {
     const handleNext = async () => {
         let isValid = false;
         if (step === 1) {
-            isValid = await form.trigger(["designation", "foodPreference"]);
+            isValid = await form.trigger(["designation", "foodPreference","name"]);
         } else if (step === 2) {
             const designation = form.getValues("designation");
             if (designation === "student") {
@@ -314,9 +314,9 @@ export default function RegistrationForm() {
                                                 <Input
                                                     placeholder="John Doe"
                                                     {...field}
-                                                    value={session?.user.name!}
-                                                    disabled
+                                                    autoFocus
                                                 />
+                                                
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
