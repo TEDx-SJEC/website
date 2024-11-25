@@ -121,7 +121,10 @@ export default function HeroHighlight() {
 
       <div className="container mx-auto py-2 lg:py-0 flex flex-col-reverse lg:flex-row  justify-between relative z-20">
         <div className="lg:w-1/2 space-y-8 mt-4 lg:mt-20 hero-2">
-          <h1 className="text-[28px] py-1 md:text-5xl font-satoshi  text-center  lg:text-start font-extrabold bg-clip-text text-white">
+          {/* <h1 className="text-[28px] py-1 md:text-5xl font-satoshi  text-center  lg:text-start font-extrabold bg-clip-text text-white">
+            Ideas Worth Spreading
+          </h1> */}
+          <h1 className="text-[28px] md:h-14 lg:h-14 md:text-[40px] xl:text-5xl h-10 font-satoshi text-center lg:text-start font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-white to-red-500">
             Ideas Worth Spreading
           </h1>
           <div className="flex flex-col items-center lg:items-start justify-center text-center lg:text-start">
@@ -131,16 +134,16 @@ export default function HeroHighlight() {
             </p>
           </div>
 
-          <div className="pace-y-4 sm:space-y-0 text-center lg:text-start flex flex-col sm:flex-row justify-center lg:justify-start items-center lg:items-start">
-                        <Link href="/register">
-                            <Button
-                                size="lg"
-                                className="bg-red-600 hover:bg-red-700 text-white py-2 transition-all duration-300 transform hover:scale-105"
-                            >
-                                Join the TEDx Experience!
-                            </Button>
-                        </Link>
-                    </div>
+          <div className="space-y-4 sm:space-y-0 text-center lg:text-start flex flex-col sm:flex-row justify-center lg:justify-start items-center lg:items-start">
+            <Link href="/register">
+              <Button
+                size="lg"
+                className="bg-red-600 hover:bg-red-700 text-white py-2 transition-all duration-300 transform hover:scale-105"
+              >
+                Register Now
+              </Button>
+            </Link>
+          </div>
           <div className="text-md text-white  flex flex-col items-centerv lg:items-start justify-center space-y-2">
             <div className="flex items-center justify-center">
               <Calendar className="mr-2" size={20} />
