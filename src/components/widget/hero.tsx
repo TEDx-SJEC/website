@@ -66,14 +66,13 @@ export default function HeroHighlight() {
     seconds: 0,
   });
   const svgRef = useRef<SVGSVGElement>(null);
-  const targetDate = new Date("2024-12-14");
 
   const { scrollYProgress } = useScroll();
   const pathLength = useTransform(scrollYProgress, [0, 0.8], [0, 1]);
 
   useEffect(() => {
     setIsLoaded(true);
-
+    const targetDate = new Date("2024-12-14");
     const intervalId = setInterval(() => {
       const now = new Date();
       const difference = targetDate.getTime() - now.getTime();
@@ -92,7 +91,7 @@ export default function HeroHighlight() {
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [targetDate]);
+  }, []);
 
   const timeUnits: (keyof TimeLeft)[] = ["days", "hours", "minutes", "seconds"];
 
