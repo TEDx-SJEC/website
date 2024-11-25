@@ -1,10 +1,10 @@
 import { tedxsjecAssetsPrefix } from "@/lib/utils";
 import { Speaker } from "@/types";
 
-export const basePrice = 1000;
+export const basePrice = 980.39;
 export const initialdiscount = 0;
-export const sjecStudentPrice = 750;
-export const sjecFacultyPrice = 800;
+export const sjecStudentPrice = 735.29;
+export const sjecFacultyPrice = 784.31;
 export const speakers: Speaker[] = [
       {
         id: 1,
