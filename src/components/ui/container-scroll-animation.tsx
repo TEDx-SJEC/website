@@ -1,6 +1,8 @@
 "use client";
 import React, { useRef } from "react";
 import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
+import Link from "next/link";
+import { Button } from "./button";
 
 export const ContainerScroll = ({
   titleComponent,
@@ -36,11 +38,11 @@ export const ContainerScroll = ({
 
   return (
     <div
-      className="h-[50rem] md:h-[60rem] flex items-center justify-center relative p-2 md:px-20"
+      className="h-[45rem] md:h-[80rem] flex items-center justify-center relative p-2 md:px-20"
       ref={containerRef}
     >
       <div
-        className="py-10 md:py-40  mt-80 md:mt-48 w-full relative "
+        className=" md:py-10 md:mt-10 w-full relative "
         style={{
           perspective: "1000px",
         }}
@@ -49,6 +51,14 @@ export const ContainerScroll = ({
         <Card rotate={rotate} translate={translate} scale={scale}>
           {children}
         </Card>
+        <Link className="flex justify-center" href={"/previous-editions"}>
+          <Button
+            size="lg"
+            className="bg-red-600 hover:bg-red-700 mt-4 text-white py-6 px-8 text-xl transition-all duration-300 transform hover:scale-105"
+          >
+            View Previous Editions
+          </Button>
+        </Link>
       </div>
     </div>
   );
@@ -85,7 +95,7 @@ export const Card = ({
         boxShadow:
           "2px 2px #0000004d, 4px 2px 5px #0000004a, 9px 9px 9px #00000042, 12px 21px 12px #00000026, 15px 37px 15px #0000000a, 17px 58px 17px #00000003",
       }}
-      className="max-w-5xl -mt-12 lg:mb-10 mb-5 lg:mt-0 mx-auto h-fit  w-full border-[#6C6C6C] p-2 md:p-4 bg-[#222222] rounded-[16px] shadow-2xl"
+      className="max-w-5xl -mt-14 lg:mb-10 mb-5 lg:mt-0 mx-auto md:h-fit h-[200px] w-full border-[#6C6C6C] p-2 md:p-4 bg-[#222222] rounded-[16px] shadow-2xl"
     >
       <div className=" h-full w-full   overflow-hidden rounded-2xl bg-gray-100 dark:bg-zinc-900 md:rounded-[16px] md:p-4 ">
         {children}
