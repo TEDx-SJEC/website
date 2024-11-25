@@ -48,7 +48,7 @@ export const studentFormSchema = z.object({
   phone: z
     .string()
     .regex(/^\d{10}$/, { message: "Phone number must be 10 digits." }),
-  usn: z.string().min(1, { message: "USN is required for students." }),
+  usn: z.string().min(10, { message: "USN is required for students." }),
   idCard: z.string().min(1, { message: "ID Card is required for students." }),
   photo: z.string().min(1, { message: "Photo is required." }),
 });
