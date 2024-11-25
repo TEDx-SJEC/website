@@ -19,6 +19,8 @@ import { type Session as NextAuthSession } from "next-auth";
 import CouponGeneratorDialog from "../payment/coupon-generator-dialog";
 import { Checkbox } from "../ui/checkbox";
 import { useState } from "react";
+// import { toast } from "sonner";
+// import getErrorMessage from "@/utils/getErrorMessage";
 
 export function Coupon({ session }: { session: NextAuthSession }) {
   const [discount, setDiscount] = useState("20");
@@ -28,6 +30,16 @@ export function Coupon({ session }: { session: NextAuthSession }) {
     queryFn: createCouponCode,
     enabled: false,
   });
+
+  const handleGenerateCoupon = async () => {
+    try {
+      await saveCoupon(data as string, session.user.id, Number(discount));
+      // refetch(); 
+      // toast.success("Coupon code saved successfully");
+    } catch (error) {
+      // toast.error(getErrorMessage(error));
+    }
+  };
 
   return (
     <Tabs defaultValue="account" className="w-[400px]">
@@ -94,10 +106,8 @@ export function Coupon({ session }: { session: NextAuthSession }) {
           </CardContent>
           <CardFooter>
             <Button
-              disabled={data === undefined ? true : false}
-              onClick={async () => {
-                await saveCoupon(data as string, session.user.id, discount);
-              }}
+              disabled={data === undefined || isPending}
+              onClick={handleGenerateCoupon}
             >
               Save coupon
             </Button>

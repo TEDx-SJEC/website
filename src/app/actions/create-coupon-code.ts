@@ -5,10 +5,18 @@ import { couponSchema } from "@/utils/zod-schemas";
 export const saveCoupon = async (
   coupon: string,
   createdById: string,
-  discount: string = "20"
+  discount: number = 20
 ) => {
   try {
     const validatCoupon = couponSchema.parse({ coupon, createdById, discount });
+    const couponExists = await prisma.referral.findFirst({
+      where: {
+        code: validatCoupon.coupon,
+      },
+    });
+    if (couponExists) {
+      throw new Error("Coupon code already exists");
+    }
     const resp = await prisma.referral.create({
       data: {
         code: validatCoupon.coupon,
