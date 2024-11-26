@@ -1,19 +1,18 @@
 import { authOptions } from "@/lib/auth-options";
+import { getServerSideSession } from "@/lib/get-server-session";
 import { razorpay } from "@/lib/razorpay";
 import { getServerSession } from "next-auth/next";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest, context: { params: { id: string } }) {
-    // Check authentication
-    // const session = await getServerSession(authOptions);
-    // if (!session) {
-    //     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-    // }
+    const session = await getServerSideSession();
+    if (!session) {
+        return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
 
-    // // Check authorization (assuming 'role' is part of the session)
-    // if (session.user?.role !== "ADMIN") {
-    //     return NextResponse.json({ message: "Forbidden" }, { status: 403 });
-    // }
+    if (session.user?.role !== "ADMIN") {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
+    }
 
     const { id } = context.params;
 

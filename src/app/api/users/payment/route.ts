@@ -5,6 +5,14 @@ import { NextRequest, NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
+  const session = await getServerSideSession();
+  if (!session) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  }
+
+  if (session.user?.role !== "ADMIN") {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
+  }
   const { searchParams } = new URL(request.url);
   try {
     const page = Math.max(1, parseInt(searchParams.get("page") || "1", 10));
