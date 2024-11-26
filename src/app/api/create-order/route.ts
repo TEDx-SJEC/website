@@ -1,8 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { razorpay } from "@/lib/razorpay";
 import { randomUUID } from "crypto";
+import { getServerSideSession } from "@/lib/get-server-session";
 
 export async function POST(request: NextRequest) {
+      const session = await getServerSideSession();
+      if (!session) {
+          return NextResponse.json({ message: "No session", isOk: false }, { status: 400 });
+      }
     const { amount } = await request.json();
     if (!amount || typeof amount !== "number" || amount <= 0) {
         return NextResponse.json({ error: "Invalid amount" }, { status: 400 });
