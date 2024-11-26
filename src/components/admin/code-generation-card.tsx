@@ -20,24 +20,36 @@ import CouponGeneratorDialog from "../payment/coupon-generator-dialog";
 import { Checkbox } from "../ui/checkbox";
 import { useState } from "react";
 // import { toast } from "sonner";
-// import getErrorMessage from "@/utils/getErrorMessage";
+import getErrorMessage from "@/utils/getErrorMessage";
+import { Copy, Check } from "lucide-react";
 
 export function Coupon({ session }: { session: NextAuthSession }) {
   const [discount, setDiscount] = useState("20");
   const [checked, setChecked] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+  const [copied, setCopied] = useState(false);
   const { data, isPending, isError, error, refetch } = useQuery({
     queryKey: ["coupon"],
     queryFn: createCouponCode,
     enabled: false,
   });
 
+  const handleCopy = () => {
+    if (!data) return;
+    navigator.clipboard.writeText(data).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
+    });
+  };
+
   const handleGenerateCoupon = async () => {
     try {
       await saveCoupon(data as string, session.user.id, Number(discount));
-      // refetch(); 
-      // toast.success("Coupon code saved successfully");
+      // refetch();
+      setDisabled(true);
+      alert("Coupon code saved successfully");
     } catch (error) {
-      // toast.error(getErrorMessage(error));
+      alert(getErrorMessage(error));
     }
   };
 
@@ -70,6 +82,8 @@ export function Coupon({ session }: { session: NextAuthSession }) {
                   setDiscount(e.target.value);
                 }}
               />
+            </div>
+            <div className="flex items-center space-x-2 mt-2">
               <Checkbox
                 id="discount_terms"
                 checked={checked}
@@ -86,7 +100,12 @@ export function Coupon({ session }: { session: NextAuthSession }) {
             </div>
           </CardContent>
           <CardFooter>
-            <CouponGeneratorDialog onGenerateCoupon={refetch} />
+            <CouponGeneratorDialog
+              onGenerateCoupon={() => {
+                refetch();
+                setDisabled(false);
+              }}
+            />
           </CardFooter>
         </Card>
       </TabsContent>
@@ -101,12 +120,25 @@ export function Coupon({ session }: { session: NextAuthSession }) {
           <CardContent className="space-y-2">
             <div className="space-y-1">
               <Label htmlFor="new">Coupon code</Label>
-              <Input id="new" type="text" disabled value={data} />
+              <div className="flex items-center space-x-2">
+                <Input id="new" type="text" disabled value={data} />
+                <button
+                  onClick={handleCopy}
+                  className="p-2 text-gray-700 bg-gray-200 rounded hover:bg-gray-300 focus:outline-none"
+                  title={copied ? "Copied!" : "Copy to clipboard"}
+                >
+                  {copied ? (
+                    <Check size={16} className="text-green-500" />
+                  ) : (
+                    <Copy size={16} />
+                  )}
+                </button>
+              </div>
             </div>
           </CardContent>
           <CardFooter>
             <Button
-              disabled={data === undefined || isPending}
+              disabled={data === undefined || isPending || disabled}
               onClick={handleGenerateCoupon}
             >
               Save coupon
