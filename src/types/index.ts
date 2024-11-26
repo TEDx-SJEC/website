@@ -10,6 +10,18 @@ export interface Speaker {
   img: string;
 }
 
+export interface PerformerSection {
+  images: string[];
+  name: string;
+  profession: string;
+  description: string;
+}
+
+export interface PreviousEdition {
+  id: number;
+  img: string;
+}
+
 export interface EmailOptions {
   from: string;
   to: string;

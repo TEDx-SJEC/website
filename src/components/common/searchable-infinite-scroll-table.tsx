@@ -19,7 +19,7 @@ interface TableData {
     name: string;
     email: string;
   };
-  usn: string;
+  usn?: string;
   razorpayPaymentId: string;
   contactNumber: string;
   amount: number;
