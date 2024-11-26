@@ -293,7 +293,7 @@ export default function RegistrationForm() {
     }
 
     return (
-        <Card className="w-full lg:w-[550px] bg-[#1a0a0a] mt-24 md:mt-28 mb-16">
+        <Card className="w-full lg:w-[550px] bg-black mt-24 md:mt-28 mb-16">
             <Script src="https://checkout.razorpay.com/v1/checkout.js" />
             <CardHeader>
                 <CardTitle className="text-[#e62b1e] text-center text-3xl">Registration Form</CardTitle>
@@ -464,7 +464,7 @@ export default function RegistrationForm() {
                                 )}
                                 {form.watch("designation") === "student" && (
                                     <>
-                                        <FormField
+                                        {/* <FormField
                                             control={form.control}
                                             name="usn"
                                             render={({ field }) => (
@@ -476,7 +476,7 @@ export default function RegistrationForm() {
                                                     <FormMessage />
                                                 </FormItem>
                                             )}
-                                        />
+                                        /> */}
                                         <FormField
                                             control={form.control}
                                             name="idCard"
@@ -492,7 +492,7 @@ export default function RegistrationForm() {
                                                         />
                                                     </FormControl>
                                                     <FormDescription>
-                                                        Upload your ID card image
+                                                        Upload your College ID card image
                                                     </FormDescription>
                                                     <FormMessage />
                                                 </FormItem>
