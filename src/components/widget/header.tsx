@@ -9,7 +9,10 @@ import React from "react";
 import Link from "next/link";
 import NavItem from "../navbar/nav-items";
 import RegisterButton from "../navbar/register-button";
+import { useRouter } from "next/navigation";
+import { Button } from "../ui/button";
 const Nav = () => {
+  const router = useRouter();
   gsap.registerPlugin(ScrollTrigger);
 
   const menuToggle = useRef(null);
@@ -27,7 +30,7 @@ const Nav = () => {
           x: 1,
           ease: "Power2.easeInOut",
         },
-        "start",
+        "start"
       )
       .to(".bar-2", 2, { autoAlpha: 0, stroke: "#000" }, "start")
       .to(
@@ -39,7 +42,7 @@ const Nav = () => {
           stroke: "#000",
           ease: "Power2.easeInOut",
         },
-        "start",
+        "start"
       );
 
     tl.to(".logo", { x: -300 }, "go")
@@ -59,7 +62,7 @@ const Nav = () => {
       .from(
         ".listo",
         { duration: 0.15, x: "-50%", stagger: 0.1, opacity: 0 },
-        "-=0.5",
+        "-=0.5"
       )
       .from(
         ".social-links li",
@@ -70,7 +73,7 @@ const Nav = () => {
           stagger: 0.1,
           ease: "Expo.easeInOut",
         },
-        "-=0.5",
+        "-=0.5"
       )
       .from(".hero-icon", { scale: 0, duration: 0.3 }, "end")
       .from(".life", { x: 1000, duration: 0.35 }, "end");
@@ -96,6 +99,12 @@ const Nav = () => {
         });
       }
     }
+  };
+
+  const handleRegisterClick = () => {
+    router.push("/register");
+    menuBar.reverse();
+    tl.reverse();
   };
 
   return (
@@ -146,68 +155,82 @@ const Nav = () => {
         </div>
       </header>
 
-          <section className="fullpage-menu hidden fixed left-0 top-0 w-screen z-50 h-screen">
-              <div className="header-2 fixed left-0 top-0 w-full flex md:py-[20px] md:px-[30px] p-[30px] z-[60] justify-between items-center">
-                  <Image
-                      src={`${tedxsjecAssetsPrefix}/logo/blackLogo.webp`}
-                      height={180}
-                      width={180}
-                      alt="logo"
-                      // layout="fixed"
-                      priority={true}
-                  />
-              </div>
-              <div className="fullpage-menu-inner flex items-center h-full px-[40px] py-[10px] md:px-[80px] md:py-[40px]">
-                  <div className="menu-bg h-full w-full absolute left-0 top-0">
-                      <span className="bg-white block back w-full h-[34%]"></span>
-                      <span className="bg-white block back w-full h-[34%]"></span>
-                      <span className="bg-white block back w-full h-[34%]"></span>
-                  </div>
-                  <nav className="relative z-10 flex flex-row w-full">
-                      <div>
-                          <ul className="main-menu mt-10">
-                              <NavItem textOne="ABOUT" textTwo="ABOUT" onClick={() => handleClick("about")} />
-                              <NavItem
-                                  textOne="SPEAKERS"
-                                  textTwo="SPEAKERS"
-                                  onClick={() => handleClick("speakers")}
-                              />
-                              <NavItem
-                                  textOne="PERFORMERS"
-                                  textTwo="PERFORMERS"
-                                  onClick={() => handleClick("performers")}
-                              />
-                              <NavItem textOne="TEAM" textTwo="TEAM" onClick={() => handleClick("team")} />
-                              <NavItem
-                                  textOne="CONTACT"
-                                  textTwo="CONTACT"
-                                  onClick={() => handleClick("contact")}
-                              />
-                              <li className="list-none listo leading-[1] font-bold text-white mt-[20px]">
-                                <RegisterButton />
-                              </li>
-                          </ul>
-                      </div>
-                  </nav>
-                  <div className="w-full flex flex-col items-center">
-                      <div className="lg:self-center lg:flex hidden lg:flex-col">
-                          <Image
-                              className="mt-10 hero-icon"
-                              src={`${tedxsjecAssetsPrefix}/logo/ActualLogo.PNG`}
-                              height={550}
-                              width={550}
-                              alt="logo"
-                          />
-                      </div>
-                      <div className="lg:flex hidden text-nowrap text-4xl relative bottom-32 justify-center items-center text-center">
-                          <h1 className="life uppercase font-bold text-black">
-                              Life - Explore What&#39;s Worth Living
-                          </h1>
-                      </div>
-                  </div>
-              </div>
-          </section>
-      </>
+      <section className="fullpage-menu hidden fixed left-0 top-0 w-screen z-50 h-screen">
+        <div className="header-2 fixed left-0 top-0 w-full flex md:py-[20px] md:px-[30px] p-[30px] z-[60] justify-between items-center">
+          <Image
+            src={`${tedxsjecAssetsPrefix}/logo/blackLogo.webp`}
+            height={180}
+            width={180}
+            alt="logo"
+            // layout="fixed"
+            priority={true}
+          />
+        </div>
+        <div className="fullpage-menu-inner flex items-center h-full px-[40px] py-[10px] md:px-[80px] md:py-[40px]">
+          <div className="menu-bg h-full w-full absolute left-0 top-0">
+            <span className="bg-white block back w-full h-[34%]"></span>
+            <span className="bg-white block back w-full h-[34%]"></span>
+            <span className="bg-white block back w-full h-[34%]"></span>
+          </div>
+          <nav className="relative z-10 flex flex-row w-full">
+            <div>
+              <ul className="main-menu mt-10">
+                <NavItem
+                  textOne="ABOUT"
+                  textTwo="ABOUT"
+                  onClick={() => handleClick("about")}
+                />
+                <NavItem
+                  textOne="SPEAKERS"
+                  textTwo="SPEAKERS"
+                  onClick={() => handleClick("speakers")}
+                />
+                <NavItem
+                  textOne="PERFORMERS"
+                  textTwo="PERFORMERS"
+                  onClick={() => handleClick("performers")}
+                />
+                <NavItem
+                  textOne="TEAM"
+                  textTwo="TEAM"
+                  onClick={() => handleClick("team")}
+                />
+                <NavItem
+                  textOne="CONTACT"
+                  textTwo="CONTACT"
+                  onClick={() => handleClick("contact")}
+                />
+                <li className="list-none listo leading-[1] font-bold text-white mt-[20px]">
+                  <Button
+                    className="bg-red-600 hover:bg-red-700 text-xl text-white py-6 px-4 transition-all duration-300 transform hover:scale-105"
+                    onClick={handleRegisterClick}
+                    size="lg"
+                  >
+                    Register Now
+                  </Button>
+                </li>
+              </ul>
+            </div>
+          </nav>
+          <div className="w-full flex flex-col items-center">
+            <div className="lg:self-center lg:flex hidden lg:flex-col">
+              <Image
+                className="mt-10 hero-icon"
+                src={`${tedxsjecAssetsPrefix}/logo/ActualLogo.PNG`}
+                height={550}
+                width={550}
+                alt="logo"
+              />
+            </div>
+            <div className="lg:flex hidden text-nowrap text-4xl relative bottom-32 justify-center items-center text-center">
+              <h1 className="life uppercase font-bold text-black">
+                Life - Explore What&#39;s Worth Living
+              </h1>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
 
