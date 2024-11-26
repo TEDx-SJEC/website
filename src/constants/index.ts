@@ -102,7 +102,7 @@ export const performers: PerformerSection[] = [
       'Munita Veigas Rao, fondly known as the "Nightingale of Mangalore," is an award-winning singer, songwriter, and vocal trainer celebrated for her dynamic performances across Konkani, regional, and Western music. Having been recently awarded the Dakshina Kannada District Rajyotsava Award in November 2024, Munita has a career spanning over two decades with more than 500 stage performances worldwide. As the founder of her music school, "Musically by Munita," she dedicates her time to nurturing new talent. Her exceptional vocal skills and commitment to music have made her a cherished figure in the community.',
     images: [
       `${tedxsjecAssetsPrefix}/performers/Munita1.avif`,
-      `${tedxsjecAssetsPrefix}/performers/Munita2.avif`,
+      `${tedxsjecAssetsPrefix}/performers/cropped-Munita2.avif`,
     ],
   },
   {
