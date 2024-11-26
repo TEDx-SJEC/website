@@ -95,17 +95,26 @@ export const performers: PerformerSection[] = [
       `${tedxsjecAssetsPrefix}/performers/Agasthyam3.avif`,
     ],
   },
-  //   ,
-  //   {
-  //     name: "Munita Veigas Rao",
-  //     profession: "Singer | Songwriter | Performer | Vocal Trainer",
-  //     description:
-  //       'Munita Veigas Rao, fondly known as the "Nightingale of Mangalore," is an award-winning singer, songwriter, and vocal trainer celebrated for her dynamic performances across Konkani, regional, and Western music. Having been recently awarded the Dakshina Kannada District Rajyotsava Award in November 2024, Munita has a career spanning over two decades with more than 500 stage performances worldwide. As the founder of her music school, "Musically by Munita," she dedicates her time to nurturing new talent. Her exceptional vocal skills and commitment to music have made her a cherished figure in the community.',
-  //     images: [
-  //       `${tedxsjecAssetsPrefix}/performers/Munita1.avif`,
-  //       `${tedxsjecAssetsPrefix}/performers/Munita2.avif`,
-  //     ],
-  //   },
+  {
+    name: "Munita Veigas Rao",
+    profession: "Singer | Songwriter | Performer | Vocal Trainer",
+    description:
+      'Munita Veigas Rao, fondly known as the "Nightingale of Mangalore," is an award-winning singer, songwriter, and vocal trainer celebrated for her dynamic performances across Konkani, regional, and Western music. Having been recently awarded the Dakshina Kannada District Rajyotsava Award in November 2024, Munita has a career spanning over two decades with more than 500 stage performances worldwide. As the founder of her music school, "Musically by Munita," she dedicates her time to nurturing new talent. Her exceptional vocal skills and commitment to music have made her a cherished figure in the community.',
+    images: [
+      `${tedxsjecAssetsPrefix}/performers/Munita1.avif`,
+      `${tedxsjecAssetsPrefix}/performers/Munita2.avif`,
+    ],
+  },
+  {
+    name: "Harman Preet Singh",
+    profession: "Comedian",
+    description:
+      "Harman Preet Singh, a stand-up comedian, ticks every box of the Punjabi stereotype at first sight and then leaves you second-guessing. His comedic observations and ride-the-wave style of portraying himself are a joy to watch. He is an active performer at The Underground Comedy Club Bengaluru, performing with other prominent names in the stand-up space. Beyond comedy, he is the founder of HAK Ventures Private Limited, a company that deals with the curation of events and artist management.",
+    images: [
+      `${tedxsjecAssetsPrefix}/performers/Harman3.avif`,
+      `${tedxsjecAssetsPrefix}/performers/Harman4 .avif`,
+    ],
+  },
 ];
 export const prevEdition22: PreviousEdition[] = [
   {

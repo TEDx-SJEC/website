@@ -37,7 +37,7 @@ function UnsplashGrid(props: UnsplashGridProps) {
         <div className="flex justify-center">
           <div className="container mx-auto p-2 sm:p-4 lg:px-20 ">
             <div className="columns-2 md:columns-3 2xl:columns-3 gap-3">
-              <>
+            <>
                 {prevEdition20.map((img, index) => (
                   <ImageItem
                     key={img.id}
