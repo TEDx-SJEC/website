@@ -4,14 +4,7 @@ import prisma from "@/server/db";
 import { getServerSideSession } from "@/lib/get-server-session";
 import { revalidatePath } from "next/cache";
 import getErrorMessage from "@/utils/getErrorMessage";
-
-export enum UserRole {
-  ADMIN = "ADMIN",
-  PARTICIPANT = "PARTICIPANT",
-  COORDINATOR = "COORDINATOR",
-}
-
-const ADMIN_USERS_PATH = "/admin/users";
+import { UserRole,ADMIN_USERS_PATH } from "@/constants";
 
 async function updateUserRole(id: string, role: UserRole) {
   const VALID_ROLES = Object.values(UserRole);
@@ -20,7 +13,7 @@ async function updateUserRole(id: string, role: UserRole) {
   }
   const session = await getServerSideSession();
   if (!session || session.user.role !== UserRole.ADMIN) {
-    throw new Error("Unauthorized Access...");
+    throw new Error(`Unauthorized Access...`);
   }
   try {
     const updatedUser = await prisma.user.update({
@@ -53,7 +46,7 @@ export const makeParticipant = async (userId: string) => {
   }
 };
 
-export const makeOrganizer = async (userId: string) => {
+export const makeCoordinator = async (userId: string) => {
   try {
     return await updateUserRole(userId, UserRole.COORDINATOR);
   } catch (error) {

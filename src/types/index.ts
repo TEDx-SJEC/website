@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-export type UserRoleType = "ADMIN" | "PARTICIPANT" ;
+export type UserRoleType = "ADMIN" | "PARTICIPANT" | "COORDINATOR";
 
 export interface Speaker {
   id: number;
