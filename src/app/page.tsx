@@ -38,9 +38,9 @@ export default function Home() {
 
           <Performers />
         </div>
-        {/* <div className="">
+        <div className="">
           <PreviousEdition />
-        </div> */}
+        </div>
         <div id="team" className="bg-transparent h-fit mt-14">
           <h1 className="md:text-8xl text-4xl text-center font-black text-redTheme px-10">
             The Team

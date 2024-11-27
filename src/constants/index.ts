@@ -119,61 +119,61 @@ export const performers: PerformerSection[] = [
 export const prevEdition22: PreviousEdition[] = [
   {
     id: 1,
-    img: `${tedxsjecAssetsPrefix}/prev/2022/image1.webp`,
+    img: `${tedxsjecAssetsPrefix}/prev/2022/image1.jpg`,
   },
   {
     id: 2,
-    img: `${tedxsjecAssetsPrefix}/prev/2022/image2.webp`,
+    img: `${tedxsjecAssetsPrefix}/prev/2022/image2.jpg`,
   },
   {
     id: 3,
-    img: `${tedxsjecAssetsPrefix}/prev/2022/image3.webp`,
+    img: `${tedxsjecAssetsPrefix}/prev/2022/image3.jpg`,
   },
   {
     id: 4,
-    img: `${tedxsjecAssetsPrefix}/prev/2022/image4.webp`,
+    img: `${tedxsjecAssetsPrefix}/prev/2022/image4.jpg`,
   },
   {
     id: 5,
-    img: `${tedxsjecAssetsPrefix}/prev/2022/image5.webp`,
+    img: `${tedxsjecAssetsPrefix}/prev/2022/image5.jpg`,
   },
   {
     id: 6,
-    img: `${tedxsjecAssetsPrefix}/prev/2022/image6.webp`,
+    img: `${tedxsjecAssetsPrefix}/prev/2022/image6.jpg`,
   },
   {
     id: 7,
-    img: `${tedxsjecAssetsPrefix}/prev/2022/image7.webp`,
+    img: `${tedxsjecAssetsPrefix}/prev/2022/image7.jpg`,
   },
 ];
 
 export const prevEdition20: PreviousEdition[] = [
   {
     id: 1,
-    img: `${tedxsjecAssetsPrefix}/prev/2020/image1.webp`,
+    img: `${tedxsjecAssetsPrefix}/prev/2020/image1.jpg`,
   },
   {
     id: 2,
-    img: `${tedxsjecAssetsPrefix}/prev/2020/image2.webp`,
+    img: `${tedxsjecAssetsPrefix}/prev/2020/image2.jpg`,
   },
   {
     id: 3,
-    img: `${tedxsjecAssetsPrefix}/prev/2020/image3.webp`,
+    img: `${tedxsjecAssetsPrefix}/prev/2020/image3.jpg`,
   },
   {
     id: 4,
-    img: `${tedxsjecAssetsPrefix}/prev/2020/image4.webp`,
+    img: `${tedxsjecAssetsPrefix}/prev/2020/image4.jpg`,
   },
   {
     id: 5,
-    img: `${tedxsjecAssetsPrefix}/prev/2020/image5.webp`,
+    img: `${tedxsjecAssetsPrefix}/prev/2020/image5.jpg`,
   },
   {
     id: 6,
-    img: `${tedxsjecAssetsPrefix}/prev/2020/image6.webp`,
+    img: `${tedxsjecAssetsPrefix}/prev/2020/image6.jpg`,
   },
   {
     id: 7,
-    img: `${tedxsjecAssetsPrefix}/prev/2020/image7.webp`,
+    img: `${tedxsjecAssetsPrefix}/prev/2020/image7.jpg`,
   },
 ];

@@ -33,18 +33,22 @@ const Previous = (props: Props) => {
           </button>
         </div>
         <div className="my-auto">
-          <h1 className="text-center text-7xl font-black py-5">
+          <h1 className="text-center xl:text-7xl text-3xl font-black py-5 text-redTheme">
             Looking back at TEDxSJEC
           </h1>
-          <p className="w-1/3 text-2xl font-semibold text-slate-400 mx-auto ">
+          <p className="xl:w-1/3 xl:text-2xl font-semibold text-neutral-300 mx-auto ">
             Revisit TEDxSJEC 2020 and 2022, where inspiring stories and
             transformative ideas left a lasting impact.
           </p>
         </div>
       </div>
-      <h1 className="text-center text-5xl my-5 font-black">2022 Edition</h1>
+      <h1 className="text-center xl:text-5xl text-2xl my-5 font-black">
+        2022 Edition
+      </h1>
       <UnsplashGrid year={2022} />
-      <h1 className="text-center text-5xl my-5 font-black">2020 Edition</h1>
+      <h1 className="text-center xl:text-5xl text-2xl my-5 font-black">
+        2020 Edition
+      </h1>
       <UnsplashGrid year={2020} />
     </div>
   );
