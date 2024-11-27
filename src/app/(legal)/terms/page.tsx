@@ -3,14 +3,12 @@
 import BackButton from "@/components/shared/back-button";
 import Container from "@/components/shared/container";
 import { Text } from "@/components/shared/text";
-import { Button } from "@/components/ui/button";
 import { legalInfo } from "@/data/legal-info";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+
 
 export default function TermsAndConditions() {
-    const router = useRouter();
+    
     return (
         <Container className="mx-auto mt-24 md:mt-32 mb-1">
             <div className="py-10 px-6 sm:px-12 md:px-20 lg:px-32 space-y-8 text-red-600 rounded-lg shadow-lg backdrop-blur-md">
