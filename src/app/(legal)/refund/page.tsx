@@ -1,5 +1,6 @@
 "use client";
 
+import BackButton from "@/components/shared/back-button";
 import Container from "@/components/shared/container";
 import { Text } from "@/components/shared/text";
 import { legalInfo } from "@/data/legal-info";
@@ -12,26 +13,7 @@ export default function Refund() {
   return (
     <Container className="mx-auto mt-24 md:mt-32 mb-1">
       <div className="py-10 px-6 sm:px-12 md:px-20 lg:px-32 space-y-8 text-red-600 rounded-lg shadow-lg backdrop-blur-md">
-        <div className="flex items-center justify-start">
-            <button className="text-red-600 hover:text-red-800 flex items-center space-x-2"
-            onClick={() => router.back()}>
-              <svg
-                className="w-5 h-5"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
-              <span>Back</span>
-            </button>
-        </div>
+        <BackButton/>
 
         {/* Title Section */}
         <div className="text-center">
