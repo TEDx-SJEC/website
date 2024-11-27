@@ -50,7 +50,7 @@ export default function RootLayout({
         <Providers>
           <div className="flex h-screen overflow-hidden">
             <AdminNavbar />
-            <main className="flex-1 overflow-auto bg-indigo-50">
+            <main className="flex-1 overflow-auto bg-gray-800">
               {children}
             </main>
           </div>
