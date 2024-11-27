@@ -20,16 +20,26 @@ export default function RootLayout({
 
   if (!session) {
     return (
-      <div className="w-screen h-screen flex justify-center items-center">
-        Unauthorized
+      <div className="w-screen h-screen flex justify-center items-center bg-black text-gray-200">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold mb-2 text-red-500">Unauthorized</h1>
+          <p className="text-gray-400">
+            You need to log in to access this page.
+          </p>
+        </div>
       </div>
     );
   }
 
   if (session.user.role !== "ADMIN") {
     return (
-      <div className="w-screen h-screen flex justify-center items-center">
-        Forbidden
+      <div className="w-screen h-screen flex justify-center items-center bg-black text-gray-200">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold mb-2 text-red-500">Forbidden</h1>
+          <p className="text-gray-400">
+            You do not have the required permissions to view this page.
+          </p>
+        </div>
       </div>
     );
   }
