@@ -34,7 +34,6 @@ export const baseSchema = z.object({
 });
 
 export const studentSchema = baseSchema.extend({
-    usn: z.string().min(1, { message: "USN is required for students." }),
     idCard: z.string().min(1, { message: "ID Card is required for students." }),
 });
 
@@ -42,11 +41,6 @@ export const studentFormSchema = z.object({
     name: z.string().min(2, { message: "Name must be at least 2 characters." }),
     email: z.string().email({ message: "Invalid email address." }),
     phone: z.string().regex(/^\d{10}$/, { message: "Phone number must be 10 digits." }),
-    usn: z
-        .string()
-        .min(10, { message: "USN is required for students." })
-        .max(10, { message: "USN must be exactly 10 characters long." })
-        .regex(/^[A-Z0-9]+$/, { message: "USN must be in uppercase." }),
     idCard: z.string().min(1, { message: "ID Card is required for students." }),
     photo: z.string().min(1, { message: "Photo is required." }),
 });
