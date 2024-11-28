@@ -9,6 +9,7 @@ import Performers from "@/components/widget/performers";
 import HeroHighlight from "@/components/widget/hero";
 import Footer from "@/components/common/contact-page";
 import CTA from "@/components/common/cta-section-2";
+import Nav from "@/components/widget/header";
 export default function Home() {
   // const [loading, setLoading] = useState(true);
 
@@ -19,6 +20,9 @@ export default function Home() {
 
   return (
     <>
+      <div className="fixed top-0 w-full h-[80px] z-50 overflow-x-hidden  backdrop-blur-md head-5 bg-black/5" />
+
+      <Nav />
       <div className="z-20 relative pt-20 overflow-x-clip 1">
         <HeroHighlight />
         <div className="h-full  mt-20 mb-20 lg:mb-40" id="about">
