@@ -133,6 +133,9 @@ export function SearchableInfiniteScrollTable() {
 
   return (
     <div className="container mx-auto py-10">
+      <h1 className="text-3xl font-bold text-primary py-4">
+        Payments {filteredData.length > 0 ? `(${filteredData.length})` : `(${data.length})`}
+      </h1>
       <div className="mb-4 relative">
         <Input
           type="text"

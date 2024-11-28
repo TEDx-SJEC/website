@@ -65,6 +65,16 @@ function FetchRazorpayPaymentData({ params }: { params: { id: string } }) {
   const [loading, setLoading] = useState(true);
   const [loadingForButton, setLoadingForButton] = useState(false);
 
+  const handleSendEmail = async () => {
+    if (!paymentData) {
+      return;
+    }
+    setLoadingForButton(true)
+    await sendEmail(paymentData.id)
+    setLoadingForButton(false)
+  }
+
+
   async function sendEmail(paymentId: string) {
     setLoadingForButton(true);
     try {
@@ -127,67 +137,62 @@ function FetchRazorpayPaymentData({ params }: { params: { id: string } }) {
   }
 
   return (
-    <div className="w-screen h-screen flex justify-center items-center bg-gray-100 dark:bg-gray-900 p-4">
-      <Card className="w-full max-w-lg bg-white dark:bg-gray-800 shadow-lg">
-        <CardHeader>
-          <CardTitle className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-            Payment Data of {paymentData.notes.customerName || "Unknown"}
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <Label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Payment ID
-            <Input value={paymentData.id || ""} disabled className="mt-1" />
-          </Label>
-          <Label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Amount
-            <Input
-              value={new Intl.NumberFormat("en-IN", {
-                style: "currency",
-                currency: "INR",
-              }).format((paymentData.amount ?? 0) / 100)}
-              disabled
-              className="mt-1"
-            />
-          </Label>
-          <Label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Email
-            <Input value={paymentData.email || ""} disabled className="mt-1" />
-          </Label>
-          <Label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Phone
-            <Input
-              value={paymentData.contact || ""}
-              disabled
-              className="mt-1"
-            />
-          </Label>
-          <Label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Created At
-            <Input
-              value={new Date(paymentData.created_at * 1000).toLocaleString(
-                undefined,
-                {
-                  dateStyle: "full",
-                  timeStyle: "long",
-                },
-              )}
-              disabled
-              className="mt-1"
-            />
-          </Label>
-        </CardContent>
-        <CardFooter className="flex justify-end">
-          <Button
-            disabled={loadingForButton}
-            className="bg-blue-600 text-white hover:bg-blue-700"
-            onClick={async () => await sendEmail(paymentData.id!)}
-          >
-            {loadingForButton ? "Loading..." : "Send Email"}
-          </Button>
-        </CardFooter>
-      </Card>
-    </div>
+    <div className="flex w-full min-h-screen justify-center items-center bg-background p-4">
+    <Card className="w-full max-w-lg">
+      <CardHeader>
+        <CardTitle className="text-lg font-semibold">
+          Payment Data of {paymentData.notes.customerName || "Unknown"}
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <div className="space-y-2">
+          <Label htmlFor="payment-id">Payment ID</Label>
+          <Input id="payment-id" value={paymentData.id || ""} readOnly />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="amount">Amount</Label>
+          <Input
+            id="amount"
+            value={new Intl.NumberFormat("en-IN", {
+              style: "currency",
+              currency: "INR",
+            }).format((paymentData.amount ?? 0) / 100)}
+            readOnly
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="email">Email</Label>
+          <Input id="email" value={paymentData.email || ""} readOnly />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="phone">Phone</Label>
+          <Input id="phone" value={paymentData.contact || ""} readOnly />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="created-at">Created At</Label>
+          <Input
+            id="created-at"
+            value={new Date(paymentData.created_at * 1000).toLocaleString(
+              undefined,
+              {
+                dateStyle: "full",
+                timeStyle: "long",
+              }
+            )}
+            readOnly
+          />
+        </div>
+      </CardContent>
+      <CardFooter className="flex justify-end">
+        <Button
+          disabled={loadingForButton}
+          onClick={handleSendEmail}
+        >
+          {loadingForButton ? "Loading..." : "Send Email"}
+        </Button>
+      </CardFooter>
+    </Card>
+  </div>
   );
 }
 
