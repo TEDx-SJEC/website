@@ -100,7 +100,6 @@ export default function RegistrationForm() {
                 toast.error("No files uploaded. Please try again.");
                 return;
             }
-
             try {
                 if (res.length === 2) {
                     form.setValue("idCard", res[0].url);
@@ -116,7 +115,7 @@ export default function RegistrationForm() {
         },
         onUploadError: (error) => {
             console.error("Upload error:", error);
-            toast.error("Image upload failed. Please try again later.");
+            toast.error("Image upload failed. Please inform us at support.tedx@sjec.ac.in or click the contact us button at buttom right corner.");
         },
     });
 
@@ -185,8 +184,12 @@ export default function RegistrationForm() {
                                     const allFiles = uploadedFiles.flatMap((file) => file.files);
 
                                     if (allFiles.length > 0) {
-                                        await startUpload(allFiles);
-                                        toast.success("✅ Files uploaded successfully!");
+                                        const uploadResult =  await startUpload(allFiles);
+                                        if (!uploadResult) {
+                                          toast.error("Error uploading files. Please contact support from the contact us button at buttom right corner.");
+                                        }else{
+                                          toast.success("✅ Files uploaded successfully!");
+                                        }
                                     } else {
                                         toast.warning("⚠️ No files to upload.");
                                     }
