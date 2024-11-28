@@ -71,6 +71,14 @@ export const speakers: Speaker[] = [
       "Dr. Lavina Noronha, Director of Ave Maria Palliative Care, exemplifies humility and dedication. With an MPhil from NIMHANS and a Doctorate from the University of Illinois, she has served as an associate professor and director at Our Lady of the Lake University, USA, with extensive clinical experience in mental health, hospice, and crisis care. Her life changed when she returned to India realizing the lack of support for terminally ill patients. She founded Ave Maria Palliative Care, providing free, compassionate care to patients, regardless of their background, with a dedicated team and community support.",
     img: `${tedxsjecAssetsPrefix}/speakers/dr-lavina-1.avif`,
   },
+  {
+    id: 9,
+    name: "Munita Veigas Rao",
+    profession: "Singer | Songwriter | Performer | Vocal Trainer",
+    description:
+      'Munita Veigas Rao, fondly known as the "Nightingale of Mangalore," is an award-winning singer, songwriter, and vocal trainer celebrated for her dynamic performances across Konkani, regional, and Western music. Having been recently awarded the Dakshina Kannada District Rajyotsava Award in November 2024, Munita has a career spanning over two decades with more than 500 stage performances worldwide. As the founder of her music school, "Musically by Munita," she dedicates her time to nurturing new talent. Her exceptional vocal skills and commitment to music have made her a cherished figure in the community.',
+    img: `${tedxsjecAssetsPrefix}/performers/Munita3.avif`,
+  },
 ];
 
 export const performers: PerformerSection[] = [
@@ -93,16 +101,6 @@ export const performers: PerformerSection[] = [
       `${tedxsjecAssetsPrefix}/performers/Agasthyam1.avif`,
       `${tedxsjecAssetsPrefix}/performers/Agasthyam2.avif`,
       `${tedxsjecAssetsPrefix}/performers/Agasthyam3.avif`,
-    ],
-  },
-  {
-    name: "Munita Veigas Rao",
-    profession: "Singer | Songwriter | Performer | Vocal Trainer",
-    description:
-      'Munita Veigas Rao, fondly known as the "Nightingale of Mangalore," is an award-winning singer, songwriter, and vocal trainer celebrated for her dynamic performances across Konkani, regional, and Western music. Having been recently awarded the Dakshina Kannada District Rajyotsava Award in November 2024, Munita has a career spanning over two decades with more than 500 stage performances worldwide. As the founder of her music school, "Musically by Munita," she dedicates her time to nurturing new talent. Her exceptional vocal skills and commitment to music have made her a cherished figure in the community.',
-    images: [
-      `${tedxsjecAssetsPrefix}/performers/Munita1.avif`,
-      `${tedxsjecAssetsPrefix}/performers/cropped-Munita2.avif`,
     ],
   },
   {
