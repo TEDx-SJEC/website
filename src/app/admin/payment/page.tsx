@@ -4,8 +4,7 @@ import React from "react";
 export default async function Payments() {
   return (
     <>
-      <div className="p-8 flex min-h-screen w-full flex-col bg-background">
-       
+      <div className="p-8 flex min-h-screen w-full flex-col bg-background">       
         <SearchableInfiniteScrollTable />
       </div>
     </>

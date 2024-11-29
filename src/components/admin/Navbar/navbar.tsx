@@ -10,7 +10,7 @@ import Link from "next/link";
 
 export const AdminNavbar = () => {
   return (
-    <div className="flex bg-black h-screen text-white">
+    <div className="flex bg-black h-screen text-white fixed z-[999] sm:static sm:z-auto">
       <Sidebar />
       <NavbarContent />
     </div>
