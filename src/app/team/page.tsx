@@ -33,7 +33,7 @@ const webAndDesignTeam = [
         url: `${tedxsjecAssetsPrefix}/team/santhishm.avif`,
         title: "Frontend ",
         id: 5,
-        name: "Santhishm",
+        name: "Santhsim V Dsouza",
     },
     {
         url: `${tedxsjecAssetsPrefix}/team/naveen.avif`,
@@ -72,13 +72,13 @@ const webAndDesignTeam = [
         name: "Deric Jojo",
     },
     {
-        url: `${tedxsjecAssetsPrefix}/team/alston.avif`,
+        url: `${tedxsjecAssetsPrefix}/team/dummyPhoto.avif`,
         title: "Design",
         id: 12,
         name: "Alston Peter",
     },
     {
-        url: `${tedxsjecAssetsPrefix}/team/dhanush.avif`,
+        url: `${tedxsjecAssetsPrefix}/team/dummyPhoto.avif`,
         title: "Design",
         id: 13,
         name: "Dhanush D",
@@ -88,13 +88,13 @@ const webAndDesignTeam = [
 
 export default function Teams() {
     return (
-        <div className="min-h-screen w-full bg-background py-16 px-4 sm:px-6 md:py-24 lg:py-32">
+        <div className="min-h-screen w-full  py-16 px-4 sm:px-6 md:py-24 lg:py-32">
             <div className="mx-auto max-w-7xl">
-                <BackButton className="mt-5" />
-                <h1 className="mt-8 mb-8 md:mb-12 text-center text-3xl font-black text-redTheme sm:text-4xl md:text-5xl lg:text-7xl">
-                    The Web Team and Design Team
+                <BackButton className="" />
+                <h1 className="mt-8 mb-6 md:mb-8 text-center text-3xl font-black text-redTheme  sm:text-4xl md:text-5xl lg:text-7xl">
+                    The Web and Design Team
                 </h1>
-                <div className="z-10 md:px-10 py-20 h-full flex flex-col items-center justify-center">
+                <div className="z-10 md:px-10  h-full flex flex-col items-center justify-center">
                     <TeamCard members={webAndDesignTeam} />
                 </div>
             </div>
