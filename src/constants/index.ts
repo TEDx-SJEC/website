@@ -71,6 +71,14 @@ export const speakers: Speaker[] = [
       "Dr. Lavina Noronha, Director of Ave Maria Palliative Care, exemplifies humility and dedication. With an MPhil from NIMHANS and a Doctorate from the University of Illinois, she has served as an associate professor and director at Our Lady of the Lake University, USA, with extensive clinical experience in mental health, hospice, and crisis care. Her life changed when she returned to India realizing the lack of support for terminally ill patients. She founded Ave Maria Palliative Care, providing free, compassionate care to patients, regardless of their background, with a dedicated team and community support.",
     img: `${tedxsjecAssetsPrefix}/speakers/dr-lavina-1.avif`,
   },
+  {
+    id: 9,
+    name: "Munita Veigas Rao",
+    profession: "Singer | Songwriter | Performer | Vocal Trainer",
+    description:
+      'Munita Veigas Rao, fondly known as the "Nightingale of Mangalore," is an award-winning singer, songwriter, and vocal trainer celebrated for her dynamic performances across Konkani, regional, and Western music. Having been recently awarded the Dakshina Kannada District Rajyotsava Award in November 2024, Munita has a career spanning over two decades with more than 500 stage performances worldwide. As the founder of her music school, "Musically by Munita," she dedicates her time to nurturing new talent. Her exceptional vocal skills and commitment to music have made her a cherished figure in the community.',
+    img: `${tedxsjecAssetsPrefix}/performers/Munita3.avif`,
+  },
 ];
 
 export const performers: PerformerSection[] = [
@@ -96,16 +104,6 @@ export const performers: PerformerSection[] = [
     ],
   },
   {
-    name: "Munita Veigas Rao",
-    profession: "Singer | Songwriter | Performer | Vocal Trainer",
-    description:
-      'Munita Veigas Rao, fondly known as the "Nightingale of Mangalore," is an award-winning singer, songwriter, and vocal trainer celebrated for her dynamic performances across Konkani, regional, and Western music. Having been recently awarded the Dakshina Kannada District Rajyotsava Award in November 2024, Munita has a career spanning over two decades with more than 500 stage performances worldwide. As the founder of her music school, "Musically by Munita," she dedicates her time to nurturing new talent. Her exceptional vocal skills and commitment to music have made her a cherished figure in the community.',
-    images: [
-      `${tedxsjecAssetsPrefix}/performers/Munita1.avif`,
-      `${tedxsjecAssetsPrefix}/performers/cropped-Munita2.avif`,
-    ],
-  },
-  {
     name: "Harman Preet Singh",
     profession: "Comedian",
     description:
@@ -119,61 +117,61 @@ export const performers: PerformerSection[] = [
 export const prevEdition22: PreviousEdition[] = [
   {
     id: 1,
-    img: `${tedxsjecAssetsPrefix}/prev/2022/image1.webp`,
+    img: `${tedxsjecAssetsPrefix}/prev/2022/image1.jpg`,
   },
   {
     id: 2,
-    img: `${tedxsjecAssetsPrefix}/prev/2022/image2.webp`,
+    img: `${tedxsjecAssetsPrefix}/prev/2022/image2.jpg`,
   },
   {
     id: 3,
-    img: `${tedxsjecAssetsPrefix}/prev/2022/image3.webp`,
+    img: `${tedxsjecAssetsPrefix}/prev/2022/image3.jpg`,
   },
   {
     id: 4,
-    img: `${tedxsjecAssetsPrefix}/prev/2022/image4.webp`,
+    img: `${tedxsjecAssetsPrefix}/prev/2022/image4.jpg`,
   },
   {
     id: 5,
-    img: `${tedxsjecAssetsPrefix}/prev/2022/image5.webp`,
+    img: `${tedxsjecAssetsPrefix}/prev/2022/image5.jpg`,
   },
   {
     id: 6,
-    img: `${tedxsjecAssetsPrefix}/prev/2022/image6.webp`,
+    img: `${tedxsjecAssetsPrefix}/prev/2022/image6.jpg`,
   },
   {
     id: 7,
-    img: `${tedxsjecAssetsPrefix}/prev/2022/image7.webp`,
+    img: `${tedxsjecAssetsPrefix}/prev/2022/image7.jpg`,
   },
 ];
 
 export const prevEdition20: PreviousEdition[] = [
   {
     id: 1,
-    img: `${tedxsjecAssetsPrefix}/prev/2020/image1.webp`,
+    img: `${tedxsjecAssetsPrefix}/prev/2020/image1.jpg`,
   },
   {
     id: 2,
-    img: `${tedxsjecAssetsPrefix}/prev/2020/image2.webp`,
+    img: `${tedxsjecAssetsPrefix}/prev/2020/image2.jpg`,
   },
   {
     id: 3,
-    img: `${tedxsjecAssetsPrefix}/prev/2020/image3.webp`,
+    img: `${tedxsjecAssetsPrefix}/prev/2020/image3.jpg`,
   },
   {
     id: 4,
-    img: `${tedxsjecAssetsPrefix}/prev/2020/image4.webp`,
+    img: `${tedxsjecAssetsPrefix}/prev/2020/image4.jpg`,
   },
   {
     id: 5,
-    img: `${tedxsjecAssetsPrefix}/prev/2020/image5.webp`,
+    img: `${tedxsjecAssetsPrefix}/prev/2020/image5.jpg`,
   },
   {
     id: 6,
-    img: `${tedxsjecAssetsPrefix}/prev/2020/image6.webp`,
+    img: `${tedxsjecAssetsPrefix}/prev/2020/image6.jpg`,
   },
   {
     id: 7,
-    img: `${tedxsjecAssetsPrefix}/prev/2020/image7.webp`,
+    img: `${tedxsjecAssetsPrefix}/prev/2020/image7.jpg`,
   },
 ];
