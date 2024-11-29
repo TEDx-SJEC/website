@@ -68,7 +68,7 @@ const Team = () => {
         <div className="z-10 md:px-10 py-20 h-full flex flex-col items-center justify-center">
             <TeamCard members={coreTeam} />
             <Link href="/team">
-                <Button className="mt-8 px-6 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
+                <Button className="bg-red-600 hover:bg-red-700 mt-8 text-white py-6 px-8 text-xl transition-all duration-300 transform hover:scale-105">
                     Show More
                 </Button>
             </Link>
