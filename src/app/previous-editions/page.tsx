@@ -8,7 +8,7 @@ type Props = {};
 const Previous = (props: Props) => {
   const router = useRouter();
   return (
-    <div className="mx-auto w-full ">
+    <div className="mx-auto w-full mb-10 ">
       <div
         className="h-[60vh] flex flex-col text-center bg-gradient-to-b from-redTheme/60 py-8"
         // style={{
@@ -22,7 +22,7 @@ const Previous = (props: Props) => {
             onClick={() => router.back()}
           >
             <svg
-              className="w-5 h-5"
+              className="w-6 h-6"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -35,7 +35,7 @@ const Previous = (props: Props) => {
                 d="M15 19l-7-7 7-7"
               />
             </svg>
-            <span>Back</span>
+            <span className="text-xl">Back</span>
           </button>
         </div>
         <div className="my-auto">
@@ -46,23 +46,23 @@ const Previous = (props: Props) => {
             Revisit TEDxSJEC 2020 and 2022, where inspiring stories and
             transformative ideas left a lasting impact.
           </p> */}
-          <h2 className="sm:text-6xl text-3xl md:text-[80px] font-black text-whiteTheme mb-4 md:mb-6 leading-tight">
-            Looking back at TED<sup>x</sup>
+          <h2 className="sm:text-6xl text-3xl  md:text-[80px] font-black text-whiteTheme mb-4 md:mb-6 leading-tight">
+            Looking back at<span className=" ml-2">TED<sup>x</sup></span> 
             <span className="pl-1 font-semibold">SJEC</span>
           </h2>
-          <p className="text-base xl:w-1/2 mx-auto md:text-3xl leading-relaxed mb-4 md:mb-6 text-gray-300">
-            Revisit TED<sup>x</sup>
+          <p className="text-base xl:w-1/2 mx-auto md:text-3xl px-3 leading-relaxed mb-4 md:mb-6 text-[rgb(255,255,255,0.6)]">
+            Revisit TED<sup className="">x</sup>
             <span className="pl-1">SJEC</span> 2020 and 2022, where inspiring
             stories and transformative ideas left a lasting impact.
           </p>
         </div>
       </div>
-      <h1 className="text-center xl:text-6xl text-2xl my-5 font-black">
-        2022 Edition
+      <h1 className="text-center  xl:text-6xl text-2xl my-5 font-black">
+      <span className="xl:text-8xl text-4xl">2022</span>   Edition
       </h1>
       <UnsplashGrid year={2022} />
-      <h1 className="text-center xl:text-6xl text-2xl my-5 mt-40 font-black">
-        2020 Edition
+      <h1 className="text-center  xl:text-6xl text-2xl my-5 mt-40 font-black">
+      <span className="xl:text-8xl text-4xl">2020</span> Edition
       </h1>
       <UnsplashGrid year={2020} />
     </div>
