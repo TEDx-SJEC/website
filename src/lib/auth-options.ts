@@ -44,7 +44,7 @@ export const authOptions: NextAuthOptions = {
             const emailPrefix = profile.email.split("@")[0];
 
             // Define BE and MBA patterns
-            const isBEEmail = /^[2][1-4]\d{3}\..+$/; // Matches 21XXXX, 22XXXX, 23XXXX, 24XXXX for BE
+            const isBEEmail = /^[2][1-4][a-z]?\d{2}\..+$/;
             const isMBAEmail = /^[2][3-4]ba\d{3}\..+$/; // Matches 23baXXX, 24baXXX for MBA
             const isMCAEmail = /^[2][3-4]ca\d{3}\..+$/; // Matches 23maXXX, 24maXXX for MCA
 
