@@ -1,5 +1,6 @@
 "use client";
 import { Coupon } from "@/components/admin/code-generation-card";
+import { Payment } from "@/components/payment/payment";
 import { useSession } from "next-auth/react";
 export default function AdminPage() {
   const { data: session } = useSession();
@@ -11,7 +12,7 @@ export default function AdminPage() {
   return (
     <>
       <div className="h-screen flex  items-center justify-center bg-gray-800">
-        <Coupon session={session} />
+        {session?.user?.role === "ADMIN" ? <Coupon session={session} /> : <Payment />}
       </div>
     </>
   );

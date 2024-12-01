@@ -7,6 +7,7 @@ import { MdPayment } from "react-icons/md";
 import { SiTicktick, SiRazorpay } from "react-icons/si";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 export const AdminNavbar = () => {
   return (
@@ -20,6 +21,7 @@ export const AdminNavbar = () => {
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
   const [selected, setSelected] = useState("Dashboard");
+  const { data: session } = useSession();
 
   return (
     <motion.nav
@@ -32,14 +34,16 @@ const Sidebar = () => {
       <TitleSection open={open} />
 
       <div className="space-y-1">
-        <Option
-          Icon={RiCoupon3Line}
-          title="Coupon"
-          selected={selected}
-          setSelected={setSelected}
-          open={open}
-          href="/admin"
-        />
+        {session?.user?.role === "ADMIN" && (
+          <Option
+            Icon={RiCoupon3Line}
+            title="Coupon"
+            selected={selected}
+            setSelected={setSelected}
+            open={open}
+            href="/admin"
+          />
+        )}
         <Option
           Icon={FiUser}
           title="Users"
@@ -56,22 +60,26 @@ const Sidebar = () => {
           open={open}
           href="/admin/payment"
         />
-        <Option
-          Icon={SiTicktick}
-          title="Verify"
-          selected={selected}
-          setSelected={setSelected}
-          open={open}
-          href="/admin/verify"
-        />
-        <Option
-          Icon={SiRazorpay}
-          title="Razorpay"
-          selected={selected}
-          setSelected={setSelected}
-          open={open}
-          href="/admin/razorpay"
-        />
+        {session?.user?.role === "ADMIN" && (
+          <Option
+            Icon={SiTicktick}
+            title="Verify"
+            selected={selected}
+            setSelected={setSelected}
+            open={open}
+            href="/admin/verify"
+          />
+        )}
+        {session?.user?.role === "ADMIN" && (
+          <Option
+            Icon={SiRazorpay}
+            title="Razorpay"
+            selected={selected}
+            setSelected={setSelected}
+            open={open}
+            href="/admin/razorpay"
+          />
+        )}
       </div>
 
       <ToggleClose open={open} setOpen={setOpen} />
@@ -157,7 +165,9 @@ const TitleSection = ({ open }: { open: boolean }) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.125 }}
             >
-              <span className="block text-md font-semibold text-red-500">Tedxsjec</span>
+              <span className="block text-md font-semibold text-red-500">
+                Tedxsjec
+              </span>
               <span className="block text-xs text-gray-400">Admin Page</span>
             </motion.div>
           )}
@@ -233,4 +243,6 @@ const ToggleClose = ({
   );
 };
 
-const NavbarContent = () => <div className="h-[200vh] w-full bg-gray-900"></div>;
+const NavbarContent = () => (
+  <div className="h-[200vh] w-full bg-gray-900"></div>
+);
