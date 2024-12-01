@@ -15,7 +15,7 @@ const QRCodeScanner = () => {
       const userAgent =
         navigator.userAgent || navigator.vendor || (window as any).opera;
       return /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(
-        userAgent.toLowerCase(),
+        userAgent.toLowerCase()
       );
     };
     setIsMobile(checkMobile());
@@ -30,7 +30,7 @@ const QRCodeScanner = () => {
           const url = new URL(result);
 
           if (!url.href.startsWith("https://tedxsjec")) {
-              throw new Error("Invalid QR code . Please scan a valid QR code");
+            throw new Error("Invalid QR code . Please scan a valid QR code");
           }
           // Redirect to the scanned URL
           router.push(url.toString());
@@ -41,8 +41,14 @@ const QRCodeScanner = () => {
     }
   };
 
+  
+
   const handleError = (error: unknown) => {
-    if (error instanceof Error) {
+    if (error instanceof DOMException && error.name === "NotAllowedError") {
+      setError(
+        "Camera access denied. Please allow camera access to scan QR codes."
+      );
+    } else if (error instanceof Error) {
       setError("Error accessing camera: " + error.message);
     } else {
       setError("An unknown error occurred.");
