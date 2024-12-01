@@ -9,16 +9,10 @@ export async function middleware(request: NextRequest) {
   const url = request.nextUrl;
 
   if (url.pathname.startsWith("/admin")) {
-    if (token?.role !== "ADMIN") {
-      return NextResponse.redirect(new URL("/", request.url));
-    }
-  }
-  if (url.pathname.startsWith("/register")) {
     if (token?.role !== "ADMIN" && token?.role !== "COORDINATOR") {
       return NextResponse.redirect(new URL("/", request.url));
     }
   }
-  
 }
 
 // See "Matching Paths" below to learn more
