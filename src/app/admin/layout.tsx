@@ -6,6 +6,7 @@ import "./globals.css";
 import Providers from "@/components/layout/Provider";
 import { AdminNavbar } from "@/components/admin/Navbar/navbar";
 import { useSession } from "next-auth/react";
+import Loading from "./loading";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,9 +15,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { data: session } = useSession({
+  const { data: session, status : sessionStatus } = useSession({
     required: true,
   });
+
+  if (sessionStatus === "loading") {
+    return (
+      <Loading />
+    );
+  } 
 
   if (!session) {
     return (
@@ -31,7 +38,7 @@ export default function RootLayout({
     );
   }
 
-  if (session.user.role !== "ADMIN") {
+  if (session.user.role !== "ADMIN" && session.user.role !== "COORDINATOR") {
     return (
       <div className="w-screen h-screen flex justify-center items-center bg-black text-gray-200">
         <div className="text-center">
