@@ -44,14 +44,16 @@ const Sidebar = () => {
             href="/admin"
           />
         )}
-        <Option
-          Icon={FiUser}
-          title="Users"
-          selected={selected}
-          setSelected={setSelected}
-          open={open}
-          href="/admin/users"
-        />
+        {session?.user?.role === "ADMIN" && (
+          <Option
+            Icon={FiUser}
+            title="Users"
+            selected={selected}
+            setSelected={setSelected}
+            open={open}
+            href="/admin/users"
+          />
+        )}
         <Option
           Icon={MdPayment}
           title="Payments"
@@ -60,16 +62,14 @@ const Sidebar = () => {
           open={open}
           href="/admin/payment"
         />
-        {session?.user?.role === "ADMIN" && (
-          <Option
-            Icon={SiTicktick}
-            title="Verify"
-            selected={selected}
-            setSelected={setSelected}
-            open={open}
-            href="/admin/verify"
-          />
-        )}
+        <Option
+          Icon={SiTicktick}
+          title="Verify"
+          selected={selected}
+          setSelected={setSelected}
+          open={open}
+          href="/admin/verify"
+        />
         {session?.user?.role === "ADMIN" && (
           <Option
             Icon={SiRazorpay}
