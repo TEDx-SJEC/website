@@ -57,8 +57,8 @@ const QRCodeScanner = () => {
             Error
           </h1>
           <p className="text-center text-gray-700">
-            This feature is only available on mobile devices. Please access this
-            page from your smartphone or tablet.
+            This feature is not available on mobile devices. Please access this
+            page from your tablet or laptop.
           </p>
         </div>
       </div>

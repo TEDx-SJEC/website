@@ -5,8 +5,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/layout/Provider";
 import { AdminNavbar } from "@/components/admin/Navbar/navbar";
-import { useSession } from "next-auth/react";
-import Loading from "./loading";
+import { signIn, useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { tailChase } from "ldrs";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,15 +16,39 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { data: session, status : sessionStatus } = useSession({
+  const { data: session, status } = useSession({
     required: true,
+    onUnauthenticated: async () => {
+      await signIn("google");
+    },
   });
 
-  if (sessionStatus === "loading") {
+  if (typeof window !== "undefined") {
+    tailChase.register();
+  }
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (status === "loading") {
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+    }
+  }, [status]);
+
+  if (isLoading || status !== "authenticated" || !session) {
+    // Show the loading spinner if session is loading or not authenticated
     return (
-      <Loading />
+      <div className="flex flex-col items-center justify-center min-h-screen">
+        <l-tail-chase
+          size={"88"}
+          speed={"1.75"}
+          color={"#FF0000"}
+        ></l-tail-chase>
+      </div>
     );
-  } 
+  }
 
   if (!session) {
     return (
