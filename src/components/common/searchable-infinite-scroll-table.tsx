@@ -1,17 +1,20 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { Loader2, Search } from "lucide-react";
 import axios from "axios";
 import debounce from "lodash.debounce";
 import getPaymentCount from "@/app/actions/get-payment-count";
 
-interface TableData {
+interface PaymentData {
     user: {
         name: string;
         email: string;
+        image: string;
+        forms: [{ photo: string }];
     };
     usn?: string;
     razorpayPaymentId: string;
@@ -19,9 +22,9 @@ interface TableData {
     amount: number;
 }
 
-export function SearchableInfiniteScrollTable() {
-    const [data, setData] = useState<TableData[]>([]);
-    const [filteredData, setFilteredData] = useState<TableData[]>([]);
+export function PaymentCards() {
+    const [data, setData] = useState<PaymentData[]>([]);
+    const [filteredData, setFilteredData] = useState<PaymentData[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [totalNumberOfPayments, setTotalNumberOfPayments] = useState(0);
     const [page, setPage] = useState(1);
@@ -41,12 +44,11 @@ export function SearchableInfiniteScrollTable() {
             const users = response.data.users;
 
             if (users.length === 0) {
-                setHasMoreData(false); // No more data to load
+                setHasMoreData(false);
             }
 
             setData((prevData) => {
                 const newData = [...prevData, ...users];
-                // Remove duplicates
                 const uniqueData = Array.from(
                     new Map(newData.map((item) => [item.razorpayPaymentId, item])).values()
                 );
@@ -67,19 +69,18 @@ export function SearchableInfiniteScrollTable() {
     };
 
     const fetchSearchResults = useCallback(async (query: string) => {
-        setPage(1); // Reset page number
-        setHasMoreData(true); // Reset hasMoreData
+        setPage(1);
+        setHasMoreData(true);
         try {
             const response = await axios.get(`/api/users/payment?page=1&search=${encodeURIComponent(query)}`);
             const users = response.data.users;
-            setData(users); // Set new data from search
-            setFilteredData(users); // Set filtered data to the same as new data
+            setData(users);
+            setFilteredData(users);
         } catch (error) {
             console.error("Error fetching payment details:", error);
         }
     }, []);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     const debouncedFetch = useCallback(
         debounce((query: string) => {
             fetchSearchResults(query);
@@ -90,15 +91,14 @@ export function SearchableInfiniteScrollTable() {
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
         setSearchTerm(value);
-        debouncedFetch(value); // Use debounced fetch function
+        debouncedFetch(value);
     };
 
     useEffect(() => {
-        loadMoreData(); // Initial load
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        loadMoreData();
         async function getNumberOfPayments() {
             const count = await getPaymentCount();
-            setTotalNumberOfPayments(count ?? 0); // Use 0 if count is null
+            setTotalNumberOfPayments(count ?? 0);
         }
         getNumberOfPayments();
     }, []);
@@ -119,12 +119,10 @@ export function SearchableInfiniteScrollTable() {
 
         return () => {
             if (loaderRef.current) {
-                // eslint-disable-next-line react-hooks/exhaustive-deps
                 observer.unobserve(loaderRef.current);
             }
             observer.disconnect();
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLoading]);
 
     return (
@@ -143,26 +141,30 @@ export function SearchableInfiniteScrollTable() {
                     size={20}
                 />
             </div>
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead>Name</TableHead>
-                        <TableHead>Email</TableHead>
-                        <TableHead>Payment ID</TableHead>
-                        <TableHead>Amount</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {(searchTerm ? filteredData : data).map((item, index) => (
-                        <TableRow key={index}>
-                            <TableCell>{item.user.name}</TableCell>
-                            <TableCell>{item.user.email}</TableCell>
-                            <TableCell>{item.razorpayPaymentId}</TableCell>
-                            <TableCell>₹{item.amount.toFixed(2)}</TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {(searchTerm ? filteredData : data).map((item, index) => (
+                    <Card key={index} className="overflow-hidden">
+                        <CardHeader className="p-0">
+                            <div className="relative pb-[100%]">
+                                <Avatar className="absolute inset-0 w-full h-full rounded-none">
+                                    <AvatarImage
+                                        src={item.user.forms?.[0]?.photo || ""}
+                                        alt={item.user.name}
+                                        className="object-cover"
+                                    />
+                                    <AvatarFallback>{item.user.name.charAt(0)}</AvatarFallback>
+                                </Avatar>
+                            </div>
+                        </CardHeader>
+                        <CardContent className="p-4">
+                            <CardTitle className="text-xl mb-2">{item.user.name}</CardTitle>
+                            <p className="text-sm text-muted-foreground mb-1">{item.user.email}</p>
+                            <p className="text-sm text-muted-foreground mb-1">ID: {item.razorpayPaymentId}</p>
+                            <p className="text-sm font-semibold">Amount: ₹{item.amount.toFixed(2)}</p>
+                        </CardContent>
+                    </Card>
+                ))}
+            </div>
             {searchTerm === "" && hasMoreData && (
                 <div ref={loaderRef} className="flex justify-center py-4">
                     {isLoading && <Loader2 className="h-6 w-6 animate-spin" />}
