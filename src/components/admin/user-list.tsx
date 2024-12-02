@@ -10,6 +10,7 @@ import { ChevronDownIcon, SearchIcon } from "lucide-react";
 import { Input } from "../ui/input";
 import debounce from "lodash.debounce";
 import ChangeRole from "./change-role";
+import getUserCount from "@/app/actions/get-user-count";
 
 export interface User {
     id: string;
@@ -31,6 +32,7 @@ const UsersList: React.FC<UsersListProps> = ({ initialUsers, initialPage }) => {
     const [hasMore, setHasMore] = useState(true);
     const [searchQuery, setSearchQuery] = useState("");
     const loader = useRef<HTMLDivElement | null>(null);
+    const [totalNumberOfUsers, setTotalNumberOfUsers] = useState(0);
 
     const fetchUsers = useCallback(async (page: number, query: string, isNewSearch: boolean) => {
         if (loading) return;
@@ -92,6 +94,14 @@ const UsersList: React.FC<UsersListProps> = ({ initialUsers, initialPage }) => {
         return () => observer.disconnect();
     }, [hasMore, loadMoreUsers]);
 
+    useEffect(() => {
+        async function getNumberOfUsers() {
+            const count = await getUserCount();
+            setTotalNumberOfUsers(count ?? 0); // Use 0 if count is null
+        }
+        getNumberOfUsers();
+    }, []);
+
     return (
         <Card className="w-full">
             <div className="flex justify-end gap-2 mt-5 p-5">
@@ -107,7 +117,7 @@ const UsersList: React.FC<UsersListProps> = ({ initialUsers, initialPage }) => {
                 </div>
             </div>
             <CardHeader>
-                <CardTitle>Users</CardTitle>
+                <CardTitle>Users {totalNumberOfUsers}</CardTitle>
                 <CardDescription>Manage user roles and permissions.</CardDescription>
             </CardHeader>
             <CardContent>
@@ -126,17 +136,8 @@ const UsersList: React.FC<UsersListProps> = ({ initialUsers, initialPage }) => {
                                     </p>
                                 </div>
                             </div>
-                            <Popover>
-                                <PopoverTrigger asChild>
-                                    <Button variant="outline" size="sm">
-                                        {user.role}{" "}
-                                        <ChevronDownIcon className="w-4 h-4 ml-2 text-muted-foreground" />
-                                    </Button>
-                                </PopoverTrigger>
-                                <PopoverContent className="w-auto p-0" align="center">
-                                    <ChangeRole userId={user.id} userRole={user.role} />
-                                </PopoverContent>
-                            </Popover>
+
+                            <ChangeRole userId={user.id} userRole={user.role} />
                         </div>
                     ))}
                 </div>

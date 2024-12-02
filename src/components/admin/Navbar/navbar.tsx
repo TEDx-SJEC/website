@@ -4,14 +4,14 @@ import { IconType } from "react-icons";
 import { FiChevronDown, FiChevronsRight, FiUser } from "react-icons/fi";
 import { RiCoupon3Line } from "react-icons/ri";
 import { MdPayment } from "react-icons/md";
-import { SiTicktick } from "react-icons/si";
-import { SiRazorpay } from "react-icons/si";
+import { SiTicktick, SiRazorpay } from "react-icons/si";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 export const AdminNavbar = () => {
   return (
-    <div className="flex bg-indigo-50 h-screen ">
+    <div className="flex bg-black h-screen text-white fixed z-[999] sm:static sm:z-auto">
       <Sidebar />
       <NavbarContent />
     </div>
@@ -21,11 +21,12 @@ export const AdminNavbar = () => {
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
   const [selected, setSelected] = useState("Dashboard");
+  const { data: session } = useSession();
 
   return (
     <motion.nav
       layout
-      className=" sticky top-0 h-screen shrink-0 border-r border-slate-300 bg-white p-2"
+      className="sticky top-0 h-screen shrink-0 border-r border-gray-700 bg-gray-900 p-2"
       style={{
         width: open ? "225px" : "fit-content",
       }}
@@ -33,22 +34,26 @@ const Sidebar = () => {
       <TitleSection open={open} />
 
       <div className="space-y-1">
-        <Option
-          Icon={RiCoupon3Line}
-          title="Coupon"
-          selected={selected}
-          setSelected={setSelected}
-          open={open}
-          href="/admin"
-        />
-        <Option
-          Icon={FiUser}
-          title="Users"
-          selected={selected}
-          setSelected={setSelected}
-          open={open}
-          href="/admin/users"
-        />
+        {session?.user?.role === "ADMIN" && (
+          <Option
+            Icon={RiCoupon3Line}
+            title="Coupon"
+            selected={selected}
+            setSelected={setSelected}
+            open={open}
+            href="/admin"
+          />
+        )}
+        {session?.user?.role === "ADMIN" && (
+          <Option
+            Icon={FiUser}
+            title="Users"
+            selected={selected}
+            setSelected={setSelected}
+            open={open}
+            href="/admin/users"
+          />
+        )}
         <Option
           Icon={MdPayment}
           title="Payments"
@@ -65,14 +70,16 @@ const Sidebar = () => {
           open={open}
           href="/admin/verify"
         />
-        <Option
-          Icon={SiRazorpay}
-          title="Razorpay"
-          selected={selected}
-          setSelected={setSelected}
-          open={open}
-          href="/admin/razorpay"
-        />
+        {session?.user?.role === "ADMIN" && (
+          <Option
+            Icon={SiRazorpay}
+            title="Razorpay"
+            selected={selected}
+            setSelected={setSelected}
+            open={open}
+            href="/admin/razorpay"
+          />
+        )}
       </div>
 
       <ToggleClose open={open} setOpen={setOpen} />
@@ -104,8 +111,8 @@ const Option = ({
         onClick={() => setSelected(title)}
         className={`relative flex h-10 w-full items-center rounded-md transition-colors ${
           selected === title
-            ? "bg-indigo-100 text-indigo-800"
-            : "text-slate-500 hover:bg-slate-100"
+            ? "bg-red-500 text-white"
+            : "text-gray-400 hover:bg-gray-800 hover:text-white"
         }`}
       >
         <motion.div
@@ -120,7 +127,7 @@ const Option = ({
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.125 }}
-            className="text-xs font-medium"
+            className="text-sm font-medium"
           >
             {title}
           </motion.span>
@@ -135,7 +142,7 @@ const Option = ({
             }}
             style={{ y: "-50%" }}
             transition={{ delay: 0.5 }}
-            className="absolute right-2 top-1/2 size-4 rounded bg-indigo-500 text-xs text-white"
+            className="absolute right-2 top-1/2 size-4 rounded bg-red-500 text-xs text-white"
           >
             {notifs}
           </motion.span>
@@ -147,8 +154,8 @@ const Option = ({
 
 const TitleSection = ({ open }: { open: boolean }) => {
   return (
-    <div className="mb-3 border-b border-slate-300 pb-3">
-      <div className="flex cursor-pointer items-center justify-between rounded-md transition-colors hover:bg-slate-100">
+    <div className="mb-3 border-b border-gray-700 pb-3">
+      <div className="flex cursor-pointer items-center justify-between rounded-md transition-colors hover:bg-gray-800">
         <div className="flex items-center gap-2">
           <Logo />
           {open && (
@@ -158,23 +165,24 @@ const TitleSection = ({ open }: { open: boolean }) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.125 }}
             >
-              <span className="block text-xs font-semibold">Tedxsjec</span>
-              <span className="block text-xs text-slate-500">Admin Page</span>
+              <span className="block text-md font-semibold text-red-500">
+                Tedxsjec
+              </span>
+              <span className="block text-xs text-gray-400">Admin Page</span>
             </motion.div>
           )}
         </div>
-        {open && <FiChevronDown className="mr-2" />}
+        {open && <FiChevronDown className="mr-2 text-gray-400" />}
       </div>
     </div>
   );
 };
 
 const Logo = () => {
-  // Temp logo from https://logoipsum.com/
   return (
     <motion.div
       layout
-      className="grid size-10 shrink-0 place-content-center rounded-md bg-indigo-600"
+      className="grid size-10 shrink-0 place-content-center rounded-md bg-red-600"
     >
       <svg
         width="24"
@@ -182,7 +190,7 @@ const Logo = () => {
         viewBox="0 0 50 39"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="fill-slate-50"
+        className="fill-gray-50"
       >
         <path
           d="M16.4992 2H37.5808L22.0816 24.9729H1L16.4992 2Z"
@@ -208,12 +216,12 @@ const ToggleClose = ({
     <motion.button
       layout
       onClick={() => setOpen((pv) => !pv)}
-      className="absolute bottom-0 left-0 right-0 border-t border-slate-300 transition-colors hover:bg-slate-100"
+      className="absolute bottom-0 left-0 right-0 border-t border-gray-700 transition-colors hover:bg-gray-800"
     >
       <div className="flex items-center p-2">
         <motion.div
           layout
-          className="grid size-10 place-content-center text-lg"
+          className="grid size-10 place-content-center text-lg text-gray-400"
         >
           <FiChevronsRight
             className={`transition-transform ${open && "rotate-180"}`}
@@ -225,7 +233,7 @@ const ToggleClose = ({
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.125 }}
-            className="text-xs font-medium"
+            className="text-xs font-medium text-gray-400"
           >
             Hide
           </motion.span>
@@ -235,4 +243,6 @@ const ToggleClose = ({
   );
 };
 
-const NavbarContent = () => <div className="h-[200vh] w-full"></div>;
+const NavbarContent = () => (
+  <div className="h-[200vh] w-full bg-gray-900"></div>
+);

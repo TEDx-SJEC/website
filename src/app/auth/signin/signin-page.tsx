@@ -53,7 +53,11 @@ export default function SignIn() {
                     <l-tail-chase size={"88"} speed={"1.75"} color={"#FF0000"}></l-tail-chase>
                 </div>
             ) : (
-                <p>Redirecting...</p>
+                <div className="flex flex-col items-center">
+                    <l-tail-chase size={"88"} speed={"1.75"} color={"#FF0000"}></l-tail-chase>
+                    <p className="text-red-500 text-center mt-4">Please wait, redirecting...</p>
+                </div>
+                
             )}
         </div>
     );
