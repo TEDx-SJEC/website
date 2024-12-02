@@ -52,6 +52,12 @@ export async function GET(request: NextRequest) {
                         select: {
                             name: true,
                             email: true,
+                            forms: {
+                                select: {
+                                    photo: true,
+                                },
+                                take: 1,
+                            },
                         },
                     },
                 },
