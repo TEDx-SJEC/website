@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    if (session.user?.role !== "ADMIN") {
+    if (session.user?.role !== "ADMIN" && session.user?.role !== "COORDINATOR") {
         return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
     }
     const { searchParams } = new URL(request.url);
