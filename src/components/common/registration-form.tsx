@@ -109,14 +109,16 @@ export default function RegistrationForm() {
                 });
                 form.setValue("photo", resp.url);
             } else if (files.length === 2) {
-                resp = await Promise.all(files.map(file => 
-                    edgestore.publicFiles.upload({
-                        file: file,
-                        onProgressChange: (progress) => {
-                            console.log(progress);
-                        },
-                    })
-                ));
+                resp = await Promise.all(
+                    files.map((file) =>
+                        edgestore.publicFiles.upload({
+                            file: file,
+                            onProgressChange: (progress) => {
+                                console.log(progress);
+                            },
+                        })
+                    )
+                );
                 form.setValue("photo", resp[0].url);
                 form.setValue("idCard", resp[1].url);
             }
@@ -217,9 +219,14 @@ export default function RegistrationForm() {
                                 }
 
                                 // Submit the form
-                                const formResponse = form.getValues();
-                                await submitForm(formResponse as FormDataInterface, pricing.finalPrice);
-                                toast.success("✅ Form submitted successfully!");
+                                try {
+                                    const formResponse = form.getValues();
+                                    await submitForm(formResponse as FormDataInterface, pricing.finalPrice);
+                                    toast.success("✅ Form submitted successfully!");
+                                } catch (submitError) {
+                                    console.error("Form submission failed:", submitError);
+                                    toast.error("An error occurred while submitting the form.");
+                                }
 
                                 // Mark success
                                 setSuccess(true);
