@@ -21,7 +21,6 @@ import { basePrice, initialdiscount, sjecFacultyPrice, sjecStudentPrice } from "
 import { getSjecMemberType } from "@/lib/helper";
 import { FormDataInterface } from "@/types";
 import getErrorMessage from "@/utils/getErrorMessage";
-import { useUploadThing } from "@/utils/uploadthing";
 import { baseSchema, studentFormSchema, studentSchema } from "@/utils/zod-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn, signOut, useSession } from "next-auth/react";
@@ -182,9 +181,19 @@ export default function RegistrationForm() {
                     }
                 },
                 notes: {
-                    customerName: form.getValues("name"),
-                    customerEmail: session?.user?.email,
-                    customerContact: form.getValues("phone"),
+                    name: form.getValues("name"),
+                    email: session?.user?.email,
+                    contact: form.getValues("phone"),
+                    designation: form.getValues("designation"),
+                    foodPreference: form.getValues("foodPreference"),
+                    couponCode: couponCode,
+                    entityName: form.getValues("entityName"),
+                    memberType: memberType,
+                    photo: form.getValues("photo"),
+                    idCard: form.getValues("idCard"),
+                    createdBy: session?.user?.id,
+                    createdAt: new Date().toISOString(),
+                    amount: pricing.finalPrice,
                 },
                 prefill: {
                     name: form.getValues("name"),
