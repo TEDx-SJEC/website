@@ -98,44 +98,6 @@ export default function RegistrationForm() {
         },
     });
 
-    const { startUpload, routeConfig } = useUploadThing("imageUploader", {
-        onClientUploadComplete: (res) => {
-            if (!res || res.length === 0) {
-                toast.error("No files uploaded. Please try again.");
-                return;
-            }
-            try {
-                if (res.length === 2) {
-                    form.setValue("idCard", res[0].url);
-                    form.setValue("photo", res[1].url);
-                } else if (res.length === 1) {
-                    form.setValue("photo", res[0].url);
-                }
-                toast.success("✅ Images uploaded successfully!");
-            } catch (error) {
-                console.error("Error processing upload response:", error);
-                toast.error("Error processing uploaded files.");
-            }
-        },
-        onUploadError: (error) => {
-            console.error("Upload error:", error);
-            toast.error("Image upload failed. Please inform us at support.tedx@sjec.ac.in or click the contact us button at buttom right corner.");
-        },
-    });
-
-    const handleFileUpload = (id: "idCard" | "photo", files: File[]) => {
-        setUploadedFiles((prevFiles) => {
-            const existing = prevFiles.find((file) => file.id === id);
-            if (existing) {
-                return prevFiles.map((file) => (file.id === id ? { ...file, files } : file));
-            } else {
-                return [...prevFiles, { id, files }];
-            }
-        });
-
-        form.setValue(id, files.map((file) => file.name).join(", "));
-    };
-
     const handlePayment = async () => {
         setIsProcessing(true);
         const couponCode = form.getValues("couponCode");
@@ -184,21 +146,6 @@ export default function RegistrationForm() {
                         if (verificationData.isOk) {
                             // Process after successful payment verification
                             try {
-                                if (uploadedFiles.length > 0) {
-                                    const allFiles = uploadedFiles.flatMap((file) => file.files);
-
-                                    if (allFiles.length > 0) {
-                                        const uploadResult =  await startUpload(allFiles);
-                                        if (!uploadResult) {
-                                          toast.error("Error uploading files. Please contact support from the contact us button at buttom right corner.");
-                                        }else{
-                                          toast.success("✅ Files uploaded successfully!");
-                                        }
-                                    } else {
-                                        toast.warning("⚠️ No files to upload.");
-                                    }
-                                }
-
                                 // Invalidate coupon if present
                                 if (couponCode) {
                                     const couponResult = await invalidateCouponCode(couponCode, session!);
