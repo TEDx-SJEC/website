@@ -36,6 +36,8 @@ import { FileUpload } from "../ui/file-upload";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import InfoButton from "../ui/info-button";
 import { redirect } from "next/navigation";
+import { useEdgeStore } from "../../lib/edgestore";
+import { progress } from "framer-motion";
 
 declare global {
     interface Window {
@@ -63,6 +65,7 @@ export default function RegistrationForm() {
     });
 
     const { data: session } = useSession();
+    const { edgestore } = useEdgeStore();
 
     if (!session) {
         redirect("/auth/signin/?callbackUrl=/register");
@@ -94,30 +97,35 @@ export default function RegistrationForm() {
         },
     });
 
-    const { startUpload, routeConfig } = useUploadThing("imageUploader", {
-        onClientUploadComplete: (res) => {
-            if (!res || res.length === 0) {
-                toast.error("No files uploaded. Please try again.");
-                return;
+    const handleFileUploadToEdgeStore = async (files: File[]) => {
+        let resp;
+        try {
+            if (files.length === 1) {
+                resp = await edgestore.publicFiles.upload({
+                    file: files[0],
+                    onProgressChange: (progress) => {
+                        console.log(progress);
+                    },
+                });
+                form.setValue("photo", resp.url);
+            } else if (files.length === 2) {
+                resp = await Promise.all(files.map(file => 
+                    edgestore.publicFiles.upload({
+                        file: file,
+                        onProgressChange: (progress) => {
+                            console.log(progress);
+                        },
+                    })
+                ));
+                form.setValue("photo", resp[0].url);
+                form.setValue("idCard", resp[1].url);
             }
-            try {
-                if (res.length === 2) {
-                    form.setValue("idCard", res[0].url);
-                    form.setValue("photo", res[1].url);
-                } else if (res.length === 1) {
-                    form.setValue("photo", res[0].url);
-                }
-                toast.success("✅ Images uploaded successfully!");
-            } catch (error) {
-                console.error("Error processing upload response:", error);
-                toast.error("Error processing uploaded files.");
-            }
-        },
-        onUploadError: (error) => {
-            console.error("Upload error:", error);
-            toast.error("Image upload failed. Please inform us at support.tedx@sjec.ac.in or click the contact us button at buttom right corner.");
-        },
-    });
+            return true;
+        } catch (error) {
+            console.error("File upload failed:", error);
+            return false;
+        }
+    };
 
     const handleFileUpload = (id: "idCard" | "photo", files: File[]) => {
         setUploadedFiles((prevFiles) => {
@@ -184,11 +192,15 @@ export default function RegistrationForm() {
                                     const allFiles = uploadedFiles.flatMap((file) => file.files);
 
                                     if (allFiles.length > 0) {
-                                        const uploadResult =  await startUpload(allFiles);
+                                        //sent only first file to the function
+                                        const uploadResult = await handleFileUploadToEdgeStore(allFiles);
+
                                         if (!uploadResult) {
-                                          toast.error("Error uploading files. Please contact support from the contact us button at buttom right corner.");
-                                        }else{
-                                          toast.success("✅ Files uploaded successfully!");
+                                            toast.error(
+                                                "Error uploading files. Please contact support from the contact us button at buttom right corner."
+                                            );
+                                        } else {
+                                            toast.success("✅ Files uploaded successfully!");
                                         }
                                     } else {
                                         toast.warning("⚠️ No files to upload.");
@@ -220,7 +232,7 @@ export default function RegistrationForm() {
                                 "Payment verification failed: " + getErrorMessage(verificationData.error)
                             );
                         }
-                    } catch (handlerError:any) {
+                    } catch (handlerError: any) {
                         console.error(
                             "Payment verification or post-payment processing failed:",
                             handlerError
@@ -263,7 +275,6 @@ export default function RegistrationForm() {
             setIsProcessing(false);
         }
     };
-
 
     const onSubmit = async (values: FormSchema) => {
         await handlePayment();
