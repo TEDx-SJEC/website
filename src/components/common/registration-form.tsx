@@ -36,6 +36,8 @@ import { FileUpload } from "../ui/file-upload";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import InfoButton from "../ui/info-button";
 import { redirect } from "next/navigation";
+import { UploadDropzone } from "@uploadthing/react";
+import { OurFileRouter } from "@/app/api/uploadthing/core";
 
 declare global {
     interface Window {
@@ -91,6 +93,8 @@ export default function RegistrationForm() {
             entityName: "",
             couponCode: "",
             foodPreference: "veg",
+            photo: "",
+            idCard: "",
         },
     });
 
@@ -530,12 +534,27 @@ export default function RegistrationForm() {
                                                 <FormItem>
                                                     <FormLabel>ID Card</FormLabel>
                                                     <FormControl>
-                                                        <FileUpload
-                                                            key={"idCard"}
-                                                            onChange={(files) =>
-                                                                handleFileUpload("idCard", files)
-                                                            }
-                                                        />
+                                                    <UploadDropzone<OurFileRouter, "imageUploader">
+                                                    disabled={field.value !== ""}
+                                                    endpoint="imageUploader"
+                                                    onClientUploadComplete={(res) => {
+                                                        console.log("Files: ", res);
+                                                        if (!res || res.length === 0) {
+                                                            toast.error("No files uploaded. Please try again.");
+                                                            return;
+                                                        }
+                                                        form.setValue("idCard", res[0].url);
+                                                        toast.dismiss();
+                                                        toast.success("✅ Id card uploaded successfully!");
+                                                    }}
+                                                    onUploadError={(error) => {
+                                                        console.error("Upload error:", error);
+                                                        toast.error("ID upload failed. Please inform us at support.tedx@sjec.ac.in or click the contact us button at buttom right corner.");
+                                                    }}
+                                                    onUploadBegin={() => {
+                                                        toast.loading("Uploading ID card..., dont close the window");
+                                                    }}
+                                                />
                                                     </FormControl>
                                                     <FormDescription>
                                                         Upload your College ID card image
@@ -553,14 +572,26 @@ export default function RegistrationForm() {
                                         <FormItem>
                                             <FormLabel>Photo</FormLabel>
                                             <FormControl>
-                                                <FileUpload
-                                                    // enable photo upload only if the member type is student and not uploaded id
-                                                    disabled={
-                                                        memberType === "student" &&
-                                                        !uploadedFiles.find((file) => file.id === "idCard")
-                                                    }
-                                                    key={"photo"}
-                                                    onChange={(files) => handleFileUpload("photo", files)}
+                                               <UploadDropzone<OurFileRouter, "imageUploader">
+                                                disabled={field.value !== ""}
+                                                    endpoint="imageUploader"
+                                                    onClientUploadComplete={(res) => {
+                                                        console.log("Files: ", res);
+                                                        if (!res || res.length === 0) {
+                                                            toast.error("No files uploaded. Please try again.");
+                                                            return;
+                                                        }
+                                                        form.setValue("photo", res[0].url);
+                                                        toast.dismiss();
+                                                        toast.success("✅ Photo uploaded successfully!");
+                                                    }}
+                                                    onUploadError={(error) => {
+                                                        console.error("Upload error:", error);
+                                                        toast.error("Image upload failed. Please inform us at support.tedx@sjec.ac.in or click the contact us button at buttom right corner.");
+                                                    }}
+                                                    onUploadBegin={() => {
+                                                        toast.loading("Uploading images..., dont close the window");
+                                                    }}
                                                 />
                                             </FormControl>
                                             <FormDescription>
