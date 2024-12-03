@@ -13,6 +13,8 @@
     "migrate-latest-w": "wsl sh -c \"export $(grep -v '^#' .env.local | xargs) && LATEST_MIGRATION=$(find prisma/migrations/*/ -type d -name '[0-9]*_*' | sort -r | head -n 1) && turso db shell $TURSO_DB_NAME < '${LATEST_MIGRATION}migration.sql'\""
   },
   "dependencies": {
+    "@edgestore/react": "^0.2.2",
+    "@edgestore/server": "^0.2.2",
     "@gsap/react": "^2.1.1",
     "@hookform/resolvers": "^3.9.0",
     "@libsql/client": "^0.8.1",
