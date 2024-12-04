@@ -491,26 +491,76 @@ export default function RegistrationForm() {
                                                     <FormLabel>ID Card</FormLabel>
                                                     <FormControl>
                                                     <UploadDropzone<OurFileRouter, "imageUploader">
-                                                    disabled={field.value !== ""}
-                                                    endpoint="imageUploader"
-                                                    onClientUploadComplete={(res) => {
-                                                        console.log("Files: ", res);
-                                                        if (!res || res.length === 0) {
-                                                            toast.error("No files uploaded. Please try again.");
-                                                            return;
-                                                        }
-                                                        form.setValue("idCard", res[0].url);
-                                                        toast.dismiss();
-                                                        toast.success("✅ Id card uploaded successfully!");
-                                                    }}
-                                                    onUploadError={(error) => {
-                                                        console.error("Upload error:", error);
-                                                        toast.error("ID upload failed. Please inform us at support.tedx@sjec.ac.in or click the contact us button at buttom right corner.");
-                                                    }}
-                                                    onUploadBegin={() => {
-                                                        toast.loading("Uploading ID card..., dont close the window");
-                                                    }}
-                                                />
+                                                         appearance={{
+                                                            button: `
+                                                              bg-red-500 
+                                                              text-white 
+                                                              hover:bg-red-600 
+                                                              disabled:bg-red-400 
+                                                              disabled:cursor-not-allowed 
+                                                              focus:ring-4 
+                                                              focus:ring-red-300 
+                                                              dark:focus:ring-red-700 
+                                                              rounded-md 
+                                                              px-4 
+                                                              py-2 
+                                                              transition-all 
+                                                              ease-in-out
+                                                            `,
+                                                            allowedContent: `
+                                                              text-gray-400 
+                                                              text-sm 
+                                                              italic  
+                                                              dark:text-gray-500
+                                                            `,
+                                                          }}
+                                                          content={{
+                                                            button({ ready, isUploading }) {
+                                                            if(field.value !== ""){
+                                                                return <span>Uploaded</span>;
+                                                            }
+                                                              if (isUploading) {
+                                                                return <span>Uploading your file...</span>;
+                                                              }
+                                                              if (ready) {
+                                                                return <span>Click to upload</span>;
+                                                              }
+                                                              
+                                                              return <span>Preparing to upload...</span>;
+                                                            },
+                                                            allowedContent({ ready, fileTypes, isUploading }) {
+                                                              if (isUploading) {
+                                                                return <span>Uploading supported file types...</span>;
+                                                              }
+                                                              if (ready) {
+                                                                return <span>Select a image then click on upload below</span>;
+                                                              }
+                                                              return <span>Checking allowed file types...</span>;
+                                                            },
+                                                            label({  }) {
+                                                              return <div style={{ marginBottom: "0.5rem", fontWeight: "600" }}>Choose image or drag and drop</div>;
+                                                            },
+                                                          }}
+                                                        disabled={field.value !== ""}
+                                                        endpoint="imageUploader"
+                                                        onClientUploadComplete={(res) => {
+                                                            console.log("Files: ", res);
+                                                            if (!res || res.length === 0) {
+                                                                toast.error("No files uploaded. Please try again.");
+                                                                return;
+                                                            }
+                                                            form.setValue("idCard", res[0].url);
+                                                            toast.dismiss();
+                                                            toast.success("✅ Id card uploaded successfully!");
+                                                        }}
+                                                        onUploadError={(error) => {
+                                                            console.error("Upload error:", error);
+                                                            toast.error("ID upload failed. Please inform us at support.tedx@sjec.ac.in or click the contact us button at buttom right corner.");
+                                                        }}
+                                                        onUploadBegin={() => {
+                                                            toast.loading("Uploading ID card..., dont close the window");
+                                                        }}
+                                                    />
                                                     </FormControl>
                                                     <FormDescription>
                                                         Upload your College ID card image
