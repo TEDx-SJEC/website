@@ -1,175 +1,176 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 import { Loader2, Search } from "lucide-react";
 import axios from "axios";
 import debounce from "lodash.debounce";
-import getPaymentCount from "@/app/actions/get-payment-count";
 
-interface PaymentData {
-    user: {
-        name: string;
-        email: string;
-        image: string;
-        forms: [{ photo: string }];
-    };
-    usn?: string;
-    razorpayPaymentId: string;
-    contactNumber: string;
-    amount: number;
+interface TableData {
+  user: {
+    name: string;
+    email: string;
+  };
+  usn?: string;
+  razorpayPaymentId: string;
+  contactNumber: string;
+  amount: number;
 }
 
-export function PaymentCards() {
-    const [data, setData] = useState<PaymentData[]>([]);
-    const [filteredData, setFilteredData] = useState<PaymentData[]>([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [totalNumberOfPayments, setTotalNumberOfPayments] = useState(0);
-    const [page, setPage] = useState(1);
-    const [searchTerm, setSearchTerm] = useState("");
-    const [hasMoreData, setHasMoreData] = useState(true);
-    const loaderRef = useRef<HTMLDivElement>(null);
-    const observerRef = useRef<IntersectionObserver | null>(null);
+export function SearchableInfiniteScrollTable() {
+  const [data, setData] = useState<TableData[]>([]);
+  const [filteredData, setFilteredData] = useState<TableData[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [hasMoreData, setHasMoreData] = useState(true);
+  const loaderRef = useRef<HTMLDivElement>(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
-    const getPaymentDetails = async (page: number, query: string) => {
-        if (isLoading || !hasMoreData) return;
+  const getPaymentDetails = async (page: number, query: string) => {
+    if (isLoading || !hasMoreData) return;
 
-        setIsLoading(true);
-        try {
-            const response = await axios.get(
-                `/api/users/payment?page=${page}&search=${encodeURIComponent(query)}`
-            );
-            const users = response.data.users;
+    setIsLoading(true);
+    try {
+      const response = await axios.get(
+        `/api/users/payment?page=${page}&search=${encodeURIComponent(query)}`,
+      );
+      const users = response.data.users;
 
-            if (users.length === 0) {
-                setHasMoreData(false);
-            }
+      if (users.length === 0) {
+        setHasMoreData(false); // No more data to load
+      }
 
-            setData((prevData) => {
-                const newData = [...prevData, ...users];
-                const uniqueData = Array.from(
-                    new Map(newData.map((item) => [item.razorpayPaymentId, item])).values()
-                );
-                return uniqueData;
-            });
-            setPage((prevPage) => prevPage + 1);
-        } catch (error) {
-            console.error("Error fetching payment details:", error);
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    const loadMoreData = () => {
-        if (searchTerm === "") {
-            getPaymentDetails(page, "");
-        }
-    };
-
-    const fetchSearchResults = useCallback(async (query: string) => {
-        setPage(1);
-        setHasMoreData(true);
-        try {
-            const response = await axios.get(`/api/users/payment?page=1&search=${encodeURIComponent(query)}`);
-            const users = response.data.users;
-            setData(users);
-            setFilteredData(users);
-        } catch (error) {
-            console.error("Error fetching payment details:", error);
-        }
-    }, []);
-
-    const debouncedFetch = useCallback(
-        debounce((query: string) => {
-            fetchSearchResults(query);
-        }, 500),
-        []
-    );
-
-    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-        setSearchTerm(value);
-        debouncedFetch(value);
-    };
-
-    useEffect(() => {
-        loadMoreData();
-        async function getNumberOfPayments() {
-            const count = await getPaymentCount();
-            setTotalNumberOfPayments(count ?? 0);
-        }
-        getNumberOfPayments();
-    }, []);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                if (entries[0].isIntersecting && !isLoading) {
-                    loadMoreData();
-                }
-            },
-            { threshold: 1.0 }
+      setData((prevData) => {
+        const newData = [...prevData, ...users];
+        // Remove duplicates
+        const uniqueData = Array.from(
+          new Map(
+            newData.map((item) => [item.razorpayPaymentId, item]),
+          ).values(),
         );
+        return uniqueData;
+      });
+      setPage((prevPage) => prevPage + 1);
+    } catch (error) {
+      console.error("Error fetching payment details:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-        if (loaderRef.current) {
-            observer.observe(loaderRef.current);
+  const loadMoreData = () => {
+    if (searchTerm === "") {
+      getPaymentDetails(page, "");
+    }
+  };
+
+  const fetchSearchResults = useCallback(async (query: string) => {
+    setPage(1); // Reset page number
+    setHasMoreData(true); // Reset hasMoreData
+    try {
+      const response = await axios.get(
+        `/api/users/payment?page=1&search=${encodeURIComponent(query)}`,
+      );
+      const users = response.data.users;
+      setData(users); // Set new data from search
+      setFilteredData(users); // Set filtered data to the same as new data
+    } catch (error) {
+      console.error("Error fetching payment details:", error);
+    }
+  }, []);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debouncedFetch = useCallback(
+    debounce((query: string) => {
+      fetchSearchResults(query);
+    }, 500),
+    [],
+  );
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setSearchTerm(value);
+    debouncedFetch(value); // Use debounced fetch function
+  };
+
+  useEffect(() => {
+    loadMoreData(); // Initial load
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !isLoading) {
+          loadMoreData();
         }
-
-        return () => {
-            if (loaderRef.current) {
-                observer.unobserve(loaderRef.current);
-            }
-            observer.disconnect();
-        };
-    }, [isLoading]);
-
-    return (
-        <div className="container mx-auto py-10">
-            <h1 className="text-3xl font-bold text-primary py-4">Payments ({totalNumberOfPayments})</h1>
-            <div className="mb-4 relative">
-                <Input
-                    type="text"
-                    placeholder="Search..."
-                    value={searchTerm}
-                    onChange={handleSearch}
-                    className="pl-10"
-                />
-                <Search
-                    className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                    size={20}
-                />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {(searchTerm ? filteredData : data).map((item, index) => (
-                    <Card key={index} className="overflow-hidden">
-                        <CardHeader className="p-0">
-                            <div className="relative pb-[100%]">
-                                <Avatar className="absolute inset-0 w-full h-full rounded-none">
-                                    <AvatarImage
-                                        src={item.user.forms?.[0]?.photo || ""}
-                                        alt={item.user.name}
-                                        className="object-cover"
-                                    />
-                                    <AvatarFallback>{item.user.name.charAt(0)}</AvatarFallback>
-                                </Avatar>
-                            </div>
-                        </CardHeader>
-                        <CardContent className="p-4">
-                            <CardTitle className="text-xl mb-2">{item.user.name}</CardTitle>
-                            <p className="text-sm text-muted-foreground mb-1">{item.user.email}</p>
-                            <p className="text-sm text-muted-foreground mb-1">ID: {item.razorpayPaymentId}</p>
-                            <p className="text-sm font-semibold">Amount: ₹{item.amount.toFixed(2)}</p>
-                        </CardContent>
-                    </Card>
-                ))}
-            </div>
-            {searchTerm === "" && hasMoreData && (
-                <div ref={loaderRef} className="flex justify-center py-4">
-                    {isLoading && <Loader2 className="h-6 w-6 animate-spin" />}
-                </div>
-            )}
-        </div>
+      },
+      { threshold: 1.0 },
     );
+
+    if (loaderRef.current) {
+      observer.observe(loaderRef.current);
+    }
+
+    return () => {
+      if (loaderRef.current) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        observer.unobserve(loaderRef.current);
+      }
+      observer.disconnect();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading]);
+
+  return (
+    <div className="container mx-auto py-10">
+      <div className="mb-4 relative">
+        <Input
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={handleSearch}
+          className="pl-10"
+        />
+        <Search
+          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+          size={20}
+        />
+      </div>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Name</TableHead>
+            <TableHead>Email</TableHead>
+            <TableHead>Payment ID</TableHead>
+            <TableHead>Amount</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {(searchTerm ? filteredData : data).map((item, index) => (
+            <TableRow key={index}>
+              <TableCell>{item.user.name}</TableCell>
+              <TableCell>{item.user.email}</TableCell>
+              <TableCell>{item.razorpayPaymentId}</TableCell>
+              <TableCell>₹{item.amount.toFixed(2)}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+      {searchTerm === "" && hasMoreData && (
+        <div ref={loaderRef} className="flex justify-center py-4">
+          {isLoading && <Loader2 className="h-6 w-6 animate-spin" />}
+        </div>
+      )}
+    </div>
+  );
 }

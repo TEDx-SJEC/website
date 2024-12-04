@@ -5,13 +5,6 @@ export const basePrice = 980.39;
 export const initialdiscount = 0;
 export const sjecStudentPrice = 735.29;
 export const sjecFacultyPrice = 784.31;
-export enum UserRole {
-  ADMIN = "ADMIN",
-  PARTICIPANT = "PARTICIPANT",
-  COORDINATOR = "COORDINATOR",
-}
-
-export const ADMIN_USERS_PATH = "/admin/users";
 export const speakers: Speaker[] = [
   {
     id: 1,
