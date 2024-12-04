@@ -629,7 +629,7 @@ export default function RegistrationForm() {
                               }}
                               onBeforeUploadBegin={
                                 (files) => {
-                                    if (files.some(file => file.size > 4 * 1024 * 1024)) {
+                                    if (files.some(file => file.size > 3.8 * 1024 * 1024)) {
                                         toast.error("File size exceeds 4MB. Please upload a smaller file.");
                                         return [];
                                       }
@@ -749,7 +749,7 @@ export default function RegistrationForm() {
                           }}
                           onBeforeUploadBegin={
                             (files) => {
-                                if (files.some(file => file.size > 4 * 1024 * 1024)) {
+                                if (files.some(file => file.size > 3.8 * 1024 * 1024)) {
                                     toast.error("File size exceeds 4MB. Please upload a smaller file.");
                                     return [];
                                   }
