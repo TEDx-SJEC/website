@@ -44,10 +44,3 @@ export const studentFormSchema = z.object({
     idCard: z.string().min(1, { message: "ID Card is required for students." }),
     photo: z.string().min(1, { message: "Photo is required." }),
 });
-
-
-export const couponSchema = z.object({
-  coupon: z.string().min(1, { message: "Coupon code is required" }),
-  createdById: z.string(), 
-  discount: z.number().min(0).max(100).default(20), 
-});
