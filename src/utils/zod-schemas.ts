@@ -27,7 +27,7 @@ export const baseSchema = z.object({
     name: z.string().min(2, { message: "Name must be at least 2 characters." }),
     email: z.string().email({ message: "Invalid email address." }),
     phone: z.string().regex(/^\d{10}$/, { message: "Phone number must be 10 digits." }),
-    photo: z.string(),
+    photo: z.string().min(1, { message: "Photo is required." }).url(),
     entityName: z.string().optional(),
     couponCode: z.string().optional(),
     foodPreference: z.enum(["veg", "non-veg"]),
