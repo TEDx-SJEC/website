@@ -627,6 +627,15 @@ export default function RegistrationForm() {
                                   "ID upload failed. Please inform us at support.tedx@sjec.ac.in or click the contact us button at buttom right corner."
                                 );
                               }}
+                              onBeforeUploadBegin={
+                                (files) => {
+                                    if (files.some(file => file.size > 3.8 * 1024 * 1024)) {
+                                        toast.error("File size exceeds 4MB. Please upload a smaller file.");
+                                        return [];
+                                      }
+                                      return files; 
+                                }
+                              } 
                             />
                           </FormControl>
                           <FormDescription>
@@ -646,6 +655,7 @@ export default function RegistrationForm() {
                       <FormLabel>Photo</FormLabel>
                       <FormControl>
                         <UploadDropzone<OurFileRouter, "imageUploader">
+                        endpoint="imageUploader"
                           appearance={{
                             button: `
                                 bg-red-500 
@@ -719,7 +729,6 @@ export default function RegistrationForm() {
                             },
                           }}
                           disabled={field.value !== ""}
-                          endpoint="imageUploader"
                           onClientUploadComplete={(res) => {
                             console.log("Files: ", res);
                             if (!res || res.length === 0) {
@@ -738,6 +747,15 @@ export default function RegistrationForm() {
                               "Image upload failed. Please inform us at support.tedx@sjec.ac.in or click the contact us button at buttom right corner."
                             );
                           }}
+                          onBeforeUploadBegin={
+                            (files) => {
+                                if (files.some(file => file.size > 3.8 * 1024 * 1024)) {
+                                    toast.error("File size exceeds 4MB. Please upload a smaller file.");
+                                    return [];
+                                  }
+                                  return files; 
+                            }
+                          } 
                         />
                       </FormControl>
                       <FormDescription>
