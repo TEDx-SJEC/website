@@ -151,6 +151,7 @@ export default function RegistrationForm() {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
+                email: form.getValues("email"),
                 orderId: response.razorpay_order_id,
                 razorpayPaymentId: response.razorpay_payment_id,
                 razorpaySignature: response.razorpay_signature,
@@ -218,7 +219,7 @@ export default function RegistrationForm() {
         },
         notes: {
           name: form.getValues("name"),
-          email: session?.user?.email,
+          email: form.getValues("email"),
           contact: form.getValues("phone"),
           designation: form.getValues("designation"),
           foodPreference: form.getValues("foodPreference"),
@@ -233,7 +234,7 @@ export default function RegistrationForm() {
         },
         prefill: {
           name: form.getValues("name"),
-          email: session?.user?.email,
+          email: form.getValues("email"),
           contact: form.getValues("phone"),
         },
         theme: {
@@ -299,7 +300,7 @@ export default function RegistrationForm() {
   const handleNext = async () => {
     let isValid = false;
     if (step === 1) {
-      isValid = await form.trigger(["designation", "foodPreference", "name"]);
+      isValid = await form.trigger(["designation", "foodPreference", "name", "email"]);
     } else if (step === 2) {
       const designation = form.getValues("designation");
       if (designation === "student") {
@@ -380,10 +381,10 @@ export default function RegistrationForm() {
                       <div className="flex items-center space-x-2">
                         <FormControl>
                           <Input
-                            placeholder="john@example.com"
+                            placeholder=""
                             {...field}
-                            disabled
-                            value={session?.user.email!}
+                            disabled={!(session?.user.role === "ADMIN")}
+                            className="cursor-not-allowed"
                           />
                         </FormControl>
                         <Button

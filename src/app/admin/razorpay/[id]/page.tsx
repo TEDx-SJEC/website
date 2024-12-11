@@ -113,7 +113,7 @@ function FetchRazorpayPaymentData({ params }: { params: { id: string } }) {
   if (loading) {
     return (
       <div className="w-screen h-screen flex justify-center items-center">
-        <p className="text-lg">Loading...</p>
+        <p className="text-lg">Loading payment data...</p>
       </div>
     );
   }
