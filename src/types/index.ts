@@ -1,3 +1,4 @@
+import { Sponsors } from "@/components/common/sponsors-section";
 import { ReactNode } from "react";
 
 export type UserRoleType = "ADMIN" | "PARTICIPANT" | "COORDINATOR";
@@ -20,6 +21,10 @@ export interface PerformerSection {
 export interface PreviousEdition {
   id: number;
   img: string;
+}
+export interface Sponsors {
+  name: string;
+  logoUrl: string;
 }
 
 export interface EmailOptions {
