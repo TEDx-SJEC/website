@@ -10,6 +10,7 @@ import HeroHighlight from "@/components/widget/hero";
 import Footer from "@/components/common/contact-page";
 import CTA from "@/components/common/cta-section-2";
 import Nav from "@/components/widget/header";
+import { SponsorSection } from "@/components/common/sponsor-section";
 export default function Home() {
   // const [loading, setLoading] = useState(true);
 
@@ -52,6 +53,7 @@ export default function Home() {
           <div className="">
             <Team />
           </div>
+          <SponsorSection />
           <CTA />
         </div>
         <div id="contact" className="mt-10">
