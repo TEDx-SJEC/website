@@ -77,7 +77,7 @@ export default function FullScreenCTA() {
             <div className="space-y-4 block ml-4 lg:hidden">
               <div className="flex items-center space-x-3 text-lg">
                 <Calendar className="h-6 w-6 text-red-500" />
-                <span>December 14, 2024 | 9:00 AM - 4:00 PM</span>
+                <span>December 14, 2024 | 9:00 AM - 5:30 PM</span>
               </div>
               <div className="flex items-center space-x-3 text-lg">
                 <MapPin className="h-6 w-6 text-red-500" />
@@ -90,11 +90,8 @@ export default function FullScreenCTA() {
         <div className="text-center space-y-6">
           <p className="text-xl text-gray-300">
             Limited spots available! <br />
-            Register by{" "}
-            <span className="font-semibold text-gray-100">
-              December 10, 2024
-            </span>{" "}
-            to secure your spot. <br />
+            <span className="text-gray-300 font-semibold text-xl">Register now
+            to secure your spot. <br /></span>
           </p>
 
           <Link href={"/register"}>
