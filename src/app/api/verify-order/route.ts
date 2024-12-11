@@ -9,7 +9,14 @@ export async function POST(request: NextRequest) {
     if (!session) {
         return NextResponse.json({ message: "No session", isOk: false }, { status: 400 });
     }
-    const { orderId, razorpayPaymentId, razorpaySignature, amount } = await request.json();
+    const { email, orderId, razorpayPaymentId, razorpaySignature, amount } = await request.json();
+    if (!email || !orderId || !razorpayPaymentId || !razorpaySignature || !amount) {
+        return NextResponse.json({ message: "Invalid data", isOk: false }, { status : 400 });
+    }
+    const userEmail = session.user?.role === "ADMIN" || session.user?.email !== email
+    ? email
+    : session.user?.email!;
+  
 
     const signature = generatedSignature(orderId, razorpayPaymentId);
     if (signature !== razorpaySignature) {
@@ -18,13 +25,13 @@ export async function POST(request: NextRequest) {
     if (signature === razorpaySignature) {
         const user = await prisma.user.findUnique({
             where: {
-                email: session.user?.email!,
+                email: userEmail,
             },
         });
 
         try {
             await sendRegistrationEmail({
-                email: session.user?.email!,
+                email: userEmail,
                 name: session.user?.name!,
                 registrationLink: `${process.env.NEXT_PUBLIC_SITE_URL}/admin/verify/${razorpayPaymentId}`,
             });
