@@ -152,6 +152,7 @@ export default function RegistrationForm() {
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
                 email: form.getValues("email"),
+                name: form.getValues("name"),
                 orderId: response.razorpay_order_id,
                 razorpayPaymentId: response.razorpay_payment_id,
                 razorpaySignature: response.razorpay_signature,
