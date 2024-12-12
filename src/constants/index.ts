@@ -211,10 +211,10 @@ export const goldSponsors: Sponsors[] = [
     name: "Impelsys",
     logoUrl: `${tedxsjecAssetsPrefix}/sponsors/Impelsys2.avif`,
   },
-  {
-    name: "Sri Sweets",
-    logoUrl: `${tedxsjecAssetsPrefix}/sponsors/Sri_Sweets-removebg-preview(1).avif`,
-  },
+  // {
+  //   name: "Sri Sweets",
+  //   logoUrl: `${tedxsjecAssetsPrefix}/sponsors/Sri_Sweets-removebg-preview(1).avif`,
+  // },
   {
     name: "iSKEW Learning",
     logoUrl: `${tedxsjecAssetsPrefix}/sponsors/iSKEW Learning.avif`,
@@ -229,6 +229,10 @@ export const silverSponsors: Sponsors[] = [
     name: "Motilal Oswal",
     logoUrl: `${tedxsjecAssetsPrefix}/sponsors/Motilal.avif`,
   },
+  {
+    name: "Planet Education",
+    logoUrl: `${tedxsjecAssetsPrefix}/sponsors/planet-ed.avif`,
+  },
 
   {
     name: "S L Shet",
@@ -241,6 +245,10 @@ export const silverSponsors: Sponsors[] = [
   {
     name: "JV Global",
     logoUrl: `${tedxsjecAssetsPrefix}/sponsors/JV Global.avif`,
+  },
+  {
+    name: "WiZdom Ed",
+    logoUrl: `${tedxsjecAssetsPrefix}/sponsors/wizdom.avif`,
   },
   {
     name: "CASHCADE",

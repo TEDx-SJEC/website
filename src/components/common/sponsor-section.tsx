@@ -1,6 +1,11 @@
 import { SponsorCard } from "./sponsor-card";
 import { tedxsjecAssetsPrefix } from "@/lib/utils";
-import { bronzeSponsors, goldSponsors, platinumSponsors } from "@/constants";
+import {
+  bronzeSponsors,
+  goldSponsors,
+  platinumSponsors,
+  silverSponsors,
+} from "@/constants";
 
 export function SponsorSection() {
   return (
@@ -26,6 +31,18 @@ export function SponsorSection() {
         </h2>
         <div className="flex flex-wrap  gap-6 my-10 justify-center">
           {goldSponsors.map((sponsor) => (
+            <SponsorCard
+              key={sponsor.name}
+              name={sponsor.name}
+              logoUrl={sponsor.logoUrl}
+            />
+          ))}
+        </div>
+        <h2 className="md:text-4xl text-2xl font-bold text-center mb-8 text-slate-100">
+          Silver Sponsors
+        </h2>
+        <div className="flex flex-wrap  gap-6 my-10 justify-center">
+          {silverSponsors.map((sponsor) => (
             <SponsorCard
               key={sponsor.name}
               name={sponsor.name}

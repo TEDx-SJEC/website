@@ -21,7 +21,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="fixed top-0 w-full h-[80px] z-40 overflow-x-hidden  backdrop-blur-md head-5 bg-black/5" />
+      <div className="fixed top-0 w-full h-[130px] z-40 overflow-x-hidden  backdrop-blur-md head-5 bg-black/5" />
 
       <Nav />
       <div className="z-20 relative pt-20 overflow-x-clip 1">

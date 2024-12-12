@@ -11,6 +11,7 @@ import NavItem from "../navbar/nav-items";
 import RegisterButton from "../navbar/register-button";
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
+import ScrollingBanner from "../common/scrolling-banner";
 const Nav = () => {
   const router = useRouter();
   gsap.registerPlugin(ScrollTrigger);
@@ -110,6 +111,7 @@ const Nav = () => {
   return (
     <>
       <header className="fixed z-[100] left-0 top-0 w-screen">
+        <ScrollingBanner />
         <div className="header-1 flex md:py-[10px] md:px-[30px] px-[10px] pt-1 justify-between items-center">
           <div className="logo">
             <Link href="/">
@@ -203,10 +205,11 @@ const Nav = () => {
                 <li className="list-none listo leading-[1] font-bold text-white mt-[20px]">
                   <Button
                     className="bg-red-600 hover:bg-red-700 text-xl text-white py-6 px-4 transition-all duration-300 transform hover:scale-105"
-                    onClick={handleRegisterClick}
+                    // onClick={handleRegisterClick}
                     size="lg"
+                    disabled
                   >
-                    Register Now
+                    Registrations Closed
                   </Button>
                 </li>
               </ul>
