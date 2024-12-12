@@ -219,6 +219,10 @@ export const goldSponsors: Sponsors[] = [
     name: "iSKEW Learning",
     logoUrl: `${tedxsjecAssetsPrefix}/sponsors/iSKEW Learning.avif`,
   },
+  {
+    name: "General Corporation",
+    logoUrl: `${tedxsjecAssetsPrefix}/sponsors/General-Corporation.avif`,
+  },
 ];
 export const silverSponsors: Sponsors[] = [
   {
@@ -275,11 +279,19 @@ export const bronzeSponsors: Sponsors[] = [
     logoUrl: `${tedxsjecAssetsPrefix}/sponsors/St. Francis Xavier Church, Bejai.avif`,
   },
   {
+    name: "RÊVE Nails and Beauty Lounge",
+    logoUrl: `${tedxsjecAssetsPrefix}/sponsors/WhatsApp Image 2024-12-11 at 14.51.02.avif`,
+  },
+  {
     name: "Brevera Technologies",
     logoUrl: `${tedxsjecAssetsPrefix}/sponsors/Brevera Technologies.avif`,
   },
   {
-    name: "RÊVE Nails and Beauty Lounge",
-    logoUrl: `${tedxsjecAssetsPrefix}/sponsors/WhatsApp Image 2024-12-11 at 14.51.02.avif`,
+    name: "Hatsim",
+    logoUrl: `${tedxsjecAssetsPrefix}/sponsors/hatsim2.avif`,
+  },
+  {
+    name: "PBA Food & spices",
+    logoUrl: `${tedxsjecAssetsPrefix}/sponsors/pba3.avif`,
   },
 ];
