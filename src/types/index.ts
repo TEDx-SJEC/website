@@ -1,4 +1,3 @@
-import { Sponsors } from "@/components/common/sponsors-section";
 import { ReactNode } from "react";
 
 export type UserRoleType = "ADMIN" | "PARTICIPANT" | "COORDINATOR";
