@@ -207,8 +207,9 @@ const Nav = () => {
                     className="bg-red-600 hover:bg-red-700 text-xl text-white py-6 px-4 transition-all duration-300 transform hover:scale-105"
                     onClick={handleRegisterClick}
                     size="lg"
+                    disabled
                   >
-                    Register Now
+                    Registrations Closed
                   </Button>
                 </li>
               </ul>

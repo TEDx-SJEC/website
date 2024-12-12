@@ -87,22 +87,23 @@ export default function FullScreenCTA() {
           </div>
         </div>
 
-        <div className="text-center space-y-6">
-          <p className="text-xl text-gray-300">
+        {/* <div className="text-center space-y-6"> */}
+        {/* <p className="text-xl text-gray-300">
             Limited spots available! <br />
-            <span className="text-gray-300 font-semibold text-xl">Register now
-            to secure your spot. <br /></span>
-          </p>
+            <span className="text-gray-300 font-semibold text-xl">
+              Register now to secure your spot. <br />
+            </span>
+          </p> */}
 
-          <Link href={"/register"}>
+        {/* <Link href={"/register"}>
             <Button
               size="lg"
               className="bg-red-600 hover:bg-red-700 mt-4 text-white py-6 px-8 text-xl transition-all duration-300 transform hover:scale-105"
             >
               Claim Your Spot!
             </Button>
-          </Link>
-        </div>
+          </Link> */}
+        {/* </div> */}
       </div>
     </div>
   );

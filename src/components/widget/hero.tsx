@@ -141,10 +141,11 @@ export default function HeroHighlight() {
           <div className="space-y-4 sm:space-y-0 text-center lg:text-start flex flex-col sm:flex-row justify-center lg:justify-start items-center lg:items-start">
             <Link href="/register">
               <Button
+                disabled
                 size="lg"
                 className="bg-red-600 hover:bg-red-700 text-white py-2 transition-all duration-300 transform hover:scale-105"
               >
-                Register Now
+                Registrations Closed
               </Button>
             </Link>
           </div>
