@@ -5,15 +5,15 @@ import { Button } from "../ui/button";
 
 const RegisterButton = () => {
   return (
-    <Link href="/register">
-      <Button
-        size="lg"
-        disabled
-        className="bg-red-600 hover:bg-red-700 text-xl text-white py-6 px-4 transition-all duration-300 transform hover:scale-105"
-      >
-        Registrations Closed
-      </Button>
-    </Link>
+    // <Link href="/register">
+    <Button
+      size="lg"
+      disabled
+      className="bg-red-600 hover:bg-red-700 text-xl text-white py-6 px-4 transition-all duration-300 transform hover:scale-105"
+    >
+      Registrations Closed
+    </Button>
+    // </Link>
   );
 };
 
