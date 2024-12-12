@@ -1,11 +1,12 @@
+// Frontend Code
 "use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
-
 export interface Root {
     id: string;
     entity: string;
@@ -47,10 +48,14 @@ export interface AcquirerData {
 export interface Upi {
     vpa: string;
 }
+
 export interface Notes {
     customerName: string;
     customerEmail: string;
     customerContact: string;
+    amount: string;
+    contact: string;
+    name: string;
 }
 
 function FetchRazorpayPaymentDataForRefund({ params }: { params: { id: string } }) {
@@ -59,31 +64,49 @@ function FetchRazorpayPaymentDataForRefund({ params }: { params: { id: string } 
     const [loading, setLoading] = useState(true);
     const [loadingForButton, setLoadingForButton] = useState(false);
     const [refundAmount, setRefundAmount] = useState<number | null>(null);
+    const router = useRouter();
 
     const handleRefund = async () => {
         if (!paymentData || !refundAmount) {
+            toast.error("Refund amount is required.");
             return;
         }
         setLoadingForButton(true);
-        const paymentDetails = await fetch(`/api/refund/${paymentData.id}?amount=${refundAmount}`, {
-            method: "GET",
-        });
-        if (paymentDetails.status === 200) {
-            toast.success("Payment refunded successfully", {
-                description: "Your payment has been refunded successfully",
+        try {
+            const response = await fetch(`/api/refund/${paymentData.id}?amount=${refundAmount}`, {
+                method: "GET",
             });
-        } else {
-            toast.error("Error", {
-                description: "An error occurred while refunding the payment",
-            });
-        }
-        if (!paymentDetails.ok) {
-            throw new Error("Failed to refund payment");
-        }
+            const data = await response.json();
 
-        const data = await paymentDetails.json();
-        console.log(data);
+            if (response.ok) {
+                toast.success("Payment refunded successfully", {
+                    description: "Your payment has been refunded successfully",
+                });
+                console.log("Refund Response:", data);
 
+                // Update the payment data with the new refund information
+                setPaymentData((prevData) => {
+                    if (!prevData) return null;
+                    return {
+                        ...prevData,
+                        amount_refunded: (prevData.amount_refunded || 0) + refundAmount,
+                        refund_status: "processed",
+                    };
+                });
+
+                // Reset the refund amount input
+                setRefundAmount(null);
+            } else {
+                toast.error("Error", {
+                    description: data.error || "An error occurred while refunding the payment",
+                });
+            }
+        } catch (error) {
+            console.error("Refund Error:", error);
+            toast.error("Unexpected error occurred.");
+        } finally {
+            setLoadingForButton(false);
+        }
     };
 
     useEffect(() => {
@@ -96,7 +119,8 @@ function FetchRazorpayPaymentDataForRefund({ params }: { params: { id: string } 
                 const data = await res.json();
                 setPaymentData(data);
             } catch (error) {
-                toast.error("Error fetching payment data");
+                console.error("Fetch Error:", error);
+                toast.error("Error fetching payment data.");
             } finally {
                 setLoading(false);
             }
@@ -125,7 +149,7 @@ function FetchRazorpayPaymentDataForRefund({ params }: { params: { id: string } 
             <Card className="w-full max-w-lg">
                 <CardHeader>
                     <CardTitle className="text-lg font-semibold">
-                        Payment Data of {paymentData.notes.customerName || "Unknown"}
+                        Payment Data of {paymentData.notes.name || "Unknown"}
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -196,11 +220,19 @@ function FetchRazorpayPaymentDataForRefund({ params }: { params: { id: string } 
                             placeholder="Enter refund amount"
                             id="refund-amount"
                             type="number"
+                            value={refundAmount || ""}
                             onChange={(e) => setRefundAmount(parseInt(e.target.value))}
                         />
                     </div>
                 </CardContent>
-                <CardFooter className="flex justify-end">
+                <CardFooter className="flex justify-between">
+                    <Button
+                        onClick={() => {
+                            router.push("/admin/refund");
+                        }}
+                    >
+                        Go Back{" "}
+                    </Button>
                     <Button disabled={loadingForButton} onClick={handleRefund}>
                         {loadingForButton ? "Loading..." : "Refund"}
                     </Button>
