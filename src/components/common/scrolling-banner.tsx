@@ -7,11 +7,7 @@ export default function ScrollingBanner() {
   const repeatCount = 20; // Increase this number to add more repetitions
 
   return (
-    <div
-      className="
-    // bg-gradient-to-b from-transparent from-60% via-redTheme via-75% to-transparent to-90%
-     bg-redTheme h-fit text-whiteTheme   overflow-hidden py-2"
-    >
+    <div className="bg-redTheme h-fit text-whiteTheme   overflow-hidden py-2">
       <motion.div
         className="whitespace-nowrap inline-block"
         animate={{
