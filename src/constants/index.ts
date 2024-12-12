@@ -1,5 +1,5 @@
 import { tedxsjecAssetsPrefix } from "@/lib/utils";
-import { PerformerSection, PreviousEdition, Speaker } from "@/types";
+import { PerformerSection, PreviousEdition, Speaker, Sponsors } from "@/types";
 
 export const basePrice = 980.39;
 export const initialdiscount = 0;
@@ -180,5 +180,98 @@ export const prevEdition20: PreviousEdition[] = [
   {
     id: 7,
     img: `${tedxsjecAssetsPrefix}/prev/2020/image7.jpg`,
+  },
+];
+
+export const platinumSponsors: Sponsors[] = [
+  {
+    name: "Karnataka Bank",
+    logoUrl: `${tedxsjecAssetsPrefix}/sponsors/KBL-removebg-preview.avif`,
+  },
+  {
+    name: "KarMic Design",
+    logoUrl: `${tedxsjecAssetsPrefix}/sponsors/KarMic Design.avif`,
+  },
+  {
+    name: "YES Bank",
+    logoUrl: `${tedxsjecAssetsPrefix}/sponsors/yes_bank.avif`,
+  },
+  {
+    name: "Marian Projects Pvt. Ltd.",
+    logoUrl: `${tedxsjecAssetsPrefix}/sponsors/Marian.avif`,
+  },
+  {
+    name: "Emdees",
+    logoUrl: `${tedxsjecAssetsPrefix}/sponsors/Emdees.avif`,
+  },
+];
+
+export const goldSponsors: Sponsors[] = [
+  {
+    name: "Impelsys",
+    logoUrl: `${tedxsjecAssetsPrefix}/sponsors/Impelsys2.avif`,
+  },
+  {
+    name: "Sri Sweets",
+    logoUrl: `${tedxsjecAssetsPrefix}/sponsors/Sri_Sweets-removebg-preview(1).avif`,
+  },
+  {
+    name: "iSKEW Learning",
+    logoUrl: `${tedxsjecAssetsPrefix}/sponsors/iSKEW Learning.avif`,
+  },
+];
+export const silverSponsors: Sponsors[] = [
+  {
+    name: "StraeCon",
+    logoUrl: `${tedxsjecAssetsPrefix}/sponsors/Straecon.avif`,
+  },
+  {
+    name: "Motilal Oswal",
+    logoUrl: `${tedxsjecAssetsPrefix}/sponsors/Motilal.avif`,
+  },
+
+  {
+    name: "S L Shet",
+    logoUrl: `${tedxsjecAssetsPrefix}/sponsors/S L Shet logo .avif`,
+  },
+  {
+    name: "River Roost Resort",
+    logoUrl: `${tedxsjecAssetsPrefix}/sponsors/River-Roost-Resort-Logo.avif`,
+  },
+  {
+    name: "JV Global",
+    logoUrl: `${tedxsjecAssetsPrefix}/sponsors/JV Global.avif`,
+  },
+  {
+    name: "CASHCADE",
+    logoUrl: `${tedxsjecAssetsPrefix}/sponsors/CASHCADE.avif`,
+  },
+];
+
+export const bronzeSponsors: Sponsors[] = [
+  {
+    name: "Priya Agencies",
+    logoUrl: `${tedxsjecAssetsPrefix}/sponsors/Priya Agencies.avif`,
+  },
+
+  {
+    name: "Shubha Mangala Oil Mills",
+    logoUrl: `${tedxsjecAssetsPrefix}/sponsors/Shubha_Mangala_Oil_Mills-removebg-preview.avif`,
+  },
+  {
+    name: "Accolade Tech Solutions",
+    logoUrl: `${tedxsjecAssetsPrefix}/sponsors/Accolade.avif`,
+  },
+  {
+    name: "St. Francis Xavier Church, Bejai",
+    logoUrl: `${tedxsjecAssetsPrefix}/sponsors/St. Francis Xavier Church, Bejai.avif`,
+  },
+  {
+    name: "Brevera Technologies",
+    logoUrl: `${tedxsjecAssetsPrefix}/sponsors/Brevera Technologies.avif`,
+  },
+  {
+    name: "RÊVE Nails and Beauty Lounge",
+    logoUrl: `${tedxsjecAssetsPrefix}/sponsors/WhatsApp Image 2024-12-11 at 14.51.02.avif`,
   },
 ];
