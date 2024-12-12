@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 
 export default function ScrollingBanner() {
-  const sentence = "   Registrations close soon   •   ";
+  const sentence = "   Registrations closed   •   ";
   const repeatCount = 20; // Increase this number to add more repetitions
 
   return (

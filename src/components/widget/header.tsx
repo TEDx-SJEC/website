@@ -205,10 +205,11 @@ const Nav = () => {
                 <li className="list-none listo leading-[1] font-bold text-white mt-[20px]">
                   <Button
                     className="bg-red-600 hover:bg-red-700 text-xl text-white py-6 px-4 transition-all duration-300 transform hover:scale-105"
-                    onClick={handleRegisterClick}
+                    // onClick={handleRegisterClick}
                     size="lg"
+                    disabled
                   >
-                    Register Now
+                    Registrations Closed
                   </Button>
                 </li>
               </ul>
