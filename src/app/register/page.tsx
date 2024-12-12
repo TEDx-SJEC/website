@@ -8,6 +8,7 @@ import { tailChase } from "ldrs";
 import { redirect } from "next/navigation";
 
 export default function RegistrationPage() {
+  const { data: session } = useSession();
   const { status } = useSession({
     required: true,
     onUnauthenticated: async () => {
@@ -38,6 +39,32 @@ export default function RegistrationPage() {
           speed={"1.75"}
           color={"#FF0000"}
         ></l-tail-chase>
+      </div>
+    );
+  }
+
+  if (!session) {
+    return (
+      <div className="w-screen h-screen flex justify-center items-center bg-black text-gray-200">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold mb-2 text-red-500">Unauthorized</h1>
+          <p className="text-gray-400">
+            You need to log in to access this page.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (session.user.role !== "ADMIN" && session.user.role !== "COORDINATOR") {
+    return (
+      <div className="w-screen h-screen flex justify-center items-center bg-black text-gray-200">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold mb-2 text-red-500">Forbidden</h1>
+          <p className="text-gray-400">
+            You do not have the required permissions to view this page.
+          </p>
+        </div>
       </div>
     );
   }
