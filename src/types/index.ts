@@ -21,6 +21,10 @@ export interface PreviousEdition {
   id: number;
   img: string;
 }
+export interface Sponsors {
+  name: string;
+  logoUrl: string;
+}
 
 export interface EmailOptions {
   from: string;
