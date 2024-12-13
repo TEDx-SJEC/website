@@ -158,7 +158,7 @@ const Nav = () => {
       </header>
 
       <section className="fullpage-menu hidden fixed left-0 top-0 w-screen z-50 h-screen">
-        <div className="header-2 fixed left-0 top-0 w-full flex md:py-[20px] md:px-[30px] p-[30px] z-[60] justify-between items-center">
+        <div className="header-2 fixed pt-20 mt-10 left-0 top-0 w-full flex md:py-[20px] md:px-[30px] p-[30px] z-[60] justify-between items-center">
           <Image
             src={`${tedxsjecAssetsPrefix}/logo/blackLogo.webp`}
             height={180}

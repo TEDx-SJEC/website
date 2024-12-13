@@ -258,6 +258,10 @@ export const silverSponsors: Sponsors[] = [
     name: "CASHCADE",
     logoUrl: `${tedxsjecAssetsPrefix}/sponsors/CASHCADE.avif`,
   },
+  {
+    name: "IDP",
+    logoUrl: `${tedxsjecAssetsPrefix}/sponsors/idp.avif`,
+  },
 ];
 
 export const bronzeSponsors: Sponsors[] = [
