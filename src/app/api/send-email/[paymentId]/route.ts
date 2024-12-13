@@ -87,7 +87,7 @@ export async function POST(request: NextRequest, context: { params: { paymentId:
             await sendRegistrationEmail({
                 email: payment.notes.email,
                 name: user.name || "User",
-                registrationLink: `${process.env.NEXT_PUBLIC_SITE_URL}/admin/verify/${payment.id}`,
+                registrationLink: `https://tedxsjec.in/admin/verify/${payment.id}`,
             });
             console.log("Registration email sent");
         } else {
