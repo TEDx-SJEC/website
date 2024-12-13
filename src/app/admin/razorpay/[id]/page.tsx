@@ -51,6 +51,7 @@ export interface Notes {
     customerName: string;
     customerEmail: string;
     customerContact: string;
+    name: string;
 }
 
 function FetchRazorpayPaymentData({ params }: { params: { id: string } }) {
@@ -134,7 +135,7 @@ function FetchRazorpayPaymentData({ params }: { params: { id: string } }) {
             <Card className="w-full max-w-lg">
                 <CardHeader>
                     <CardTitle className="text-lg font-semibold">
-                        Payment Data of {paymentData.notes.customerName || "Unknown"}
+                        Payment Data of {paymentData.notes.name || "Unknown"}
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
