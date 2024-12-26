@@ -38,6 +38,8 @@ Visit [tedxsjec.in](http://tedxsjec.in) to learn more about **TEDxSJEC 2024**.
 - **Authentication and Authorization:** NextAuth.js
 - **Email System:** BullMQ, Redis for custom email queue system (including email resend functionality)
 - **Payment Gateway:** Razorpay
+- **Image Uploads:** UploadThing SaaS SDK
+- **Animation:** Framer Motion, GSAP
 - **Deployment:** [Vercel](https://vercel.app/)
 
 ## Website Development Team
