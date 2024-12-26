@@ -29,6 +29,17 @@ Visit [tedxsjec.in](http://tedxsjec.in) to learn more about **TEDxSJEC 2024**.
 - Agasthyam Kalaripayattu
 - Harman Preet Singh
 
+## Technologies Used
+
+- **Frontend:** Next.js, React, Tailwind CSS, Zod
+- **Backend:** Next.js API Routes + Server Actions, Prisma ORM with TursoDB
+- **Database:** TursoDB (Cloud SQLite DB)
+- **Data Management:** React Query
+- **Authentication and Authorization:** NextAuth.js
+- **Email System:** BullMQ, Redis for custom email queue system (including email resend functionality)
+- **Payment Gateway:** Razorpay
+- **Deployment:** [Vercel](https://vercel.app/)
+
 ## Website Development Team
 
 - **Joywin Bennis** - Web Lead
