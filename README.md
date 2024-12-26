@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# TEDxSJEC 2024
 
-## Getting Started
+**TEDxSJEC 2024** is an independently organized event bringing together **innovators, thinkers, and visionaries** from around the world. Our goal is to **inspire change**, **provoke deep discussions**, and **foster creativity** through groundbreaking ideas. As part of the globally renowned TEDx community, **TEDxSJEC** provides a platform to share ideas that can shape a better future.
 
-First, run the development server:
+## Event Details
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Join us at **TEDxSJEC 2024** to **engage with visionary ideas**, **explore thought-provoking discussions**, and **connect with a vibrant community** of changemakers.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Date:** December 14, 2024
+- **Location:** St Joseph Engineering College, Vamanjoor, Mangaluru, Karnataka, India
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Visit [tedxsjec.in](http://tedxsjec.in) to learn more about **TEDxSJEC 2024**.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Speakers
 
-## Learn More
+- Karen Kshiti Suvarna
+- Suma R Nayak
+- Badekkila Pradeep
+- Namitha Marimuthu
+- Shriya Shetty
+- Ashwin Shetty
+- Anish Shetty
+- Dr Lavina Marilla Noronha
+- Munita Veigas Rao
 
-To learn more about Next.js, take a look at the following resources:
+## Performers
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Yukthi Udupa
+- Agasthyam Kalaripayattu
+- Harman Preet Singh
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Technologies Used
 
-## Deploy on Vercel
+- **Frontend:** Next.js, React, Tailwind CSS, Zod
+- **Backend:** Next.js API Routes + Server Actions, Prisma ORM with TursoDB
+- **Database:** TursoDB (Cloud SQLite DB)
+- **Data Management:** React Query
+- **Authentication and Authorization:** NextAuth.js
+- **Email System:** BullMQ, Redis for custom email queue system (including email resend functionality)
+- **Payment Gateway:** Razorpay
+- **Image Uploads:** UploadThing SaaS SDK
+- **Animation:** Framer Motion, GSAP
+- **Deployment:** [Vercel](https://vercel.app/)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Website Development Team
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- **Joywin Bennis** - Web Lead
+- **Vyshnav K** - Full Stack Developer
+- **Santhsim** - Frontend Developer
+- **Pranav Raja** - Frontend Developer
+- **Naveen** - UI/UX Designer
+
+## License
+
+This project and its associated materials (including the website, branding, logos, and content) are the sole property of **St Joseph Engineering College (SJEC)** and **TEDxSJEC**. These materials are not to be used, reproduced, or modified for any event, promotional, or commercial purposes without the explicit written consent of **SJEC**. Unauthorized use is prohibited
+
+
